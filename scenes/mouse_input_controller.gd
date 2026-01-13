@@ -49,7 +49,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		is_dragging = event.is_action_pressed("interaction_drag")
 
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if is_dragging else Input.MOUSE_MODE_VISIBLE
+		if (is_dragging):
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 	elif event is InputEventMouseMotion:
 		if !is_dragging:
