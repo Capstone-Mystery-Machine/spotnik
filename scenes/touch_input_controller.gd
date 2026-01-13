@@ -26,6 +26,7 @@ extends Node
 
 var is_dragging: bool = false
 
+
 ## Enables the input controller if [constant InputX.input_mode] is set to
 ## [constant InputX.InputMode.INPUT_TOUCH].
 func _ready() -> void:
@@ -34,6 +35,7 @@ func _ready() -> void:
 			process_mode = Node.PROCESS_MODE_INHERIT
 		_:
 			process_mode = Node.PROCESS_MODE_DISABLED
+
 
 ## Handles unhandled screen dragging input by translating screen pixel movement
 ## deltas into angular rotation applied to the target [Node3D]'s

@@ -10,10 +10,10 @@ extends Node
 ## [br]
 ## [br]
 ## Each input mode:
-## [br] 
+## [br]
 ## • Changes how the end-user interacts with the application.
 ## [br]
-## • Has its own criteria for enablement. 
+## • Has its own criteria for enablement.
 enum InputMode {
 	## Spotnik is configured to be in mouse input mode.
 	## [br]
@@ -54,6 +54,7 @@ enum InputMode {
 ## being enabled.
 static var input_mode: InputMode = _get_input_mode()
 
+
 ## Returns which member of [enum InputMode] is currently enabled. The default is
 ## [constant InputMode.INPUT_MOUSE].
 static func _get_input_mode() -> InputMode:
@@ -64,17 +65,20 @@ static func _get_input_mode() -> InputMode:
 
 	return InputMode.INPUT_MOUSE
 
+
 ## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_GYRO]
 ## is currently valid.
 static func _is_gyro_input_mode() -> bool:
 	return (OS.has_feature("mobile")
 		and ProjectSettings.get_setting("input_devices/sensors/enable_gravity")
-		and ProjectSettings.get_setting("input_devices/sensors/enable_magnetometer"))
+		and ProjectSettings.get_setting("input_devices/sensors/enable_magnetometer") )
+
 
 ## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_MOUSE]
 ## is currently valid.
 static func _is_mouse_input_mode() -> bool:
 	return !OS.has_feature("mobile")
+
 
 ## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_TOUCH]
 ## is currently valid.
@@ -82,5 +86,5 @@ static func _is_touch_input_mode() -> bool:
 	return (OS.has_feature("mobile")
 		and (
 			!ProjectSettings.get_setting("input_devices/sensors/enable_gravity")
-			or !ProjectSettings.get_setting("input_devices/sensors/enable_magnetometer"))
-		)
+			or !ProjectSettings.get_setting("input_devices/sensors/enable_magnetometer") )
+	)

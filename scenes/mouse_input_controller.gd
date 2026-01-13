@@ -28,6 +28,7 @@ extends Node
 ## moving their mouse cursor across the 3D viewport.
 var is_dragging: bool = false
 
+
 ## Enables the input controller if [constant InputX.input_mode] is set to
 ## [constant InputX.InputMode.INPUT_MOUSE].
 func _ready() -> void:
@@ -36,6 +37,7 @@ func _ready() -> void:
 			process_mode = Node.PROCESS_MODE_INHERIT
 		_:
 			process_mode = Node.PROCESS_MODE_DISABLED
+
 
 ## Handles unhandled mouse input by translating screen pixel movement deltas
 ## into angular rotation applied to the target [Node3D]'s
