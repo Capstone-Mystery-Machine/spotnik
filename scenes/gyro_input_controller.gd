@@ -100,7 +100,17 @@ func _process(delta: float) -> void:
 	var alignment = current_basis.z.dot(target_basis.z)
 	var error = abs(1.0 - alignment)
 
-	var dynamic_smoothing = remap(error, jitter_threshold, movement_threshold, smoothing_min, smoothing_max)
+	var dynamic_smoothing = remap(
+		error,
+		jitter_threshold,
+		movement_threshold,
+		smoothing_min,
+		smoothing_max,
+	)
+
 	dynamic_smoothing = clamp(dynamic_smoothing, smoothing_min, smoothing_max)
 
-	target_node_3d.transform.basis = current_basis.slerp(target_basis, dynamic_smoothing * delta)
+	target_node_3d.transform.basis = current_basis.slerp(
+		target_basis,
+		dynamic_smoothing * delta,
+	)
