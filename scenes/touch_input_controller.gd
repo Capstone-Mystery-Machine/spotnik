@@ -47,3 +47,5 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		target_node_3d.rotation.x -= rotation_delta.x
 		target_node_3d.rotation.y -= rotation_delta.y
+
+		get_viewport().set_input_as_handled()
