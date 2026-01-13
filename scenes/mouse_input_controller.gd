@@ -54,6 +54,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
+		get_viewport().set_input_as_handled()
+
 	elif event is InputEventMouseMotion:
 		if !is_dragging:
 			return
@@ -65,3 +67,5 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		target_node_3d.rotation.x -= rotation_delta.x
 		target_node_3d.rotation.y -= rotation_delta.y
+
+		get_viewport().set_input_as_handled()
