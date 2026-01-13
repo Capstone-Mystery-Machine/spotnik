@@ -42,6 +42,44 @@ func _ready() -> void:
 		_:
 			process_mode = Node.PROCESS_MODE_DISABLED
 
+## Runs every engine tick reading the accelerometer and magnetometer sensor data
+## and translating movement deltas into a new [Basis] matrix that is then applied
+## to the target [Node3D]'s [member Node3D.transform.basis] via spherical linear
+## interpolation.
+## [br]
+## The following high-level steps are performed:
+## [br]
+## • Physical gravitational and north pole directional vectors are polled from
+## sensor data.
+## [br]
+## • Cardinal-aligned right, up, and back directions are constructed from the
+## gravitational and north pole directional vectors.
+## [br]
+## • A basis matrix is computed based on the computed right, up, and back directions.
+## [br]
+##     • Because sensor data understands the world as relative to the end-user's
+##       device and Godot understands the device as relative to the world, we
+##       need to invert the computed basis matrix's perspective before further
+##       calculations. 
+## [br]
+## • An error rate is computed based on how far misaligned the target [Node3D]'s
+##   [member Node3D.transform.basis] is from the computed basis matrix.
+## [br]
+##     • Negative alignments are treated as high-correction needed via taking
+##       the absolute value of the computed error rate.
+## [br]
+## • A dynamic smoothing value is computed by remapping the error rate from
+##   [code][jitter_threshold, movement_threshold][/code] to
+##   [code][smoothing_min, smoothing_max][/code] via percentage math.
+##     • The dynamic smoothing value controls how sluggish to responsive the
+##       [Node3D] adjustments are. 
+## [br]
+## • The computed basis matrix is then applied to the target [Node3D]'s
+##   [member Node3D.transform.basis] via spherical linear interpolation.
+## [br]
+##     • Spherical linear interpolation is used because it guarantees that the
+##       applied basis matrix is interpolated along the arc of rotation and thus
+##       moves at a constant speed. That is, the rotation remains orthonormal.
 func _process(delta: float) -> void:
 	var gravity = Input.get_gravity()
 	var magnet = Input.get_magnetometer()

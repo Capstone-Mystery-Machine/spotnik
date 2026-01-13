@@ -1,7 +1,7 @@
 extends Node
 ## Input controller that targets a [Node3D].
 ##
-## The input controller modifies a target [Node3D]'s [member Node3D.transform]
+## The input controller modifies a target [Node3D]'s [member Node3D.rotation]
 ## in response to the end-user tapping-and-dragging on the 3D viewport.
 
 @export_group("Targeting")
@@ -15,13 +15,13 @@ extends Node
 ## Represents the sensitivity value that is [b]multiplied against[/b] the
 ## end-user's vertical touch movements. That is, the lower the value, the more
 ## physical dragging movement needed to modify the target [Node3D]'s
-## [member Node3D.transform].
+## [member Node3D.rotation].
 @export var sensitity_pitch: float = 0.0025
 
 ## Represents the sensitivity value that is [b]multiplied against[/b] the
 ## end-user's horizontal touch movements. That is, the lower the value, the more
 ## physical dragging movement needed to modify the target [Node3D]'s
-## [member Node3D.transform].
+## [member Node3D.rotation].
 @export var sensitity_yaw: float = 0.0025
 
 var is_dragging: bool = false
@@ -35,6 +35,9 @@ func _ready() -> void:
 		_:
 			process_mode = Node.PROCESS_MODE_DISABLED
 
+## Handles unhandled screen dragging input by translating screen pixel movement
+## deltas into angular rotation applied to the target [Node3D]'s
+## [member Node3D.rotation].
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag:
 		var rotation_delta: Vector2 = Vector2(
