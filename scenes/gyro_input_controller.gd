@@ -33,6 +33,7 @@ extends Node
 ## higher the value, the higher the camera's movement responsiveness is.
 @export var smoothing_max: float = 15.0
 
+
 ## Enables the input controller if [constant InputX.input_mode] is set to
 ## [constant InputX.InputMode.INPUT_GYRO].
 func _ready() -> void:
@@ -41,6 +42,7 @@ func _ready() -> void:
 			process_mode = Node.PROCESS_MODE_INHERIT
 		_:
 			process_mode = Node.PROCESS_MODE_DISABLED
+
 
 ## Runs every engine tick reading the accelerometer and magnetometer sensor data
 ## and translating movement deltas into a new [Basis] matrix that is then applied
@@ -52,15 +54,15 @@ func _ready() -> void:
 ## • Physical gravitational and north pole directional vectors are polled from
 ## sensor data.
 ## [br]
-## • Cardinal-aligned right, up, and back directions are constructed from the
-## gravitational and north pole directional vectors.
+## • Cardinal-aligned right and south + gravitational up directions are constructed
+##   from the gravity and north pole directional vectors.
 ## [br]
 ## • A basis matrix is computed based on the computed right, up, and back directions.
 ## [br]
 ##     • Because sensor data understands the world as relative to the end-user's
 ##       device and Godot understands the device as relative to the world, we
 ##       need to invert the computed basis matrix's perspective before further
-##       calculations. 
+##       calculations.
 ## [br]
 ## • An error rate is computed based on how far misaligned the target [Node3D]'s
 ##   [member Node3D.transform.basis] is from the computed basis matrix.
@@ -72,7 +74,7 @@ func _ready() -> void:
 ##   [code][jitter_threshold, movement_threshold][/code] to
 ##   [code][smoothing_min, smoothing_max][/code] via percentage math.
 ##     • The dynamic smoothing value controls how sluggish to responsive the
-##       [Node3D] adjustments are. 
+##       [Node3D] adjustments are.
 ## [br]
 ## • The computed basis matrix is then applied to the target [Node3D]'s
 ##   [member Node3D.transform.basis] via spherical linear interpolation.
@@ -87,17 +89,28 @@ func _process(delta: float) -> void:
 	var gravity_direction = gravity.normalized()
 	var magnet_direction = magnet.normalized()
 
-	var physical_up = -gravity_direction
-	var physical_east = magnet_direction.cross(physical_up).normalized()
-	var physical_north = physical_up.cross(physical_east).normalized()
+	var gravitational_up = -gravity_direction
+	var cardinal_east = magnet_direction.cross(gravitational_up).normalized()
+	var cardinal_north = gravitational_up.cross(cardinal_east).normalized()
+	var cardinal_south = -cardinal_north
 
-	var target_basis = Basis(physical_east, physical_up, -physical_north).inverse()
 	var current_basis = target_node_3d.transform.basis
-	
+	var target_basis = Basis(cardinal_east, gravitational_up, cardinal_south).inverse()
+
 	var alignment = current_basis.z.dot(target_basis.z)
 	var error = abs(1.0 - alignment)
 
-	var dynamic_smoothing = remap(error, jitter_threshold, movement_threshold, smoothing_min, smoothing_max)
+	var dynamic_smoothing = remap(
+		error,
+		jitter_threshold,
+		movement_threshold,
+		smoothing_min,
+		smoothing_max,
+	)
+
 	dynamic_smoothing = clamp(dynamic_smoothing, smoothing_min, smoothing_max)
 
-	target_node_3d.transform.basis = current_basis.slerp(target_basis, dynamic_smoothing * delta)
+	target_node_3d.transform.basis = current_basis.slerp(
+		target_basis,
+		dynamic_smoothing * delta,
+	)
