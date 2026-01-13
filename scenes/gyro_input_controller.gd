@@ -52,8 +52,8 @@ func _ready() -> void:
 ## • Physical gravitational and north pole directional vectors are polled from
 ## sensor data.
 ## [br]
-## • Cardinal-aligned right, up, and back directions are constructed from the
-## gravitational and north pole directional vectors.
+## • Cardinal-aligned right and south + gravitational up directions are constructed
+##   from the gravity and north pole directional vectors.
 ## [br]
 ## • A basis matrix is computed based on the computed right, up, and back directions.
 ## [br]
@@ -87,12 +87,13 @@ func _process(delta: float) -> void:
 	var gravity_direction = gravity.normalized()
 	var magnet_direction = magnet.normalized()
 
-	var physical_up = -gravity_direction
-	var physical_east = magnet_direction.cross(physical_up).normalized()
-	var physical_north = physical_up.cross(physical_east).normalized()
+	var gravitational_up = -gravity_direction
+	var cardinal_east = magnet_direction.cross(gravitational_up).normalized()
+	var cardinal_north = gravitational_up.cross(cardinal_east).normalized()
+	var cardinal_south = -cardinal_north;
 
-	var target_basis = Basis(physical_east, physical_up, -physical_north).inverse()
 	var current_basis = target_node_3d.transform.basis
+	var target_basis = Basis(cardinal_east, gravitational_up, cardinal_south).inverse()
 	
 	var alignment = current_basis.z.dot(target_basis.z)
 	var error = abs(1.0 - alignment)
