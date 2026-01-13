@@ -16,13 +16,13 @@ extends Node
 ## end-user's vertical mouse movements. That is, the lower the value, the more
 ## physical mouse movement needed to modify the target [Node3D]'s
 ## [member Node3D.rotation].
-@export var sensitity_pitch: float = 0.025
+@export var sensitivity_pitch: float = 0.025
 
 ## Represents the sensitivity value that is [b]multiplied against[/b] the
 ## end-user's horizontal mouse movements. That is, the lower the value, the more
 ## physical mouse movement needed to modify the target [Node3D]'s
 ## [member Node3D.rotation].
-@export var sensitity_yaw: float = 0.025
+@export var sensitivity_yaw: float = 0.025
 
 ## Represents if the user is currently holding down the interaction action while
 ## moving their mouse cursor across the 3D viewport.
@@ -61,8 +61,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		var rotation_delta: Vector2 = Vector2(
-			event.screen_relative.y * sensitity_pitch,
-			event.screen_relative.x * sensitity_yaw,
+			event.screen_relative.y * sensitivity_pitch,
+			event.screen_relative.x * sensitivity_yaw,
 		)
 
 		target_node_3d.rotation.x -= rotation_delta.x
