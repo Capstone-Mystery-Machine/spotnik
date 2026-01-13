@@ -24,8 +24,6 @@ extends Node
 ## [member Node3D.rotation].
 @export var sensitity_yaw: float = 0.0025
 
-var is_dragging: bool = false
-
 
 ## Enables the input controller if [constant InputX.input_mode] is set to
 ## [constant InputX.InputMode.INPUT_TOUCH].
