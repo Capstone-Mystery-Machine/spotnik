@@ -18,14 +18,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Cache GDScript Formatter
-        id: cache-gdscript-formatter
+        id: gdscript-formatter
         uses: actions/cache@v4
         with:
           path: ${{ env.BIN_PATH }}
           key: gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}
 
       - name: Install GDScript Formatter
-        if: steps.cache-gdscript-formatter.outputs.cache-hit != 'true'
+        if: steps.gdscript-formatter.outputs.cache-hit != 'true'
         run: |
           mkdir -p ${{ env.BIN_PATH }}
 
