@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-slim
 
     env:
-      BIN_PATH: "${{ github.workspace }}/bin"
+      BIN_PATH: "${{ github.workspace }}/tools/bin"
+      CHECKSUM_GDSCRIPT_FORMATTER: "77a5a0f3f3317b00ae2817c5f6c7461b8f597faec19e04fdc308191d43f5f2a8"
       GDSCRIPT_FORMATTER_VERSION: "0.18.2"
 
     steps:
@@ -27,11 +28,16 @@ jobs:
         if: steps.cache-gdscript-formatter.outputs.cache-hit != 'true'
         run: |
           mkdir -p ${{ env.BIN_PATH }}
+
           curl -L "https://github.com/GDQuest/GDScript-formatter/releases/download/${{ env.GDSCRIPT_FORMATTER_VERSION }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64.zip" -o gdscript-formatter.zip
+          echo "${{ env.CHECKSUM_GDSCRIPT_FORMATTER }}  gdscript-formatter.zip" | sha256sum --check
+
           unzip -q gdscript-formatter.zip -d ${{ env.BIN_PATH }}
           rm gdscript-formatter.zip
+          
           mv ${{ env.BIN_PATH }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64 ${{ env.BIN_PATH }}/gdscript-formatter
           chmod +x ${{ env.BIN_PATH }}/gdscript-formatter
+          
           ${{ env.BIN_PATH }}/gdscript-formatter --version
 
       - name: Add Bin Path to PATH
