@@ -3,6 +3,7 @@ name: Check Source Code
 on:
   push:
   pull_request:
+  workflow_call:
 
 jobs:
   check:
@@ -34,10 +35,10 @@ jobs:
 
           unzip -q gdscript-formatter.zip -d ${{ env.BIN_PATH }}
           rm gdscript-formatter.zip
-          
+
           mv ${{ env.BIN_PATH }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64 ${{ env.BIN_PATH }}/gdscript-formatter
           chmod +x ${{ env.BIN_PATH }}/gdscript-formatter
-          
+
           ${{ env.BIN_PATH }}/gdscript-formatter --version
 
       - name: Add Bin Path to PATH
