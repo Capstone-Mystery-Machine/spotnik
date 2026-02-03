@@ -85,10 +85,13 @@ jobs:
       matrix:
         include:
           - preset: "Linux [DEBUG]"
-            isDebug: true
+            is-debug: true
+            output-extension: ""
+          - preset: "macOS [DEBUG]"
+            is-debug: true
             output-extension: ""
           - preset: "Windows Desktop [DEBUG]"
-            isDebug: true
+            is-debug: true
             output-extension: ".exe"
 
     steps:
@@ -159,7 +162,7 @@ jobs:
           godot \
             --headless \
             --verbose \
-            ${{ matrix.isDebug == true && '--export-debug' || '--export-release' }} "${{ matrix.preset }}" \
+            ${{ matrix.is-debug == true && '--export-debug' || '--export-release' }} "${{ matrix.preset }}" \
             "${GITHUB_WORKSPACE}/artifacts/${{ env.PRESET_SLUG }}/${ARTIFACT_FILE_NAME}"
 
       - name: Zip ${{ matrix.preset }} Artifacts
