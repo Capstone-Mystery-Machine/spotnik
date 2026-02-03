@@ -87,6 +87,9 @@ jobs:
           - preset: "Linux [DEBUG]"
             is-debug: true
             output-extension: ""
+          - preset: "macOS [DEBUG]"
+            is-debug: true
+            output-extension: ""
           - preset: "Windows Desktop [DEBUG]"
             is-debug: true
             output-extension: ".exe"
