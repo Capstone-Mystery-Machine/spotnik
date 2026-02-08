@@ -89,7 +89,7 @@ jobs:
             output-extension: ""
           - preset: "macOS [DEBUG]"
             is-debug: true
-            output-extension: ""
+            output-extension: ".app"
           - preset: "Windows Desktop [DEBUG]"
             is-debug: true
             output-extension: ".exe"
