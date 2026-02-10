@@ -5,44 +5,63 @@ on:
   pull_request:
   workflow_call:
 
+env:
+  BIN_PATH: "${{ github.workspace }}/tools/bin"
+  CHECKSUM_GDSCRIPT_FORMATTER: "77a5a0f3f3317b00ae2817c5f6c7461b8f597faec19e04fdc308191d43f5f2a8"
+  GDSCRIPT_FORMATTER_VERSION: "0.18.2"
+
 jobs:
-  check:
+  install-gdscript-formatter:
     runs-on: ubuntu-slim
 
-    env:
-      BIN_PATH: "${{ github.workspace }}/tools/bin"
-      CHECKSUM_GDSCRIPT_FORMATTER: "77a5a0f3f3317b00ae2817c5f6c7461b8f597faec19e04fdc308191d43f5f2a8"
-      GDSCRIPT_FORMATTER_VERSION: "0.18.2"
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
+
+      - name: Install GDScript Formatter
+        id: gdscript-formatter-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/GDQuest/GDScript-formatter/releases/download/${{ env.GDSCRIPT_FORMATTER_VERSION }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64.zip"
+          checksum: ${{ env.CHECKSUM_GDSCRIPT_FORMATTER }}
+          archive-type: zip
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}
+
+      - name: Rename GDScript Formatter Binary
+        if: steps.gdscript-formatter-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.BIN_PATH }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64 ${{ env.BIN_PATH }}/gdscript-formatter
+
+      - name: Setup File Permissions
+        if: steps.gdscript-formatter-cache.outputs.cache-hit != 'true'
+        run: |
+          chmod +x ${{ env.BIN_PATH }}/gdscript-formatter
+
+  check:
+    needs: install-gdscript-formatter
+    runs-on: ubuntu-slim
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Cache GDScript Formatter
-        id: gdscript-formatter
-        uses: actions/cache@v4
+      - name: Restore Installed GDScript Formatter
+        uses: ./.github/actions/restore-cached-archive
         with:
-          path: ${{ env.BIN_PATH }}
-          key: gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}
-
-      - name: Install GDScript Formatter
-        if: steps.gdscript-formatter.outputs.cache-hit != 'true'
-        run: |
-          mkdir -p ${{ env.BIN_PATH }}
-
-          curl -L "https://github.com/GDQuest/GDScript-formatter/releases/download/${{ env.GDSCRIPT_FORMATTER_VERSION }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64.zip" -o gdscript-formatter.zip
-          echo "${{ env.CHECKSUM_GDSCRIPT_FORMATTER }}  gdscript-formatter.zip" | sha256sum --check
-
-          unzip -q gdscript-formatter.zip -d ${{ env.BIN_PATH }}
-          rm gdscript-formatter.zip
-
-          mv ${{ env.BIN_PATH }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64 ${{ env.BIN_PATH }}/gdscript-formatter
-          chmod +x ${{ env.BIN_PATH }}/gdscript-formatter
-
-          ${{ env.BIN_PATH }}/gdscript-formatter --version
+          checksum: ${{ env.CHECKSUM_GDSCRIPT_FORMATTER }}
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}
 
       - name: Add Bin Path to PATH
-        run: echo "${{ env.BIN_PATH }}" >> $GITHUB_PATH
+        run: |
+          echo "${{ env.BIN_PATH }}" >> $GITHUB_PATH
+
+      - name: GDScript Formatter Version
+        run: |
+          gdscript-formatter --version
 
       - name: Check GDScript Files
         run: |
