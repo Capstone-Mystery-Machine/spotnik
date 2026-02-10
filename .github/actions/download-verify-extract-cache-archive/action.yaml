@@ -36,6 +36,7 @@ runs:
       with:
         path: ${{ inputs.extract-path }}
         key: ${{ inputs.cache-key-prefix }}-${{ inputs.checksum }}
+        lookup-only: true
 
     - name: Create Temporary File
       if: steps.archive-cache.outputs.cache-hit != 'true'
