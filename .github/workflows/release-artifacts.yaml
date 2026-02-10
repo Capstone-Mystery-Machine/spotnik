@@ -25,56 +25,57 @@ jobs:
     needs: check
     runs-on: ubuntu-slim
     steps:
-      - name: Cache Godot
-        id: cache-godot
-        uses: actions/cache@v4
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
         with:
-          path: ${{ env.BIN_PATH }}
-          key: godot-${{ env.GODOT_VERSION }}
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
 
       - name: Install Godot
-        if: steps.cache-godot.outputs.cache-hit != 'true'
+        id: godot-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip"
+          checksum: ${{ env.CHECKSUM_GODOT }}
+          archive-type: zip
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}
+
+      - name: Rename Godot Binary
+        if: steps.godot-cache.outputs.cache-hit != 'true'
         run: |
-          mkdir -p ${{ env.BIN_PATH }}
+          mv ${{ env.BIN_PATH }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 ${{ env.BIN_PATH }}/godot
 
-          curl -L "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip" -o godot.zip
-          echo "${{ env.CHECKSUM_GODOT }}  godot.zip" | sha256sum --check
-
-          unzip -q godot.zip -d /tmp
-          rm godot.zip
-
-          mv /tmp/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 ${{ env.BIN_PATH }}/godot
+      - name: Setup File Permissions
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
           chmod +x ${{ env.BIN_PATH }}/godot
-
-          ${{ env.BIN_PATH }}/godot --version
 
   install-godot-templates:
     needs: check
     runs-on: ubuntu-slim
     steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
+
       - name: Configure Godot Templates Environment
         run: |
           echo "GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
 
-      - name: Cache Godot Templates
-        id: cache-godot-templates
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.GODOT_TEMPLATES_PATH }}
-          key: godot-templates-${{ env.GODOT_VERSION }}
-
       - name: Install Godot Templates
-        if: steps.cache-godot-templates.outputs.cache-hit != 'true'
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz"
+          checksum: ${{ env.CHECKSUM_GODOT_TEMPLATES }}
+          archive-type: zip
+          extract-path: ${{ env.GODOT_TEMPLATES_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
+
+      - name: Rename Godot Templates Directory
+        if: steps.godot-cache.outputs.cache-hit != 'true'
         run: |
-          mkdir -p ${{ env.GODOT_TEMPLATES_PATH }}
-
-          curl -L "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz" -o godot-templates.zip
-          echo "${{ env.CHECKSUM_GODOT_TEMPLATES }}  godot-templates.zip" | sha256sum --check
-
-          unzip -q godot-templates.zip -d /tmp/godot-templates
-          rm godot-templates.zip
-
-          mv /tmp/godot-templates/templates ${{ env.GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable
+          mv ${{ env.GODOT_TEMPLATES_PATH }}/templates ${{ env.GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable
 
   export-artifacts:
     needs: [check, install-godot, install-godot-templates]
@@ -134,22 +135,31 @@ jobs:
           echo "Formatted Artifact Name: $ARTIFACT_NAME"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
 
-      - name: Restore Godot
-        uses: actions/cache@v4
+      - name: Restore Installed Godot
+        uses: ./.github/actions/restore-cached-archive
         with:
-          path: ${{ env.BIN_PATH }}
-          key: godot-${{ env.GODOT_VERSION }}
-          fail-on-cache-miss: true
+          checksum: ${{ env.CHECKSUM_GODOT }}
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}
 
-      - name: Restore Godot Templates
-        uses: actions/cache@v4
+      - name: Restore Installed Godot Templates
+        uses: ./.github/actions/restore-cached-archive
         with:
-          path: ${{ env.GODOT_TEMPLATES_PATH }}
-          key: godot-templates-${{ env.GODOT_VERSION }}
-          fail-on-cache-miss: true
+          checksum: ${{ env.CHECKSUM_GODOT_TEMPLATES }}
+          extract-path: ${{ env.GODOT_TEMPLATES_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
+
+      - name: Godot Version
+        run: |
+          ${{ env.BIN_PATH }}/godot --version
+
+      - name: Godot Templates Version
+        run: |
+          cat ${{ env.GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable/version.txt
 
       - name: Add Bin Path to PATH
-        run: echo "${{ env.BIN_PATH }}" >> $GITHUB_PATH
+        run: |
+          echo "${{ env.BIN_PATH }}" >> $GITHUB_PATH
 
       - name: Export ${{ matrix.preset }} Artifacts
         run: |
