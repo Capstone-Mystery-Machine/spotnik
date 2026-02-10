@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4guvadeiue3o"]
+
+[ext_resource type="Script" uid="uid://frvw2x27fdeb" path="res://scenes/satellite_data_ui.gd" id="1_o0spf"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_71ivy"]
+viewport_path = NodePath("Info_Viewport")
+
+[node name="Satel_Info_UI" type="Node3D"]
+script = ExtResource("1_o0spf")
+
+[node name="Info_Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7034645, -1.1668895, -8.0926285)
+billboard = 1
+texture = SubResource("ViewportTexture_71ivy")
+
+[node name="Info_Viewport" type="SubViewport" parent="."]
+size = Vector2i(360, 800)
+
+[node name="Satel_Canv_View" type="CanvasLayer" parent="Info_Viewport"]
+
+[node name="Satel_Info" type="GridContainer" parent="Info_Viewport/Satel_Canv_View"]
+offset_right = 340.0
+offset_bottom = 700.0
+columns = 2
+
+[node name="data_source" type="Label" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "Data Source:"
+
+[node name="data_source2" type="Label" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "USSPACECOM"
+
+[node name="constellation" type="Label" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "Constellation:"
+
+[node name="constellation2" type="Label" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "the star one"
+
+[node name="origin_country" type="Label" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "Country of Origin:"
+
+[node name="origin_country2" type="Label" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "USA"
+
+[node name="orbit" type="Label" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "Orbit Regime:"
+
+[node name="orbit2" type="Label" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "round"
+
+[node name="category" type="Label" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "Category:"
+
+[node name="category2" type="Label" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "Active Satellite"
+
+[node name="Close_Button" type="Button" parent="Info_Viewport/Satel_Canv_View/Satel_Info"]
+layout_mode = 2
+text = "Close"
+
+[connection signal="pressed" from="Info_Viewport/Satel_Canv_View/Satel_Info/Close_Button" to="." method="_on_close_button_pressed"]
