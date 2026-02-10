@@ -1,12 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckh0mf4o2awhw"]
+[gd_scene load_steps=5 format=3 uid="uid://ckh0mf4o2awhw"]
 
 [ext_resource type="Script" uid="uid://dtnbr8at4r04c" path="res://scenes/mouse_input_controller.gd" id="1_brmjm"]
 [ext_resource type="Script" uid="uid://dlgvxcexa2xa3" path="res://scenes/touch_input_controller.gd" id="2_mpkvn"]
 [ext_resource type="Script" uid="uid://2syosnsrxmfn" path="res://scenes/gyro_input_controller.gd" id="3_qfi86"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qfi86"]
+height = 100.0
+radius = 0.1
+
 [node name="Device" type="Node3D"]
 
 [node name="Camera" type="Camera3D" parent="."]
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
+sync_to_physics = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.3713953e-08, -1, 0, 1, -4.3713953e-08, 0, -0.028807713, -50.01698)
+shape = SubResource("CylinderShape3D_qfi86")
 
 [node name="GyroInputController" type="Node" parent="." node_paths=PackedStringArray("target_node_3d")]
 script = ExtResource("3_qfi86")

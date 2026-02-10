@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://df1r2r56qsixo"]
+
+[ext_resource type="Script" uid="uid://cgv2aqh7ujavp" path="res://scenes/area_3d.gd" id="1_hek36"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cn1jf"]
+radius = 1.5
+
+[node name="Landmark" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("1_hek36")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_cn1jf")
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area3D" to="Area3D" method="_on_body_exited"]
