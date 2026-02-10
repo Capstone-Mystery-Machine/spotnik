@@ -1,15 +1,14 @@
 extends Area3D
 
-@export var inner_radius: float = 0.5
-
-# Bodies currently inside the INNER radius
-var inner_bodies: Dictionary[CollisionObject3D, bool] = { }
-
 signal inner_entered(body: CollisionObject3D)
 signal inner_exited(body: CollisionObject3D)
 signal outer_entered(body: CollisionObject3D)
 signal outer_exited(body: CollisionObject3D)
 
+@export var inner_radius: float = 0.5
+
+# Bodies currently inside the INNER radius
+var inner_bodies: Dictionary[CollisionObject3D, bool] = { }
 var space_state: PhysicsDirectSpaceState3D
 var inner_shape: SphereShape3D
 
@@ -58,5 +57,6 @@ func _on_body_entered(body: CollisionObject3D) -> void:
 
 
 func _on_body_exited(body: CollisionObject3D) -> void:
-	emit_signal("outer_exited", body)
+	print(body.name, " exited OUTER area")
 	inner_bodies.erase(body)
+	emit_signal("outer_exited", body)
