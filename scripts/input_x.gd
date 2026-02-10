@@ -60,7 +60,7 @@ static var input_mode: InputMode = _get_input_mode()
 static func _get_input_mode() -> InputMode:
 	if _is_gyro_input_mode():
 		return InputMode.INPUT_GYRO
-	elif _is_touch_input_mode():
+	if _is_touch_input_mode():
 		return InputMode.INPUT_TOUCH
 
 	return InputMode.INPUT_MOUSE

@@ -1,0 +1,84 @@
+name: Download, Verify, Extract, Cache Archive
+
+inputs:
+  archive-type:
+    description: "`tar.gz` or `zip`"
+    required: true
+
+  cache-key-prefix:
+    description: "Passed to `actions/cache@v4`"
+    required: true
+
+  checksum:
+    description: SHA256 Checksum
+    required: true
+
+  extract-path:
+    description: Where to extract archive to.
+    required: true
+
+  url:
+    description: Where to download archive from.
+    required: true
+
+outputs:
+  cache-hit:
+    description: If the cache was populated.
+    value: ${{ steps.archive-cache.outputs.cache-hit }}
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Setup Cache
+      id: archive-cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ inputs.extract-path }}
+        key: ${{ inputs.cache-key-prefix }}-${{ inputs.checksum }}
+        lookup-only: true
+
+    - name: Create Temporary File
+      if: steps.archive-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        DVECA_TMP_FILE=$(mktemp)
+
+        echo "DVECA_TMP_FILE=$DVECA_TMP_FILE" >> $GITHUB_ENV
+        echo "Temp Archive File: $DVECA_TMP_FILE"
+
+    - name: Download Archive
+      if: steps.archive-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        curl --fail --location "${{ inputs.url }}" -o ${{ env.DVECA_TMP_FILE }}
+
+    - name: Validate Checksum
+      if: steps.archive-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        echo "${{ inputs.checksum }}  ${{ env.DVECA_TMP_FILE }}" | sha256sum --check
+
+    - name: Prepare Extraction Directory
+      if: steps.archive-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        mkdir -p ${{ inputs.extract-path }}
+
+    - name: Extract Gzipped Tarball Archive
+      if: inputs.archive-type == 'tar.gz' && steps.archive-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        tar -xzf ${{ env.DVECA_TMP_FILE }} -C ${{ inputs.extract-path }}
+
+    - name: Extract ZIP Archive
+      if: inputs.archive-type == 'zip' && steps.archive-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        unzip -q ${{ env.DVECA_TMP_FILE }} -d ${{ inputs.extract-path }}
+
+    - name: Remove Archive
+      if: steps.archive-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        rm -f ${{ env.DVECA_TMP_FILE }}

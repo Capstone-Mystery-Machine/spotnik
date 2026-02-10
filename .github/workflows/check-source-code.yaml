@@ -1,0 +1,92 @@
+name: Check Source Code
+
+on:
+  push:
+  pull_request:
+  workflow_call:
+
+env:
+  BIN_PATH: "${{ github.workspace }}/tools/bin"
+  CHECKSUM_GDSCRIPT_FORMATTER: "77a5a0f3f3317b00ae2817c5f6c7461b8f597faec19e04fdc308191d43f5f2a8"
+  GDSCRIPT_FORMATTER_VERSION: "0.18.2"
+
+jobs:
+  install-gdscript-formatter:
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
+
+      - name: Install GDScript Formatter
+        id: gdscript-formatter-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/GDQuest/GDScript-formatter/releases/download/${{ env.GDSCRIPT_FORMATTER_VERSION }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64.zip"
+          checksum: ${{ env.CHECKSUM_GDSCRIPT_FORMATTER }}
+          archive-type: zip
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}
+
+      - name: Rename GDScript Formatter Binary
+        if: steps.gdscript-formatter-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.BIN_PATH }}/gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}-linux-x86_64 ${{ env.BIN_PATH }}/gdscript-formatter
+
+      - name: Setup File Permissions
+        if: steps.gdscript-formatter-cache.outputs.cache-hit != 'true'
+        run: |
+          chmod +x ${{ env.BIN_PATH }}/gdscript-formatter
+
+  check:
+    needs: install-gdscript-formatter
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Restore Installed GDScript Formatter
+        uses: ./.github/actions/restore-cached-archive
+        with:
+          checksum: ${{ env.CHECKSUM_GDSCRIPT_FORMATTER }}
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}
+
+      - name: Add Bin Path to PATH
+        run: |
+          echo "${{ env.BIN_PATH }}" >> $GITHUB_PATH
+
+      - name: GDScript Formatter Version
+        run: |
+          gdscript-formatter --version
+
+      - name: Check GDScript Files
+        run: |
+          # gdscript-formatter does _not_ tell us what is wrong with the file's
+          # format or _even what the failed file's name is_. ;-;
+          #
+          # Oh, and it does not support glob patterns.
+          #
+          # So, manual looping and file name printing~!
+          find . -name "*.gd" -not -path "./addons/*" | while read -r file; do
+            echo "Checking: $file"
+
+            if ! gdscript-formatter --check "$file"; then
+              echo "::error file=$file::Formatting failed on this file."
+              exit 1
+            fi
+          done
+
+      - name: Lint GDScript Files
+        run: |
+          find . -name "*.gd" -not -path "./addons/*" | while read -r file; do
+            echo "Linting: $file"
+
+            if ! gdscript-formatter lint --pretty "$file"; then
+              echo "::error file=$file::Linting failed on this file."
+              exit 1
+            fi
+          done
