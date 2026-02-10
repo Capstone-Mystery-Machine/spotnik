@@ -1,0 +1,25 @@
+name: Restore Cached Archive
+
+inputs:
+  cache-key-prefix:
+    description: "Passed to `actions/cache@v4`"
+    required: true
+
+  checksum:
+    description: SHA256 Checksum
+    required: true
+
+  extract-path:
+    description: Where the archive was extracted to.
+    required: true
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Restore Cached Archive
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ inputs.extract-path }}
+        key: ${{ inputs.cache-key-prefix }}-${{ inputs.checksum }}
+        fail-on-cache-miss: true
