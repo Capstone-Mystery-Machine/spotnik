@@ -164,7 +164,12 @@ jobs:
           "platform-tools"
 
   export-artifacts:
-    needs: [check, install-android-sdk, install-godot, install-godot-templates, install-jdk]
+    needs:
+      - check
+      - install-android-sdk
+      - install-godot
+      - install-godot-templates
+      - install-jdk
     runs-on: ubuntu-slim
 
     strategy:
