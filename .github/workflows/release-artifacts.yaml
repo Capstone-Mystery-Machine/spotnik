@@ -11,8 +11,12 @@ permissions:
 
 env:
   BIN_GODOT_PATH: "${{ github.workspace }}/tools/godot"
+  BIN_JDK_PATH: "${{ github.workspace }}/tools/jdk"
   CHECKSUM_GODOT: "02ec53d1cc7dbb9cc6355393c61b9ab43d1244751a124f10248a4802830788cd"
   CHECKSUM_GODOT_TEMPLATES: "1998af37f1387684e2c211cdb483daf492fc64dc6b12096bddcdca25b6910c86"
+  CHECKSUM_JDK: "0c94cbb54325c40dcf026143eb621562017db5525727f2d9131a11250f72c450"
+  JDK_VERSION_ARCHIVE: "17.0.18_8"
+  JDK_VERSION_TAG: "jdk-17.0.18+8"
   EXPORT_NAME: "spotnik"
   GODOT_VERSION: "4.5.1"
   PROJECT_PATH: "."
@@ -78,8 +82,32 @@ jobs:
         run: |
           mv ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/templates ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable
 
+  install-jdk:
+    needs: check
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
+
+      - name: Install Adoptium Temurin JDK
+        id: jdk-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/adoptium/temurin17-binaries/releases/download/${{ env.JDK_VERSION_TAG }}/OpenJDK17U-jdk_x64_linux_hotspot_${{ env.JDK_VERSION_ARCHIVE }}.tar.gz"
+          checksum: ${{ env.CHECKSUM_JDK }}
+          archive-type: tar.gz
+          extract-path: ${{ env.BIN_JDK_PATH }}
+          cache-key-prefix: adoptium-temurin-${{ env.JDK_VERSION_TAG }}
+
+      - name: Rename Adoptium Temurin JDK Directory
+        if: steps.jdk-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.BIN_JDK_PATH }}/${{ env.JDK_VERSION_TAG }}/* ${{ env.BIN_JDK_PATH }}
+
   export-artifacts:
-    needs: [check, install-godot, install-godot-templates]
+    needs: [check, install-godot, install-godot-templates, install-jdk]
     runs-on: ubuntu-slim
 
     strategy:
