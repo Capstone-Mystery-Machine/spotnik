@@ -172,18 +172,22 @@ jobs:
         include:
           - preset: "Android [DEBUG]"
             is-debug: true
+            requires-android-sdk: true
             requires-jdk: true
             output-extension: ".apk"
           - preset: "Linux [DEBUG]"
             is-debug: true
+            requires-android-sdk: false
             requires-jdk: false
             output-extension: ""
           - preset: "macOS [DEBUG]"
             is-debug: true
+            requires-android-sdk: false
             requires-jdk: false
             output-extension: ".app"
           - preset: "Windows Desktop [DEBUG]"
             is-debug: true
+            requires-android-sdk: false
             requires-jdk: false
             output-extension: ".exe"
 
