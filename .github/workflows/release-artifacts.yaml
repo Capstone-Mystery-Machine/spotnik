@@ -15,6 +15,7 @@ env:
   ANDROID_SDK_CMAKE_VERSION: "3.10.2.4988404"
   ANDROID_SDK_NDK_VERSION: "28.1.13356709"
   ANDROID_SDK_PLATFORMS_VERSION: "android-35"
+  BIN_PATH: "${{ github.workspace }}/tools"
   BIN_ANDROID_SDK_PATH: "${{ github.workspace }}/tools/android_sdk"
   BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH: "${{ github.workspace }}/tools/android_sdk/cmdline-tools/14742923"
   BIN_GODOT_PATH: "${{ github.workspace }}/tools/godot"
@@ -298,6 +299,10 @@ jobs:
         if: matrix.requires-jdk
         run: |
           cat ${{ env.BIN_JDK_PATH }}/release
+
+      - name: Ignore Toolchain in Export
+        run: |
+          touch ${{ env.BIN_PATH }}/.gdignore
 
       - name: Export ${{ matrix.preset }} Artifacts
         run: |
