@@ -51,7 +51,7 @@ runs:
       if: steps.archive-cache.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        curl --fail --location "${{ inputs.url }}" -o ${{ env.DVECA_TMP_FILE }}
+        curl --fail --location "${{ inputs.url }}" --output ${{ env.DVECA_TMP_FILE }}
 
     - name: Validate Checksum
       if: steps.archive-cache.outputs.cache-hit != 'true'
@@ -63,13 +63,13 @@ runs:
       if: steps.archive-cache.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        mkdir -p ${{ inputs.extract-path }}
+        mkdir --parents ${{ inputs.extract-path }}
 
     - name: Extract Gzipped Tarball Archive
       if: inputs.archive-type == 'tar.gz' && steps.archive-cache.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        tar -xzf ${{ env.DVECA_TMP_FILE }} -C ${{ inputs.extract-path }}
+        tar --extract --gzip --file ${{ env.DVECA_TMP_FILE }} --directory ${{ inputs.extract-path }}
 
     - name: Extract ZIP Archive
       if: inputs.archive-type == 'zip' && steps.archive-cache.outputs.cache-hit != 'true'
@@ -81,4 +81,4 @@ runs:
       if: steps.archive-cache.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        rm -f ${{ env.DVECA_TMP_FILE }}
+        rm --force ${{ env.DVECA_TMP_FILE }}
