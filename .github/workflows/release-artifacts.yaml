@@ -114,6 +114,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - preset: "Android [DEBUG]"
+            is-debug: true
+            requires-jdk: true
+            output-extension: ""
           - preset: "Linux [DEBUG]"
             is-debug: true
             requires-jdk: false
