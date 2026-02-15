@@ -304,15 +304,15 @@ jobs:
         run: |
           touch ${{ env.BIN_PATH }}/.gdignore
 
+      - name: Remove Development-only Godot Editor Addons
+        run: |
+          rm -rf ./addons/GDQuest_GDScript_formatter
+
       - name: Export ${{ matrix.preset }} Artifacts
         run: |
           mkdir -v -p artifacts/${{ env.PRESET_SLUG }}
 
-          cd $PROJECT_PATH
-
-          # NOTE: Editor-only addons need to be removed to prevent shipping with
-          # artifacts and any errors they might cause.
-          rm -rf ./addons/GDQuest_GDScript_formatter
+          cd $PROJECT_PATH          
 
           ARTIFACT_FILE_NAME="${{ env.ARTIFACT_NAME }}${{ matrix.output-extension }}"
 
