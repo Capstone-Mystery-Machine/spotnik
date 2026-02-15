@@ -188,44 +188,14 @@ jobs:
             output-extension: ".exe"
 
     steps:
-      - name: Format Preset Slug
-        run: |
-          PRESET_SLUG=$(echo "${{ matrix.preset }}" \
-            | tr '[:upper:]' '[:lower:]' \
-            | sed \
-            -e 's/[^a-z0-9]/-/g' \
-            -e 's/-\+/-/g' \
-            -e 's/^-\|-$//g')
-
-          echo "Formatted Preset Slug: $PRESET_SLUG"
-          echo "PRESET_SLUG=$PRESET_SLUG" >> $GITHUB_ENV
-
-      - name: Configure Godot Templates Environment
-        run: |
-          echo "ASSETS_GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
-
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           lfs: true
 
-      - name: Retrieve Version Information
+      - name: Configure Godot Templates Environment
         run: |
-          GITHUB_RELEASE_VERSION="${{ github.ref_name }}"
-          REPOSITORY_HEAD_SHA="$(git rev-parse --short HEAD)"
-
-          echo "Retrieved GitHub Release Version: $GITHUB_RELEASE_VERSION"
-          echo "Retrieved Repository Head SHA256 Checksum: $REPOSITORY_HEAD_SHA"
-
-          echo "GITHUB_RELEASE_VERSION=$GITHUB_RELEASE_VERSION" >> $GITHUB_ENV
-          echo "REPOSITORY_HEAD_SHA=$REPOSITORY_HEAD_SHA" >> $GITHUB_ENV
-
-      - name: Format Artifact Name
-        run: |
-          ARTIFACT_NAME="${{ env.EXPORT_NAME }}.${{ env.GITHUB_RELEASE_VERSION }}.${{ env.REPOSITORY_HEAD_SHA }}.${{ env.PRESET_SLUG }}"
-
-          echo "Formatted Artifact Name: $ARTIFACT_NAME"
-          echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
+          echo "ASSETS_GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
 
       - name: Restore Installed Godot
         uses: ./.github/actions/restore-cached-archive
@@ -249,6 +219,45 @@ jobs:
           extract-path: ${{ env.BIN_JDK_PATH }}
           cache-key-prefix: adoptium-temurin-${{ env.JDK_VERSION_TAG }}
 
+      - name: Add Godot to PATH
+        run: |
+          echo "${{ env.BIN_GODOT_PATH }}" >> $GITHUB_PATH
+
+      - name: Configure Artifact Environment
+        run: |
+          ARTIFACT_NAME="${{ env.EXPORT_NAME }}.${{ env.GITHUB_RELEASE_VERSION }}.${{ env.REPOSITORY_HEAD_SHA }}.${{ env.PRESET_SLUG }}"
+
+          echo "Formatted Artifact Name: $ARTIFACT_NAME"
+          echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
+
+      - name: Configure Preset Environment
+        run: |
+          PRESET_SLUG=$(echo "${{ matrix.preset }}" \
+            | tr '[:upper:]' '[:lower:]' \
+            | sed \
+            -e 's/[^a-z0-9]/-/g' \
+            -e 's/-\+/-/g' \
+            -e 's/^-\|-$//g')
+
+          echo "Formatted Preset Slug: $PRESET_SLUG"
+          echo "PRESET_SLUG=$PRESET_SLUG" >> $GITHUB_ENV
+
+      - name: Configure Repository Information Environment
+        run: |
+          GITHUB_RELEASE_VERSION="${{ github.ref_name }}"
+          REPOSITORY_HEAD_SHA="$(git rev-parse --short HEAD)"
+
+          echo "Retrieved GitHub Release Version: $GITHUB_RELEASE_VERSION"
+          echo "Retrieved Repository Head SHA256 Checksum: $REPOSITORY_HEAD_SHA"
+
+          echo "GITHUB_RELEASE_VERSION=$GITHUB_RELEASE_VERSION" >> $GITHUB_ENV
+          echo "REPOSITORY_HEAD_SHA=$REPOSITORY_HEAD_SHA" >> $GITHUB_ENV
+
+      - name: Configure Java Home
+        if: matrix.requires-jdk
+        run: |
+          echo "JAVA_HOME=${{ env.BIN_JDK_PATH }}" >> $GITHUB_ENV
+
       - name: Godot Version
         run: |
           ${{ env.BIN_GODOT_PATH }}/godot --version
@@ -261,15 +270,6 @@ jobs:
         if: matrix.requires-jdk
         run: |
           cat ${{ env.BIN_JDK_PATH }}/release
-
-      - name: Add Godot to PATH
-        run: |
-          echo "${{ env.BIN_GODOT_PATH }}" >> $GITHUB_PATH
-
-      - name: Configure Java Home
-        if: matrix.requires-jdk
-        run: |
-          echo "JAVA_HOME=${{ env.BIN_JDK_PATH }}" >> $GITHUB_ENV
 
       - name: Export ${{ matrix.preset }} Artifacts
         run: |
