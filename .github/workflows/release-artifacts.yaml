@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 env:
-  BIN_PATH: "${{ github.workspace }}/tools/bin"
+  BIN_GODOT_PATH: "${{ github.workspace }}/tools/godot"
   CHECKSUM_GODOT: "02ec53d1cc7dbb9cc6355393c61b9ab43d1244751a124f10248a4802830788cd"
   CHECKSUM_GODOT_TEMPLATES: "1998af37f1387684e2c211cdb483daf492fc64dc6b12096bddcdca25b6910c86"
   EXPORT_NAME: "spotnik"
@@ -37,18 +37,18 @@ jobs:
           url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip"
           checksum: ${{ env.CHECKSUM_GODOT }}
           archive-type: zip
-          extract-path: ${{ env.BIN_PATH }}
+          extract-path: ${{ env.BIN_GODOT_PATH }}
           cache-key-prefix: godot-${{ env.GODOT_VERSION }}
 
       - name: Rename Godot Binary
         if: steps.godot-cache.outputs.cache-hit != 'true'
         run: |
-          mv ${{ env.BIN_PATH }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 ${{ env.BIN_PATH }}/godot
+          mv ${{ env.BIN_GODOT_PATH }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 ${{ env.BIN_GODOT_PATH }}/godot
 
       - name: Setup File Permissions
         if: steps.godot-cache.outputs.cache-hit != 'true'
         run: |
-          chmod +x ${{ env.BIN_PATH }}/godot
+          chmod +x ${{ env.BIN_GODOT_PATH }}/godot
 
   install-godot-templates:
     needs: check
@@ -61,21 +61,22 @@ jobs:
 
       - name: Configure Godot Templates Environment
         run: |
-          echo "GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
+          echo "ASSETS_GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
 
       - name: Install Godot Templates
+        id: godot-templates-cache
         uses: ./.github/actions/download-verify-extract-cache-archive
         with:
           url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz"
           checksum: ${{ env.CHECKSUM_GODOT_TEMPLATES }}
           archive-type: zip
-          extract-path: ${{ env.GODOT_TEMPLATES_PATH }}
+          extract-path: ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}
           cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
 
       - name: Rename Godot Templates Directory
-        if: steps.godot-cache.outputs.cache-hit != 'true'
+        if: steps.godot-templates-cache.outputs.cache-hit != 'true'
         run: |
-          mv ${{ env.GODOT_TEMPLATES_PATH }}/templates ${{ env.GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable
+          mv ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/templates ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable
 
   export-artifacts:
     needs: [check, install-godot, install-godot-templates]
@@ -110,7 +111,7 @@ jobs:
 
       - name: Configure Godot Templates Environment
         run: |
-          echo "GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
+          echo "ASSETS_GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
 
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -139,27 +140,27 @@ jobs:
         uses: ./.github/actions/restore-cached-archive
         with:
           checksum: ${{ env.CHECKSUM_GODOT }}
-          extract-path: ${{ env.BIN_PATH }}
+          extract-path: ${{ env.BIN_GODOT_PATH }}
           cache-key-prefix: godot-${{ env.GODOT_VERSION }}
 
       - name: Restore Installed Godot Templates
         uses: ./.github/actions/restore-cached-archive
         with:
           checksum: ${{ env.CHECKSUM_GODOT_TEMPLATES }}
-          extract-path: ${{ env.GODOT_TEMPLATES_PATH }}
+          extract-path: ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}
           cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
 
       - name: Godot Version
         run: |
-          ${{ env.BIN_PATH }}/godot --version
+          ${{ env.BIN_GODOT_PATH }}/godot --version
 
       - name: Godot Templates Version
         run: |
-          cat ${{ env.GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable/version.txt
+          cat ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable/version.txt
 
-      - name: Add Bin Path to PATH
+      - name: Add Godot to PATH
         run: |
-          echo "${{ env.BIN_PATH }}" >> $GITHUB_PATH
+          echo "${{ env.BIN_GODOT_PATH }}" >> $GITHUB_PATH
 
       - name: Export ${{ matrix.preset }} Artifacts
         run: |
