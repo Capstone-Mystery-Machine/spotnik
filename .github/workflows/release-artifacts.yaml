@@ -237,16 +237,6 @@ jobs:
           extract-path: ${{ env.BIN_JDK_PATH }}
           cache-key-prefix: adoptium-temurin-${{ env.JDK_VERSION_TAG }}
 
-      - name: Add Godot to PATH
-        run: |
-          echo "${{ env.BIN_GODOT_PATH }}" >> $GITHUB_PATH
-
-      - name: Add Android SDK to PATH
-        if: matrix.requires-android-sdk
-        run: |
-          echo "${{ env.BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH }}/bin" >> $GITHUB_PATH
-          echo "${{ env.BIN_ANDROID_SDK_PATH }}/platform-tools" >> $GITHUB_PATH
-
       - name: Configure Preset Environment
         run: |
           PRESET_SLUG=$(echo "${{ matrix.preset }}" \
@@ -286,6 +276,16 @@ jobs:
         if: matrix.requires-jdk
         run: |
           echo "JAVA_HOME=${{ env.BIN_JDK_PATH }}" >> $GITHUB_ENV
+
+      - name: Add Godot to PATH
+        run: |
+          echo "${{ env.BIN_GODOT_PATH }}" >> $GITHUB_PATH
+
+      - name: Add Android SDK to PATH
+        if: matrix.requires-android-sdk
+        run: |
+          echo "${{ env.BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH }}/bin" >> $GITHUB_PATH
+          echo "${{ env.BIN_ANDROID_SDK_PATH }}/platform-tools" >> $GITHUB_PATH
 
       - name: Godot Version
         run: |
