@@ -10,8 +10,16 @@ permissions:
   contents: write
 
 env:
+  ANDROID_SDK_BUILD_TOOLS_VERSION: "35.0.1"
+  ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION: "14742923"
+  ANDROID_SDK_CMAKE_VERSION: "3.10.2.4988404"
+  ANDROID_SDK_NDK_VERSION: "28.1.13356709"
+  ANDROID_SDK_PLATFORMS_VERSION: "android-35"
+  BIN_ANDROID_SDK_PATH: "${{ github.workspace }}/tools/android_sdk"
+  BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH: "${{ github.workspace }}/tools/android_sdk/cmdline-tools/14742923"
   BIN_GODOT_PATH: "${{ github.workspace }}/tools/godot"
   BIN_JDK_PATH: "${{ github.workspace }}/tools/jdk"
+  CHECKSUM_ANDROID_SDK_COMMAND_LINE_TOOLS: "04453066b540409d975c676d781da1477479dde3761310f1a7eb92a1dfb15af7"
   CHECKSUM_GODOT: "02ec53d1cc7dbb9cc6355393c61b9ab43d1244751a124f10248a4802830788cd"
   CHECKSUM_GODOT_TEMPLATES: "1998af37f1387684e2c211cdb483daf492fc64dc6b12096bddcdca25b6910c86"
   CHECKSUM_JDK: "0c94cbb54325c40dcf026143eb621562017db5525727f2d9131a11250f72c450"
@@ -106,8 +114,56 @@ jobs:
         run: |
           mv ${{ env.BIN_JDK_PATH }}/${{ env.JDK_VERSION_TAG }}/* ${{ env.BIN_JDK_PATH }}
 
+  install-android-sdk:
+    needs: [check, install-jdk]
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github/actions/download-verify-extract-cache-archive
+            .github/actions/restore-cached-archive
+
+      - name: Install Android Command Line Tools
+        id: command-line-tools-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://dl.google.com/android/repository/commandlinetools-linux-${{ env.ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION }}_latest.zip"
+          checksum: ${{ env.CHECKSUM_ANDROID_SDK_COMMAND_LINE_TOOLS }}
+          archive-type: zip
+          extract-path: ${{ env.BIN_ANDROID_SDK_PATH }}
+          cache-key-prefix: android-sdk-command-line-tools-${{ env.ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION }}
+
+      - name: Rename Android Command Line Tools Directory
+        if: steps.command-line-tools-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.BIN_ANDROID_SDK_PATH }}/cmdline-tools ${{ env.BIN_ANDROID_SDK_PATH }}/${{ env.ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION }}
+          mkdir ${{ env.BIN_ANDROID_SDK_PATH }}/cmdline-tools
+          mv ${{ env.BIN_ANDROID_SDK_PATH }}/${{ env.ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION }} ${{ env.BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH }}
+
+      - name: Configure Java Home
+        run: |
+          echo "JAVA_HOME=${{ env.BIN_JDK_PATH }}" >> $GITHUB_ENV
+
+      - name: Restore Installed Adoptium Temurin JDK
+        uses: ./.github/actions/restore-cached-archive
+        with:
+          checksum: ${{ env.CHECKSUM_JDK }}
+          extract-path: ${{ env.BIN_JDK_PATH }}
+          cache-key-prefix: adoptium-temurin-${{ env.JDK_VERSION_TAG }}
+
+      - name: Install Android SDK Toolchain
+        run: |
+          yes | ${{ env.BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH }}/bin/sdkmanager --sdk_root=${{ env.BIN_ANDROID_SDK_PATH }} \
+          "build-tools;${{ env.ANDROID_SDK_BUILD_TOOLS_VERSION }}" \
+          "cmake;${{ env.ANDROID_SDK_CMAKE_VERSION }}" \
+          "ndk;${{ env.ANDROID_SDK_NDK_VERSION }}" \
+          "platforms;${{ env.ANDROID_SDK_PLATFORMS_VERSION }}" \
+          "platform-tools"
+
   export-artifacts:
-    needs: [check, install-godot, install-godot-templates, install-jdk]
+    needs: [check, install-android-sdk, install-godot, install-godot-templates, install-jdk]
     runs-on: ubuntu-slim
 
     strategy:
