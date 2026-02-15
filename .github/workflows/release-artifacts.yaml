@@ -185,6 +185,14 @@ jobs:
           extract-path: ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}
           cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
 
+      - name: Restore Installed Adoptium Temurin JDK
+        uses: ./.github/actions/restore-cached-archive
+        if: matrix.requires-jdk
+        with:
+          checksum: ${{ env.CHECKSUM_JDK }}
+          extract-path: ${{ env.BIN_JDK_PATH }}
+          cache-key-prefix: adoptium-temurin-${{ env.JDK_VERSION_TAG }}
+
       - name: Godot Version
         run: |
           ${{ env.BIN_GODOT_PATH }}/godot --version
@@ -193,9 +201,19 @@ jobs:
         run: |
           cat ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable/version.txt
 
+      - name: Adoptium Temurin JDK Version
+        if: matrix.requires-jdk
+        run: |
+          cat ${{ env.BIN_JDK_PATH }}/release
+
       - name: Add Godot to PATH
         run: |
           echo "${{ env.BIN_GODOT_PATH }}" >> $GITHUB_PATH
+
+      - name: Configure Java Home
+        if: matrix.requires-jdk
+        run: |
+          echo "JAVA_HOME=${{ env.BIN_JDK_PATH }}" >> $GITHUB_ENV
 
       - name: Export ${{ matrix.preset }} Artifacts
         run: |
