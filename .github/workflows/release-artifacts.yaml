@@ -117,7 +117,7 @@ jobs:
           - preset: "Android [DEBUG]"
             is-debug: true
             requires-jdk: true
-            output-extension: ""
+            output-extension: ".apk"
           - preset: "Linux [DEBUG]"
             is-debug: true
             requires-jdk: false
