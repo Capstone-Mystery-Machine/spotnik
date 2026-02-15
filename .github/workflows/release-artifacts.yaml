@@ -215,6 +215,14 @@ jobs:
           extract-path: ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}
           cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
 
+      - name: Restore Installed Android SDK
+        uses: ./.github/actions/restore-cached-archive
+        if: matrix.requires-android-sdk
+        with:
+          checksum: ${{ env.CHECKSUM_ANDROID_SDK_COMMAND_LINE_TOOLS }}
+          extract-path: ${{ env.BIN_ANDROID_SDK_PATH }}
+          cache-key-prefix: android-sdk-command-line-tools-${{ env.ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION }}
+
       - name: Restore Installed Adoptium Temurin JDK
         uses: ./.github/actions/restore-cached-archive
         if: matrix.requires-jdk
@@ -226,6 +234,12 @@ jobs:
       - name: Add Godot to PATH
         run: |
           echo "${{ env.BIN_GODOT_PATH }}" >> $GITHUB_PATH
+
+      - name: Add Android SDK to PATH
+        if: matrix.requires-android-sdk
+        run: |
+          echo "${{ env.BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH }}/bin" >> $GITHUB_PATH
+          echo "${{ env.BIN_ANDROID_SDK_PATH }}/platform-tools" >> $GITHUB_PATH
 
       - name: Configure Artifact Environment
         run: |
@@ -256,6 +270,11 @@ jobs:
 
           echo "GITHUB_RELEASE_VERSION=$GITHUB_RELEASE_VERSION" >> $GITHUB_ENV
           echo "REPOSITORY_HEAD_SHA=$REPOSITORY_HEAD_SHA" >> $GITHUB_ENV
+
+      - name: Configure Android SDK Home
+        if: matrix.requires-android-sdk
+        run: |
+          echo "ANDROID_HOME=${{ env.BIN_ANDROID_SDK_PATH }}" >> $GITHUB_ENV
 
       - name: Configure Java Home
         if: matrix.requires-jdk
