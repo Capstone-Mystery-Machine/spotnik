@@ -116,12 +116,15 @@ jobs:
         include:
           - preset: "Linux [DEBUG]"
             is-debug: true
+            requires-jdk: false
             output-extension: ""
           - preset: "macOS [DEBUG]"
             is-debug: true
+            requires-jdk: false
             output-extension: ".app"
           - preset: "Windows Desktop [DEBUG]"
             is-debug: true
+            requires-jdk: false
             output-extension: ".exe"
 
     steps:
