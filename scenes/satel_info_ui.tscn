@@ -37,21 +37,29 @@ layout_mode = 2
 mouse_filter = 2
 columns = 2
 
-[node name="data_source" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+[node name="International_Designator" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
-text = "Data Source:"
+text = "International Designator:"
 
-[node name="data_source2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+[node name="International_Designator2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
-text = "USSPACECOM"
+text = "1993-DIN"
 
-[node name="constellation" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+[node name="Norad_Catalog_Identifier" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
-text = "Constellation:"
+text = "Norad Catalog Identifier:"
 
-[node name="constellation2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+[node name="Norad_Catalog_Identifier2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
-text = "the star one"
+text = "65000"
+
+[node name="Name" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+layout_mode = 2
+text = "Name:"
+
+[node name="Name2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+layout_mode = 2
+text = "CLEVER-GIRL"
 
 [node name="origin_country" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
@@ -59,23 +67,55 @@ text = "Country of Origin:"
 
 [node name="origin_country2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
-text = "USA"
+text = "ISLANUBLAR"
 
-[node name="orbit" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+[node name="Launch_Date" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
-text = "Orbit Regime:"
+text = "Launch Date:"
 
-[node name="orbit2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+[node name="Launch_Date2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
-text = "round"
+text = "739670400"
 
-[node name="category" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+[node name="Latitude" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
-text = "Category:"
+text = "Latitude:"
 
-[node name="category2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+[node name="Latitude2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
-text = "Active Satellite"
+text = "9"
+
+[node name="Longitude" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+layout_mode = 2
+text = "Longitude:"
+
+[node name="Longitude2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+layout_mode = 2
+text = "-85"
+
+[node name="Cartesian_x" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+layout_mode = 2
+text = "Cartesian x:"
+
+[node name="Cartesian_x2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+layout_mode = 2
+text = "-1.0565"
+
+[node name="Cartesian_y" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+layout_mode = 2
+text = "Cartesian y:"
+
+[node name="Cartesian_y2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+layout_mode = 2
+text = "0.5831"
+
+[node name="Cartesian_z" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+layout_mode = 2
+text = "Cartesian z:"
+
+[node name="Cartesian_z2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+layout_mode = 2
+text = "0.174"
 
 [node name="Close_Button" type="Button" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
