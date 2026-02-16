@@ -1,5 +1,24 @@
 extends Node3D
 
+var international_designator: String
+var norad_catalog_id: String
+var satellite_name: String
+var country: String
+var launch_date: int
+
+func setup(
+	id_designator: String,
+	norad_id: String,
+	name: String,
+	country_name: String,
+	launch: int
+) -> void:
+	international_designator = id_designator
+	norad_catalog_id = norad_id
+	satellite_name = name
+	country = country_name
+	launch_date = launch
+
 signal inner_entered(body: CollisionObject3D)
 signal inner_exited(body: CollisionObject3D)
 signal outer_entered(body: CollisionObject3D)
