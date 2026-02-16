@@ -39,8 +39,8 @@ func spawn_landmark(data: Dictionary) -> void:
 	
 	# Convert JSON position array → Vector3
 	var pos_array = data["position"]
-	var position = Vector3(pos_array[0], pos_array[1], pos_array[2])
-	landmark.position = position
+	var satPosition = Vector3(pos_array[0], pos_array[1], pos_array[2])
+	landmark.position = satPosition
 	
 	landmark.setup(
 		data["int_designator"],

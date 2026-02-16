@@ -9,13 +9,13 @@ var launch_date: int
 func setup(
 	id_designator: String,
 	norad_id: String,
-	name: String,
+	satName: String,
 	country_name: String,
 	launch: int
 ) -> void:
 	international_designator = id_designator
 	norad_catalog_id = norad_id
-	satellite_name = name
+	satellite_name = satName
 	country = country_name
 	launch_date = launch
 
