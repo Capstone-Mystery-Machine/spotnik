@@ -5,10 +5,15 @@ extends Node3D
 @onready var viewport = $Info_Sprite
 @onready var viewport_container = $Info_Sprite/Info_Viewport_Container
 
-#func _ready():
-#	viewport.visible = false
+
+func _ready():
+	viewport_container.visible = false
 
 
 func _on_close_button_pressed() -> void:
 	#viewport.visible = false
 	viewport_container.visible = false
+
+
+func _on_landmark_ui_open() -> void:
+	viewport_container.visible = true

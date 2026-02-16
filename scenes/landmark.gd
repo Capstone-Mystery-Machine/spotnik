@@ -4,10 +4,12 @@ signal inner_entered(body: CollisionObject3D)
 signal inner_exited(body: CollisionObject3D)
 signal outer_entered(body: CollisionObject3D)
 signal outer_exited(body: CollisionObject3D)
+signal ui_open
 
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
 	emit_signal("inner_entered", body)
+	emit_signal("ui_open")
 
 
 func _on_camera_pointer_detector_inner_exited(body: CollisionObject3D) -> void:
