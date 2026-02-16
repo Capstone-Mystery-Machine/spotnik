@@ -15,3 +15,5 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98632, 0, -2.7282925)
 
 [node name="Satellite Manager" parent="." instance=ExtResource("4_op4v0")]
+
+[connection signal="ui_open" from="Landmark" to="Satel_Info_UI" method="_on_landmark_ui_open"]
