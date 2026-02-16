@@ -1,0 +1,196 @@
+# FORKED: https://github.com/abarichello/godot-ci/blob/9760acc92f68deb947b5b9dd62cc6aaad7dbc3ed/.github/workflows/godot-ci.yml
+
+name: Release Artifacts
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+env:
+  BIN_PATH: "${{ github.workspace }}/tools/bin"
+  CHECKSUM_GODOT: "02ec53d1cc7dbb9cc6355393c61b9ab43d1244751a124f10248a4802830788cd"
+  CHECKSUM_GODOT_TEMPLATES: "1998af37f1387684e2c211cdb483daf492fc64dc6b12096bddcdca25b6910c86"
+  EXPORT_NAME: "spotnik"
+  GODOT_VERSION: "4.5.1"
+  PROJECT_PATH: "."
+
+jobs:
+  check:
+    uses: ./.github/workflows/check-source-code.yaml
+
+  install-godot:
+    needs: check
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
+
+      - name: Install Godot
+        id: godot-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip"
+          checksum: ${{ env.CHECKSUM_GODOT }}
+          archive-type: zip
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}
+
+      - name: Rename Godot Binary
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.BIN_PATH }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 ${{ env.BIN_PATH }}/godot
+
+      - name: Setup File Permissions
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
+          chmod +x ${{ env.BIN_PATH }}/godot
+
+  install-godot-templates:
+    needs: check
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
+
+      - name: Configure Godot Templates Environment
+        run: |
+          echo "GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
+
+      - name: Install Godot Templates
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz"
+          checksum: ${{ env.CHECKSUM_GODOT_TEMPLATES }}
+          archive-type: zip
+          extract-path: ${{ env.GODOT_TEMPLATES_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
+
+      - name: Rename Godot Templates Directory
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.GODOT_TEMPLATES_PATH }}/templates ${{ env.GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable
+
+  export-artifacts:
+    needs: [check, install-godot, install-godot-templates]
+    runs-on: ubuntu-slim
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - preset: "Linux [DEBUG]"
+            is-debug: true
+            output-extension: ""
+          - preset: "macOS [DEBUG]"
+            is-debug: true
+            output-extension: ".app"
+          - preset: "Windows Desktop [DEBUG]"
+            is-debug: true
+            output-extension: ".exe"
+
+    steps:
+      - name: Format Preset Slug
+        run: |
+          PRESET_SLUG=$(echo "${{ matrix.preset }}" \
+            | tr '[:upper:]' '[:lower:]' \
+            | sed \
+            -e 's/[^a-z0-9]/-/g' \
+            -e 's/-\+/-/g' \
+            -e 's/^-\|-$//g')
+
+          echo "Formatted Preset Slug: $PRESET_SLUG"
+          echo "PRESET_SLUG=$PRESET_SLUG" >> $GITHUB_ENV
+
+      - name: Configure Godot Templates Environment
+        run: |
+          echo "GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Retrieve Version Information
+        run: |
+          GITHUB_RELEASE_VERSION="${{ github.ref_name }}"
+          REPOSITORY_HEAD_SHA="$(git rev-parse --short HEAD)"
+
+          echo "Retrieved GitHub Release Version: $GITHUB_RELEASE_VERSION"
+          echo "Retrieved Repository Head SHA256 Checksum: $REPOSITORY_HEAD_SHA"
+
+          echo "GITHUB_RELEASE_VERSION=$GITHUB_RELEASE_VERSION" >> $GITHUB_ENV
+          echo "REPOSITORY_HEAD_SHA=$REPOSITORY_HEAD_SHA" >> $GITHUB_ENV
+
+      - name: Format Artifact Name
+        run: |
+          ARTIFACT_NAME="${{ env.EXPORT_NAME }}.${{ env.GITHUB_RELEASE_VERSION }}.${{ env.REPOSITORY_HEAD_SHA }}.${{ env.PRESET_SLUG }}"
+
+          echo "Formatted Artifact Name: $ARTIFACT_NAME"
+          echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
+
+      - name: Restore Installed Godot
+        uses: ./.github/actions/restore-cached-archive
+        with:
+          checksum: ${{ env.CHECKSUM_GODOT }}
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}
+
+      - name: Restore Installed Godot Templates
+        uses: ./.github/actions/restore-cached-archive
+        with:
+          checksum: ${{ env.CHECKSUM_GODOT_TEMPLATES }}
+          extract-path: ${{ env.GODOT_TEMPLATES_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
+
+      - name: Godot Version
+        run: |
+          ${{ env.BIN_PATH }}/godot --version
+
+      - name: Godot Templates Version
+        run: |
+          cat ${{ env.GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable/version.txt
+
+      - name: Add Bin Path to PATH
+        run: |
+          echo "${{ env.BIN_PATH }}" >> $GITHUB_PATH
+
+      - name: Export ${{ matrix.preset }} Artifacts
+        run: |
+          mkdir -v -p artifacts/${{ env.PRESET_SLUG }}
+
+          cd $PROJECT_PATH
+
+          # NOTE: Editor-only addons need to be removed to prevent shipping with
+          # artifacts and any errors they might cause.
+          rm -rf ./addons/GDQuest_GDScript_formatter
+
+          ARTIFACT_FILE_NAME="${{ env.ARTIFACT_NAME }}${{ matrix.output-extension }}"
+
+          godot \
+            --headless \
+            --verbose \
+            ${{ matrix.is-debug == true && '--export-debug' || '--export-release' }} "${{ matrix.preset }}" \
+            "${GITHUB_WORKSPACE}/artifacts/${{ env.PRESET_SLUG }}/${ARTIFACT_FILE_NAME}"
+
+      - name: Zip ${{ matrix.preset }} Artifacts
+        run: |
+          cd artifacts/${{ env.PRESET_SLUG }}
+          zip -r "${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }}.zip" .
+
+      - name: Upload ${{ matrix.preset }} Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.ARTIFACT_NAME }}.zip
+
+      - name: Release ${{ matrix.preset }} Artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ env.ARTIFACT_NAME }}.zip
