@@ -61,11 +61,11 @@ text = "Name:"
 layout_mode = 2
 text = "CLEVER-GIRL"
 
-[node name="origin_country" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+[node name="Origin_Country" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
 text = "Country of Origin:"
 
-[node name="origin_country2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
+[node name="Origin_Country2" type="Label" parent="Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info"]
 layout_mode = 2
 text = "ISLANUBLAR"
 
