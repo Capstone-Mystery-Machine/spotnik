@@ -1,23 +1,51 @@
 extends Node3D
 
-@export var spawn_positions: Array[Vector3] = [
-	Vector3(-2.7409, 2.864, -2.4372),
-	Vector3(3.1786, 2.2535, -2.1817),
-	Vector3(2.4875, -2.6795, -2.8872),
-	Vector3(2.0, 2.0, 3.2192),
-	Vector3(-3.0571, 2.5818, 2.175)]
+@export var landmark_scene: PackedScene
+@export var json_path: String = "/Users/dannyjohnston/Downloads/satellites.json"
 
-@onready var template: Node3D = $Landmark
+var satellite_data: Array = []
 
-func _ready():
-	spawn_all_satellites()
+func _ready() -> void:
+	load_satellite_data()
+	spawn_all_landmarks()
 
-func spawn_all_satellites() -> void:
-	for pos in spawn_positions:
-		spawn_satellite_at(pos)
-
-func spawn_satellite_at(pos: Vector3) -> void:
+func load_satellite_data() -> void:
+	if not FileAccess.file_exists(json_path):
+		push_error("JSON file not found at: " + json_path)
+		return
 	
-	var satellite_copy = template.duplicate()
-	add_child(satellite_copy)
-	satellite_copy.global_position = global_position + pos
+	var file = FileAccess.open(json_path, FileAccess.READ)
+	var json_text = file.get_as_text()
+	file.close()
+	
+	var parsed = JSON.parse_string(json_text)
+	
+	if typeof(parsed) != TYPE_ARRAY:
+		push_error("JSON format invalid!")
+		return
+	
+	satellite_data = parsed
+
+func spawn_all_landmarks() -> void:
+	for data in satellite_data:
+		spawn_landmark(data)
+
+func spawn_landmark(data: Dictionary) -> void:
+	if landmark_scene == null:
+		return
+	
+	var landmark = landmark_scene.instantiate()
+	add_child(landmark)
+	
+	# Convert JSON position array → Vector3
+	var pos_array = data["position"]
+	var position = Vector3(pos_array[0], pos_array[1], pos_array[2])
+	landmark.position = position
+	
+	landmark.setup(
+		data["int_designator"],
+		data["norad_id"],
+		data["name"],
+		data["country"],
+		data["launch"]
+	)
