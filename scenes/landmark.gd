@@ -5,6 +5,8 @@ var norad_catalog_id: String
 var satellite_name: String
 var country: String
 var launch_date: int
+var latitude: float
+var longitude: float
 
 
 func setup(
@@ -13,12 +15,16 @@ func setup(
 		sat_name: String,
 		country_name: String,
 		launch: int,
+		lat: float,
+		long: float,
 ) -> void:
 	international_designator = id_designator
 	norad_catalog_id = norad_id
 	satellite_name = sat_name
 	country = country_name
 	launch_date = launch
+	latitude = lat
+	longitude = long
 
 
 signal inner_entered(body: CollisionObject3D)

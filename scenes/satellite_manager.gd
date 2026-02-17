@@ -5,6 +5,8 @@ extends Node3D
 
 var satellite_data: Array = []
 
+var spawn_radius: float = 10.0
+
 
 func _ready() -> void:
 	load_satellite_data()
@@ -41,9 +43,19 @@ func spawn_landmark(data: Dictionary) -> void:
 	var landmark = landmark_scene.instantiate()
 	add_child(landmark)
 
-	# Convert JSON position array → Vector3
-	var pos_array = data["position"]
-	var sat_position = Vector3(pos_array[0], pos_array[1], pos_array[2])
+	# Convert latitude/longitude → Cartesian (radius = 10m)
+	var latitude: float = data["latitude"]
+	var longitude: float = data["longitude"]
+
+	var lat_rad = deg_to_rad(latitude)
+	var lon_rad = deg_to_rad(longitude)
+
+	var x = spawn_radius * cos(lat_rad) * cos(lon_rad)
+	var y = spawn_radius * sin(lat_rad)
+	var z = spawn_radius * cos(lat_rad) * sin(lon_rad)
+
+	var sat_position = Vector3(x, y, z)
+
 	landmark.position = sat_position
 
 	landmark.setup(
@@ -52,4 +64,6 @@ func spawn_landmark(data: Dictionary) -> void:
 		data["name"],
 		data["country"],
 		data["launch"],
+		data["latitude"],
+		data["longitude"],
 	)
