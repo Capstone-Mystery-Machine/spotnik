@@ -43,7 +43,6 @@ func spawn_landmark(data: Dictionary) -> void:
 	var landmark = landmark_scene.instantiate()
 	add_child(landmark)
 
-	# Convert latitude/longitude → Cartesian (radius = 10m)
 	var latitude: float = data["latitude"]
 	var longitude: float = data["longitude"]
 
@@ -55,7 +54,6 @@ func spawn_landmark(data: Dictionary) -> void:
 	var z = spawn_radius * cos(lat_rad) * sin(lon_rad)
 
 	var sat_position = Vector3(x, y, z)
-
 	landmark.position = sat_position
 
 	landmark.setup(
