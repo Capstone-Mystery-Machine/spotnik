@@ -83,19 +83,8 @@ func _ready() -> void:
 ##       applied basis matrix is interpolated along the arc of rotation and thus
 ##       moves at a constant speed. That is, the rotation remains orthonormal.
 func _process(delta: float) -> void:
-	var gravity = Input.get_gravity()
-	var magnet = Input.get_magnetometer()
-
-	var gravity_direction = gravity.normalized()
-	var magnet_direction = magnet.normalized()
-
-	var gravitational_up = -gravity_direction
-	var cardinal_east = magnet_direction.cross(gravitational_up).normalized()
-	var cardinal_north = gravitational_up.cross(cardinal_east).normalized()
-	var cardinal_south = -cardinal_north
-
 	var current_basis = target_node_3d.transform.basis
-	var target_basis = Basis(cardinal_east, gravitational_up, cardinal_south).inverse()
+	var target_basis = InputX.get_geocentric_basis()
 
 	var alignment = current_basis.z.dot(target_basis.z)
 	var error = abs(1.0 - alignment)
