@@ -90,6 +90,7 @@ static func _is_touch_input_mode() -> bool:
 	)
 
 
+## Returns a normalized [Vector3] pointing to Earth's cardinal East.
 static func get_cardinal_east(gravitational_up: Vector3) -> Vector3:
 	var magnetic_field = Input.get_magnetometer()
 	var magnetic_north = magnetic_field.normalized()
@@ -97,10 +98,12 @@ static func get_cardinal_east(gravitational_up: Vector3) -> Vector3:
 	return magnetic_north.cross(gravitational_up).normalized()
 
 
+## Returns a normalized [Vector3] pointing to Earth's cardinal North.
 static func get_cardinal_north(cardinal_east: Vector3, gravitational_up: Vector3) -> Vector3:
 	return gravitational_up.cross(cardinal_east).normalized()
 
 
+## Returns a [Basis] aligned with Earth's coordinate system.
 static func get_geocentric_basis() -> Basis:
 	var gravitational_down = get_gravitational_down()
 	var gravitational_up = -gravitational_down
@@ -112,24 +115,28 @@ static func get_geocentric_basis() -> Basis:
 	return Basis(cardinal_east, gravitational_up, cardinal_south).inverse()
 
 
+## Returns an Euler angles [Vector3] aligned with Earth's coordinate system.
 static func get_geocentric_euler() -> Vector3:
 	var geocentric_basis = get_geocentric_basis()
 
 	return geocentric_basis.get_euler()
 
 
+## Returns a [Quaternion] aligned with Earth's coordinate system.
 static func get_geocentric_quaternion() -> Quaternion:
 	var geocentric_basis = get_geocentric_basis()
 
 	return geocentric_basis.get_rotation_quaternion()
 
 
+## Returns a [Transform3D] aligned with Earth's coordinate system.
 static func get_geocentric_transform() -> Transform3D:
 	var geocentric_basis = get_geocentric_basis()
 
 	return Transform3D(geocentric_basis, Vector3.ZERO)
 
 
+## Returns a normalized [Vector3] pointing in the direction of Earth's gravity.
 static func get_gravitational_down() -> Vector3:
 	var gravitational_force = Input.get_gravity()
 
