@@ -88,3 +88,49 @@ static func _is_touch_input_mode() -> bool:
 			!ProjectSettings.get_setting("input_devices/sensors/enable_gravity")
 			or !ProjectSettings.get_setting("input_devices/sensors/enable_magnetometer") )
 	)
+
+
+static func get_cardinal_east(gravitational_up: Vector3) -> Vector3:
+	var magnetic_field = Input.get_magnetometer()
+	var magnetic_north = magnetic_field.normalized()
+
+	return magnetic_north.cross(gravitational_up).normalized()
+
+
+static func get_cardinal_north(cardinal_east: Vector3, gravitational_up: Vector3) -> Vector3:
+	return gravitational_up.cross(cardinal_east).normalized()
+
+
+static func get_geocentric_basis() -> Basis:
+	var gravitational_down = get_gravitational_down()
+	var gravitational_up = -gravitational_down
+
+	var cardinal_east = get_cardinal_east(gravitational_up)
+	var cardinal_north = get_cardinal_north(cardinal_east, gravitational_up)
+	var cardinal_south = -cardinal_north
+
+	return Basis(cardinal_east, gravitational_up, cardinal_south).inverse()
+
+
+static func get_geocentric_euler() -> Vector3:
+	var geocentric_basis = get_geocentric_basis()
+
+	return geocentric_basis.get_euler()
+
+
+static func get_geocentric_quaternion() -> Quaternion:
+	var geocentric_basis = get_geocentric_basis()
+
+	return geocentric_basis.get_rotation_quaternion()
+
+
+static func get_geocentric_transform() -> Transform3D:
+	var geocentric_basis = get_geocentric_basis()
+
+	return Transform3D(geocentric_basis, Vector3.ZERO)
+
+
+static func get_gravitational_down() -> Vector3:
+	var gravitational_force = Input.get_gravity()
+
+	return gravitational_force.normalized()
