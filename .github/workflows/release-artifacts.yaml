@@ -10,9 +10,32 @@ permissions:
   contents: write
 
 env:
-  BIN_PATH: "${{ github.workspace }}/tools/bin"
+  ANDROID_SDK_BUILD_TOOLS_VERSION: "35.0.1"
+  ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION: "14742923"
+  ANDROID_SDK_CMAKE_VERSION: "3.10.2.4988404"
+  ANDROID_SDK_NDK_VERSION: "28.1.13356709"
+  ANDROID_SDK_PLATFORMS_VERSION: "android-35"
+  ANDROID_KEYSTORE_ALGORITHM: "RSA"
+  ANDROID_KEYSTORE_DEBUG_PATH: "$HOME/.local/share/godot/keystores/debug.keystore"
+  ANDROID_KEYSTORE_DEBUG_ALIAS_NAME: "androiddebugkey"
+  ANDROID_KEYSTORE_DEBUG_DISTINGUISHED_NAME: "CN=Android Debug,O=Android,C=US"
+  ANDROID_KEYSTORE_DEBUG_KEY_PASSWORD: "android"
+  ANDROID_KEYSTORE_DEBUG_STORE_PASSWORD: "android"
+  ANDROID_KEYSTORE_DEBUG_VALIDITY: "99999"
+  ANDROID_KEYSTORE_PRODUCTION_ALIAS_NAME: "spotnik"
+  ANDROID_KEYSTORE_PRODUCTION_DISTINGUISHED_NAME: "CN=Capstone Mystery Machine,O=Capstone Mystery Machine,C=US"
+  ANDROID_KEYSTORE_PRODUCTION_VALIDITY: "10000"
+  BIN_PATH: "${{ github.workspace }}/tools"
+  BIN_ANDROID_SDK_PATH: "${{ github.workspace }}/tools/android_sdk"
+  BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH: "${{ github.workspace }}/tools/android_sdk/cmdline-tools/14742923"
+  BIN_GODOT_PATH: "${{ github.workspace }}/tools/godot"
+  BIN_JDK_PATH: "${{ github.workspace }}/tools/jdk"
+  CHECKSUM_ANDROID_SDK_COMMAND_LINE_TOOLS: "04453066b540409d975c676d781da1477479dde3761310f1a7eb92a1dfb15af7"
   CHECKSUM_GODOT: "02ec53d1cc7dbb9cc6355393c61b9ab43d1244751a124f10248a4802830788cd"
   CHECKSUM_GODOT_TEMPLATES: "1998af37f1387684e2c211cdb483daf492fc64dc6b12096bddcdca25b6910c86"
+  CHECKSUM_JDK: "0c94cbb54325c40dcf026143eb621562017db5525727f2d9131a11250f72c450"
+  JDK_VERSION_ARCHIVE: "17.0.18_8"
+  JDK_VERSION_TAG: "jdk-17.0.18+8"
   EXPORT_NAME: "spotnik"
   GODOT_VERSION: "4.5.1"
   PROJECT_PATH: "."
@@ -37,18 +60,18 @@ jobs:
           url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip"
           checksum: ${{ env.CHECKSUM_GODOT }}
           archive-type: zip
-          extract-path: ${{ env.BIN_PATH }}
+          extract-path: ${{ env.BIN_GODOT_PATH }}
           cache-key-prefix: godot-${{ env.GODOT_VERSION }}
 
       - name: Rename Godot Binary
         if: steps.godot-cache.outputs.cache-hit != 'true'
         run: |
-          mv ${{ env.BIN_PATH }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 ${{ env.BIN_PATH }}/godot
+          mv ${{ env.BIN_GODOT_PATH }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 ${{ env.BIN_GODOT_PATH }}/godot
 
       - name: Setup File Permissions
         if: steps.godot-cache.outputs.cache-hit != 'true'
         run: |
-          chmod +x ${{ env.BIN_PATH }}/godot
+          chmod +x ${{ env.BIN_GODOT_PATH }}/godot
 
   install-godot-templates:
     needs: check
@@ -61,42 +84,170 @@ jobs:
 
       - name: Configure Godot Templates Environment
         run: |
-          echo "GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
+          echo "ASSETS_GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
 
       - name: Install Godot Templates
+        id: godot-templates-cache
         uses: ./.github/actions/download-verify-extract-cache-archive
         with:
           url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz"
           checksum: ${{ env.CHECKSUM_GODOT_TEMPLATES }}
           archive-type: zip
-          extract-path: ${{ env.GODOT_TEMPLATES_PATH }}
+          extract-path: ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}
           cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
 
       - name: Rename Godot Templates Directory
-        if: steps.godot-cache.outputs.cache-hit != 'true'
+        if: steps.godot-templates-cache.outputs.cache-hit != 'true'
         run: |
-          mv ${{ env.GODOT_TEMPLATES_PATH }}/templates ${{ env.GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable
+          mv ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/templates ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable
+
+  install-jdk:
+    needs: check
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
+
+      - name: Install Adoptium Temurin JDK
+        id: jdk-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/adoptium/temurin17-binaries/releases/download/${{ env.JDK_VERSION_TAG }}/OpenJDK17U-jdk_x64_linux_hotspot_${{ env.JDK_VERSION_ARCHIVE }}.tar.gz"
+          checksum: ${{ env.CHECKSUM_JDK }}
+          archive-type: tar.gz
+          extract-path: ${{ env.BIN_JDK_PATH }}
+          cache-key-prefix: adoptium-temurin-${{ env.JDK_VERSION_TAG }}
+
+      - name: Rename Adoptium Temurin JDK Directory
+        if: steps.jdk-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.BIN_JDK_PATH }}/${{ env.JDK_VERSION_TAG }}/* ${{ env.BIN_JDK_PATH }}
+
+  install-android-sdk:
+    needs: [check, install-jdk]
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github/actions/download-verify-extract-cache-archive
+            .github/actions/restore-cached-archive
+
+      - name: Install Android Command Line Tools
+        id: command-line-tools-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://dl.google.com/android/repository/commandlinetools-linux-${{ env.ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION }}_latest.zip"
+          checksum: ${{ env.CHECKSUM_ANDROID_SDK_COMMAND_LINE_TOOLS }}
+          archive-type: zip
+          extract-path: ${{ env.BIN_ANDROID_SDK_PATH }}
+          cache-key-prefix: android-sdk-command-line-tools-${{ env.ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION }}
+
+      - name: Rename Android Command Line Tools Directory
+        if: steps.command-line-tools-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.BIN_ANDROID_SDK_PATH }}/cmdline-tools ${{ env.BIN_ANDROID_SDK_PATH }}/${{ env.ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION }}
+          mkdir ${{ env.BIN_ANDROID_SDK_PATH }}/cmdline-tools
+          mv ${{ env.BIN_ANDROID_SDK_PATH }}/${{ env.ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION }} ${{ env.BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH }}
+
+      - name: Configure Java Home
+        run: |
+          echo "JAVA_HOME=${{ env.BIN_JDK_PATH }}" >> $GITHUB_ENV
+
+      - name: Restore Installed Adoptium Temurin JDK
+        uses: ./.github/actions/restore-cached-archive
+        with:
+          checksum: ${{ env.CHECKSUM_JDK }}
+          extract-path: ${{ env.BIN_JDK_PATH }}
+          cache-key-prefix: adoptium-temurin-${{ env.JDK_VERSION_TAG }}
+
+      - name: Install Android SDK Toolchain
+        run: |
+          yes | ${{ env.BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH }}/bin/sdkmanager --sdk_root=${{ env.BIN_ANDROID_SDK_PATH }} \
+          "build-tools;${{ env.ANDROID_SDK_BUILD_TOOLS_VERSION }}" \
+          "cmake;${{ env.ANDROID_SDK_CMAKE_VERSION }}" \
+          "ndk;${{ env.ANDROID_SDK_NDK_VERSION }}" \
+          "platforms;${{ env.ANDROID_SDK_PLATFORMS_VERSION }}" \
+          "platform-tools"
 
   export-artifacts:
-    needs: [check, install-godot, install-godot-templates]
+    needs:
+      - check
+      - install-android-sdk
+      - install-godot
+      - install-godot-templates
+      - install-jdk
     runs-on: ubuntu-slim
 
     strategy:
       fail-fast: false
       matrix:
         include:
+          - preset: "Android [DEBUG]"
+            is-debug: true
+            requires-android-sdk: true
+            requires-jdk: true
+            output-extension: ".apk"
           - preset: "Linux [DEBUG]"
             is-debug: true
+            requires-android-sdk: false
+            requires-jdk: false
             output-extension: ""
           - preset: "macOS [DEBUG]"
             is-debug: true
+            requires-android-sdk: false
+            requires-jdk: false
             output-extension: ".app"
           - preset: "Windows Desktop [DEBUG]"
             is-debug: true
+            requires-android-sdk: false
+            requires-jdk: false
             output-extension: ".exe"
 
     steps:
-      - name: Format Preset Slug
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Configure Godot Templates Environment
+        run: |
+          echo "ASSETS_GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
+
+      - name: Restore Installed Godot
+        uses: ./.github/actions/restore-cached-archive
+        with:
+          checksum: ${{ env.CHECKSUM_GODOT }}
+          extract-path: ${{ env.BIN_GODOT_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}
+
+      - name: Restore Installed Godot Templates
+        uses: ./.github/actions/restore-cached-archive
+        with:
+          checksum: ${{ env.CHECKSUM_GODOT_TEMPLATES }}
+          extract-path: ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
+
+      - name: Restore Installed Android SDK
+        uses: ./.github/actions/restore-cached-archive
+        if: matrix.requires-android-sdk
+        with:
+          checksum: ${{ env.CHECKSUM_ANDROID_SDK_COMMAND_LINE_TOOLS }}
+          extract-path: ${{ env.BIN_ANDROID_SDK_PATH }}
+          cache-key-prefix: android-sdk-command-line-tools-${{ env.ANDROID_SDK_COMMAND_LINE_TOOLS_VERSION }}
+
+      - name: Restore Installed Adoptium Temurin JDK
+        uses: ./.github/actions/restore-cached-archive
+        if: matrix.requires-jdk
+        with:
+          checksum: ${{ env.CHECKSUM_JDK }}
+          extract-path: ${{ env.BIN_JDK_PATH }}
+          cache-key-prefix: adoptium-temurin-${{ env.JDK_VERSION_TAG }}
+
+      - name: Configure Preset Environment
         run: |
           PRESET_SLUG=$(echo "${{ matrix.preset }}" \
             | tr '[:upper:]' '[:lower:]' \
@@ -108,16 +259,7 @@ jobs:
           echo "Formatted Preset Slug: $PRESET_SLUG"
           echo "PRESET_SLUG=$PRESET_SLUG" >> $GITHUB_ENV
 
-      - name: Configure Godot Templates Environment
-        run: |
-          echo "GODOT_TEMPLATES_PATH=${HOME}/.local/share/godot/export_templates" >> $GITHUB_ENV
-
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          lfs: true
-
-      - name: Retrieve Version Information
+      - name: Configure Repository Information Environment
         run: |
           GITHUB_RELEASE_VERSION="${{ github.ref_name }}"
           REPOSITORY_HEAD_SHA="$(git rev-parse --short HEAD)"
@@ -128,48 +270,97 @@ jobs:
           echo "GITHUB_RELEASE_VERSION=$GITHUB_RELEASE_VERSION" >> $GITHUB_ENV
           echo "REPOSITORY_HEAD_SHA=$REPOSITORY_HEAD_SHA" >> $GITHUB_ENV
 
-      - name: Format Artifact Name
+      - name: Configure Artifact Environment
         run: |
           ARTIFACT_NAME="${{ env.EXPORT_NAME }}.${{ env.GITHUB_RELEASE_VERSION }}.${{ env.REPOSITORY_HEAD_SHA }}.${{ env.PRESET_SLUG }}"
 
           echo "Formatted Artifact Name: $ARTIFACT_NAME"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
 
-      - name: Restore Installed Godot
-        uses: ./.github/actions/restore-cached-archive
-        with:
-          checksum: ${{ env.CHECKSUM_GODOT }}
-          extract-path: ${{ env.BIN_PATH }}
-          cache-key-prefix: godot-${{ env.GODOT_VERSION }}
+      - name: Configure Android SDK Home
+        if: matrix.requires-android-sdk
+        run: |
+          echo "ANDROID_HOME=${{ env.BIN_ANDROID_SDK_PATH }}" >> $GITHUB_ENV
 
-      - name: Restore Installed Godot Templates
-        uses: ./.github/actions/restore-cached-archive
-        with:
-          checksum: ${{ env.CHECKSUM_GODOT_TEMPLATES }}
-          extract-path: ${{ env.GODOT_TEMPLATES_PATH }}
-          cache-key-prefix: godot-${{ env.GODOT_VERSION }}-templates
+      - name: Configure Java Home
+        if: matrix.requires-jdk
+        run: |
+          echo "JAVA_HOME=${{ env.BIN_JDK_PATH }}" >> $GITHUB_ENV
+
+      - name: Add Godot to PATH
+        run: |
+          echo "${{ env.BIN_GODOT_PATH }}" >> $GITHUB_PATH
+
+      - name: Add JDK to PATH
+        if: matrix.requires-android-sdk
+        run: |
+          echo "${{ env.BIN_JDK_PATH }}/bin" >> $GITHUB_PATH
+
+      - name: Add Android SDK to PATH
+        if: matrix.requires-android-sdk
+        run: |
+          echo "${{ env.BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH }}/bin" >> $GITHUB_PATH
+          echo "${{ env.BIN_ANDROID_SDK_PATH }}/platform-tools" >> $GITHUB_PATH
 
       - name: Godot Version
         run: |
-          ${{ env.BIN_PATH }}/godot --version
+          ${{ env.BIN_GODOT_PATH }}/godot --version
 
       - name: Godot Templates Version
         run: |
-          cat ${{ env.GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable/version.txt
+          cat ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable/version.txt
 
-      - name: Add Bin Path to PATH
+      - name: Android SDK Version
+        if: matrix.requires-android-sdk
         run: |
-          echo "${{ env.BIN_PATH }}" >> $GITHUB_PATH
+          sdkmanager --list_installed
+
+      - name: Adoptium Temurin JDK Version
+        if: matrix.requires-jdk
+        run: |
+          cat ${{ env.BIN_JDK_PATH }}/release
+
+      - name: Ignore Toolchain in Export
+        run: |
+          touch ${{ env.BIN_PATH }}/.gdignore
+
+      - name: Remove Development-only Godot Editor Addons
+        run: |
+          rm -rf ./addons/GDQuest_GDScript_formatter
+
+      - name: Generate Android Keystore
+        if: matrix.requires-android-sdk
+        run: |
+          mkdir --parents ~/.local/share/godot/keystores
+
+          keytool -genkeypair \
+          -keystore "${{ env.ANDROID_KEYSTORE_DEBUG_PATH }}" \
+          -keyalg "${{ env.ANDROID_KEYSTORE_ALGORITHM }}" \
+          -alias "${{ env.ANDROID_KEYSTORE_DEBUG_ALIAS_NAME }}" \
+          -dname "${{ env.ANDROID_KEYSTORE_DEBUG_DISTINGUISHED_NAME }}" \
+          -keypass "${{ env.ANDROID_KEYSTORE_DEBUG_KEY_PASSWORD }}" \
+          -storepass "${{ env.ANDROID_KEYSTORE_DEBUG_STORE_PASSWORD }}" \
+          -validity "${{ env.ANDROID_KEYSTORE_DEBUG_VALIDITY }}"
+
+      - name: Point Godot to Android Keystore
+        if: matrix.requires-android-sdk
+        run: |
+          mkdir --parents ~/.config/godot
+
+          cat <<EOF > ~/.config/godot/editor_settings-4.5.tres
+          [gd_resource type="EditorSettings" format=3]
+
+          [resource]
+          export/android/debug_keystore = "${{ env.ANDROID_KEYSTORE_DEBUG_PATH }}"
+          export/android/debug_keystore_user = "${{ env.ANDROID_KEYSTORE_DEBUG_ALIAS_NAME }}"
+          export/android/debug_keystore_pass = "${{ env.ANDROID_KEYSTORE_DEBUG_STORE_PASSWORD }}"
+          EOF
 
       - name: Export ${{ matrix.preset }} Artifacts
         run: |
           mkdir -v -p artifacts/${{ env.PRESET_SLUG }}
 
-          cd $PROJECT_PATH
-
-          # NOTE: Editor-only addons need to be removed to prevent shipping with
-          # artifacts and any errors they might cause.
-          rm -rf ./addons/GDQuest_GDScript_formatter
+          cd $PROJECT_PATH          
 
           ARTIFACT_FILE_NAME="${{ env.ARTIFACT_NAME }}${{ matrix.output-extension }}"
 
