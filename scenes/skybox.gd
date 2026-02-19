@@ -30,13 +30,19 @@ func _update_panorama_texture():
 	var sphere_mesh = meshInstance3D.mesh as SphereMesh
 
 	if !sphere_mesh:
-		push_error("bad dispatch to 'Skybox._update_panorama_texture' (child node 'MeshInstance3D.mesh' is not 'SphereMesh')")
+		push_error(
+			"bad dispatch to 'Skybox._update_panorama_texture' (child node 'MeshInstance3D.mesh' "
+			+ "is not 'SphereMesh')",
+		)
 		return
 
 	var material = meshInstance3D.get_active_material(0) as StandardMaterial3D
 
 	if !material:
-		push_error("bad dispatch to 'Skybox._update_panorama_texture' (child node 'MeshInstance3D.get_active_material(0)' is not 'StandardMaterial3D')")
+		push_error(
+			"bad dispatch to 'Skybox._update_panorama_texture' (child node " +
+			"'MeshInstance3D.get_active_material(0)' is not 'StandardMaterial3D')",
+		)
 		return
 
 	material.albedo_texture = panorama_texture
@@ -48,7 +54,10 @@ func _update_projection_radius():
 	var sphere_mesh = meshInstance3D.mesh as SphereMesh
 
 	if !sphere_mesh:
-		push_error("bad dispatch to 'Skybox._update_projection_radius' (child node 'MeshInstance3D.mesh' is not 'SphereMesh')")
+		push_error(
+			"bad dispatch to 'Skybox._update_projection_radius' (child node " +
+			"'MeshInstance3D.mesh' is not 'SphereMesh')",
+		)
 		return
 
 	sphere_mesh.radius = projection_radius
