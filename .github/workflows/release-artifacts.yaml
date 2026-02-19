@@ -281,6 +281,11 @@ jobs:
         run: |
           echo "${{ env.BIN_GODOT_PATH }}" >> $GITHUB_PATH
 
+      - name: Add JDK to PATH
+        if: matrix.requires-android-sdk
+        run: |
+          echo "${{ env.BIN_JDK_PATH }}/bin" >> $GITHUB_PATH
+
       - name: Add Android SDK to PATH
         if: matrix.requires-android-sdk
         run: |
