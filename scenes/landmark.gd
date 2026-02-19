@@ -37,6 +37,7 @@ signal ui_open
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
 	emit_signal("inner_entered", body)
 	emit_signal("ui_open")
+	SignalBus.ui_info.emit(international_designator, norad_catalog_id, satellite_name, country, launch_date, latitude, longitude)
 
 
 func _on_camera_pointer_detector_inner_exited(body: CollisionObject3D) -> void:
