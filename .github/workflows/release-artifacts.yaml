@@ -15,6 +15,16 @@ env:
   ANDROID_SDK_CMAKE_VERSION: "3.10.2.4988404"
   ANDROID_SDK_NDK_VERSION: "28.1.13356709"
   ANDROID_SDK_PLATFORMS_VERSION: "android-35"
+  ANDROID_KEYSTORE_ALGORITHM: "RSA"
+  ANDROID_KEYSTORE_DEBUG_PATH: "$HOME/.local/share/godot/keystores/debug.keystore"
+  ANDROID_KEYSTORE_DEBUG_ALIAS_NAME: "androiddebugkey"
+  ANDROID_KEYSTORE_DEBUG_DISTINGUISHED_NAME: "CN=Android Debug,O=Android,C=US"
+  ANDROID_KEYSTORE_DEBUG_KEY_PASSWORD: "android"
+  ANDROID_KEYSTORE_DEBUG_STORE_PASSWORD: "android"
+  ANDROID_KEYSTORE_DEBUG_VALIDITY: "99999"
+  ANDROID_KEYSTORE_PRODUCTION_ALIAS_NAME: "spotnik"
+  ANDROID_KEYSTORE_PRODUCTION_DISTINGUISHED_NAME: "CN=Capstone Mystery Machine,O=Capstone Mystery Machine,C=US"
+  ANDROID_KEYSTORE_PRODUCTION_VALIDITY: "10000"
   BIN_PATH: "${{ github.workspace }}/tools"
   BIN_ANDROID_SDK_PATH: "${{ github.workspace }}/tools/android_sdk"
   BIN_ANDROID_SDK_CMDLINE_TOOLS_PATH: "${{ github.workspace }}/tools/android_sdk/cmdline-tools/14742923"
@@ -317,6 +327,34 @@ jobs:
       - name: Remove Development-only Godot Editor Addons
         run: |
           rm -rf ./addons/GDQuest_GDScript_formatter
+
+      - name: Generate Android Keystore
+        if: matrix.requires-android-sdk
+        run: |
+          mkdir --parents ~/.local/share/godot/keystores
+
+          keytool -genkeypair \
+          -keystore "${{ env.ANDROID_KEYSTORE_DEBUG_PATH }}" \
+          -keyalg "${{ env.ANDROID_KEYSTORE_ALGORITHM }}" \
+          -alias "${{ env.ANDROID_KEYSTORE_DEBUG_ALIAS_NAME }}" \
+          -dname "${{ env.ANDROID_KEYSTORE_DEBUG_DISTINGUISHED_NAME }}" \
+          -keypass "${{ env.ANDROID_KEYSTORE_DEBUG_KEY_PASSWORD }}" \
+          -storepass "${{ env.ANDROID_KEYSTORE_DEBUG_STORE_PASSWORD }}" \
+          -validity "${{ env.ANDROID_KEYSTORE_DEBUG_VALIDITY }}"
+
+      - name: Point Godot to Android Keystore
+        if: matrix.requires-android-sdk
+        run: |
+          mkdir --parents ~/.config/godot
+
+          cat <<EOF > ~/.config/godot/editor_settings-4.5.tres
+          [gd_resource type="EditorSettings" format=3]
+
+          [resource]
+          export/android/debug_keystore = "${{ env.ANDROID_KEYSTORE_DEBUG_PATH }}"
+          export/android/debug_keystore_user = "${{ env.ANDROID_KEYSTORE_DEBUG_ALIAS_NAME }}"
+          export/android/debug_keystore_pass = "${{ env.ANDROID_KEYSTORE_DEBUG_STORE_PASSWORD }}"
+          EOF
 
       - name: Export ${{ matrix.preset }} Artifacts
         run: |
