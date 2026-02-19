@@ -51,21 +51,10 @@ func _ready() -> void:
 ## [br]
 ## The following high-level steps are performed:
 ## [br]
-## • Physical gravitational and north pole directional vectors are polled from
-## sensor data.
-## [br]
-## • Cardinal-aligned right and south + gravitational up directions are constructed
-##   from the gravity and north pole directional vectors.
-## [br]
-## • A basis matrix is computed based on the computed right, up, and back directions.
-## [br]
-##     • Because sensor data understands the world as relative to the end-user's
-##       device and Godot understands the device as relative to the world, we
-##       need to invert the computed basis matrix's perspective before further
-##       calculations.
+## • An Earth-aligned [Basis] is computed to serve as the target basis.
 ## [br]
 ## • An error rate is computed based on how far misaligned the target [Node3D]'s
-##   [member Node3D.transform.basis] is from the computed basis matrix.
+##   [member Node3D.transform.basis] is from the computed [Basis].
 ## [br]
 ##     • Negative alignments are treated as high-correction needed via taking
 ##       the absolute value of the computed error rate.
@@ -76,26 +65,15 @@ func _ready() -> void:
 ##     • The dynamic smoothing value controls how sluggish to responsive the
 ##       [Node3D] adjustments are.
 ## [br]
-## • The computed basis matrix is then applied to the target [Node3D]'s
+## • The computed target [Basis] is then applied to the target [Node3D]'s
 ##   [member Node3D.transform.basis] via spherical linear interpolation.
 ## [br]
 ##     • Spherical linear interpolation is used because it guarantees that the
-##       applied basis matrix is interpolated along the arc of rotation and thus
+##       applied [Basis] is interpolated along the arc of rotation and thus
 ##       moves at a constant speed. That is, the rotation remains orthonormal.
 func _process(delta: float) -> void:
-	var gravity = Input.get_gravity()
-	var magnet = Input.get_magnetometer()
-
-	var gravity_direction = gravity.normalized()
-	var magnet_direction = magnet.normalized()
-
-	var gravitational_up = -gravity_direction
-	var cardinal_east = magnet_direction.cross(gravitational_up).normalized()
-	var cardinal_north = gravitational_up.cross(cardinal_east).normalized()
-	var cardinal_south = -cardinal_north
-
 	var current_basis = target_node_3d.transform.basis
-	var target_basis = Basis(cardinal_east, gravitational_up, cardinal_south).inverse()
+	var target_basis = InputX.get_geocentric_basis()
 
 	var alignment = current_basis.z.dot(target_basis.z)
 	var error = abs(1.0 - alignment)
