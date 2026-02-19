@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://vugrltu8ff0i"]
+
+[ext_resource type="Texture2D" uid="uid://chale1pdqno20" path="res://materials/skybox_a.png" id="1_tpkrh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_op4v0"]
+shading_mode = 0
+albedo_texture = ExtResource("1_tpkrh")
+
+[sub_resource type="SphereMesh" id="SphereMesh_kpp3c"]
+material = SubResource("StandardMaterial3D_op4v0")
+flip_faces = true
+radius = 1.0
+height = 2.0
+
+[node name="Skybox" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_kpp3c")
