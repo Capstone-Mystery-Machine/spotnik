@@ -1,6 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=9 format=3 uid="uid://vugrltu8ff0i"]
 
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
+
+[sub_resource type="Environment" id="Environment_tpkrh"]
+glow_enabled = true
+glow_intensity = 0.6
+glow_bloom = 0.1
+glow_hdr_threshold = 0.75
+glow_hdr_scale = 1.0
+glow_hdr_luminance_cap = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tpkrh"]
 shading_mode = 0
@@ -12,7 +20,9 @@ flip_faces = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkasw"]
 transparency = 1
 blend_mode = 1
-shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission_energy_multiplier = 1.75
 
 [sub_resource type="SphereMesh" id="SphereMesh_wkasw"]
 material = SubResource("StandardMaterial3D_wkasw")
@@ -21,7 +31,9 @@ flip_faces = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u7e8"]
 transparency = 1
 blend_mode = 1
-shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission_energy_multiplier = 0.8
 
 [sub_resource type="SphereMesh" id="SphereMesh_8u7e8"]
 material = SubResource("StandardMaterial3D_8u7e8")
@@ -29,6 +41,9 @@ flip_faces = true
 
 [node name="Skybox" type="Node3D"]
 script = ExtResource("1_wkasw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tpkrh")
 
 [node name="VoidLayerMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_tpkrh")

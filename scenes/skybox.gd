@@ -111,7 +111,11 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 		material = base_material.duplicate()
 		mesh_instance.set_surface_override_material(0, material)
 
-	material.albedo_texture = texture_2d
+	if mesh_instance == _void_layer_mesh:
+		material.albedo_texture = texture_2d
+		return
+
+	material.emission_texture = texture_2d
 
 
 # Updates the nebulae mesh layer's texture settings based on the exported variable.
