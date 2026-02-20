@@ -5,13 +5,6 @@ extends Node3D
 
 @export_group("Texture Settings")
 
-## Represents the texture applied to the background void layer.
-@export var void_texture: Texture2D:
-	set(value):
-		void_texture = value
-		if is_node_ready():
-			_update_void_texture()
-
 ## Represents the texture applied to the middle nebulae layer.
 @export var nebulae_texture: Texture2D:
 	set(value):
@@ -25,6 +18,13 @@ extends Node3D
 		stars_texture = value
 		if is_node_ready():
 			_update_stars_texture()
+
+## Represents the texture applied to the background void layer.
+@export var void_texture: Texture2D:
+	set(value):
+		void_texture = value
+		if is_node_ready():
+			_update_void_texture()
 
 @export_group("Projection Settings")
 
