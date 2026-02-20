@@ -56,6 +56,19 @@ extends Node3D
 @onready var _nebulae_layer_mesh: MeshInstance3D = $NebulaeLayerMesh
 @onready var _stars_layer_mesh: MeshInstance3D = $StarsLayerMesh
 
+@export_group("Simulation Settings")
+
+## Represents the base rotation speed applied to the void layer.
+@export_range(-0.1, 0.1, 0.00001, "suffix:rad/s") var rotation_speed: float = 0.002
+
+## Represents the rotation speed multiplier applied to the stars layer, based on
+## the base rotation speed.
+@export_range(-2.0, 2.0, 0.00001) var stars_speed_multiplier: float = 1.1
+
+## Represents the rotation speed multiplier applied to the nebulae layer, based
+## on the stars layer's computed speed.
+@export_range(-2.0, 2.0, 0.00001) var nebulae_speed_multiplier: float = 1.1
+
 
 # Applies an exported radius setting to a child mesh layer.
 func _apply_radius(mesh_instance: MeshInstance3D, radius: float, node_name: String):
@@ -131,3 +144,15 @@ func _ready() -> void:
 	_update_stars_texture()
 	_update_void_texture()
 	_update_projection_radius()
+
+
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+
+	var stars_speed = rotation_speed * stars_speed_multiplier
+	var nebulae_speed = stars_speed * nebulae_speed_multiplier
+
+	_void_layer_mesh.rotate_y(rotation_speed * delta)
+	_stars_layer_mesh.rotate_y(stars_speed * delta)
+	_nebulae_layer_mesh.rotate_y(nebulae_speed * delta)
