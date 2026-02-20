@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=13 format=3 uid="uid://vugrltu8ff0i"]
 
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
 
@@ -19,9 +19,6 @@ shading_mode = 0
 material = SubResource("StandardMaterial3D_tpkrh")
 flip_faces = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvgax"]
-shading_mode = 0
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkasw"]
 transparency = 1
 blend_mode = 1
@@ -33,29 +30,42 @@ emission_energy_multiplier = 1.5
 material = SubResource("StandardMaterial3D_wkasw")
 flip_faces = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxhb4"]
-transparency = 1
-blend_mode = 1
-albedo_color = Color(0, 0, 0, 1)
-emission_enabled = true
-emission_energy_multiplier = 1.5
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u7e8"]
 transparency = 1
 blend_mode = 1
-albedo_color = Color(0, 0, 0, 1)
+albedo_color = Color(0, 0, 0, 0.2509804)
 emission_enabled = true
-emission_energy_multiplier = 2.0
+emission = Color(0.060530342, 0.06053035, 0.060530327, 1)
+emission_energy_multiplier = 0.4
 
 [sub_resource type="SphereMesh" id="SphereMesh_8u7e8"]
 material = SubResource("StandardMaterial3D_8u7e8")
 flip_faces = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xwgr"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxhb4"]
 transparency = 1
 blend_mode = 1
-albedo_color = Color(0, 0, 0, 1)
+albedo_color = Color(0, 0, 0, 0.4)
 emission_enabled = true
+emission = Color(0.03839712, 0.038397178, 0.03839716, 1)
+emission_energy_multiplier = 0.6
+uv1_scale = Vector3(1.005, 1.005, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_hrkmm"]
+material = SubResource("StandardMaterial3D_kxhb4")
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrkmm"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.7019608)
+emission_enabled = true
+emission = Color(0.0768358, 0.07683582, 0.076835774, 1)
+emission_energy_multiplier = 0.8
+uv1_scale = Vector3(1.001, 1.001, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vk4a3"]
+material = SubResource("StandardMaterial3D_hrkmm")
+flip_faces = true
 
 [node name="Skybox" type="Node3D"]
 script = ExtResource("1_wkasw")
@@ -65,12 +75,19 @@ environment = SubResource("Environment_tpkrh")
 
 [node name="VoidLayerMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_tpkrh")
-surface_material_override/0 = SubResource("StandardMaterial3D_cvgax")
 
 [node name="StarsLayerMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_wkasw")
-surface_material_override/0 = SubResource("StandardMaterial3D_kxhb4")
 
-[node name="NebulaeLayerMesh" type="MeshInstance3D" parent="."]
+[node name="NebulaeLayerNearMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_8u7e8")
-surface_material_override/0 = SubResource("StandardMaterial3D_1xwgr")
+
+[node name="NebulaeLayerMidMesh" type="MeshInstance3D" parent="NebulaeLayerNearMesh"]
+transform = Transform3D(0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, 0.9975641, 0, 0, 0)
+mesh = SubResource("SphereMesh_hrkmm")
+skeleton = NodePath("../..")
+
+[node name="NebulaeLayerFarMesh" type="MeshInstance3D" parent="NebulaeLayerNearMesh"]
+transform = Transform3D(0.9975641, 0, -0.06975647, 0, 1, 0, 0.06975647, 0, 0.9975641, 0, 0, 0)
+mesh = SubResource("SphereMesh_vk4a3")
+skeleton = NodePath("../..")

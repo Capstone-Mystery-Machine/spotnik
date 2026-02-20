@@ -22,8 +22,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98632, 0, -2.7282925)
 landmark_scene = ExtResource("3_cojv1")
 
 [node name="Skybox" parent="." instance=ExtResource("5_kpp3c")]
-void_texture = ExtResource("6_u6u3q")
 nebulae_texture = ExtResource("7_fenpy")
 stars_texture = ExtResource("8_4oxqj")
+void_texture = ExtResource("6_u6u3q")
 
 [connection signal="ui_open" from="Landmark" to="Satel_Info_UI" method="_on_landmark_ui_open"]
