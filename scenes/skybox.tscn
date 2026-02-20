@@ -24,7 +24,7 @@ transparency = 1
 blend_mode = 1
 albedo_color = Color(0, 0, 0, 1)
 emission_enabled = true
-emission_energy_multiplier = 1.75
+emission_energy_multiplier = 1.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_wkasw"]
 material = SubResource("StandardMaterial3D_wkasw")
@@ -35,7 +35,6 @@ transparency = 1
 blend_mode = 1
 albedo_color = Color(0, 0, 0, 1)
 emission_enabled = true
-emission_energy_multiplier = 0.8
 
 [sub_resource type="SphereMesh" id="SphereMesh_8u7e8"]
 material = SubResource("StandardMaterial3D_8u7e8")
