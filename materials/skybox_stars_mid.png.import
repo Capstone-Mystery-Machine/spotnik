@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fcywjxopitke"
-path.s3tc="res://.godot/imported/skybox_stars.png-271a0321432921336fdd19c74920d8d4.s3tc.ctex"
-path.etc2="res://.godot/imported/skybox_stars.png-271a0321432921336fdd19c74920d8d4.etc2.ctex"
+uid="uid://djx562mny74tk"
+path.s3tc="res://.godot/imported/skybox_stars_mid.png-8fda0b7a840b1ebb7c4656422ada173f.s3tc.ctex"
+path.etc2="res://.godot/imported/skybox_stars_mid.png-8fda0b7a840b1ebb7c4656422ada173f.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://materials/skybox_stars.png"
-dest_files=["res://.godot/imported/skybox_stars.png-271a0321432921336fdd19c74920d8d4.s3tc.ctex", "res://.godot/imported/skybox_stars.png-271a0321432921336fdd19c74920d8d4.etc2.ctex"]
+source_file="res://materials/skybox_stars_mid.png"
+dest_files=["res://.godot/imported/skybox_stars_mid.png-8fda0b7a840b1ebb7c4656422ada173f.s3tc.ctex", "res://.godot/imported/skybox_stars_mid.png-8fda0b7a840b1ebb7c4656422ada173f.etc2.ctex"]
 
 [params]
 
