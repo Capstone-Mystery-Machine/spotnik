@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5ou2u38e78kf"]
+[gd_scene load_steps=9 format=3 uid="uid://b5ou2u38e78kf"]
 
 [ext_resource type="PackedScene" uid="uid://ckh0mf4o2awhw" path="res://scenes/device.tscn" id="1_tnvwq"]
 [ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://scenes/satel_info_ui.tscn" id="2_cn1jf"]
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://scenes/landmark.tscn" id="3_cojv1"]
 [ext_resource type="PackedScene" uid="uid://b3c1tcyumuxs2" path="res://scenes/satellite_manager.tscn" id="4_op4v0"]
 [ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://scenes/skybox.tscn" id="5_kpp3c"]
-[ext_resource type="Texture2D" uid="uid://chale1pdqno20" path="res://materials/skybox_a.png" id="6_naeil"]
+[ext_resource type="Texture2D" uid="uid://dcub3lj503nir" path="res://materials/skybox_void.png" id="6_u6u3q"]
+[ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://materials/skybox_nebulae.png" id="7_fenpy"]
+[ext_resource type="Texture2D" uid="uid://fcywjxopitke" path="res://materials/skybox_stars.png" id="8_4oxqj"]
 
 [node name="Worldspawn" type="Node3D"]
 
@@ -20,6 +22,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98632, 0, -2.7282925)
 landmark_scene = ExtResource("3_cojv1")
 
 [node name="Skybox" parent="." instance=ExtResource("5_kpp3c")]
-panorama_texture = ExtResource("6_naeil")
+void_texture = ExtResource("6_u6u3q")
+nebulae_texture = ExtResource("7_fenpy")
+stars_texture = ExtResource("8_4oxqj")
 
 [connection signal="ui_open" from="Landmark" to="Satel_Info_UI" method="_on_landmark_ui_open"]
