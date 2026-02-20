@@ -52,22 +52,22 @@ extends Node3D
 		if is_node_ready():
 			_update_projection_radius()
 
-@onready var _void_layer_mesh: MeshInstance3D = $VoidLayerMesh
-@onready var _nebulae_layer_mesh: MeshInstance3D = $NebulaeLayerMesh
-@onready var _stars_layer_mesh: MeshInstance3D = $StarsLayerMesh
-
 @export_group("Simulation Settings")
 
 ## Represents the base rotation speed applied to the void layer.
 @export_range(-0.1, 0.1, 0.00001, "suffix:rad/s") var rotation_speed: float = 0.002
 
+## Represents the rotation speed multiplier applied to the nebulae layer, based
+## on the stars layer's computed speed.
+@export_range(-2.0, 2.0, 0.00001) var nebulae_speed_multiplier: float = 1.1
+
 ## Represents the rotation speed multiplier applied to the stars layer, based on
 ## the base rotation speed.
 @export_range(-2.0, 2.0, 0.00001) var stars_speed_multiplier: float = 1.1
 
-## Represents the rotation speed multiplier applied to the nebulae layer, based
-## on the stars layer's computed speed.
-@export_range(-2.0, 2.0, 0.00001) var nebulae_speed_multiplier: float = 1.1
+@onready var _void_layer_mesh: MeshInstance3D = $VoidLayerMesh
+@onready var _nebulae_layer_mesh: MeshInstance3D = $NebulaeLayerMesh
+@onready var _stars_layer_mesh: MeshInstance3D = $StarsLayerMesh
 
 
 # Applies an exported radius setting to a child mesh layer.
