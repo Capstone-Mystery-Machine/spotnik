@@ -1,14 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=8 format=3 uid="uid://vugrltu8ff0i"]
 
-[ext_resource type="Texture2D" uid="uid://chale1pdqno20" path="res://materials/skybox_a.png" id="1_tpkrh"]
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tpkrh"]
 shading_mode = 0
-albedo_texture = ExtResource("1_tpkrh")
 
-[sub_resource type="SphereMesh" id="SphereMesh_kpp3c"]
+[sub_resource type="SphereMesh" id="SphereMesh_tpkrh"]
 material = SubResource("StandardMaterial3D_tpkrh")
+flip_faces = true
+radius = 1.063125
+height = 2.12625
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkasw"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_wkasw"]
+material = SubResource("StandardMaterial3D_wkasw")
+flip_faces = true
+radius = 1.0125
+height = 2.025
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u7e8"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_8u7e8"]
+material = SubResource("StandardMaterial3D_8u7e8")
 flip_faces = true
 radius = 1.0
 height = 2.0
@@ -16,5 +36,11 @@ height = 2.0
 [node name="Skybox" type="Node3D"]
 script = ExtResource("1_wkasw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_kpp3c")
+[node name="VoidLayerMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_tpkrh")
+
+[node name="StarsLayerMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_wkasw")
+
+[node name="NebulaeLayerMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_8u7e8")
