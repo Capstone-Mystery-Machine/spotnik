@@ -8,8 +8,6 @@ shading_mode = 0
 [sub_resource type="SphereMesh" id="SphereMesh_tpkrh"]
 material = SubResource("StandardMaterial3D_tpkrh")
 flip_faces = true
-radius = 1.063125
-height = 2.12625
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkasw"]
 transparency = 1
@@ -19,8 +17,6 @@ shading_mode = 0
 [sub_resource type="SphereMesh" id="SphereMesh_wkasw"]
 material = SubResource("StandardMaterial3D_wkasw")
 flip_faces = true
-radius = 1.0125
-height = 2.025
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u7e8"]
 transparency = 1
@@ -30,8 +26,6 @@ shading_mode = 0
 [sub_resource type="SphereMesh" id="SphereMesh_8u7e8"]
 material = SubResource("StandardMaterial3D_8u7e8")
 flip_faces = true
-radius = 1.0
-height = 2.0
 
 [node name="Skybox" type="Node3D"]
 script = ExtResource("1_wkasw")
