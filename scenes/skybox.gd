@@ -30,7 +30,7 @@ extends Node3D
 
 ## Represents how far out the skybox's `MeshInstance3D`'s `SphereMesh` is projected
 ## from its center of mass.
-@export_custom(PROPERTY_HINT_NONE, "suffix:m") var projection_radius: float = 1.0:
+@export_range(0.0, 1000.0, 0.00001, "suffix:m") var projection_radius: float = 1.0:
 	set(value):
 		projection_radius = value
 		if is_node_ready():
@@ -38,7 +38,7 @@ extends Node3D
 
 ## Represents the radius multiplier applied to the stars mesh layer, based on the
 ## projection radius.
-@export var stars_radius_multiplier: float = 1.0125:
+@export_range(1.0, 2.0, 0.00001) var stars_radius_multiplier: float = 1.0125:
 	set(value):
 		stars_radius_multiplier = value
 		if is_node_ready():
@@ -46,7 +46,7 @@ extends Node3D
 
 ## Represents the radius multiplier applied to the void mesh layer, based on the
 ## stars layer's computed projection radius.
-@export var void_radius_multiplier: float = 1.0125:
+@export_range(1.0, 2.0, 0.00001) var void_radius_multiplier: float = 1.0125:
 	set(value):
 		void_radius_multiplier = value
 		if is_node_ready():
