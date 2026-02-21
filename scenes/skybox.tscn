@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=23 format=3 uid="uid://vugrltu8ff0i"]
 
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
 
@@ -18,49 +18,126 @@ shading_mode = 0
 [sub_resource type="SphereMesh" id="SphereMesh_tpkrh"]
 material = SubResource("StandardMaterial3D_tpkrh")
 flip_faces = true
-radius = 1.3675841
-height = 2.7351682
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkasw"]
-transparency = 1
-blend_mode = 1
-depth_draw_mode = 2
-albedo_color = Color(0, 0, 0, 0.5)
-emission_enabled = true
-emission_energy_multiplier = 1.5
+[sub_resource type="Shader" id="Shader_tpkrh"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.5.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_never, cull_back;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+
+uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform vec4 emission : source_color;
+uniform float emission_energy : hint_range(0.0, 100.0, 0.01);
+
+void fragment() {
+	vec4 albedo_tex = texture(texture_albedo, UV);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	vec3 emission_tex = texture(texture_emission, UV).rgb;
+	EMISSION = (emission.rgb + emission_tex) * emission_energy;
+	ALPHA *= albedo.a * albedo_tex.a;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wkasw"]
+render_priority = 0
+shader = SubResource("Shader_tpkrh")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_cvgax"]
-material = SubResource("StandardMaterial3D_wkasw")
+material = SubResource("ShaderMaterial_wkasw")
 flip_faces = true
-radius = 1.3507003
-height = 2.7014005
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxhb4"]
-transparency = 1
-blend_mode = 1
-depth_draw_mode = 2
-albedo_color = Color(0, 0, 0, 0.75000006)
-emission_enabled = true
-emission_energy_multiplier = 1.75
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tpkrh"]
+render_priority = 0
+shader = SubResource("Shader_tpkrh")
+shader_parameter/albedo = Color(0, 0, 0, 0.5)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 1.5
+
+[sub_resource type="Shader" id="Shader_8u7e8"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.5.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_never, cull_back;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+
+uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform vec4 emission : source_color;
+uniform float emission_energy : hint_range(0.0, 100.0, 0.01);
+
+void fragment() {
+	vec4 albedo_tex = texture(texture_albedo, UV);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	vec3 emission_tex = texture(texture_emission, UV).rgb;
+	EMISSION = (emission.rgb + emission_tex) * emission_energy;
+	ALPHA *= albedo.a * albedo_tex.a;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvgax"]
+render_priority = 0
+shader = SubResource("Shader_8u7e8")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_1xwgr"]
-material = SubResource("StandardMaterial3D_kxhb4")
+material = SubResource("ShaderMaterial_cvgax")
 flip_faces = true
-radius = 1.2863812
-height = 2.5727625
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mu0ws"]
-transparency = 1
-depth_draw_mode = 2
-albedo_color = Color(0, 0, 0, 0.90000004)
-emission_enabled = true
-emission_energy_multiplier = 2.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8u7e8"]
+render_priority = 0
+shader = SubResource("Shader_8u7e8")
+shader_parameter/albedo = Color(0, 0, 0, 0.75)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 1.75
+
+[sub_resource type="Shader" id="Shader_kxhb4"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.5.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_never, cull_back;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+
+uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform vec4 emission : source_color;
+uniform float emission_energy : hint_range(0.0, 100.0, 0.01);
+
+void fragment() {
+	vec4 albedo_tex = texture(texture_albedo, UV);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	vec3 emission_tex = texture(texture_emission, UV).rgb;
+	EMISSION = (emission.rgb + emission_tex) * emission_energy;
+	ALPHA *= albedo.a * albedo_tex.a;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1xwgr"]
+render_priority = 0
+shader = SubResource("Shader_kxhb4")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_ab0bn"]
-material = SubResource("StandardMaterial3D_mu0ws")
+material = SubResource("ShaderMaterial_1xwgr")
 flip_faces = true
-radius = 1.225125
-height = 2.45025
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kxhb4"]
+render_priority = 0
+shader = SubResource("Shader_kxhb4")
+shader_parameter/albedo = Color(0, 0, 0, 0.9)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u7e8"]
 transparency = 1
@@ -74,8 +151,6 @@ emission_energy_multiplier = 0.5
 [sub_resource type="SphereMesh" id="SphereMesh_8u7e8"]
 material = SubResource("StandardMaterial3D_8u7e8")
 flip_faces = true
-radius = 1.0
-height = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrkmm"]
 transparency = 1
@@ -89,8 +164,6 @@ uv1_scale = Vector3(1.001, 1.001, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_vk4a3"]
 material = SubResource("StandardMaterial3D_hrkmm")
 flip_faces = true
-radius = 1.21
-height = 2.42
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvgax"]
 transparency = 1
@@ -102,8 +175,6 @@ uv1_scale = Vector3(1.001, 1.001, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_hrkmm"]
 material = SubResource("StandardMaterial3D_cvgax")
 flip_faces = true
-radius = 1.1
-height = 2.2
 
 [node name="Skybox" type="Node3D"]
 script = ExtResource("1_wkasw")
@@ -117,13 +188,16 @@ mesh = SubResource("SphereMesh_tpkrh")
 [node name="StarsLayerFarMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
 mesh = SubResource("SphereMesh_cvgax")
+surface_material_override/0 = SubResource("ShaderMaterial_tpkrh")
 
 [node name="StarsLayerMidMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 0, 0, 0)
 mesh = SubResource("SphereMesh_1xwgr")
+surface_material_override/0 = SubResource("ShaderMaterial_8u7e8")
 
 [node name="StarsLayerNearMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_ab0bn")
+surface_material_override/0 = SubResource("ShaderMaterial_kxhb4")
 
 [node name="NebulaeLayerNearMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_8u7e8")

@@ -12,33 +12,90 @@ extends Node3D
 		if is_node_ready():
 			_update_nebulae_texture()
 
-## Represents the texture applied to the foreground near stars layer.
-@export var stars_near_texture: Texture2D:
-	set(value):
-		stars_near_texture = value
-		if is_node_ready():
-			_update_stars_textures()
-
-## Represents the texture applied to the mid stars layer.
-@export var stars_mid_texture: Texture2D:
-	set(value):
-		stars_mid_texture = value
-		if is_node_ready():
-			_update_stars_textures()
-
-## Represents the texture applied to the background far stars layer.
-@export var stars_far_texture: Texture2D:
-	set(value):
-		stars_far_texture = value
-		if is_node_ready():
-			_update_stars_textures()
-
 ## Represents the texture applied to the background void layer.
 @export var void_texture: Texture2D:
 	set(value):
 		void_texture = value
 		if is_node_ready():
 			_update_void_texture()
+
+@export_subgroup("Near Stars")
+
+@export var stars_near_texture: Texture2D:
+	set(value):
+		stars_near_texture = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export var stars_near_albedo_color: Color = Color(0, 0, 0, 0.9):
+	set(value):
+		stars_near_albedo_color = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export var stars_near_emission_color: Color = Color(0, 0, 0, 1.0):
+	set(value):
+		stars_near_emission_color = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export var stars_near_emission_energy: float = 2.0:
+	set(value):
+		stars_near_emission_energy = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export_subgroup("Mid Stars")
+
+@export var stars_mid_texture: Texture2D:
+	set(value):
+		stars_mid_texture = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export var stars_mid_albedo_color: Color = Color(0, 0, 0, 0.75):
+	set(value):
+		stars_mid_albedo_color = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export var stars_mid_emission_color: Color = Color(0, 0, 0, 1.0):
+	set(value):
+		stars_mid_emission_color = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export var stars_mid_emission_energy: float = 1.75:
+	set(value):
+		stars_mid_emission_energy = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export_subgroup("Far Stars")
+
+@export var stars_far_texture: Texture2D:
+	set(value):
+		stars_far_texture = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export var stars_far_albedo_color: Color = Color(0, 0, 0, 0.5):
+	set(value):
+		stars_far_albedo_color = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export var stars_far_emission_color: Color = Color(0, 0, 0, 1.0):
+	set(value):
+		stars_far_emission_color = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export var stars_far_emission_energy: float = 1.5:
+	set(value):
+		stars_far_emission_energy = value
+		if is_node_ready():
+			_update_stars_materials()
 
 @export_group("Projection Settings")
 
@@ -138,27 +195,40 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 		)
 		return
 
-	var material = mesh_instance.get_surface_override_material(0) as StandardMaterial3D
+	var material = mesh_instance.get_surface_override_material(0)
 
 	if !material:
-		var base_material = mesh_instance.get_active_material(0) as StandardMaterial3D
+		var base_material = mesh_instance.get_active_material(0)
 
 		if !base_material:
 			push_error(
 				"bad dispatch to 'Skybox._apply_texture' (child node '" + node_name +
-				".get_active_material(0)' is not 'StandardMaterial3D')",
+				".get_active_material(0)' is empty)",
 			)
 			return
 
 		material = base_material.duplicate()
 		mesh_instance.set_surface_override_material(0, material)
 
-	material.albedo_texture = texture_2d
+	if material is StandardMaterial3D:
+		material.albedo_texture = texture_2d
+		if mesh_instance != _void_layer_mesh:
+			material.emission_texture = texture_2d
 
-	if mesh_instance == _void_layer_mesh:
-		return
+	elif material is ShaderMaterial:
+		material.set_shader_parameter("texture_albedo", texture_2d)
+		material.set_shader_parameter("texture_emission", texture_2d)
 
-	material.emission_texture = texture_2d
+
+# Applies exported colors and energy settings to the star shaders.
+func _apply_star_material(mesh_instance: MeshInstance3D, texture_2d: Texture2D, albedo: Color, emission: Color, energy: float, node_name: String):
+	_apply_texture(mesh_instance, texture_2d, node_name)
+
+	var material = mesh_instance.get_surface_override_material(0)
+	if material is ShaderMaterial:
+		material.set_shader_parameter("albedo", albedo)
+		material.set_shader_parameter("emission", emission)
+		material.set_shader_parameter("emission_energy", energy)
 
 
 # Updates the nebulae mesh layer's texture settings based on the exported variable.
@@ -169,10 +239,33 @@ func _update_nebulae_texture():
 
 
 # Updates the star mesh layer's texture settings based on the exported variable.
-func _update_stars_textures():
-	_apply_texture(_stars_layer_near_mesh, stars_near_texture, "StarsLayerNearMesh")
-	_apply_texture(_stars_layer_mid_mesh, stars_mid_texture, "StarsLayerMidMesh")
-	_apply_texture(_stars_layer_far_mesh, stars_far_texture, "StarsLayerFarMesh")
+func _update_stars_materials():
+	_apply_star_material(
+		_stars_layer_near_mesh,
+		stars_near_texture,
+		stars_near_albedo_color,
+		stars_near_emission_color,
+		stars_near_emission_energy,
+		"StarsLayerNearMesh",
+	)
+
+	_apply_star_material(
+		_stars_layer_mid_mesh,
+		stars_mid_texture,
+		stars_mid_albedo_color,
+		stars_mid_emission_color,
+		stars_mid_emission_energy,
+		"StarsLayerMidMesh",
+	)
+
+	_apply_star_material(
+		_stars_layer_far_mesh,
+		stars_far_texture,
+		stars_far_albedo_color,
+		stars_far_emission_color,
+		stars_far_emission_energy,
+		"StarsLayerFarMesh",
+	)
 
 
 # Updates the void mesh layer's texture settings based on the exported variable.
@@ -204,7 +297,7 @@ func _update_projection_radius():
 
 func _ready() -> void:
 	_update_nebulae_texture()
-	_update_stars_textures()
+	_update_stars_materials()
 	_update_void_texture()
 	_update_projection_radius()
 
