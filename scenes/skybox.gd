@@ -286,6 +286,29 @@ extends Node3D
 ## on the stars layer's computed speed.
 @export_range(-2.0, 2.0, 0.00001) var nebulae_speed_multiplier: float = 0.99
 
+@export_group("Star Field Settings")
+
+## Represents the color tint applied to the background star layer.
+@export var stars_field_background_color_tint: Color = Color(0.8, 0.8, 1.0, 1.0):
+	set(value):
+		stars_field_background_color_tint = value
+		if is_node_ready():
+			_update_stars_materials()
+
+## Represents how much the background star layer is dimmed.
+@export_range(0.0, 1.0, 0.001) var stars_field_background_dimming: float = 0.15:
+	set(value):
+		stars_field_background_dimming = value
+		if is_node_ready():
+			_update_stars_materials()
+
+## Represents the horizontal shift offset for the background star layer.
+@export_range(0.0, 1.0, 0.001) var stars_field_background_horizontal_shift: float = 0.33:
+	set(value):
+		stars_field_background_horizontal_shift = value
+		if is_node_ready():
+			_update_stars_materials()
+
 @export_group("Twinkle Settings")
 
 @export_subgroup("Near Stars")
@@ -430,6 +453,9 @@ func _apply_field_material(
 		albedo: Color,
 		emission: Color,
 		energy: float,
+		background_color_tint: Color,
+		background_dimming: float,
+		background_horizontal_shift: float,
 		node_name: String,
 ):
 	_apply_texture(mesh_instance, texture_2d, node_name)
@@ -440,6 +466,9 @@ func _apply_field_material(
 		material.set_shader_parameter("albedo", albedo)
 		material.set_shader_parameter("emission", emission)
 		material.set_shader_parameter("emission_energy", energy)
+		material.set_shader_parameter("background_horizontal_shift", background_horizontal_shift)
+		material.set_shader_parameter("background_dimming", background_dimming)
+		material.set_shader_parameter("background_color_tint", background_color_tint)
 
 
 # Applies exported settings to the nebulae shaders.
@@ -560,6 +589,9 @@ func _update_stars_materials():
 		stars_field_albedo_color,
 		stars_field_emission_color,
 		stars_field_emission_energy,
+		stars_field_background_color_tint,
+		stars_field_background_dimming,
+		stars_field_background_horizontal_shift,
 		"StarsLayerFieldMesh",
 	)
 
