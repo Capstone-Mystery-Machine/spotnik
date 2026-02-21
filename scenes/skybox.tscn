@@ -18,6 +18,8 @@ shading_mode = 0
 [sub_resource type="SphereMesh" id="SphereMesh_tpkrh"]
 material = SubResource("StandardMaterial3D_tpkrh")
 flip_faces = true
+radius = 1.3675841
+height = 2.7351682
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkasw"]
 transparency = 1
@@ -30,6 +32,8 @@ emission_energy_multiplier = 1.5
 [sub_resource type="SphereMesh" id="SphereMesh_cvgax"]
 material = SubResource("StandardMaterial3D_wkasw")
 flip_faces = true
+radius = 1.3507003
+height = 2.7014005
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxhb4"]
 transparency = 1
@@ -42,6 +46,8 @@ emission_energy_multiplier = 1.75
 [sub_resource type="SphereMesh" id="SphereMesh_1xwgr"]
 material = SubResource("StandardMaterial3D_kxhb4")
 flip_faces = true
+radius = 1.2863812
+height = 2.5727625
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mu0ws"]
 transparency = 1
@@ -53,6 +59,8 @@ emission_energy_multiplier = 2.0
 [sub_resource type="SphereMesh" id="SphereMesh_ab0bn"]
 material = SubResource("StandardMaterial3D_mu0ws")
 flip_faces = true
+radius = 1.225125
+height = 2.45025
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u7e8"]
 transparency = 1
@@ -66,6 +74,8 @@ emission_energy_multiplier = 0.5
 [sub_resource type="SphereMesh" id="SphereMesh_8u7e8"]
 material = SubResource("StandardMaterial3D_8u7e8")
 flip_faces = true
+radius = 1.0
+height = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrkmm"]
 transparency = 1
@@ -79,6 +89,8 @@ uv1_scale = Vector3(1.001, 1.001, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_vk4a3"]
 material = SubResource("StandardMaterial3D_hrkmm")
 flip_faces = true
+radius = 1.21
+height = 2.42
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvgax"]
 transparency = 1
@@ -90,6 +102,8 @@ uv1_scale = Vector3(1.001, 1.001, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_hrkmm"]
 material = SubResource("StandardMaterial3D_cvgax")
 flip_faces = true
+radius = 1.1
+height = 2.2
 
 [node name="Skybox" type="Node3D"]
 script = ExtResource("1_wkasw")
