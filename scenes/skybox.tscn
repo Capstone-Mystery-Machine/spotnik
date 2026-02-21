@@ -21,6 +21,7 @@ flip_faces = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkasw"]
 transparency = 1
+blend_mode = 1
 depth_draw_mode = 2
 albedo_color = Color(0, 0, 0, 0.5)
 emission_enabled = true
@@ -32,10 +33,11 @@ flip_faces = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxhb4"]
 transparency = 1
+blend_mode = 1
 depth_draw_mode = 2
 albedo_color = Color(0, 0, 0, 0.75000006)
 emission_enabled = true
-emission_energy_multiplier = 1.5
+emission_energy_multiplier = 1.75
 
 [sub_resource type="SphereMesh" id="SphereMesh_1xwgr"]
 material = SubResource("StandardMaterial3D_kxhb4")
@@ -46,7 +48,7 @@ transparency = 1
 depth_draw_mode = 2
 albedo_color = Color(0, 0, 0, 0.90000004)
 emission_enabled = true
-emission_energy_multiplier = 1.5
+emission_energy_multiplier = 2.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_ab0bn"]
 material = SubResource("StandardMaterial3D_mu0ws")
@@ -54,6 +56,7 @@ flip_faces = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u7e8"]
 transparency = 1
+blend_mode = 1
 depth_draw_mode = 2
 albedo_color = Color(0, 0, 0, 0.4)
 emission_enabled = true
@@ -80,10 +83,8 @@ flip_faces = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvgax"]
 transparency = 1
 depth_draw_mode = 2
+shading_mode = 0
 albedo_color = Color(0, 0, 0, 0.65000004)
-emission_enabled = true
-emission = Color(0.42358288, 0.3491902, 0.48452926, 1)
-emission_energy_multiplier = 0.75
 uv1_scale = Vector3(1.001, 1.001, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_hrkmm"]
