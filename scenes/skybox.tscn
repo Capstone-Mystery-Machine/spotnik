@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=20 format=3 uid="uid://vugrltu8ff0i"]
 
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
+[ext_resource type="Shader" uid="uid://bjxhgx8difers" path="res://shaders/star_field.gdshader" id="2_cvgax"]
 [ext_resource type="Shader" uid="uid://cr6fcjle7lg53" path="res://shaders/point_star.gdshader" id="2_wkasw"]
 [ext_resource type="Shader" uid="uid://b3485rvpg1yev" path="res://shaders/nebulae.gdshader" id="3_8u7e8"]
 
@@ -23,13 +24,10 @@ flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wkasw"]
 render_priority = 0
-shader = ExtResource("2_wkasw")
+shader = ExtResource("2_cvgax")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/emission = Color(0, 0, 0, 1)
 shader_parameter/emission_energy = 0.0
-shader_parameter/twinkle_frequency = 1000.0
-shader_parameter/twinkle_intensity = 0.75
-shader_parameter/twinkle_speed = 2.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_cvgax"]
 material = SubResource("ShaderMaterial_wkasw")
@@ -104,6 +102,10 @@ environment = SubResource("Environment_tpkrh")
 
 [node name="VoidLayerMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_tpkrh")
+
+[node name="StarsLayerFieldMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+mesh = SubResource("SphereMesh_cvgax")
 
 [node name="StarsLayerFarMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
