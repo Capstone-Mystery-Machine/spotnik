@@ -42,7 +42,8 @@ extends Node3D
 		if is_node_ready():
 			_update_stars_materials()
 
-## Represents the brightness multiplier for the emission color applied to the near stars layer.
+## Represents the brightness multiplier for the emission color applied to the near
+## stars layer.
 @export var stars_near_emission_energy: float = 2.0:
 	set(value):
 		stars_near_emission_energy = value
@@ -72,7 +73,8 @@ extends Node3D
 		if is_node_ready():
 			_update_stars_materials()
 
-## Represents the brightness multiplier for the emission color applied to the mid stars layer.
+## Represents the brightness multiplier for the emission color applied to the mid
+## stars layer.
 @export var stars_mid_emission_energy: float = 1.75:
 	set(value):
 		stars_mid_emission_energy = value
@@ -102,7 +104,8 @@ extends Node3D
 		if is_node_ready():
 			_update_stars_materials()
 
-## Represents the brightness multiplier for the emission color applied to the far stars layer.
+## Represents the brightness multiplier for the emission color applied to the far
+## stars layer.
 @export var stars_far_emission_energy: float = 1.5:
 	set(value):
 		stars_far_emission_energy = value
@@ -183,7 +186,8 @@ extends Node3D
 		if is_node_ready():
 			_update_stars_materials()
 
-## Represents the spatial density of the twinkle pattern on the near stars layer. Higher values make stars twinkle independently.
+## Represents the spatial density of the twinkle pattern on the near stars layer.
+## Higher values make stars twinkle independently.
 @export_range(0.0, 5000.0, 1.0) var stars_near_twinkle_frequency: float = 800.0:
 	set(value):
 		stars_near_twinkle_frequency = value
@@ -206,7 +210,8 @@ extends Node3D
 		if is_node_ready():
 			_update_stars_materials()
 
-## Represents the spatial density of the twinkle pattern on the mid stars layer. Higher values make stars twinkle independently.
+## Represents the spatial density of the twinkle pattern on the mid stars layer.
+## Higher values make stars twinkle independently.
 @export_range(0.0, 5000.0, 1.0) var stars_mid_twinkle_frequency: float = 1500.0:
 	set(value):
 		stars_mid_twinkle_frequency = value
@@ -229,7 +234,8 @@ extends Node3D
 		if is_node_ready():
 			_update_stars_materials()
 
-## Represents the spatial density of the twinkle pattern on the far stars layer. Higher values make stars twinkle independently.
+## Represents the spatial density of the twinkle pattern on the far stars layer.
+## Higher values make stars twinkle independently.
 @export_range(0.0, 5000.0, 1.0) var stars_far_twinkle_frequency: float = 2500.0:
 	set(value):
 		stars_far_twinkle_frequency = value
