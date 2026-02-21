@@ -114,7 +114,7 @@ extends Node3D
 			_update_stars_materials()
 
 ## Represents the glowing emission color applied to the field stars layer.
-@export var stars_field_emission_color: Color = Color(0, 0, 0, 1):
+@export var stars_field_emission_color: Color = Color(0.015, 0.015, 0.015, 1):
 	set(value):
 		stars_field_emission_color = value
 		if is_node_ready():
@@ -122,7 +122,7 @@ extends Node3D
 
 ## Represents the brightness multiplier for the emission color applied to the field
 ## stars layer.
-@export var stars_field_emission_energy: float = 1.5:
+@export var stars_field_emission_energy: float = 2.0:
 	set(value):
 		stars_field_emission_energy = value
 		if is_node_ready():
