@@ -5,6 +5,8 @@ extends Node3D
 
 @export_group("Texture Settings")
 
+@export_subgroup("Void Settings")
+
 ## Represents the texture applied to the background void layer.
 @export var void_texture: Texture2D:
 	set(value):
@@ -12,7 +14,7 @@ extends Node3D
 		if is_node_ready():
 			_update_void_texture()
 
-@export_group("Nebulae Settings")
+@export_subgroup("Nebulae Settings")
 
 ## Represents the texture applied to the nebulae layers.
 @export var nebulae_texture: Texture2D:
@@ -21,7 +23,7 @@ extends Node3D
 		if is_node_ready():
 			_update_nebulae_materials()
 
-@export_subgroup("Near Nebulae")
+@export_group("Texture Settings/Nebulae Settings/Near Nebulae")
 
 ## Represents the base albedo color and transparency applied to the near nebulae layer.
 @export var nebulae_near_albedo_color: Color = Color(0, 0, 0, 0.4):
@@ -45,7 +47,7 @@ extends Node3D
 		if is_node_ready():
 			_update_nebulae_materials()
 
-@export_subgroup("Mid Nebulae")
+@export_group("Texture Settings/Nebulae Settings/Mid Nebulae")
 
 ## Represents the base albedo color and transparency applied to the mid nebulae layer.
 @export var nebulae_mid_albedo_color: Color = Color(0, 0, 0, 0.65):
@@ -69,7 +71,7 @@ extends Node3D
 		if is_node_ready():
 			_update_nebulae_materials()
 
-@export_subgroup("Far Nebulae")
+@export_group("Texture Settings/Nebulae Settings/Far Nebulae")
 
 ## Represents the base albedo color and transparency applied to the far nebulae layer.
 @export var nebulae_far_albedo_color: Color = Color(0, 0, 0, 0.75):
@@ -93,9 +95,9 @@ extends Node3D
 		if is_node_ready():
 			_update_nebulae_materials()
 
-@export_group("Stars Settings")
+@export_subgroup("Stars Settings")
 
-@export_subgroup("Field Stars")
+@export_group("Texture Settings/Star Settings/Field Stars")
 
 ## Represents the texture applied to the field stars layer.
 @export var stars_field_texture: Texture2D:
@@ -105,14 +107,14 @@ extends Node3D
 			_update_stars_materials()
 
 ## Represents the base albedo color and transparency applied to the field stars layer.
-@export var stars_field_albedo_color: Color = Color(0, 0, 0, 0.4):
+@export var stars_field_albedo_color: Color = Color(0, 0, 0, 0.6):
 	set(value):
 		stars_field_albedo_color = value
 		if is_node_ready():
 			_update_stars_materials()
 
 ## Represents the glowing emission color applied to the field stars layer.
-@export var stars_field_emission_color: Color = Color(0.3, 0.3, 0.3, 1):
+@export var stars_field_emission_color: Color = Color(0, 0, 0, 1):
 	set(value):
 		stars_field_emission_color = value
 		if is_node_ready():
@@ -120,13 +122,13 @@ extends Node3D
 
 ## Represents the brightness multiplier for the emission color applied to the field
 ## stars layer.
-@export var stars_field_emission_energy: float = 2.0:
+@export var stars_field_emission_energy: float = 1.5:
 	set(value):
 		stars_field_emission_energy = value
 		if is_node_ready():
 			_update_stars_materials()
 
-@export_subgroup("Near Stars")
+@export_group("Texture Settings/Star Settings/Near Stars")
 
 ## Represents the texture applied to the near stars layer.
 @export var stars_near_texture: Texture2D:
@@ -157,7 +159,7 @@ extends Node3D
 		if is_node_ready():
 			_update_stars_materials()
 
-@export_subgroup("Mid Stars")
+@export_group("Texture Settings/Star Settings/Mid Stars")
 
 ## Represents the texture applied to the mid stars layer.
 @export var stars_mid_texture: Texture2D:
@@ -188,7 +190,7 @@ extends Node3D
 		if is_node_ready():
 			_update_stars_materials()
 
-@export_subgroup("Far Stars")
+@export_group("Texture Settings/Star Settings/Far Stars")
 
 ## Represents the texture applied to the far stars layer.
 @export var stars_far_texture: Texture2D:
@@ -286,7 +288,51 @@ extends Node3D
 ## on the stars layer's computed speed.
 @export_range(-2.0, 2.0, 0.00001) var nebulae_speed_multiplier: float = 0.99
 
-@export_group("Star Field Settings")
+@export_group("Nebulae Effects Settings")
+
+## Represents how much of the nebulae opacity is removed by the carving noise.
+@export_range(0.0, 1.0, 0.01) var nebulae_carving_intensity: float = 0.65:
+	set(value):
+		nebulae_carving_intensity = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents the 3D noise texture used to carve out the nebulae volume.
+@export var nebulae_carving_noise_texture: Texture3D:
+	set(value):
+		nebulae_carving_noise_texture = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents the size of the noise pattern used for carving.
+@export var nebulae_carving_scale: float = 2.5:
+	set(value):
+		nebulae_carving_scale = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents how fast the 3D noise moves to carve out the nebulae.
+@export var nebulae_carving_speed: float = 0.08:
+	set(value):
+		nebulae_carving_speed = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents the strength of the swirling flow map distortion.
+@export var nebulae_flow_intensity: float = 0.04:
+	set(value):
+		nebulae_flow_intensity = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents how fast the flow map distortion moves.
+@export var nebulae_flow_speed: float = 0.02:
+	set(value):
+		nebulae_flow_speed = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+@export_group("Star Field Effects Settings")
 
 ## Represents the color tint applied to the background star layer.
 @export var stars_field_background_color_tint: Color = Color(0.8, 0.8, 1.0, 1.0):
@@ -309,7 +355,7 @@ extends Node3D
 		if is_node_ready():
 			_update_stars_materials()
 
-@export_group("Twinkle Settings")
+@export_group("Twinkle Effect Settings")
 
 @export_subgroup("Near Stars")
 
@@ -446,31 +492,6 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 		material.set_shader_parameter("texture_emission", texture_2d)
 
 
-# Applies exported settings to the field star shaders.
-func _apply_field_material(
-		mesh_instance: MeshInstance3D,
-		texture_2d: Texture2D,
-		albedo: Color,
-		emission: Color,
-		energy: float,
-		background_color_tint: Color,
-		background_dimming: float,
-		background_horizontal_shift: float,
-		node_name: String,
-):
-	_apply_texture(mesh_instance, texture_2d, node_name)
-
-	var material = mesh_instance.mesh.material
-
-	if material is ShaderMaterial:
-		material.set_shader_parameter("albedo", albedo)
-		material.set_shader_parameter("emission", emission)
-		material.set_shader_parameter("emission_energy", energy)
-		material.set_shader_parameter("background_horizontal_shift", background_horizontal_shift)
-		material.set_shader_parameter("background_dimming", background_dimming)
-		material.set_shader_parameter("background_color_tint", background_color_tint)
-
-
 # Applies exported settings to the nebulae shaders.
 func _apply_nebulae_material(
 		mesh_instance: MeshInstance3D,
@@ -488,6 +509,12 @@ func _apply_nebulae_material(
 		material.set_shader_parameter("albedo", albedo)
 		material.set_shader_parameter("emission", emission)
 		material.set_shader_parameter("emission_energy", energy)
+		material.set_shader_parameter("carving_intensity", nebulae_carving_intensity)
+		material.set_shader_parameter("carving_noise_texture", nebulae_carving_noise_texture)
+		material.set_shader_parameter("carving_scale", nebulae_carving_scale)
+		material.set_shader_parameter("carving_speed", nebulae_carving_speed)
+		material.set_shader_parameter("flow_intensity", nebulae_flow_intensity)
+		material.set_shader_parameter("flow_speed", nebulae_flow_speed)
 
 
 # Applies exported settings to the star shaders.
@@ -513,6 +540,31 @@ func _apply_star_material(
 		material.set_shader_parameter("twinkle_frequency", twinkle_frequency)
 		material.set_shader_parameter("twinkle_intensity", twinkle_intensity)
 		material.set_shader_parameter("twinkle_speed", twinkle_speed)
+
+
+# Applies exported settings to the star field shaders.
+func _apply_star_field_material(
+		mesh_instance: MeshInstance3D,
+		texture_2d: Texture2D,
+		albedo: Color,
+		emission: Color,
+		energy: float,
+		background_color_tint: Color,
+		background_dimming: float,
+		background_horizontal_shift: float,
+		node_name: String,
+):
+	_apply_texture(mesh_instance, texture_2d, node_name)
+
+	var material = mesh_instance.mesh.material
+
+	if material is ShaderMaterial:
+		material.set_shader_parameter("albedo", albedo)
+		material.set_shader_parameter("emission", emission)
+		material.set_shader_parameter("emission_energy", energy)
+		material.set_shader_parameter("background_horizontal_shift", background_horizontal_shift)
+		material.set_shader_parameter("background_dimming", background_dimming)
+		material.set_shader_parameter("background_color_tint", background_color_tint)
 
 
 # Updates the nebulae mesh layer's materials based on the exported variables.
@@ -583,7 +635,7 @@ func _update_stars_materials():
 		"StarsLayerFarMesh",
 	)
 
-	_apply_field_material(
+	_apply_star_field_material(
 		_stars_layer_field_mesh,
 		stars_field_texture,
 		stars_field_albedo_color,
