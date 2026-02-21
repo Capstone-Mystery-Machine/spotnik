@@ -5,19 +5,95 @@ extends Node3D
 
 @export_group("Texture Settings")
 
-## Represents the texture applied to the middle nebulae layer.
-@export var nebulae_texture: Texture2D:
-	set(value):
-		nebulae_texture = value
-		if is_node_ready():
-			_update_nebulae_texture()
-
 ## Represents the texture applied to the background void layer.
 @export var void_texture: Texture2D:
 	set(value):
 		void_texture = value
 		if is_node_ready():
 			_update_void_texture()
+
+@export_group("Nebulae Settings")
+
+## Represents the texture applied to the nebulae layers.
+@export var nebulae_texture: Texture2D:
+	set(value):
+		nebulae_texture = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+@export_subgroup("Near Nebulae")
+
+## Represents the base albedo color and transparency applied to the near nebulae layer.
+@export var nebulae_near_albedo_color: Color = Color(0, 0, 0, 0.4):
+	set(value):
+		nebulae_near_albedo_color = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents the glowing emission color applied to the near nebulae layer.
+@export var nebulae_near_emission_color: Color = Color(0.05, 0.05, 0.01, 1.0):
+	set(value):
+		nebulae_near_emission_color = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents the brightness multiplier for the emission color applied to the near
+## nebulae layer.
+@export var nebulae_near_emission_energy: float = 0.5:
+	set(value):
+		nebulae_near_emission_energy = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+@export_subgroup("Mid Nebulae")
+
+## Represents the base albedo color and transparency applied to the mid nebulae layer.
+@export var nebulae_mid_albedo_color: Color = Color(0, 0, 0, 0.65):
+	set(value):
+		nebulae_mid_albedo_color = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents the glowing emission color applied to the mid nebulae layer.
+@export var nebulae_mid_emission_color: Color = Color(0.15, 0.1, 0.2, 1.0):
+	set(value):
+		nebulae_mid_emission_color = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents the brightness multiplier for the emission color applied to the mid
+## nebulae layer.
+@export var nebulae_mid_emission_energy: float = 0.75:
+	set(value):
+		nebulae_mid_emission_energy = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+@export_subgroup("Far Nebulae")
+
+## Represents the base albedo color and transparency applied to the far nebulae layer.
+@export var nebulae_far_albedo_color: Color = Color(0, 0, 0, 0.75):
+	set(value):
+		nebulae_far_albedo_color = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents the glowing emission color applied to the far nebulae layer.
+@export var nebulae_far_emission_color: Color = Color(0.01, 0.01, 0.25, 1.0):
+	set(value):
+		nebulae_far_emission_color = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+## Represents the brightness multiplier for the emission color applied to the far
+## nebulae layer.
+@export var nebulae_far_emission_energy: float = 0.95:
+	set(value):
+		nebulae_far_emission_energy = value
+		if is_node_ready():
+			_update_nebulae_materials()
+
+@export_group("Stars Settings")
 
 @export_subgroup("Near Stars")
 
@@ -309,6 +385,25 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 		material.set_shader_parameter("texture_emission", texture_2d)
 
 
+# Applies exported settings to the nebulae shaders.
+func _apply_nebulae_material(
+		mesh_instance: MeshInstance3D,
+		texture_2d: Texture2D,
+		albedo: Color,
+		emission: Color,
+		energy: float,
+		node_name: String,
+):
+	_apply_texture(mesh_instance, texture_2d, node_name)
+
+	var material = mesh_instance.get_surface_override_material(0)
+
+	if material is ShaderMaterial:
+		material.set_shader_parameter("albedo", albedo)
+		material.set_shader_parameter("emission", emission)
+		material.set_shader_parameter("emission_energy", energy)
+
+
 # Applies exported settings to the star shaders.
 func _apply_star_material(
 		mesh_instance: MeshInstance3D,
@@ -334,14 +429,37 @@ func _apply_star_material(
 		material.set_shader_parameter("twinkle_speed", twinkle_speed)
 
 
-# Updates the nebulae mesh layer's texture settings based on the exported variable.
-func _update_nebulae_texture():
-	_apply_texture(_nebulae_layer_near_mesh, nebulae_texture, "NebulaeLayerNearMesh")
-	_apply_texture(_nebulae_layer_mid_mesh, nebulae_texture, "NebulaeLayerMidMesh")
-	_apply_texture(_nebulae_layer_far_mesh, nebulae_texture, "NebulaeLayerFarMesh")
+# Updates the nebulae mesh layer's materials based on the exported variables.
+func _update_nebulae_materials():
+	_apply_nebulae_material(
+		_nebulae_layer_near_mesh,
+		nebulae_texture,
+		nebulae_near_albedo_color,
+		nebulae_near_emission_color,
+		nebulae_near_emission_energy,
+		"NebulaeLayerNearMesh",
+	)
+
+	_apply_nebulae_material(
+		_nebulae_layer_mid_mesh,
+		nebulae_texture,
+		nebulae_mid_albedo_color,
+		nebulae_mid_emission_color,
+		nebulae_mid_emission_energy,
+		"NebulaeLayerMidMesh",
+	)
+
+	_apply_nebulae_material(
+		_nebulae_layer_far_mesh,
+		nebulae_texture,
+		nebulae_far_albedo_color,
+		nebulae_far_emission_color,
+		nebulae_far_emission_energy,
+		"NebulaeLayerFarMesh",
+	)
 
 
-# Updates the star mesh layer's texture settings based on the exported variable.
+# Updates the star mesh layer's materials based on the exported variables.
 func _update_stars_materials():
 	_apply_star_material(
 		_stars_layer_near_mesh,
@@ -408,7 +526,7 @@ func _update_projection_radius():
 
 
 func _ready() -> void:
-	_update_nebulae_texture()
+	_update_nebulae_materials()
 	_update_stars_materials()
 	_update_void_texture()
 	_update_projection_radius()

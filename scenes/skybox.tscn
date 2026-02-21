@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=19 format=3 uid="uid://vugrltu8ff0i"]
 
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
 [ext_resource type="Shader" uid="uid://cr6fcjle7lg53" path="res://shaders/point_star.gdshader" id="2_wkasw"]
+[ext_resource type="Shader" uid="uid://b3485rvpg1yev" path="res://shaders/nebulae.gdshader" id="3_8u7e8"]
 
 [sub_resource type="Environment" id="Environment_tpkrh"]
 tonemap_mode = 3
@@ -62,41 +63,37 @@ shader_parameter/twinkle_speed = 2.0
 material = SubResource("ShaderMaterial_1xwgr")
 flip_faces = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u7e8"]
-transparency = 1
-blend_mode = 1
-depth_draw_mode = 2
-albedo_color = Color(0, 0, 0, 0.4)
-emission_enabled = true
-emission = Color(0.24780053, 0.24780053, 0.3491902, 1)
-emission_energy_multiplier = 0.5
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kxhb4"]
+render_priority = 0
+shader = ExtResource("3_8u7e8")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_8u7e8"]
-material = SubResource("StandardMaterial3D_8u7e8")
+material = SubResource("ShaderMaterial_kxhb4")
 flip_faces = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrkmm"]
-transparency = 1
-depth_draw_mode = 2
-albedo_color = Color(0, 0, 0, 0.75000006)
-emission_enabled = true
-emission = Color(0.3491902, 0.3491902, 0.5370987, 1)
-emission_energy_multiplier = 0.95
-uv1_scale = Vector3(1.001, 1.001, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mu0ws"]
+render_priority = 0
+shader = ExtResource("3_8u7e8")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_vk4a3"]
-material = SubResource("StandardMaterial3D_hrkmm")
+material = SubResource("ShaderMaterial_mu0ws")
 flip_faces = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvgax"]
-transparency = 1
-depth_draw_mode = 2
-shading_mode = 0
-albedo_color = Color(0, 0, 0, 0.65000004)
-uv1_scale = Vector3(1.001, 1.001, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hrkmm"]
+render_priority = 0
+shader = ExtResource("3_8u7e8")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_hrkmm"]
-material = SubResource("StandardMaterial3D_cvgax")
+material = SubResource("ShaderMaterial_hrkmm")
 flip_faces = true
 
 [node name="Skybox" type="Node3D"]
