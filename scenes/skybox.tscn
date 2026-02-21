@@ -101,32 +101,40 @@ script = ExtResource("1_wkasw")
 environment = SubResource("Environment_tpkrh")
 
 [node name="VoidLayerMesh" type="MeshInstance3D" parent="."]
+cast_shadow = 0
 mesh = SubResource("SphereMesh_tpkrh")
 
 [node name="StarsLayerFieldMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+cast_shadow = 0
 mesh = SubResource("SphereMesh_cvgax")
 
 [node name="StarsLayerFarMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+cast_shadow = 0
 mesh = SubResource("SphereMesh_cvgax")
 
 [node name="StarsLayerMidMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 0, 0, 0)
+cast_shadow = 0
 mesh = SubResource("SphereMesh_1xwgr")
 
 [node name="StarsLayerNearMesh" type="MeshInstance3D" parent="."]
+cast_shadow = 0
 mesh = SubResource("SphereMesh_ab0bn")
 
 [node name="NebulaeLayerNearMesh" type="MeshInstance3D" parent="."]
+cast_shadow = 0
 mesh = SubResource("SphereMesh_8u7e8")
 
 [node name="NebulaeLayerFarMesh" type="MeshInstance3D" parent="NebulaeLayerNearMesh"]
 transform = Transform3D(0.9975641, 0, -0.06975647, 0, 1, 0, 0.06975647, 0, 0.9975641, 0, 0, 0)
+cast_shadow = 0
 mesh = SubResource("SphereMesh_vk4a3")
 skeleton = NodePath("../..")
 
 [node name="NebulaeLayerMidMesh" type="MeshInstance3D" parent="NebulaeLayerNearMesh"]
 transform = Transform3D(0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, 0.9975641, 0, 0, 0)
+cast_shadow = 0
 mesh = SubResource("SphereMesh_hrkmm")
 skeleton = NodePath("../..")
