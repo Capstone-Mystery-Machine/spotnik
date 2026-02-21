@@ -381,6 +381,10 @@ func _apply_radius(mesh_instance: MeshInstance3D, radius: float, node_name: Stri
 		)
 		return
 
+	if sphere_mesh.resource_path != "":
+		sphere_mesh = sphere_mesh.duplicate()
+		mesh_instance.mesh = sphere_mesh
+
 	sphere_mesh.radius = radius
 	sphere_mesh.height = radius * 2
 
@@ -396,20 +400,18 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 		)
 		return
 
-	var material = mesh_instance.get_surface_override_material(0)
+	var material = sphere_mesh.material
 
 	if !material:
-		var base_material = mesh_instance.get_active_material(0)
+		push_error(
+			"bad dispatch to 'Skybox._apply_texture' (child node '" + node_name +
+			".mesh.material' is empty)",
+		)
+		return
 
-		if !base_material:
-			push_error(
-				"bad dispatch to 'Skybox._apply_texture' (child node '" + node_name +
-				".get_active_material(0)' is empty)",
-			)
-			return
-
-		material = base_material.duplicate()
-		mesh_instance.set_surface_override_material(0, material)
+	if material.resource_path != "":
+		material = material.duplicate()
+		sphere_mesh.material = material
 
 	if material is StandardMaterial3D:
 		material.albedo_texture = texture_2d
@@ -432,7 +434,7 @@ func _apply_field_material(
 ):
 	_apply_texture(mesh_instance, texture_2d, node_name)
 
-	var material = mesh_instance.get_surface_override_material(0)
+	var material = mesh_instance.mesh.material
 
 	if material is ShaderMaterial:
 		material.set_shader_parameter("albedo", albedo)
@@ -451,7 +453,7 @@ func _apply_nebulae_material(
 ):
 	_apply_texture(mesh_instance, texture_2d, node_name)
 
-	var material = mesh_instance.get_surface_override_material(0)
+	var material = mesh_instance.mesh.material
 
 	if material is ShaderMaterial:
 		material.set_shader_parameter("albedo", albedo)
@@ -473,7 +475,7 @@ func _apply_star_material(
 ):
 	_apply_texture(mesh_instance, texture_2d, node_name)
 
-	var material = mesh_instance.get_surface_override_material(0)
+	var material = mesh_instance.mesh.material
 
 	if material is ShaderMaterial:
 		material.set_shader_parameter("albedo", albedo)
