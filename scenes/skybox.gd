@@ -471,12 +471,7 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 
 	var material = sphere_mesh.material
 
-
-# Applies an exported texture setting to a child mesh layer.
-func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_name: String):
-	var sphere_mesh = mesh_instance.mesh as SphereMesh
-
-	if !sphere_mesh:
+	if !material:
 		push_error(
 			"bad dispatch to 'Skybox._apply_texture' (child node '" + node_name +
 			".mesh.material' is empty)",
