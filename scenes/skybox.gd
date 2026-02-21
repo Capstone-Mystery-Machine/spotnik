@@ -157,23 +157,23 @@ extends Node3D
 @export_group("Simulation Settings")
 
 ## Represents the base rotation speed applied to the void layer.
-@export_range(-0.1, 0.1, 0.00001, "suffix:rad/s") var rotation_speed: float = 0.002
+@export_range(-0.1, 0.1, 0.00001, "suffix:rad/s") var rotation_speed: float = 0.00025
 
 ## Represents the rotation speed multiplier applied to the nebulae layers, based
 ## on the stars layer's computed speed.
-@export_range(-2.0, 2.0, 0.00001) var nebulae_speed_multiplier: float = 1.1
+@export_range(-2.0, 2.0, 0.00001) var nebulae_speed_multiplier: float = 0.99
 
 ## Represents the rotation speed multiplier applied to the stars far layer, based on
 ## the base rotation speed.
-@export_range(-2.0, 2.0, 0.00001) var stars_far_speed_multiplier: float = 1.1
+@export_range(-2.0, 2.0, 0.00001) var stars_far_speed_multiplier: float = 1.0
 
 ## Represents the rotation speed multiplier applied to the stars mid layer, based on
 ## the stars far layer's computed speed.
-@export_range(-2.0, 2.0, 0.00001) var stars_mid_speed_multiplier: float = 1.1
+@export_range(-2.0, 2.0, 0.00001) var stars_mid_speed_multiplier: float = 1.005
 
 ## Represents the rotation speed multiplier applied to the stars near layer, based on
 ## the stars mid layer's computed speed.
-@export_range(-2.0, 2.0, 0.00001) var stars_near_speed_multiplier: float = 1.1
+@export_range(-2.0, 2.0, 0.00001) var stars_near_speed_multiplier: float = 1.01
 
 @export_group("Twinkle Settings")
 
