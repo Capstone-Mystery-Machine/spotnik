@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b5ou2u38e78kf"]
+[gd_scene load_steps=13 format=3 uid="uid://b5ou2u38e78kf"]
 
 [ext_resource type="PackedScene" uid="uid://ckh0mf4o2awhw" path="res://scenes/device.tscn" id="1_tnvwq"]
 [ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://scenes/satel_info_ui.tscn" id="2_cn1jf"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://djx562mny74tk" path="res://textures/skybox_stars_mid.png" id="8_5nanx"]
 [ext_resource type="Texture2D" uid="uid://nui05ni3xacc" path="res://textures/skybox_stars_field.png" id="8_v1r0n"]
 [ext_resource type="Texture2D" uid="uid://wk1ks1w01ik3" path="res://textures/skybox_stars_far.png" id="9_v1r0n"]
+[ext_resource type="NoiseTexture3D" uid="uid://delo57vucw3cr" path="res://textures/carving_noise.tres" id="12_v1r0n"]
 
 [node name="Worldspawn" type="Node3D"]
 
@@ -32,5 +33,6 @@ stars_near_texture = ExtResource("7_4oxqj")
 stars_mid_texture = ExtResource("8_5nanx")
 stars_far_texture = ExtResource("9_v1r0n")
 projection_radius = 100.0
+nebulae_carving_noise_texture = ExtResource("12_v1r0n")
 
 [connection signal="ui_open" from="Landmark" to="Satel_Info_UI" method="_on_landmark_ui_open"]
