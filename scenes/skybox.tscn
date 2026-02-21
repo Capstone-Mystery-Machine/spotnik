@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=24 format=3 uid="uid://vugrltu8ff0i"]
 
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
+[ext_resource type="Shader" uid="uid://cr6fcjle7lg53" path="res://shaders/point_star.gdshader" id="2_wkasw"]
 
 [sub_resource type="Environment" id="Environment_tpkrh"]
 tonemap_mode = 3
@@ -17,6 +18,20 @@ shading_mode = 0
 
 [sub_resource type="SphereMesh" id="SphereMesh_tpkrh"]
 material = SubResource("StandardMaterial3D_tpkrh")
+flip_faces = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wkasw"]
+render_priority = 0
+shader = ExtResource("2_wkasw")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.0
+shader_parameter/twinkle_frequency = 1000.0
+shader_parameter/twinkle_intensity = 0.75
+shader_parameter/twinkle_speed = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_cvgax"]
+material = SubResource("ShaderMaterial_wkasw")
 flip_faces = true
 
 [sub_resource type="Shader" id="Shader_tpkrh"]
@@ -41,23 +56,26 @@ void fragment() {
 	ALPHA *= albedo.a * albedo_tex.a;
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wkasw"]
-render_priority = 0
-shader = SubResource("Shader_tpkrh")
-shader_parameter/albedo = Color(0, 0, 0, 1)
-shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 0.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_cvgax"]
-material = SubResource("ShaderMaterial_wkasw")
-flip_faces = true
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tpkrh"]
 render_priority = 0
 shader = SubResource("Shader_tpkrh")
 shader_parameter/albedo = Color(0, 0, 0, 0.5)
 shader_parameter/emission = Color(0, 0, 0, 1)
 shader_parameter/emission_energy = 1.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvgax"]
+render_priority = 0
+shader = ExtResource("2_wkasw")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.0
+shader_parameter/twinkle_frequency = 1000.0
+shader_parameter/twinkle_intensity = 0.75
+shader_parameter/twinkle_speed = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_1xwgr"]
+material = SubResource("ShaderMaterial_cvgax")
+flip_faces = true
 
 [sub_resource type="Shader" id="Shader_8u7e8"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.5.1.stable's StandardMaterial3D.
@@ -81,23 +99,26 @@ void fragment() {
 	ALPHA *= albedo.a * albedo_tex.a;
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvgax"]
-render_priority = 0
-shader = SubResource("Shader_8u7e8")
-shader_parameter/albedo = Color(0, 0, 0, 1)
-shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 0.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_1xwgr"]
-material = SubResource("ShaderMaterial_cvgax")
-flip_faces = true
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8u7e8"]
 render_priority = 0
 shader = SubResource("Shader_8u7e8")
 shader_parameter/albedo = Color(0, 0, 0, 0.75)
 shader_parameter/emission = Color(0, 0, 0, 1)
 shader_parameter/emission_energy = 1.75
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1xwgr"]
+render_priority = 0
+shader = ExtResource("2_wkasw")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.0
+shader_parameter/twinkle_frequency = 1000.0
+shader_parameter/twinkle_intensity = 0.75
+shader_parameter/twinkle_speed = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ab0bn"]
+material = SubResource("ShaderMaterial_1xwgr")
+flip_faces = true
 
 [sub_resource type="Shader" id="Shader_kxhb4"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.5.1.stable's StandardMaterial3D.
@@ -120,17 +141,6 @@ void fragment() {
 	EMISSION = (emission.rgb + emission_tex) * emission_energy;
 	ALPHA *= albedo.a * albedo_tex.a;
 }"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1xwgr"]
-render_priority = 0
-shader = SubResource("Shader_kxhb4")
-shader_parameter/albedo = Color(0, 0, 0, 1)
-shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 0.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_ab0bn"]
-material = SubResource("ShaderMaterial_1xwgr")
-flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxhb4"]
 render_priority = 0

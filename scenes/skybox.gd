@@ -21,24 +21,28 @@ extends Node3D
 
 @export_subgroup("Near Stars")
 
+## Represents the texture applied to the near stars layer.
 @export var stars_near_texture: Texture2D:
 	set(value):
 		stars_near_texture = value
 		if is_node_ready():
 			_update_stars_materials()
 
+## Represents the base albedo color and transparency applied to the near stars layer.
 @export var stars_near_albedo_color: Color = Color(0, 0, 0, 0.9):
 	set(value):
 		stars_near_albedo_color = value
 		if is_node_ready():
 			_update_stars_materials()
 
+## Represents the glowing emission color applied to the near stars layer.
 @export var stars_near_emission_color: Color = Color(0, 0, 0, 1.0):
 	set(value):
 		stars_near_emission_color = value
 		if is_node_ready():
 			_update_stars_materials()
 
+## Represents the brightness multiplier for the emission color applied to the near stars layer.
 @export var stars_near_emission_energy: float = 2.0:
 	set(value):
 		stars_near_emission_energy = value
@@ -47,24 +51,28 @@ extends Node3D
 
 @export_subgroup("Mid Stars")
 
+## Represents the texture applied to the mid stars layer.
 @export var stars_mid_texture: Texture2D:
 	set(value):
 		stars_mid_texture = value
 		if is_node_ready():
 			_update_stars_materials()
 
+## Represents the base albedo color and transparency applied to the mid stars layer.
 @export var stars_mid_albedo_color: Color = Color(0, 0, 0, 0.75):
 	set(value):
 		stars_mid_albedo_color = value
 		if is_node_ready():
 			_update_stars_materials()
 
+## Represents the glowing emission color applied to the mid stars layer.
 @export var stars_mid_emission_color: Color = Color(0, 0, 0, 1.0):
 	set(value):
 		stars_mid_emission_color = value
 		if is_node_ready():
 			_update_stars_materials()
 
+## Represents the brightness multiplier for the emission color applied to the mid stars layer.
 @export var stars_mid_emission_energy: float = 1.75:
 	set(value):
 		stars_mid_emission_energy = value
@@ -73,24 +81,28 @@ extends Node3D
 
 @export_subgroup("Far Stars")
 
+## Represents the texture applied to the far stars layer.
 @export var stars_far_texture: Texture2D:
 	set(value):
 		stars_far_texture = value
 		if is_node_ready():
 			_update_stars_materials()
 
+## Represents the base albedo color and transparency applied to the far stars layer.
 @export var stars_far_albedo_color: Color = Color(0, 0, 0, 0.5):
 	set(value):
 		stars_far_albedo_color = value
 		if is_node_ready():
 			_update_stars_materials()
 
+## Represents the glowing emission color applied to the far stars layer.
 @export var stars_far_emission_color: Color = Color(0, 0, 0, 1.0):
 	set(value):
 		stars_far_emission_color = value
 		if is_node_ready():
 			_update_stars_materials()
 
+## Represents the brightness multiplier for the emission color applied to the far stars layer.
 @export var stars_far_emission_energy: float = 1.5:
 	set(value):
 		stars_far_emission_energy = value
@@ -160,6 +172,77 @@ extends Node3D
 ## the stars mid layer's computed speed.
 @export_range(-2.0, 2.0, 0.00001) var stars_near_speed_multiplier: float = 1.1
 
+@export_group("Twinkle Settings")
+
+@export_subgroup("Near Stars")
+
+## Represents the intensity of the twinkle effect applied to the near stars layer.
+@export_range(0.0, 1.0, 0.001) var stars_near_twinkle_intensity: float = 0.3:
+	set(value):
+		stars_near_twinkle_intensity = value
+		if is_node_ready():
+			_update_stars_materials()
+
+## Represents the spatial density of the twinkle pattern on the near stars layer. Higher values make stars twinkle independently.
+@export_range(0.0, 5000.0, 1.0) var stars_near_twinkle_frequency: float = 800.0:
+	set(value):
+		stars_near_twinkle_frequency = value
+		if is_node_ready():
+			_update_stars_materials()
+
+## Represents the pulsing speed of the twinkle effect on the near stars layer.
+@export_range(0.0, 20.0, 0.001) var stars_near_twinkle_speed: float = 2.0:
+	set(value):
+		stars_near_twinkle_speed = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export_subgroup("Mid Stars")
+
+## Represents the intensity of the twinkle effect applied to the mid stars layer.
+@export_range(0.0, 1.0, 0.001) var stars_mid_twinkle_intensity: float = 0.6:
+	set(value):
+		stars_mid_twinkle_intensity = value
+		if is_node_ready():
+			_update_stars_materials()
+
+## Represents the spatial density of the twinkle pattern on the mid stars layer. Higher values make stars twinkle independently.
+@export_range(0.0, 5000.0, 1.0) var stars_mid_twinkle_frequency: float = 1500.0:
+	set(value):
+		stars_mid_twinkle_frequency = value
+		if is_node_ready():
+			_update_stars_materials()
+
+## Represents the pulsing speed of the twinkle effect on the mid stars layer.
+@export_range(0.0, 20.0, 0.001) var stars_mid_twinkle_speed: float = 2.0:
+	set(value):
+		stars_mid_twinkle_speed = value
+		if is_node_ready():
+			_update_stars_materials()
+
+@export_subgroup("Far Stars")
+
+## Represents the intensity of the twinkle effect applied to the far stars layer.
+@export_range(0.0, 1.0, 0.001) var stars_far_twinkle_intensity: float = 0.9:
+	set(value):
+		stars_far_twinkle_intensity = value
+		if is_node_ready():
+			_update_stars_materials()
+
+## Represents the spatial density of the twinkle pattern on the far stars layer. Higher values make stars twinkle independently.
+@export_range(0.0, 5000.0, 1.0) var stars_far_twinkle_frequency: float = 2500.0:
+	set(value):
+		stars_far_twinkle_frequency = value
+		if is_node_ready():
+			_update_stars_materials()
+
+## Represents the pulsing speed of the twinkle effect on the far stars layer.
+@export_range(0.0, 20.0, 0.001) var stars_far_twinkle_speed: float = 4.0:
+	set(value):
+		stars_far_twinkle_speed = value
+		if is_node_ready():
+			_update_stars_materials()
+
 @onready var _void_layer_mesh: MeshInstance3D = $VoidLayerMesh
 @onready var _nebulae_layer_near_mesh: MeshInstance3D = $NebulaeLayerNearMesh
 @onready var _nebulae_layer_mid_mesh: MeshInstance3D = $NebulaeLayerNearMesh/NebulaeLayerMidMesh
@@ -220,15 +303,29 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 		material.set_shader_parameter("texture_emission", texture_2d)
 
 
-# Applies exported colors and energy settings to the star shaders.
-func _apply_star_material(mesh_instance: MeshInstance3D, texture_2d: Texture2D, albedo: Color, emission: Color, energy: float, node_name: String):
+# Applies exported settings to the star shaders.
+func _apply_star_material(
+		mesh_instance: MeshInstance3D,
+		texture_2d: Texture2D,
+		albedo: Color,
+		emission: Color,
+		energy: float,
+		twinkle_frequency: float,
+		twinkle_intensity: float,
+		twinkle_speed: float,
+		node_name: String,
+):
 	_apply_texture(mesh_instance, texture_2d, node_name)
 
 	var material = mesh_instance.get_surface_override_material(0)
+
 	if material is ShaderMaterial:
 		material.set_shader_parameter("albedo", albedo)
 		material.set_shader_parameter("emission", emission)
 		material.set_shader_parameter("emission_energy", energy)
+		material.set_shader_parameter("twinkle_frequency", twinkle_frequency)
+		material.set_shader_parameter("twinkle_intensity", twinkle_intensity)
+		material.set_shader_parameter("twinkle_speed", twinkle_speed)
 
 
 # Updates the nebulae mesh layer's texture settings based on the exported variable.
@@ -246,6 +343,9 @@ func _update_stars_materials():
 		stars_near_albedo_color,
 		stars_near_emission_color,
 		stars_near_emission_energy,
+		stars_near_twinkle_frequency,
+		stars_near_twinkle_intensity,
+		stars_near_twinkle_speed,
 		"StarsLayerNearMesh",
 	)
 
@@ -255,6 +355,9 @@ func _update_stars_materials():
 		stars_mid_albedo_color,
 		stars_mid_emission_color,
 		stars_mid_emission_energy,
+		stars_mid_twinkle_frequency,
+		stars_mid_twinkle_intensity,
+		stars_mid_twinkle_speed,
 		"StarsLayerMidMesh",
 	)
 
@@ -264,6 +367,9 @@ func _update_stars_materials():
 		stars_far_albedo_color,
 		stars_far_emission_color,
 		stars_far_emission_energy,
+		stars_far_twinkle_frequency,
+		stars_far_twinkle_intensity,
+		stars_far_twinkle_speed,
 		"StarsLayerFarMesh",
 	)
 
