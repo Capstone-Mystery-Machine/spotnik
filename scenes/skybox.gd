@@ -105,14 +105,14 @@ extends Node3D
 			_update_stars_materials()
 
 ## Represents the base albedo color and transparency applied to the field stars layer.
-@export var stars_field_albedo_color: Color = Color(0, 0, 0, 0.35):
+@export var stars_field_albedo_color: Color = Color(0, 0, 0, 0.4):
 	set(value):
 		stars_field_albedo_color = value
 		if is_node_ready():
 			_update_stars_materials()
 
 ## Represents the glowing emission color applied to the field stars layer.
-@export var stars_field_emission_color: Color = Color(0, 0, 0, 1.0):
+@export var stars_field_emission_color: Color = Color(0.3, 0.3, 0.3, 1):
 	set(value):
 		stars_field_emission_color = value
 		if is_node_ready():

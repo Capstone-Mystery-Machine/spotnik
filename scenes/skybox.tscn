@@ -1,9 +1,15 @@
-[gd_scene load_steps=21 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=28 format=3 uid="uid://vugrltu8ff0i"]
 
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
+[ext_resource type="Texture2D" uid="uid://dcub3lj503nir" path="res://textures/skybox_void.png" id="2_ab0bn"]
 [ext_resource type="Shader" uid="uid://bjxhgx8difers" path="res://shaders/star_field.gdshader" id="2_cvgax"]
 [ext_resource type="Shader" uid="uid://cr6fcjle7lg53" path="res://shaders/point_star.gdshader" id="2_wkasw"]
 [ext_resource type="Shader" uid="uid://b3485rvpg1yev" path="res://shaders/nebulae.gdshader" id="3_8u7e8"]
+[ext_resource type="Texture2D" uid="uid://nui05ni3xacc" path="res://textures/skybox_stars_field.png" id="4_bbgff"]
+[ext_resource type="Texture2D" uid="uid://wk1ks1w01ik3" path="res://textures/skybox_stars_far.png" id="5_sf6vd"]
+[ext_resource type="Texture2D" uid="uid://djx562mny74tk" path="res://textures/skybox_stars_mid.png" id="7_cawid"]
+[ext_resource type="Texture2D" uid="uid://cw8l4a0x80e5n" path="res://textures/skybox_stars_near.png" id="8_4r0s7"]
+[ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://textures/skybox_nebulae.png" id="10_bt3n1"]
 
 [sub_resource type="Environment" id="Environment_tpkrh"]
 tonemap_mode = 3
@@ -15,84 +21,106 @@ glow_hdr_threshold = 0.75
 glow_hdr_scale = 1.0
 glow_hdr_luminance_cap = 1.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvgax"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ab0bn"]
 shading_mode = 0
+albedo_texture = ExtResource("2_ab0bn")
 
 [sub_resource type="SphereMesh" id="SphereMesh_kxhb4"]
-material = SubResource("StandardMaterial3D_cvgax")
-flip_faces = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1xwgr"]
-render_priority = 0
-shader = ExtResource("2_cvgax")
-shader_parameter/albedo = Color(0, 0, 0, 1)
-shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 0.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_mu0ws"]
-material = SubResource("ShaderMaterial_1xwgr")
-flip_faces = true
-
-[sub_resource type="SphereMesh" id="SphereMesh_hrkmm"]
-material = SubResource("ShaderMaterial_1xwgr")
-flip_faces = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vk4a3"]
-render_priority = 0
-shader = ExtResource("2_wkasw")
-shader_parameter/albedo = Color(0, 0, 0, 1)
-shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 0.0
-shader_parameter/twinkle_frequency = 1000.0
-shader_parameter/twinkle_intensity = 0.75
-shader_parameter/twinkle_speed = 2.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_ab0bn"]
-material = SubResource("ShaderMaterial_vk4a3")
+material = SubResource("StandardMaterial3D_ab0bn")
 flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bbgff"]
 render_priority = 0
-shader = ExtResource("2_wkasw")
-shader_parameter/albedo = Color(0, 0, 0, 1)
-shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 0.0
-shader_parameter/twinkle_frequency = 1000.0
-shader_parameter/twinkle_intensity = 0.75
-shader_parameter/twinkle_speed = 2.0
+shader = ExtResource("2_cvgax")
+shader_parameter/albedo = Color(0, 0, 0, 0.4)
+shader_parameter/emission = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/emission_energy = 2.0
+shader_parameter/texture_albedo = ExtResource("4_bbgff")
+shader_parameter/texture_emission = ExtResource("4_bbgff")
 
-[sub_resource type="SphereMesh" id="SphereMesh_sf6vd"]
+[sub_resource type="SphereMesh" id="SphereMesh_mu0ws"]
 material = SubResource("ShaderMaterial_bbgff")
+flip_faces = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sf6vd"]
+render_priority = 0
+shader = ExtResource("2_cvgax")
+shader_parameter/albedo = Color(0, 0, 0, 0.5)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 1.5
+shader_parameter/texture_albedo = ExtResource("5_sf6vd")
+shader_parameter/texture_emission = ExtResource("5_sf6vd")
+
+[sub_resource type="SphereMesh" id="SphereMesh_hrkmm"]
+material = SubResource("ShaderMaterial_sf6vd")
 flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cawid"]
 render_priority = 0
-shader = ExtResource("3_8u7e8")
-shader_parameter/albedo = Color(0, 0, 0, 1)
+shader = ExtResource("2_wkasw")
+shader_parameter/albedo = Color(0, 0, 0, 0.75)
 shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 0.0
+shader_parameter/emission_energy = 1.75
+shader_parameter/texture_albedo = ExtResource("7_cawid")
+shader_parameter/texture_emission = ExtResource("7_cawid")
+shader_parameter/twinkle_frequency = 1500.0
+shader_parameter/twinkle_intensity = 0.6
+shader_parameter/twinkle_speed = 2.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_4r0s7"]
+[sub_resource type="SphereMesh" id="SphereMesh_ab0bn"]
 material = SubResource("ShaderMaterial_cawid")
+flip_faces = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4r0s7"]
+render_priority = 0
+shader = ExtResource("2_wkasw")
+shader_parameter/albedo = Color(0, 0, 0, 0.9)
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 2.0
+shader_parameter/texture_albedo = ExtResource("8_4r0s7")
+shader_parameter/texture_emission = ExtResource("8_4r0s7")
+shader_parameter/twinkle_frequency = 800.0
+shader_parameter/twinkle_intensity = 0.3
+shader_parameter/twinkle_speed = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_sf6vd"]
+material = SubResource("ShaderMaterial_4r0s7")
 flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bt3n1"]
 render_priority = 0
 shader = ExtResource("3_8u7e8")
-shader_parameter/albedo = Color(0, 0, 0, 1)
-shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 0.0
+shader_parameter/albedo = Color(0, 0, 0, 0.4)
+shader_parameter/emission = Color(0.05, 0.05, 0.01, 1)
+shader_parameter/emission_energy = 0.5
+shader_parameter/texture_albedo = ExtResource("10_bt3n1")
+shader_parameter/texture_emission = ExtResource("10_bt3n1")
+
+[sub_resource type="SphereMesh" id="SphereMesh_4r0s7"]
+material = SubResource("ShaderMaterial_bt3n1")
+flip_faces = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xcaqk"]
+render_priority = 0
+shader = ExtResource("3_8u7e8")
+shader_parameter/albedo = Color(0, 0, 0, 0.75)
+shader_parameter/emission = Color(0.01, 0.01, 0.25, 1)
+shader_parameter/emission_energy = 0.95
+shader_parameter/texture_albedo = ExtResource("10_bt3n1")
+shader_parameter/texture_emission = ExtResource("10_bt3n1")
 
 [sub_resource type="SphereMesh" id="SphereMesh_xcaqk"]
-material = SubResource("ShaderMaterial_bt3n1")
+material = SubResource("ShaderMaterial_xcaqk")
 flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rwri3"]
 render_priority = 0
 shader = ExtResource("3_8u7e8")
-shader_parameter/albedo = Color(0, 0, 0, 1)
-shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 0.0
+shader_parameter/albedo = Color(0, 0, 0, 0.65)
+shader_parameter/emission = Color(0.15, 0.1, 0.2, 1)
+shader_parameter/emission_energy = 0.75
+shader_parameter/texture_albedo = ExtResource("10_bt3n1")
+shader_parameter/texture_emission = ExtResource("10_bt3n1")
 
 [sub_resource type="SphereMesh" id="SphereMesh_5ja5g"]
 material = SubResource("ShaderMaterial_rwri3")
