@@ -5,9 +5,11 @@ extends Node3D
 @onready var viewport = $Info_Sprite
 @onready var viewport_container = $Info_Sprite/Info_Viewport_Container
 @onready var international_designator = \
-$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/International_Designator2
+$Info_Sprite/Info_Viewport_Container/Info_Viewport\
+/PanelContainer/Satel_Info/International_Designator2
 @onready var norad_catalog_identifier = \
-$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Norad_Catalog_Identifier2
+$Info_Sprite/Info_Viewport_Container/Info_Viewport\
+/PanelContainer/Satel_Info/Norad_Catalog_Identifier2
 @onready var satellite_name = \
 $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Name2
 @onready var origin_country = \
