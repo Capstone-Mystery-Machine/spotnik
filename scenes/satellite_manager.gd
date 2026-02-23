@@ -5,7 +5,9 @@ extends Node3D
 
 var satellite_data: Array = []
 
-var spawn_radius: float = 10.0
+## Represents the distance the satellite nodes will
+## spawn from the camera.
+@export var spawn_radius: float = 10
 
 
 func _ready() -> void:
