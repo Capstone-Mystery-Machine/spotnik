@@ -4,16 +4,26 @@ extends Node3D
 
 @onready var viewport = $Info_Sprite
 @onready var viewport_container = $Info_Sprite/Info_Viewport_Container
-@onready var international_designator = $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/International_Designator2
-@onready var norad_catalog_identifier = $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Norad_Catalog_Identifier2
-@onready var satellite_name = $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Name2
-@onready var origin_country = $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Origin_Country2
-@onready var launch_date = $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Launch_Date2
-@onready var latitude = $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Latitude2
-@onready var longitude = $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Longitude2
-@onready var cartesian_x = $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Cartesian_x2
-@onready var cartesian_y = $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Cartesian_y2
-@onready var cartesian_z = $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Cartesian_z2
+@onready var international_designator = \
+$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/International_Designator2
+@onready var norad_catalog_identifier = \
+$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Norad_Catalog_Identifier2
+@onready var satellite_name = \
+$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Name2
+@onready var origin_country = \
+$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Origin_Country2
+@onready var launch_date = \
+$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Launch_Date2
+@onready var latitude = \
+$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Latitude2
+@onready var longitude = \
+$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Longitude2
+@onready var cartesian_x = \
+$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Cartesian_x2
+@onready var cartesian_y = \
+$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Cartesian_y2
+@onready var cartesian_z = \
+$Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Cartesian_z2
 
 
 func _ready():
