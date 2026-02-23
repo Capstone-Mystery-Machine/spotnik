@@ -21,14 +21,16 @@ func _ready():
 	SignalBus.ui_info.connect(_ui_info_signal)
 
 
-func _ui_info_signal(internationalDesignator, noradCatalogIdentifier, satellite_name, countryOfOrigin, launchDate, latitude, longitude):
-	International_Designator.text = internationalDesignator
-	Norad_Catalog_Identifier.text = noradCatalogIdentifier
-	Name.text = satellite_name
-	Origin_Country.text = countryOfOrigin
-	Launch_Date.text = str(launchDate)
-	Latitude.text = str(latitude)
-	Longitude.text = str(longitude)
+func _ui_info_signal(landmark):
+	viewport_container.visible = true
+
+	International_Designator.text = landmark.international_designator
+	Norad_Catalog_Identifier.text = landmark.norad_catalog_id
+	Name.text = landmark.satellite_name
+	Origin_Country.text = landmark.country
+	Launch_Date.text = str(landmark.launch_date)
+	Latitude.text = str(landmark.latitude)
+	Longitude.text = str(landmark.longitude)
 	Cartesian_x.text = "N/A"
 	Cartesian_y.text = 'N/A'
 	Cartesian_z.text = 'N/A'
