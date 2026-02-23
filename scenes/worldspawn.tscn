@@ -19,9 +19,6 @@
 
 [node name="Device" parent="." instance=ExtResource("1_tnvwq")]
 
-[node name="Landmark" parent="." instance=ExtResource("3_cojv1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98632, 0, -2.7282925)
-
 [node name="Satellite Manager" parent="." instance=ExtResource("4_op4v0")]
 landmark_scene = ExtResource("3_cojv1")
 
