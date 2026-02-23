@@ -131,3 +131,18 @@ jobs:
               exit 1
             fi
           done
+
+      - name: Generate ClassDB
+        run: |
+          godot --headless --editor --quit
+
+      - name: Type Check GDScript Files
+        run: |
+          find . -name "*.gd" -not -path "./addons/*" | while read -r file; do
+            echo "Type checking: $file"
+
+            if ! godot --headless --check-only --script "$file"; then
+              echo "::error file=$file::Type checking failed on this file."
+              exit 1
+            fi
+          done
