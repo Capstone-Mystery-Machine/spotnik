@@ -39,7 +39,7 @@ shader_parameter/emission_energy = 0.75
 shader_parameter/texture_albedo = ExtResource("4_vk4a3")
 shader_parameter/texture_emission = ExtResource("4_vk4a3")
 shader_parameter/background_color_tint = Color(0.8, 0.8, 1, 1)
-shader_parameter/background_dimming = 0.01
+shader_parameter/background_dimming = 0.15
 shader_parameter/background_horizontal_shift = 0.33
 
 [sub_resource type="SphereMesh" id="SphereMesh_mu0ws"]

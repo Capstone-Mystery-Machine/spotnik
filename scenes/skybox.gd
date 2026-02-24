@@ -85,7 +85,7 @@ extends Node3D
 @export var stars_field_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.6),
 	Color(0.15, 0.15, 0.15, 1.0),
-	2.0,
+	0.7,
 )
 
 @export_group("Projection Settings")

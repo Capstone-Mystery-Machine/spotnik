@@ -50,7 +50,7 @@ emission_energy = 1.25
 script = ExtResource("8_5nanx")
 albedo_color = Color(0, 0, 0, 0.6)
 emission_color = Color(0.15, 0.15, 0.15, 1)
-emission_energy = 0.45
+emission_energy = 0.7
 
 [sub_resource type="Resource" id="Resource_2mssp"]
 script = ExtResource("11_v1r0n")
@@ -80,7 +80,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98632, 0, -2.7282925)
 landmark_scene = ExtResource("3_cojv1")
 
 [node name="Skybox" parent="." instance=ExtResource("5_kpp3c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.717179e-06, -0.00014829636, 5.4240227e-06)
 void_texture = ExtResource("6_u6u3q")
 nebulae_texture = ExtResource("7_fenpy")
 nebulae_near_material = SubResource("Resource_f1x51")
@@ -94,7 +93,6 @@ stars_point_far_material = SubResource("Resource_sklta")
 stars_field_material = SubResource("Resource_nu1fu")
 projection_radius = 100.0
 nebulae_carving_noise_texture = ExtResource("12_v1r0n")
-stars_field_background_dimming = 0.01
 stars_point_near_twinkle = SubResource("Resource_2mssp")
 stars_point_mid_twinkle = SubResource("Resource_whaij")
 stars_point_far_twinkle = SubResource("Resource_sdh5a")
