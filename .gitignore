@@ -2,4 +2,4 @@
 .builds/
 .godot/
 /android/
-.DS_Store/
+.DS_Store
