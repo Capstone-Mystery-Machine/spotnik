@@ -49,7 +49,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if detector.outer_bodies.is_empty():
-		scale = scale.lerp(Vector3.ONE, 10 * delta)
+		scale = scale.lerp(Vector3.ONE, 10.0 * delta)
 		return
 
 	var body = detector.outer_bodies.keys()[0]
@@ -63,7 +63,7 @@ func _process(delta: float) -> void:
 
 	var target_scale = lerp(1.0, max_scale, t)
 
-	scale = scale.lerp(Vector3.ONE * target_scale, 10 * delta)
+	scale = scale.lerp(Vector3.ONE * target_scale, 10.0 * delta)
 
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
