@@ -44,8 +44,8 @@ func _ui_info_signal(landmark):
 	latitude.text = str(landmark.latitude)
 	longitude.text = str(landmark.longitude)
 	cartesian_x.text = "N/A"
-	cartesian_y.text = 'N/A'
-	cartesian_z.text = 'N/A'
+	cartesian_y.text = "N/A"
+	cartesian_z.text = "N/A"
 
 
 func _on_close_button_pressed() -> void:
