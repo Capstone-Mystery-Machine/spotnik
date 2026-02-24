@@ -12,10 +12,11 @@
 fov = 74.41036
 
 [node name="CameraPointer" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 sync_to_physics = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CameraPointer"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -10)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("BoxShape3D_qfi86")
 
 [node name="GyroInputController" type="Node" parent="." node_paths=PackedStringArray("target_node_3d")]
