@@ -1,15 +1,28 @@
-## Resource for skybox layer material settings.
+@tool
 class_name SkyboxLayerMaterial
 extends Resource
+## Resource for skybox layer material settings.
 
 ## Represents the albedo color and transparency of the skybox layer.
-@export var albedo_color: Color
+@export var albedo_color: Color:
+	set(value):
+		if albedo_color != value:
+			albedo_color = value
+			emit_changed()
 
 ## Represents the glowing emission color of the skybox layer.
-@export var emission_color: Color
+@export var emission_color: Color:
+	set(value):
+		if emission_color != value:
+			emission_color = value
+			emit_changed()
 
 ## Represents the brightness multiplier for the emission color of the skybox layer.
-@export var emission_energy: float
+@export var emission_energy: float:
+	set(value):
+		if emission_energy != value:
+			emission_energy = value
+			emit_changed()
 
 
 func _init(
