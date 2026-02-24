@@ -49,7 +49,7 @@ emission_energy = 0.4
 script = ExtResource("8_5nanx")
 albedo_color = Color(0, 0, 0, 0.6)
 emission_color = Color(0.15, 0.15, 0.15, 1)
-emission_energy = 0.7
+emission_energy = 0.5
 
 [sub_resource type="Resource" id="Resource_v1r0n"]
 script = ExtResource("8_5nanx")
@@ -59,8 +59,8 @@ emission_energy = 0.5
 
 [sub_resource type="Resource" id="Resource_2mssp"]
 script = ExtResource("11_v1r0n")
-intensity = 0.3
 frequency = 800.0
+intensity = 0.3
 
 [sub_resource type="Resource" id="Resource_whaij"]
 script = ExtResource("11_v1r0n")
@@ -68,8 +68,8 @@ intensity = 0.6
 
 [sub_resource type="Resource" id="Resource_sdh5a"]
 script = ExtResource("11_v1r0n")
-intensity = 0.9
 frequency = 2500.0
+intensity = 0.9
 speed = 4.0
 
 [node name="Worldspawn" type="Node3D"]

@@ -76,7 +76,7 @@ extends Node3D
 @export var stars_field_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.6),
 	Color(0.15, 0.15, 0.15, 1.0),
-	0.7,
+	0.5,
 )
 
 ## Represents the material settings applied to the far field stars layer.
