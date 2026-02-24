@@ -11,7 +11,7 @@ extends Resource
 			emit_changed()
 
 ## Represents the glowing emission color of the skybox layer.
-@export var emission_color: Color:
+@export_color_no_alpha var emission_color: Color:
 	set(value):
 		if emission_color != value:
 			emission_color = value

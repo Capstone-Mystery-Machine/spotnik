@@ -9,6 +9,9 @@
 
 [node name="Worldspawn" type="Node3D"]
 
+[node name="Skybox" parent="." instance=ExtResource("5_kpp3c")]
+settings = ExtResource("6_naeil")
+
 [node name="Satel_Info_UI" parent="." instance=ExtResource("2_cn1jf")]
 
 [node name="Device" parent="." instance=ExtResource("1_tnvwq")]
@@ -18,8 +21,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98632, 0, -2.7282925)
 
 [node name="Satellite Manager" parent="." instance=ExtResource("4_op4v0")]
 landmark_scene = ExtResource("3_cojv1")
-
-[node name="Skybox" parent="." instance=ExtResource("5_kpp3c")]
-settings = ExtResource("6_naeil")
 
 [connection signal="ui_open" from="Landmark" to="Satel_Info_UI" method="_on_landmark_ui_open"]

@@ -50,15 +50,15 @@ extends Resource
 
 ## Represents the material for the near field stars layer.
 @export var stars_field_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
-	Color(0, 0, 0, 0.6),
-	Color(0.15, 0.15, 0.15, 1.0),
-	0.5,
+	Color(1.0, 1.0, 1.0, 0.6),
+	Color(1.0, 1.0, 1.0, 1.0),
+	0.55,
 )
 
 ## Represents the material for the far field stars layer.
 @export var stars_field_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
-	Color(0, 0, 0, 0.45),
-	Color(0.15, 0.15, 0.15, 1.0),
+	Color(1.0, 1.0, 1.0, 0.45),
+	Color(1.0, 1.0, 1.0, 1.0),
 	0.5,
 )
 

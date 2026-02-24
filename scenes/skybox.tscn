@@ -1,7 +1,6 @@
-[gd_scene load_steps=25 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=24 format=3 uid="uid://vugrltu8ff0i"]
 
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
-[ext_resource type="Shader" uid="uid://bjxhgx8difers" path="res://shaders/star_field.gdshader" id="2_cvgax"]
 [ext_resource type="Shader" uid="uid://cr6fcjle7lg53" path="res://shaders/point_star.gdshader" id="2_wkasw"]
 [ext_resource type="Shader" uid="uid://b3485rvpg1yev" path="res://shaders/nebulae.gdshader" id="3_8u7e8"]
 [ext_resource type="Texture2D" uid="uid://c47uk04kxrdwu" path="res://textures/skybox_field_stars.tres" id="4_vk4a3"]
@@ -26,36 +25,30 @@ resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_bbgff")
 flip_faces = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hrkmm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxhb4"]
 resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("2_cvgax")
-shader_parameter/albedo = Color(0, 0, 0, 0.45)
-shader_parameter/emission = Color(0.15, 0.15, 0.15, 1)
-shader_parameter/emission_energy = 0.5
-shader_parameter/texture_albedo = ExtResource("4_vk4a3")
-shader_parameter/texture_emission = ExtResource("4_vk4a3")
+transparency = 1
+depth_draw_mode = 2
+shading_mode = 0
+albedo_color = Color(0.5, 0.5, 0.5, 0.45)
+albedo_texture = ExtResource("4_vk4a3")
 
 [sub_resource type="SphereMesh" id="SphereMesh_peegs"]
-material = SubResource("ShaderMaterial_hrkmm")
+material = SubResource("StandardMaterial3D_kxhb4")
 flip_faces = true
 radius = 242.27325
 height = 484.5465
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vk4a3"]
-render_priority = 0
-shader = ExtResource("2_cvgax")
-shader_parameter/albedo = Color(0, 0, 0, 0.6)
-shader_parameter/emission = Color(0.15, 0.15, 0.15, 1)
-shader_parameter/emission_energy = 0.5
-shader_parameter/texture_albedo = ExtResource("4_vk4a3")
-shader_parameter/texture_emission = ExtResource("4_vk4a3")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u7e8"]
+resource_local_to_scene = true
+transparency = 1
+depth_draw_mode = 2
+shading_mode = 0
 
 [sub_resource type="SphereMesh" id="SphereMesh_8km2v"]
-material = SubResource("ShaderMaterial_vk4a3")
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_8u7e8")
 flip_faces = true
-radius = 193.8186
-height = 387.6372
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ab0bn"]
 resource_local_to_scene = true
@@ -167,45 +160,63 @@ environment = SubResource("Environment_tpkrh")
 
 [node name="VoidLayerMesh" type="MeshInstance3D" parent="."]
 cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
 mesh = SubResource("SphereMesh_v7egd")
 
 [node name="StarsLayerFarFieldMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.1464466, -0.8535533, -0.49999994, 0.49999994, 0.49999997, -0.7071067, 0.85355324, -0.14644662, 0.49999994, 0, 0, 0)
 cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
 mesh = SubResource("SphereMesh_peegs")
 
 [node name="StarsLayerNearFieldMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
 cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
 mesh = SubResource("SphereMesh_8km2v")
 
 [node name="StarsLayerFarMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.3711385e-08, 0.7071067, 0.7071067, 0, 0.7071067, -0.7071067, -0.9999999, -3.0908616e-08, -3.0908616e-08, 0, 0, 0)
 cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
 mesh = SubResource("SphereMesh_axuuh")
 
 [node name="StarsLayerMidMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.49999994, -0.49999997, -0.7071067, 0.7071067, 0.70710677, 0, 0.49999994, -0.49999997, 0.7071067, 0, 0, 0)
 cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
 mesh = SubResource("SphereMesh_3am3h")
 
 [node name="StarsLayerNearMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
 cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
 mesh = SubResource("SphereMesh_2berh")
 
 [node name="NebulaeLayerNearMesh" type="MeshInstance3D" parent="."]
 cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
 mesh = SubResource("SphereMesh_ha5gm")
 
 [node name="NebulaeLayerFarMesh" type="MeshInstance3D" parent="NebulaeLayerNearMesh"]
 transform = Transform3D(0.9975641, 0, -0.06975647, 0, 1, 0, 0.06975647, 0, 0.9975641, 0, 0, 0)
 cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
 mesh = SubResource("SphereMesh_vvphp")
 skeleton = NodePath("../..")
 
 [node name="NebulaeLayerMidMesh" type="MeshInstance3D" parent="NebulaeLayerNearMesh"]
 transform = Transform3D(0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, 0.9975641, 0, 0, 0)
 cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
 mesh = SubResource("SphereMesh_oiro1")
 skeleton = NodePath("../..")

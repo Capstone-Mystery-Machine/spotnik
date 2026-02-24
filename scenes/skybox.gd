@@ -59,6 +59,7 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 
 func _apply_nebulae_material(mesh_instance: MeshInstance3D, texture_2d: Texture2D, skybox_layer_material: SkyboxLayerMaterial, node_name: String):
 	_apply_texture(mesh_instance, texture_2d, node_name)
+
 	var material = mesh_instance.mesh.material
 
 	if not material is ShaderMaterial:
@@ -81,20 +82,23 @@ func _apply_nebulae_material(mesh_instance: MeshInstance3D, texture_2d: Texture2
 
 func _apply_stars_field_material(mesh_instance: MeshInstance3D, texture_2d: Texture2D, skybox_layer_material: SkyboxLayerMaterial, node_name: String):
 	_apply_texture(mesh_instance, texture_2d, node_name)
+
 	var material = mesh_instance.mesh.material
 
-	if not material is ShaderMaterial:
-		push_error("bad dispatch to 'Skybox._apply_stars_field_material' (child node '" + node_name + ".mesh.material' is not 'ShaderMaterial')")
+	if not material is StandardMaterial3D:
+		push_error("bad dispatch to 'Skybox._apply_stars_field_material' (child node '" + node_name + ".mesh.material' is not 'StandardMaterial3D')")
 		return
 
 	if skybox_layer_material != null:
-		material.set_shader_parameter("albedo", skybox_layer_material.albedo_color)
-		material.set_shader_parameter("emission", skybox_layer_material.emission_color)
-		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
+		var hdr_color = skybox_layer_material.emission_color * skybox_layer_material.emission_energy
+		hdr_color.a = skybox_layer_material.albedo_color.a
+
+		material.albedo_color = hdr_color
 
 
 func _apply_stars_point_material(mesh_instance: MeshInstance3D, texture_2d: Texture2D, skybox_layer_material: SkyboxLayerMaterial, twinkle_effect_settings: TwinkleEffectSettings, node_name: String):
 	_apply_texture(mesh_instance, texture_2d, node_name)
+
 	var material = mesh_instance.mesh.material
 
 	if not material is ShaderMaterial:
@@ -115,6 +119,7 @@ func _apply_stars_point_material(mesh_instance: MeshInstance3D, texture_2d: Text
 func _update_nebulae_materials():
 	if settings == null:
 		return
+
 	_apply_nebulae_material(_nebulae_layer_near_mesh, settings.nebulae_texture, settings.nebulae_near_material, "NebulaeLayerNearMesh")
 	_apply_nebulae_material(_nebulae_layer_mid_mesh, settings.nebulae_texture, settings.nebulae_mid_material, "NebulaeLayerMidMesh")
 	_apply_nebulae_material(_nebulae_layer_far_mesh, settings.nebulae_texture, settings.nebulae_far_material, "NebulaeLayerFarMesh")
@@ -123,6 +128,7 @@ func _update_nebulae_materials():
 func _update_stars_field_materials():
 	if settings == null:
 		return
+
 	_apply_stars_field_material(_stars_layer_near_field_mesh, settings.stars_field_texture, settings.stars_field_near_material, "StarsLayerNearFieldMesh")
 	_apply_stars_field_material(_stars_layer_far_field_mesh, settings.stars_field_texture, settings.stars_field_far_material, "StarsLayerFarFieldMesh")
 
