@@ -52,7 +52,7 @@ func _process(delta: float) -> void:
 		scale = scale.lerp(Vector3.ONE, 10.0 * delta)
 		return
 
-	var body = detector.outer_bodies.keys()[0]
+	var body = detector.outer_bodies.keys()[0.0]
 	var distance = global_position.distance_to(body.global_position)
 
 	var t = 1.0 - clamp(
