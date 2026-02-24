@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" load_steps=2 format=3 uid="uid://dqjoam64hpcs1"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0kdub"]
+frequency = 0.02
+fractal_octaves = 3
+
+[resource]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_0kdub")
+seamless = true

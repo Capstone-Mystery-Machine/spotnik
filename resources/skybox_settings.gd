@@ -113,8 +113,8 @@ extends Resource
 ## Represents the opacity removed by the carving noise.
 @export_range(0.0, 1.0, 0.01) var nebulae_carving_intensity: float = 0.65
 
-## Represents the 3D noise texture used to carve the nebulae.
-@export var nebulae_carving_noise_texture: Texture3D
+## Represents the noise texture used to carve the nebulae.
+@export var nebulae_carving_noise_texture: NoiseTexture2D
 
 ## Represents the scale of the carving noise.
 @export var nebulae_carving_scale: float = 2.5
