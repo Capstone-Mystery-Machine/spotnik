@@ -420,6 +420,7 @@ func _update_stars_field_materials():
 
 # Updates the star mesh layer's materials based on the exported variables.
 func _update_stars_point_materials():
+	print("ehhhleooo world")
 	_apply_stars_point_material(
 		_stars_layer_near_mesh,
 		stars_point_texture,
@@ -483,6 +484,27 @@ func _ready() -> void:
 	if nebulae_far_material != null:
 		nebulae_far_material.changed.connect(_update_nebulae_materials)
 
+	if stars_field_far_material != null:
+		stars_field_far_material.changed.connect(_update_stars_field_materials)
+
+	if stars_field_far_material != null:
+		stars_field_near_material.changed.connect(_update_stars_field_materials)
+
+	if stars_point_near_material != null:
+		stars_point_near_material.changed.connect(_update_stars_point_materials)
+
+	if stars_point_mid_material != null:
+		stars_point_mid_material.changed.connect(_update_stars_point_materials)
+
+	if stars_point_far_material != null:
+		stars_point_far_material.changed.connect(_update_stars_point_materials)
+
+	if stars_field_near_material != null:
+		stars_field_near_material.changed.connect(_update_stars_field_materials)
+
+	if stars_field_far_material != null:
+		stars_field_far_material.changed.connect(_update_stars_field_materials)
+
 	if stars_point_near_twinkle != null:
 		stars_point_near_twinkle.changed.connect(_update_stars_point_materials)
 
@@ -491,12 +513,6 @@ func _ready() -> void:
 
 	if stars_point_far_twinkle != null:
 		stars_point_far_twinkle.changed.connect(_update_stars_point_materials)
-
-	if stars_field_near_material != null:
-		stars_field_near_material.changed.connect(_update_stars_field_materials)
-
-	if stars_field_far_material != null:
-		stars_field_far_material.changed.connect(_update_stars_field_materials)
 
 	_update_nebulae_materials()
 	_update_stars_point_materials()
