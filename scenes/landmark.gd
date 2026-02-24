@@ -33,7 +33,7 @@ signal outer_entered(body: CollisionObject3D)
 signal outer_exited(body: CollisionObject3D)
 
 ## Represents the maximum scale size the satellite node will grow to.
-@export var max_scale: float = 5
+@export var max_scale: float = 5.0
 
 @onready var detector: Area3D = $CameraPointerDetector
 @onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
