@@ -64,21 +64,21 @@ extends Node3D
 @export var stars_point_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.9),
 	Color(0, 0, 0, 1.0),
-	2.0,
+	1.0,
 )
 
 ## Represents the material settings applied to the mid stars layer.
 @export var stars_point_mid_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.75),
 	Color(0, 0, 0, 1.0),
-	1.75,
+	0.75,
 )
 
 ## Represents the material settings applied to the far stars layer.
 @export var stars_point_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.5),
 	Color(0, 0, 0, 1.0),
-	1.5,
+	1.25,
 )
 
 ## Represents the material settings applied to the field stars layer.

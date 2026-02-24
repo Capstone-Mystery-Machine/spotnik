@@ -6,7 +6,7 @@
 [ext_resource type="Shader" uid="uid://cr6fcjle7lg53" path="res://shaders/point_star.gdshader" id="2_wkasw"]
 [ext_resource type="Shader" uid="uid://b3485rvpg1yev" path="res://shaders/nebulae.gdshader" id="3_8u7e8"]
 [ext_resource type="Texture2D" uid="uid://nui05ni3xacc" path="res://textures/skybox_stars_field.png" id="4_bbgff"]
-[ext_resource type="Texture2D" uid="uid://wk1ks1w01ik3" path="res://textures/skybox_stars_far.png" id="5_sf6vd"]
+[ext_resource type="Texture2D" uid="uid://cb1x5cv0w6ae8" path="res://textures/skybox_point_stars.tres" id="5_vk4a3"]
 [ext_resource type="NoiseTexture3D" uid="uid://delo57vucw3cr" path="res://textures/carving_noise.tres" id="10_bbgff"]
 [ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://textures/skybox_nebulae.png" id="11_sf6vd"]
 
@@ -16,7 +16,7 @@ tonemap_exposure = 0.8
 glow_enabled = true
 glow_intensity = 0.6
 glow_bloom = 0.1
-glow_hdr_threshold = 0.75
+glow_hdr_threshold = 0.5
 glow_hdr_scale = 1.0
 glow_hdr_luminance_cap = 1.0
 
@@ -53,9 +53,9 @@ render_priority = 0
 shader = ExtResource("2_cvgax")
 shader_parameter/albedo = Color(0, 0, 0, 0.5)
 shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 1.5
-shader_parameter/texture_albedo = ExtResource("5_sf6vd")
-shader_parameter/texture_emission = ExtResource("5_sf6vd")
+shader_parameter/emission_energy = 1.25
+shader_parameter/texture_albedo = ExtResource("5_vk4a3")
+shader_parameter/texture_emission = ExtResource("5_vk4a3")
 shader_parameter/background_color_tint = Color(0.8, 0.8, 1, 1)
 shader_parameter/background_dimming = 0.15
 shader_parameter/background_horizontal_shift = 0.33
@@ -71,9 +71,9 @@ render_priority = 0
 shader = ExtResource("2_wkasw")
 shader_parameter/albedo = Color(0, 0, 0, 0.75)
 shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 1.75
-shader_parameter/texture_albedo = ExtResource("5_sf6vd")
-shader_parameter/texture_emission = ExtResource("5_sf6vd")
+shader_parameter/emission_energy = 0.75
+shader_parameter/texture_albedo = ExtResource("5_vk4a3")
+shader_parameter/texture_emission = ExtResource("5_vk4a3")
 shader_parameter/twinkle_frequency = 1500.0
 shader_parameter/twinkle_intensity = 0.6
 shader_parameter/twinkle_speed = 2.0
@@ -89,9 +89,9 @@ render_priority = 0
 shader = ExtResource("2_wkasw")
 shader_parameter/albedo = Color(0, 0, 0, 0.9)
 shader_parameter/emission = Color(0, 0, 0, 1)
-shader_parameter/emission_energy = 2.0
-shader_parameter/texture_albedo = ExtResource("5_sf6vd")
-shader_parameter/texture_emission = ExtResource("5_sf6vd")
+shader_parameter/emission_energy = 1.0
+shader_parameter/texture_albedo = ExtResource("5_vk4a3")
+shader_parameter/texture_emission = ExtResource("5_vk4a3")
 shader_parameter/twinkle_frequency = 800.0
 shader_parameter/twinkle_intensity = 0.3
 shader_parameter/twinkle_speed = 2.0
@@ -181,12 +181,12 @@ cast_shadow = 0
 mesh = SubResource("SphereMesh_mu0ws")
 
 [node name="StarsLayerFarMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+transform = Transform3D(0.7071067, 0.49999997, 0.49999994, 0, 0.70710677, -0.7071067, -0.7071067, 0.49999997, 0.49999994, 0, 0, 0)
 cast_shadow = 0
 mesh = SubResource("SphereMesh_vk4a3")
 
 [node name="StarsLayerMidMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 0, 0, 0)
+transform = Transform3D(0.49999994, -0.49999997, -0.7071067, 0.7071067, 0.70710677, 0, 0.49999994, -0.49999997, 0.7071067, 0, 0, 0)
 cast_shadow = 0
 mesh = SubResource("SphereMesh_bbgff")
 

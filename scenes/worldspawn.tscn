@@ -34,17 +34,17 @@ emission_energy = 0.95
 [sub_resource type="Resource" id="Resource_p2dvc"]
 script = ExtResource("8_5nanx")
 albedo_color = Color(0, 0, 0, 0.9)
-emission_energy = 2.0
+emission_energy = 1.0
 
 [sub_resource type="Resource" id="Resource_sv0yy"]
 script = ExtResource("8_5nanx")
 albedo_color = Color(0, 0, 0, 0.75)
-emission_energy = 1.75
+emission_energy = 0.75
 
 [sub_resource type="Resource" id="Resource_sklta"]
 script = ExtResource("8_5nanx")
 albedo_color = Color(0, 0, 0, 0.5)
-emission_energy = 1.5
+emission_energy = 1.25
 
 [sub_resource type="Resource" id="Resource_nu1fu"]
 script = ExtResource("8_5nanx")

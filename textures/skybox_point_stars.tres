@@ -2,16 +2,21 @@
 
 [sub_resource type="Gradient" id="Gradient_p073a"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.004237288)
+offsets = PackedFloat32Array(0, 0.001)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7dxpu"]
 noise_type = 2
+seed = 2
 frequency = 0.99
 fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+domain_warp_amplitude = 50.0
 
 [resource]
-width = 1024
+width = 2048
+height = 1024
 noise = SubResource("FastNoiseLite_7dxpu")
 color_ramp = SubResource("Gradient_p073a")
 seamless = true
