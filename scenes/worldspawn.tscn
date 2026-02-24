@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://textures/skybox_nebulae.png" id="7_fenpy"]
 [ext_resource type="Script" uid="uid://boku2lrftr83t" path="res://resources/skybox_layer_material.gd" id="8_5nanx"]
 [ext_resource type="Texture2D" uid="uid://nui05ni3xacc" path="res://textures/skybox_stars_field.png" id="8_v1r0n"]
-[ext_resource type="Texture2D" uid="uid://wk1ks1w01ik3" path="res://textures/skybox_stars_far.png" id="9_v1r0n"]
+[ext_resource type="Texture2D" uid="uid://cb1x5cv0w6ae8" path="res://textures/skybox_point_stars.tres" id="9_v1r0n"]
 [ext_resource type="Script" uid="uid://cp8j3wwp2xesw" path="res://resources/twinkle_effect_settings.gd" id="11_v1r0n"]
 [ext_resource type="NoiseTexture3D" uid="uid://delo57vucw3cr" path="res://textures/carving_noise.tres" id="12_v1r0n"]
 

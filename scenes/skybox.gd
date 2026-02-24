@@ -47,7 +47,7 @@ extends Node3D
 @export_subgroup("Stars Settings")
 
 ## Represents the texture applied to the near stars layer.
-@export var stars_point_texture: Texture2D:
+@export var stars_point_texture: NoiseTexture2D:
 	set(value):
 		stars_point_texture = value
 		if is_node_ready():
