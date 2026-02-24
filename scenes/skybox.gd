@@ -26,7 +26,10 @@ func _apply_radius(mesh_instance: MeshInstance3D, radius: float, node_name: Stri
 	var sphere_mesh = mesh_instance.mesh as SphereMesh
 
 	if !sphere_mesh:
-		push_error("bad dispatch to 'Skybox._apply_radius' (child node '" + node_name + ".mesh' is not 'SphereMesh')")
+		push_error(
+			"bad dispatch to 'Skybox._apply_radius' (child node '"
+			+ node_name + ".mesh' is not 'SphereMesh')",
+		)
 		return
 
 	sphere_mesh.radius = radius
@@ -37,13 +40,19 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 	var sphere_mesh = mesh_instance.mesh as SphereMesh
 
 	if !sphere_mesh:
-		push_error("bad dispatch to 'Skybox._apply_texture' (child node '" + node_name + ".mesh' is not 'SphereMesh')")
+		push_error(
+			"bad dispatch to 'Skybox._apply_texture' (child node '"
+			+ node_name + ".mesh' is not 'SphereMesh')",
+		)
 		return
 
 	var material = sphere_mesh.material
 
 	if !material:
-		push_error("bad dispatch to 'Skybox._apply_texture' (child node '" + node_name + ".mesh.material' is empty)")
+		push_error(
+			"bad dispatch to 'Skybox._apply_texture' (child node '"
+			+ node_name + ".mesh.material' is empty)",
+		)
 		return
 
 	if material is StandardMaterial3D:
@@ -57,13 +66,21 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 		material.set_shader_parameter("texture_emission", texture_2d)
 
 
-func _apply_nebulae_material(mesh_instance: MeshInstance3D, texture_2d: Texture2D, skybox_layer_material: SkyboxLayerMaterial, node_name: String):
+func _apply_nebulae_material(
+		mesh_instance: MeshInstance3D,
+		texture_2d: Texture2D,
+		skybox_layer_material: SkyboxLayerMaterial,
+		node_name: String,
+):
 	_apply_texture(mesh_instance, texture_2d, node_name)
 
 	var material = mesh_instance.mesh.material
 
 	if not material is ShaderMaterial:
-		push_error("bad dispatch to 'Skybox._apply_nebulae_material' (child node '" + node_name + ".mesh.material' is not 'ShaderMaterial')")
+		push_error(
+			"bad dispatch to 'Skybox._apply_nebulae_material' (child node '"
+			+ node_name + ".mesh.material' is not 'ShaderMaterial')",
+		)
 		return
 
 	if skybox_layer_material != null:
@@ -80,13 +97,21 @@ func _apply_nebulae_material(mesh_instance: MeshInstance3D, texture_2d: Texture2
 		material.set_shader_parameter("flow_speed", settings.nebulae_flow_speed)
 
 
-func _apply_stars_field_material(mesh_instance: MeshInstance3D, texture_2d: Texture2D, skybox_layer_material: SkyboxLayerMaterial, node_name: String):
+func _apply_stars_field_material(
+		mesh_instance: MeshInstance3D,
+		texture_2d: Texture2D,
+		skybox_layer_material: SkyboxLayerMaterial,
+		node_name: String,
+):
 	_apply_texture(mesh_instance, texture_2d, node_name)
 
 	var material = mesh_instance.mesh.material
 
 	if not material is StandardMaterial3D:
-		push_error("bad dispatch to 'Skybox._apply_stars_field_material' (child node '" + node_name + ".mesh.material' is not 'StandardMaterial3D')")
+		push_error(
+			"bad dispatch to 'Skybox._apply_stars_field_material' (child node '"
+			+ node_name + ".mesh.material' is not 'StandardMaterial3D')",
+		)
 		return
 
 	if skybox_layer_material != null:
@@ -96,13 +121,22 @@ func _apply_stars_field_material(mesh_instance: MeshInstance3D, texture_2d: Text
 		material.albedo_color = hdr_color
 
 
-func _apply_stars_point_material(mesh_instance: MeshInstance3D, texture_2d: Texture2D, skybox_layer_material: SkyboxLayerMaterial, twinkle_effect_settings: TwinkleEffectSettings, node_name: String):
+func _apply_stars_point_material(
+		mesh_instance: MeshInstance3D,
+		texture_2d: Texture2D,
+		skybox_layer_material: SkyboxLayerMaterial,
+		twinkle_effect_settings: TwinkleEffectSettings,
+		node_name: String,
+):
 	_apply_texture(mesh_instance, texture_2d, node_name)
 
 	var material = mesh_instance.mesh.material
 
 	if not material is ShaderMaterial:
-		push_error("bad dispatch to 'Skybox._apply_stars_point_material' (child node '" + node_name + ".mesh.material' is not 'ShaderMaterial')")
+		push_error(
+			"bad dispatch to 'Skybox._apply_stars_point_material' (child node '"
+			+ node_name + ".mesh.material' is not 'ShaderMaterial')",
+		)
 		return
 
 	if skybox_layer_material != null:
@@ -120,26 +154,74 @@ func _update_nebulae_materials():
 	if settings == null:
 		return
 
-	_apply_nebulae_material(_nebulae_layer_near_mesh, settings.nebulae_texture, settings.nebulae_near_material, "NebulaeLayerNearMesh")
-	_apply_nebulae_material(_nebulae_layer_mid_mesh, settings.nebulae_texture, settings.nebulae_mid_material, "NebulaeLayerMidMesh")
-	_apply_nebulae_material(_nebulae_layer_far_mesh, settings.nebulae_texture, settings.nebulae_far_material, "NebulaeLayerFarMesh")
+	_apply_nebulae_material(
+		_nebulae_layer_near_mesh,
+		settings.nebulae_texture,
+		settings.nebulae_near_material,
+		"NebulaeLayerNearMesh",
+	)
+
+	_apply_nebulae_material(
+		_nebulae_layer_mid_mesh,
+		settings.nebulae_texture,
+		settings.nebulae_mid_material,
+		"NebulaeLayerMidMesh",
+	)
+
+	_apply_nebulae_material(
+		_nebulae_layer_far_mesh,
+		settings.nebulae_texture,
+		settings.nebulae_far_material,
+		"NebulaeLayerFarMesh",
+	)
 
 
 func _update_stars_field_materials():
 	if settings == null:
 		return
 
-	_apply_stars_field_material(_stars_layer_near_field_mesh, settings.stars_field_texture, settings.stars_field_near_material, "StarsLayerNearFieldMesh")
-	_apply_stars_field_material(_stars_layer_far_field_mesh, settings.stars_field_texture, settings.stars_field_far_material, "StarsLayerFarFieldMesh")
+	_apply_stars_field_material(
+		_stars_layer_near_field_mesh,
+		settings.stars_field_texture,
+		settings.stars_field_near_material,
+		"StarsLayerNearFieldMesh",
+	)
+
+	_apply_stars_field_material(
+		_stars_layer_far_field_mesh,
+		settings.stars_field_texture,
+		settings.stars_field_far_material,
+		"StarsLayerFarFieldMesh",
+	)
 
 
 func _update_stars_point_materials():
 	if settings == null:
 		return
 
-	_apply_stars_point_material(_stars_layer_near_mesh, settings.stars_point_texture, settings.stars_point_near_material, settings.stars_point_near_twinkle, "StarsLayerNearMesh")
-	_apply_stars_point_material(_stars_layer_mid_mesh, settings.stars_point_texture, settings.stars_point_mid_material, settings.stars_point_mid_twinkle, "StarsLayerMidMesh")
-	_apply_stars_point_material(_stars_layer_far_mesh, settings.stars_point_texture, settings.stars_point_far_material, settings.stars_point_far_twinkle, "StarsLayerFarMesh")
+	_apply_stars_point_material(
+		_stars_layer_near_mesh,
+		settings.stars_point_texture,
+		settings.stars_point_near_material,
+		settings.stars_point_near_twinkle,
+		"StarsLayerNearMesh",
+	)
+
+	_apply_stars_point_material(
+		_stars_layer_mid_mesh,
+		settings.stars_point_texture,
+		settings.stars_point_mid_material,
+		settings.stars_point_mid_twinkle,
+		"StarsLayerMidMesh",
+	)
+
+	_apply_stars_point_material(
+		_stars_layer_far_mesh,
+		settings.stars_point_texture,
+		settings.stars_point_far_material,
+		settings.stars_point_far_twinkle,
+		"StarsLayerFarMesh",
+	)
 
 
 func _update_projection_radius():
@@ -158,18 +240,59 @@ func _update_projection_radius():
 
 	var void_radius = stars_field_far_radius * settings.void_radius_multiplier
 
-	_apply_radius(_nebulae_layer_near_mesh, settings.projection_radius, "NebulaeLayerNearMesh")
-	_apply_radius(_nebulae_layer_mid_mesh, nebulae_mid_radius, "NebulaeLayerMidMesh")
-	_apply_radius(_nebulae_layer_far_mesh, nebulae_far_radius, "NebulaeLayerFarMesh")
+	_apply_radius(
+		_nebulae_layer_near_mesh,
+		settings.projection_radius,
+		"NebulaeLayerNearMesh",
+	)
 
-	_apply_radius(_stars_layer_near_mesh, stars_near_radius, "StarsLayerNearMesh")
-	_apply_radius(_stars_layer_mid_mesh, stars_mid_radius, "StarsLayerMidMesh")
-	_apply_radius(_stars_layer_far_mesh, stars_far_radius, "StarsLayerFarMesh")
+	_apply_radius(
+		_nebulae_layer_mid_mesh,
+		nebulae_mid_radius,
+		"NebulaeLayerMidMesh",
+	)
 
-	_apply_radius(_stars_layer_near_field_mesh, stars_field_near_radius, "StarsLayerNearFieldMesh")
-	_apply_radius(_stars_layer_far_field_mesh, stars_field_far_radius, "StarsLayerFarFieldMesh")
+	_apply_radius(
+		_nebulae_layer_far_mesh,
+		nebulae_far_radius,
+		"NebulaeLayerFarMesh",
+	)
 
-	_apply_radius(_void_layer_mesh, void_radius, "VoidLayerMesh")
+	_apply_radius(
+		_stars_layer_near_mesh,
+		stars_near_radius,
+		"StarsLayerNearMesh",
+	)
+
+	_apply_radius(
+		_stars_layer_mid_mesh,
+		stars_mid_radius,
+		"StarsLayerMidMesh",
+	)
+
+	_apply_radius(
+		_stars_layer_far_mesh,
+		stars_far_radius,
+		"StarsLayerFarMesh",
+	)
+
+	_apply_radius(
+		_stars_layer_near_field_mesh,
+		stars_field_near_radius,
+		"StarsLayerNearFieldMesh",
+	)
+
+	_apply_radius(
+		_stars_layer_far_field_mesh,
+		stars_field_far_radius,
+		"StarsLayerFarFieldMesh",
+	)
+
+	_apply_radius(
+		_void_layer_mesh,
+		void_radius,
+		"VoidLayerMesh",
+	)
 
 
 func _update_all():

@@ -11,13 +11,25 @@ extends Resource
 @export var nebulae_texture: Texture2D
 
 ## Represents the material for the near nebulae layer.
-@export var nebulae_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(Color(0, 0, 0, 0.4), Color(0.05, 0.05, 0.01, 1.0), 0.5)
+@export var nebulae_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
+	Color(0, 0, 0, 0.4),
+	Color(0.05, 0.05, 0.01, 1.0),
+	0.5,
+)
 
 ## Represents the material for the mid nebulae layer.
-@export var nebulae_mid_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(Color(0, 0, 0, 0.65), Color(0.15, 0.1, 0.2, 1.0), 0.75)
+@export var nebulae_mid_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
+	Color(0, 0, 0, 0.65),
+	Color(0.15, 0.1, 0.2, 1.0),
+	0.75,
+)
 
 ## Represents the material for the far nebulae layer.
-@export var nebulae_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(Color(0, 0, 0, 0.75), Color(0.01, 0.01, 0.25, 1.0), 0.95)
+@export var nebulae_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
+	Color(0, 0, 0, 0.75),
+	Color(0.01, 0.01, 0.25, 1.0),
+	0.95,
+)
 
 @export_subgroup("Stars Settings")
 
