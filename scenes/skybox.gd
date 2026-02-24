@@ -6,9 +6,10 @@ extends Node3D
 ## Represents the resource containing all skybox visual and simulation settings.
 @export var settings: SkyboxSettings:
 	set(value):
+		_disconnect_resources()
 		settings = value
+		_connect_resources()
 		if is_node_ready():
-			_connect_all_signals()
 			_update_all()
 
 @onready var _void_layer_mesh: MeshInstance3D = $VoidLayerMesh
@@ -22,6 +23,7 @@ extends Node3D
 @onready var _nebulae_layer_far_mesh: MeshInstance3D = $NebulaeLayerNearMesh/NebulaeLayerFarMesh
 
 
+# Applies an exported radius setting to a child mesh layer.
 func _apply_radius(mesh_instance: MeshInstance3D, radius: float, node_name: String):
 	var sphere_mesh = mesh_instance.mesh as SphereMesh
 
@@ -36,6 +38,7 @@ func _apply_radius(mesh_instance: MeshInstance3D, radius: float, node_name: Stri
 	sphere_mesh.height = radius * 2
 
 
+# Applies an exported texture setting to a child mesh layer.
 func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_name: String):
 	var sphere_mesh = mesh_instance.mesh as SphereMesh
 
@@ -66,6 +69,7 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 		material.set_shader_parameter("texture_emission", texture_2d)
 
 
+# Applies exported settings to the nebulae shaders.
 func _apply_nebulae_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
@@ -97,6 +101,7 @@ func _apply_nebulae_material(
 		material.set_shader_parameter("flow_speed", settings.nebulae_flow_speed)
 
 
+# Applies exported settings to the star field shaders.
 func _apply_stars_field_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
@@ -121,6 +126,7 @@ func _apply_stars_field_material(
 		material.albedo_color = hdr_color
 
 
+# Applies exported settings to the point star shaders.
 func _apply_stars_point_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
@@ -150,6 +156,7 @@ func _apply_stars_point_material(
 		material.set_shader_parameter("twinkle_speed", twinkle_effect_settings.speed)
 
 
+# Updates the nebulae mesh layer's materials based on the exported variables.
 func _update_nebulae_materials():
 	if settings == null:
 		return
@@ -176,6 +183,7 @@ func _update_nebulae_materials():
 	)
 
 
+# Updates the star mesh layer's materials based on the exported variables.
 func _update_stars_field_materials():
 	if settings == null:
 		return
@@ -195,6 +203,7 @@ func _update_stars_field_materials():
 	)
 
 
+# Updates the star mesh layer's materials based on the exported variables.
 func _update_stars_point_materials():
 	if settings == null:
 		return
@@ -224,6 +233,7 @@ func _update_stars_point_materials():
 	)
 
 
+## Updates the child nodes' projection radius settings based on the exported variable.
 func _update_projection_radius():
 	if settings == null:
 		return
@@ -302,40 +312,90 @@ func _update_all():
 	_update_projection_radius()
 
 
-func _connect_resource_signal(resource: Resource, callable: Callable):
-	if resource != null and not resource.changed.is_connected(callable):
-		resource.changed.connect(callable)
+# Connects a resource's property_changed signal.
+func _connect_resource(resource: Resource):
+	if resource != null and not resource.property_changed.is_connected(_on_property_changed):
+		resource.property_changed.connect(_on_property_changed)
 
 
-func _connect_all_signals():
+# Disconnects a resource's property_changed signal.
+func _disconnect_resource(resource: Resource):
+	if resource != null and resource.property_changed.is_connected(_on_property_changed):
+		resource.property_changed.disconnect(_on_property_changed)
+
+
+# Sets up all reactivity signals.
+func _connect_resources():
 	if settings == null:
 		return
 
-	_connect_resource_signal(settings, _on_settings_resource_changed)
-
-	_connect_resource_signal(settings.nebulae_near_material, _update_nebulae_materials)
-	_connect_resource_signal(settings.nebulae_mid_material, _update_nebulae_materials)
-	_connect_resource_signal(settings.nebulae_far_material, _update_nebulae_materials)
-
-	_connect_resource_signal(settings.stars_field_near_material, _update_stars_field_materials)
-	_connect_resource_signal(settings.stars_field_far_material, _update_stars_field_materials)
-
-	_connect_resource_signal(settings.stars_point_near_material, _update_stars_point_materials)
-	_connect_resource_signal(settings.stars_point_mid_material, _update_stars_point_materials)
-	_connect_resource_signal(settings.stars_point_far_material, _update_stars_point_materials)
-
-	_connect_resource_signal(settings.stars_point_near_twinkle, _update_stars_point_materials)
-	_connect_resource_signal(settings.stars_point_mid_twinkle, _update_stars_point_materials)
-	_connect_resource_signal(settings.stars_point_far_twinkle, _update_stars_point_materials)
+	_connect_resource(settings)
+	_connect_resource(settings.nebulae_near_material)
+	_connect_resource(settings.nebulae_mid_material)
+	_connect_resource(settings.nebulae_far_material)
+	_connect_resource(settings.stars_field_near_material)
+	_connect_resource(settings.stars_field_far_material)
+	_connect_resource(settings.stars_point_near_material)
+	_connect_resource(settings.stars_point_mid_material)
+	_connect_resource(settings.stars_point_far_material)
+	_connect_resource(settings.stars_point_near_twinkle)
+	_connect_resource(settings.stars_point_mid_twinkle)
+	_connect_resource(settings.stars_point_far_twinkle)
 
 
-func _on_settings_resource_changed():
-	_connect_all_signals()
-	_update_all()
+# Clears all reactivity signals.
+func _disconnect_resources():
+	if settings == null:
+		return
+
+	_disconnect_resource(settings)
+	_disconnect_resource(settings.nebulae_near_material)
+	_disconnect_resource(settings.nebulae_mid_material)
+	_disconnect_resource(settings.nebulae_far_material)
+	_disconnect_resource(settings.stars_field_near_material)
+	_disconnect_resource(settings.stars_field_far_material)
+	_disconnect_resource(settings.stars_point_near_material)
+	_disconnect_resource(settings.stars_point_mid_material)
+	_disconnect_resource(settings.stars_point_far_material)
+	_disconnect_resource(settings.stars_point_near_twinkle)
+	_disconnect_resource(settings.stars_point_mid_twinkle)
+	_disconnect_resource(settings.stars_point_far_twinkle)
+
+
+# Responds to setting and sub-resource changes.
+func _on_property_changed(property_name: StringName) -> void:
+	print(property_name)
+	match property_name:
+		&"nebulae_texture", &"nebulae_carving_intensity", &"nebulae_carving_noise_texture", &"nebulae_carving_scale", &"nebulae_carving_speed", &"nebulae_flow_intensity", &"nebulae_flow_speed":
+			_update_nebulae_materials()
+		&"stars_field_texture":
+			_update_stars_field_materials()
+		&"stars_point_texture":
+			_update_stars_point_materials()
+		&"projection_radius", &"nebulae_displacement_multiplier", &"stars_point_radius_multiplier", &"stars_point_displacement_multiplier", &"stars_field_radius_multiplier", &"stars_field_displacement_multiplier", &"void_radius_multiplier":
+			_update_projection_radius()
+		&"albedo_color", &"emission_color", &"emission_energy":
+			_update_nebulae_materials()
+			_update_stars_field_materials()
+			_update_stars_point_materials()
+		&"frequency", &"intensity", &"speed":
+			_update_stars_point_materials()
+		&"nebulae_near_material", &"nebulae_mid_material", &"nebulae_far_material":
+			_disconnect_resources()
+			_connect_resources()
+			_update_nebulae_materials()
+		&"stars_field_near_material", &"stars_field_far_material":
+			_disconnect_resources()
+			_connect_resources()
+			_update_stars_field_materials()
+		&"stars_point_near_material", &"stars_point_mid_material", &"stars_point_far_material", &"stars_point_near_twinkle", &"stars_point_mid_twinkle", &"stars_point_far_twinkle":
+			_disconnect_resources()
+			_connect_resources()
+			_update_stars_point_materials()
 
 
 func _ready() -> void:
-	_connect_all_signals()
+	_connect_resources()
 	_update_all()
 
 
