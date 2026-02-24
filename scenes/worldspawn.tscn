@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b5ou2u38e78kf"]
+[gd_scene load_steps=14 format=3 uid="uid://b5ou2u38e78kf"]
 
 [ext_resource type="PackedScene" uid="uid://ckh0mf4o2awhw" path="res://scenes/device.tscn" id="1_tnvwq"]
 [ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://scenes/satel_info_ui.tscn" id="2_cn1jf"]
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://scenes/landmark.tscn" id="3_cojv1"]
-[ext_resource type="PackedScene" uid="uid://b3c1tcyumuxs2" path="res://scenes/satellite_manager.tscn" id="4_op4v0"]
-[ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://scenes/skybox.tscn" id="5_kpp3c"]
+[ext_resource type="PackedScene" path="res://scenes/satellite_manager.tscn" id="4_op4v0"]
+[ext_resource type="PackedScene" path="res://scenes/skybox.tscn" id="5_kpp3c"]
 [ext_resource type="Texture2D" uid="uid://dcub3lj503nir" path="res://textures/skybox_void.png" id="6_u6u3q"]
 [ext_resource type="Texture2D" uid="uid://cw8l4a0x80e5n" path="res://textures/skybox_stars_near.png" id="7_4oxqj"]
 [ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://textures/skybox_nebulae.png" id="7_fenpy"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://nui05ni3xacc" path="res://textures/skybox_stars_field.png" id="8_v1r0n"]
 [ext_resource type="Texture2D" uid="uid://wk1ks1w01ik3" path="res://textures/skybox_stars_far.png" id="9_v1r0n"]
 [ext_resource type="NoiseTexture3D" uid="uid://delo57vucw3cr" path="res://textures/carving_noise.tres" id="12_v1r0n"]
+[ext_resource type="PackedScene" uid="uid://begceindp27u5" path="res://scenes/compass_points.tscn" id="13_f1x51"]
 
 [node name="Worldspawn" type="Node3D"]
 
@@ -34,5 +35,8 @@ stars_mid_texture = ExtResource("8_5nanx")
 stars_far_texture = ExtResource("9_v1r0n")
 projection_radius = 100.0
 nebulae_carving_noise_texture = ExtResource("12_v1r0n")
+
+[node name="Compass_UI" parent="." instance=ExtResource("13_f1x51")]
+transform = Transform3D(1, 0, 0, 0, 0.9936133, -0.11283904, 0, 0.11283904, 0.9936133, 5.1381426, -0.54478836, -10.601839)
 
 [connection signal="ui_open" from="Landmark" to="Satel_Info_UI" method="_on_landmark_ui_open"]
