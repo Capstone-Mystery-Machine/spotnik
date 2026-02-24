@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://scenes/landmark.tscn" id="3_cojv1"]
 [ext_resource type="PackedScene" uid="uid://b3c1tcyumuxs2" path="res://scenes/satellite_manager.tscn" id="4_op4v0"]
 [ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://scenes/skybox.tscn" id="5_kpp3c"]
-[ext_resource type="Texture2D" uid="uid://dcub3lj503nir" path="res://textures/skybox_void.png" id="6_u6u3q"]
 [ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://textures/skybox_nebulae.png" id="7_fenpy"]
 [ext_resource type="Script" uid="uid://boku2lrftr83t" path="res://resources/skybox_layer_material.gd" id="8_5nanx"]
 [ext_resource type="Texture2D" uid="uid://c47uk04kxrdwu" path="res://textures/skybox_field_stars.tres" id="9_f1x51"]
@@ -34,23 +33,29 @@ emission_energy = 0.95
 [sub_resource type="Resource" id="Resource_p2dvc"]
 script = ExtResource("8_5nanx")
 albedo_color = Color(0, 0, 0, 0.9)
-emission_energy = 1.0
+emission_energy = 0.6
 
 [sub_resource type="Resource" id="Resource_sv0yy"]
 script = ExtResource("8_5nanx")
 albedo_color = Color(0, 0, 0, 0.75)
-emission_energy = 0.75
+emission_energy = 0.5
 
 [sub_resource type="Resource" id="Resource_sklta"]
 script = ExtResource("8_5nanx")
 albedo_color = Color(0, 0, 0, 0.5)
-emission_energy = 1.25
+emission_energy = 0.4
 
-[sub_resource type="Resource" id="Resource_nu1fu"]
+[sub_resource type="Resource" id="Resource_5nanx"]
 script = ExtResource("8_5nanx")
 albedo_color = Color(0, 0, 0, 0.6)
 emission_color = Color(0.15, 0.15, 0.15, 1)
 emission_energy = 0.7
+
+[sub_resource type="Resource" id="Resource_v1r0n"]
+script = ExtResource("8_5nanx")
+albedo_color = Color(0, 0, 0, 0.45)
+emission_color = Color(0.15, 0.15, 0.15, 1)
+emission_energy = 0.5
 
 [sub_resource type="Resource" id="Resource_2mssp"]
 script = ExtResource("11_v1r0n")
@@ -80,7 +85,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98632, 0, -2.7282925)
 landmark_scene = ExtResource("3_cojv1")
 
 [node name="Skybox" parent="." instance=ExtResource("5_kpp3c")]
-void_texture = ExtResource("6_u6u3q")
 nebulae_texture = ExtResource("7_fenpy")
 nebulae_near_material = SubResource("Resource_f1x51")
 nebulae_mid_material = SubResource("Resource_ah1y1")
@@ -90,7 +94,8 @@ stars_point_texture = ExtResource("9_v1r0n")
 stars_point_near_material = SubResource("Resource_p2dvc")
 stars_point_mid_material = SubResource("Resource_sv0yy")
 stars_point_far_material = SubResource("Resource_sklta")
-stars_field_material = SubResource("Resource_nu1fu")
+stars_field_near_material = SubResource("Resource_5nanx")
+stars_field_far_material = SubResource("Resource_v1r0n")
 projection_radius = 100.0
 nebulae_carving_noise_texture = ExtResource("12_v1r0n")
 stars_point_near_twinkle = SubResource("Resource_2mssp")

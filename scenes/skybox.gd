@@ -55,14 +55,14 @@ extends Node3D
 @export var stars_point_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.9),
 	Color(0, 0, 0, 1.0),
-	1.0,
+	0.6,
 )
 
 ## Represents the material settings applied to the mid stars layer.
 @export var stars_point_mid_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.75),
 	Color(0, 0, 0, 1.0),
-	0.75,
+	0.45,
 )
 
 ## Represents the material settings applied to the far stars layer.
@@ -72,11 +72,18 @@ extends Node3D
 	1.25,
 )
 
-## Represents the material settings applied to the field stars layer.
-@export var stars_field_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
+## Represents the material settings applied to the near field stars layer.
+@export var stars_field_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.6),
 	Color(0.15, 0.15, 0.15, 1.0),
 	0.7,
+)
+
+## Represents the material settings applied to the far field stars layer.
+@export var stars_field_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
+	Color(0, 0, 0, 0.45),
+	Color(0.15, 0.15, 0.15, 1.0),
+	0.5,
 )
 
 @export_group("Projection Settings")
@@ -91,25 +98,41 @@ extends Node3D
 
 ## Represents the radius multiplier applied to the nebulae mid and far layers,
 ## based on the near layer's computed projection radius.
-@export_range(1.0, 2.0, 0.00001) var nebulae_volume_multiplier: float = 1.1:
+@export_range(1.0, 2.0, 0.00001) var nebulae_displacement_multiplier: float = 1.1:
 	set(value):
-		nebulae_volume_multiplier = value
+		nebulae_displacement_multiplier = value
 		if is_node_ready():
 			_update_projection_radius()
 
 ## Represents the radius multiplier applied to the stars mesh layer, based on the
 ## projection radius.
-@export_range(1.0, 2.0, 0.00001) var stars_radius_multiplier: float = 1.0125:
+@export_range(1.0, 2.0, 0.00001) var stars_point_radius_multiplier: float = 1.0125:
 	set(value):
-		stars_radius_multiplier = value
+		stars_point_radius_multiplier = value
 		if is_node_ready():
 			_update_projection_radius()
 
 ## Represents the radius multiplier applied to the stars mid and far layers,
 ## based on the previous star layer's computed projection radius.
-@export_range(1.0, 2.0, 0.00001) var stars_separation_multiplier: float = 1.25:
+@export_range(1.0, 2.0, 0.00001) var stars_point_displacement_multiplier: float = 1.25:
 	set(value):
-		stars_separation_multiplier = value
+		stars_point_displacement_multiplier = value
+		if is_node_ready():
+			_update_projection_radius()
+
+## Represents the radius multiplier applied to the stars mesh layer, based on the
+## projection radius.
+@export_range(1.0, 2.0, 0.00001) var stars_field_radius_multiplier: float = 1.0125:
+	set(value):
+		stars_field_radius_multiplier = value
+		if is_node_ready():
+			_update_projection_radius()
+
+## Represents the radius multiplier applied to the stars field near and far layers,
+## based on the previous star layer's computed projection radius.
+@export_range(1.0, 2.0, 0.00001) var stars_field_displacement_multiplier: float = 1.025:
+	set(value):
+		stars_field_displacement_multiplier = value
 		if is_node_ready():
 			_update_projection_radius()
 
@@ -126,12 +149,16 @@ extends Node3D
 ## Represents the base rotation speed applied to the void layer.
 @export_range(-0.1, 0.1, 0.00001, "suffix:rad/s") var rotation_speed: float = 0.00025
 
-## Represents the rotation speed multiplier applied to the stars field layer, based on
+## Represents the rotation speed multiplier applied to the stars far field layer, based on
 ## the base rotation speed.
-@export_range(-2.0, 2.0, 0.00001) var stars_field_speed_multiplier: float = 1.0
+@export_range(-2.0, 2.0, 0.00001) var stars_field_far_speed_multiplier: float = 1.0
+
+## Represents the rotation speed multiplier applied to the stars near field layer, based on
+## the far star field layer's computed rotation speed.
+@export_range(-2.0, 2.0, 0.00001) var stars_field_near_speed_multiplier: float = 1.0
 
 ## Represents the rotation speed multiplier applied to the stars far layer, based on
-## the base rotation speed.
+## the near star field layer's computed rotation speed.
 @export_range(-2.0, 2.0, 0.00001) var stars_point_far_speed_multiplier: float = 1.0
 
 ## Represents the rotation speed multiplier applied to the stars mid layer, based on
@@ -190,29 +217,6 @@ extends Node3D
 		if is_node_ready():
 			_update_nebulae_materials()
 
-@export_group("Star Field Effects Settings")
-
-## Represents the color tint applied to the background star layer.
-@export var stars_field_background_color_tint: Color = Color(0.8, 0.8, 1.0, 1.0):
-	set(value):
-		stars_field_background_color_tint = value
-		if is_node_ready():
-			_update_stars_point_materials()
-
-## Represents how much the background star layer is dimmed.
-@export_range(0.0, 1.0, 0.001) var stars_field_background_dimming: float = 0.15:
-	set(value):
-		stars_field_background_dimming = value
-		if is_node_ready():
-			_update_stars_point_materials()
-
-## Represents the horizontal shift offset for the background star layer.
-@export_range(0.0, 1.0, 0.001) var stars_field_background_horizontal_shift: float = 0.33:
-	set(value):
-		stars_field_background_horizontal_shift = value
-		if is_node_ready():
-			_update_stars_point_materials()
-
 @export_group("Twinkle Effect Settings")
 
 ## Represents the twinkle settings applied to the near stars layer.
@@ -225,7 +229,8 @@ extends Node3D
 @export var stars_point_far_twinkle: TwinkleEffectSettings = TwinkleEffectSettings.new(0.9, 2500.0, 4.0)
 
 @onready var _void_layer_mesh: MeshInstance3D = $VoidLayerMesh
-@onready var _stars_layer_field_mesh: MeshInstance3D = $StarsLayerFieldMesh
+@onready var _stars_layer_far_field_mesh: MeshInstance3D = $StarsLayerFarFieldMesh
+@onready var _stars_layer_near_field_mesh: MeshInstance3D = $StarsLayerNearFieldMesh
 @onready var _stars_layer_far_mesh: MeshInstance3D = $StarsLayerFarMesh
 @onready var _stars_layer_mid_mesh: MeshInstance3D = $StarsLayerMidMesh
 @onready var _stars_layer_near_mesh: MeshInstance3D = $StarsLayerNearMesh
@@ -323,9 +328,6 @@ func _apply_stars_field_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
 		skybox_layer_material: SkyboxLayerMaterial,
-		background_color_tint: Color,
-		background_dimming: float,
-		background_horizontal_shift: float,
 		node_name: String,
 ):
 	_apply_texture(mesh_instance, texture_2d, node_name)
@@ -343,11 +345,6 @@ func _apply_stars_field_material(
 		material.set_shader_parameter("albedo", skybox_layer_material.albedo_color)
 		material.set_shader_parameter("emission", skybox_layer_material.emission_color)
 		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
-
-	print(skybox_layer_material)
-	material.set_shader_parameter("background_horizontal_shift", background_horizontal_shift)
-	material.set_shader_parameter("background_dimming", background_dimming)
-	material.set_shader_parameter("background_color_tint", background_color_tint)
 
 
 # Applies exported settings to the point star shaders.
@@ -407,13 +404,17 @@ func _update_nebulae_materials():
 # Updates the star mesh layer's materials based on the exported variables.
 func _update_stars_field_materials():
 	_apply_stars_field_material(
-		_stars_layer_field_mesh,
+		_stars_layer_near_field_mesh,
 		stars_field_texture,
-		stars_field_material,
-		stars_field_background_color_tint,
-		stars_field_background_dimming,
-		stars_field_background_horizontal_shift,
-		"StarsLayerFieldMesh",
+		stars_field_near_material,
+		"StarsLayerNearFieldMesh",
+	)
+
+	_apply_stars_field_material(
+		_stars_layer_far_field_mesh,
+		stars_field_texture,
+		stars_field_far_material,
+		"StarsLayerFarFieldMesh",
 	)
 
 
@@ -446,15 +447,17 @@ func _update_stars_point_materials():
 
 ## Updates the child nodes' projection radius settings based on the exported variable.
 func _update_projection_radius():
-	var nebulae_mid_radius = projection_radius * nebulae_volume_multiplier
-	var nebulae_far_radius = nebulae_mid_radius * nebulae_volume_multiplier
+	var nebulae_mid_radius = projection_radius * nebulae_displacement_multiplier
+	var nebulae_far_radius = nebulae_mid_radius * nebulae_displacement_multiplier
 
-	var stars_near_radius = nebulae_far_radius * stars_radius_multiplier
-	var stars_mid_radius = stars_near_radius * stars_separation_multiplier
-	var stars_far_radius = stars_mid_radius * stars_separation_multiplier
-	var stars_field_radius = stars_far_radius * stars_separation_multiplier
+	var stars_near_radius = nebulae_far_radius * stars_point_radius_multiplier
+	var stars_mid_radius = stars_near_radius * stars_point_displacement_multiplier
+	var stars_far_radius = stars_mid_radius * stars_point_displacement_multiplier
 
-	var void_radius = stars_field_radius * void_radius_multiplier
+	var stars_field_near_radius = stars_far_radius * stars_point_radius_multiplier
+	var stars_field_far_radius = stars_field_near_radius * stars_point_displacement_multiplier
+
+	var void_radius = stars_field_far_radius * void_radius_multiplier
 
 	_apply_radius(_nebulae_layer_near_mesh, projection_radius, "NebulaeLayerNearMesh")
 	_apply_radius(_nebulae_layer_mid_mesh, nebulae_mid_radius, "NebulaeLayerMidMesh")
@@ -463,7 +466,9 @@ func _update_projection_radius():
 	_apply_radius(_stars_layer_near_mesh, stars_near_radius, "StarsLayerNearMesh")
 	_apply_radius(_stars_layer_mid_mesh, stars_mid_radius, "StarsLayerMidMesh")
 	_apply_radius(_stars_layer_far_mesh, stars_far_radius, "StarsLayerFarMesh")
-	_apply_radius(_stars_layer_field_mesh, stars_field_radius, "StarsLayerFieldMesh")
+
+	_apply_radius(_stars_layer_near_field_mesh, stars_field_near_radius, "StarsLayerNearFieldMesh")
+	_apply_radius(_stars_layer_far_field_mesh, stars_field_far_radius, "StarsLayerFarFieldMesh")
 
 	_apply_radius(_void_layer_mesh, void_radius, "VoidLayerMesh")
 
@@ -471,25 +476,34 @@ func _update_projection_radius():
 func _ready() -> void:
 	if nebulae_near_material != null:
 		nebulae_near_material.changed.connect(_update_nebulae_materials)
+
 	if nebulae_mid_material != null:
 		nebulae_mid_material.changed.connect(_update_nebulae_materials)
+
 	if nebulae_far_material != null:
 		nebulae_far_material.changed.connect(_update_nebulae_materials)
 
-	if stars_field_material != null:
-		stars_field_material.changed.connect(_update_stars_field_materials)
+	if stars_field_far_material != null:
+		stars_field_far_material.changed.connect(_update_stars_field_materials)
+
+	if stars_field_far_material != null:
+		stars_field_near_material.changed.connect(_update_stars_field_materials)
 
 	if stars_point_near_material != null:
 		stars_point_near_material.changed.connect(_update_stars_point_materials)
+
 	if stars_point_mid_material != null:
 		stars_point_mid_material.changed.connect(_update_stars_point_materials)
+
 	if stars_point_far_material != null:
 		stars_point_far_material.changed.connect(_update_stars_point_materials)
 
 	if stars_point_near_twinkle != null:
 		stars_point_near_twinkle.changed.connect(_update_stars_point_materials)
+
 	if stars_point_mid_twinkle != null:
 		stars_point_mid_twinkle.changed.connect(_update_stars_point_materials)
+
 	if stars_point_far_twinkle != null:
 		stars_point_far_twinkle.changed.connect(_update_stars_point_materials)
 
@@ -503,14 +517,16 @@ func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 
-	var stars_field_speed = rotation_speed * stars_field_speed_multiplier
-	var stars_point_far_speed = stars_field_speed * stars_point_far_speed_multiplier
+	var stars_field_far_speed = rotation_speed * stars_field_far_speed_multiplier
+	var stars_field_near_speed = stars_field_far_speed * stars_field_near_speed_multiplier
+	var stars_point_far_speed = stars_field_near_speed * stars_point_far_speed_multiplier
 	var stars_point_mid_speed = stars_point_far_speed * stars_point_mid_speed_multiplier
 	var stars_point_near_speed = stars_point_mid_speed * stars_point_near_speed_multiplier
 	var nebulae_speed = stars_point_near_speed * nebulae_speed_multiplier
 
 	_void_layer_mesh.rotate_y(rotation_speed * delta)
-	_stars_layer_field_mesh.rotate_y(stars_field_speed * delta)
+	_stars_layer_far_field_mesh.rotate_y(stars_field_far_speed * delta)
+	_stars_layer_near_field_mesh.rotate_y(stars_field_near_speed * delta)
 	_stars_layer_far_mesh.rotate_y(stars_point_far_speed * delta)
 	_stars_layer_mid_mesh.rotate_y(stars_point_mid_speed * delta)
 	_stars_layer_near_mesh.rotate_y(stars_point_near_speed * delta)
