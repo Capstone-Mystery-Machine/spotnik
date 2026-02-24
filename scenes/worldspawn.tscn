@@ -37,6 +37,5 @@ projection_radius = 100.0
 nebulae_carving_noise_texture = ExtResource("12_v1r0n")
 
 [node name="Compass_UI" parent="." instance=ExtResource("13_f1x51")]
-transform = Transform3D(1, 0, 0, 0, 0.9936133, -0.11283904, 0, 0.11283904, 0.9936133, 5.1381426, -0.54478836, -10.601839)
 
 [connection signal="ui_open" from="Landmark" to="Satel_Info_UI" method="_on_landmark_ui_open"]
