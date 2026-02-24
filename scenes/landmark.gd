@@ -35,11 +35,15 @@ signal outer_exited(body: CollisionObject3D)
 ## Represents the maximum scale size the satellite node will grow to.
 @export var max_scale: float = 5.0
 
+## Represents the distance between the camera and where satellites spawn.
+@export var spawn_radius: float = 10.0
+
 @onready var detector: Area3D = $CameraPointerDetector
 @onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
 
 var outer_radius: float
 var inner_radius: float
+var pointer: CollisionObject3D
 
 
 func _ready() -> void:
@@ -48,11 +52,11 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if detector.outer_bodies.is_empty():
-		scale = scale.lerp(Vector3.ONE, 10.0 * delta)
+	if (pointer == null):
+		scale = scale.lerp(Vector3.ONE, spawn_radius * delta)
 		return
 
-	var body = detector.outer_bodies.keys()[0.0]
+	var body = pointer
 	var distance = global_position.distance_to(body.global_position)
 
 	var t = 1.0 - clamp(
@@ -63,7 +67,7 @@ func _process(delta: float) -> void:
 
 	var target_scale = lerp(1.0, max_scale, t)
 
-	scale = scale.lerp(Vector3.ONE * target_scale, 10.0 * delta)
+	scale = scale.lerp(Vector3.ONE * target_scale, spawn_radius * delta)
 
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
@@ -76,8 +80,10 @@ func _on_camera_pointer_detector_inner_exited(body: CollisionObject3D) -> void:
 
 
 func _on_camera_pointer_detector_outer_entered(body: CollisionObject3D) -> void:
+	pointer = body
 	emit_signal("outer_entered", body)
 
 
 func _on_camera_pointer_detector_outer_exited(body: CollisionObject3D) -> void:
+	pointer = null
 	emit_signal("outer_exited", body)
