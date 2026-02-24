@@ -27,7 +27,7 @@ func setup(
 	longitude = long
 
 
-signal inner_entered(body: CollisionObject3D)
+signal inner(body: CollisionObject3D)
 signal inner_exited(body: CollisionObject3D)
 signal outer_entered(body: CollisionObject3D)
 signal outer_exited(body: CollisionObject3D)
@@ -52,7 +52,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if (pointer == null):
+	if pointer == null:
 		scale = scale.lerp(Vector3.ONE, spawn_radius * delta)
 		return
 
@@ -70,8 +70,8 @@ func _process(delta: float) -> void:
 	scale = scale.lerp(Vector3.ONE * target_scale, spawn_radius * delta)
 
 
-func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
-	emit_signal("inner_entered", body)
+func _on_camera_pointer_detector_inner(body: CollisionObject3D) -> void:
+	emit_signal("inner", body)
 	SignalBus.ui_info.emit(self)
 
 
