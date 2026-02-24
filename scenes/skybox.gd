@@ -5,15 +5,6 @@ extends Node3D
 
 @export_group("Materials Settings")
 
-@export_subgroup("Void Settings")
-
-## Represents the texture applied to the background void layer.
-@export var void_texture: Texture2D:
-	set(value):
-		void_texture = value
-		if is_node_ready():
-			_update_void_texture()
-
 @export_subgroup("Nebulae Settings")
 
 ## Represents the texture applied to the nebulae layers.
@@ -453,11 +444,6 @@ func _update_stars_point_materials():
 	)
 
 
-# Updates the void mesh layer's texture settings based on the exported variable.
-func _update_void_texture():
-	_apply_texture(_void_layer_mesh, void_texture, "VoidLayerMesh")
-
-
 ## Updates the child nodes' projection radius settings based on the exported variable.
 func _update_projection_radius():
 	var nebulae_mid_radius = projection_radius * nebulae_volume_multiplier
@@ -510,7 +496,6 @@ func _ready() -> void:
 	_update_nebulae_materials()
 	_update_stars_point_materials()
 	_update_stars_field_materials()
-	_update_void_texture()
 	_update_projection_radius()
 
 
