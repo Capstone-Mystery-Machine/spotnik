@@ -5,6 +5,7 @@ signal inner_exited(body: CollisionObject3D)
 signal outer_entered(body: CollisionObject3D)
 signal outer_exited(body: CollisionObject3D)
 
+## Represents the size of the inner trigger zone of the satellite nodes.
 @export var inner_radius: float = 0.5
 
 var outer_bodies: Dictionary = { }

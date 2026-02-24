@@ -32,8 +32,7 @@ signal inner_exited(body: CollisionObject3D)
 signal outer_entered(body: CollisionObject3D)
 signal outer_exited(body: CollisionObject3D)
 
-# ------------------ ADDED ------------------
-
+## Represents the maximum scale size the satellite node will grow to.
 @export var max_scale: float = 5
 
 @onready var detector: Area3D = $CameraPointerDetector
@@ -44,7 +43,6 @@ var inner_radius: float
 
 
 func _ready() -> void:
-	# Get radii from detector
 	outer_radius = outer_shape.shape.radius
 	inner_radius = detector.inner_radius
 
@@ -66,8 +64,6 @@ func _process(delta: float) -> void:
 	var target_scale = lerp(1.0, max_scale, t)
 
 	scale = scale.lerp(Vector3.ONE * target_scale, 10 * delta)
-
-# ------------------------------------------------
 
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
