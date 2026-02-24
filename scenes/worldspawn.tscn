@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dcub3lj503nir" path="res://textures/skybox_void.png" id="6_u6u3q"]
 [ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://textures/skybox_nebulae.png" id="7_fenpy"]
 [ext_resource type="Script" uid="uid://boku2lrftr83t" path="res://resources/skybox_layer_material.gd" id="8_5nanx"]
-[ext_resource type="Texture2D" uid="uid://nui05ni3xacc" path="res://textures/skybox_stars_field.png" id="8_v1r0n"]
+[ext_resource type="Texture2D" uid="uid://c47uk04kxrdwu" path="res://textures/skybox_field_stars.tres" id="9_f1x51"]
 [ext_resource type="Texture2D" uid="uid://cb1x5cv0w6ae8" path="res://textures/skybox_point_stars.tres" id="9_v1r0n"]
 [ext_resource type="Script" uid="uid://cp8j3wwp2xesw" path="res://resources/twinkle_effect_settings.gd" id="11_v1r0n"]
 [ext_resource type="NoiseTexture3D" uid="uid://delo57vucw3cr" path="res://textures/carving_noise.tres" id="12_v1r0n"]
@@ -50,7 +50,7 @@ emission_energy = 1.25
 script = ExtResource("8_5nanx")
 albedo_color = Color(0, 0, 0, 0.6)
 emission_color = Color(0.15, 0.15, 0.15, 1)
-emission_energy = 2.0
+emission_energy = 0.45
 
 [sub_resource type="Resource" id="Resource_2mssp"]
 script = ExtResource("11_v1r0n")
@@ -86,14 +86,15 @@ nebulae_texture = ExtResource("7_fenpy")
 nebulae_near_material = SubResource("Resource_f1x51")
 nebulae_mid_material = SubResource("Resource_ah1y1")
 nebulae_far_material = SubResource("Resource_0u0er")
+stars_field_texture = ExtResource("9_f1x51")
 stars_point_texture = ExtResource("9_v1r0n")
-stars_field_texture = ExtResource("8_v1r0n")
 stars_point_near_material = SubResource("Resource_p2dvc")
 stars_point_mid_material = SubResource("Resource_sv0yy")
 stars_point_far_material = SubResource("Resource_sklta")
 stars_field_material = SubResource("Resource_nu1fu")
 projection_radius = 100.0
 nebulae_carving_noise_texture = ExtResource("12_v1r0n")
+stars_field_background_dimming = 0.01
 stars_point_near_twinkle = SubResource("Resource_2mssp")
 stars_point_mid_twinkle = SubResource("Resource_whaij")
 stars_point_far_twinkle = SubResource("Resource_sdh5a")

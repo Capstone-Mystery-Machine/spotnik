@@ -15,8 +15,7 @@ domain_warp_type = 2
 domain_warp_amplitude = 50.0
 
 [resource]
-width = 2048
-height = 1024
+width = 1024
 noise = SubResource("FastNoiseLite_7dxpu")
 color_ramp = SubResource("Gradient_p073a")
 seamless = true

@@ -46,17 +46,17 @@ extends Node3D
 
 @export_subgroup("Stars Settings")
 
-## Represents the texture applied to the near stars layer.
-@export var stars_point_texture: NoiseTexture2D:
+## Represents the texture applied to the field stars layer.
+@export var stars_field_texture: NoiseTexture2D:
 	set(value):
-		stars_point_texture = value
+		stars_field_texture = value
 		if is_node_ready():
 			_update_stars_point_materials()
 
-## Represents the texture applied to the field stars layer.
-@export var stars_field_texture: Texture2D:
+## Represents the texture applied to the point stars layers.
+@export var stars_point_texture: NoiseTexture2D:
 	set(value):
-		stars_field_texture = value
+		stars_point_texture = value
 		if is_node_ready():
 			_update_stars_point_materials()
 
@@ -353,6 +353,7 @@ func _apply_stars_field_material(
 		material.set_shader_parameter("emission", skybox_layer_material.emission_color)
 		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
 
+	print(skybox_layer_material)
 	material.set_shader_parameter("background_horizontal_shift", background_horizontal_shift)
 	material.set_shader_parameter("background_dimming", background_dimming)
 	material.set_shader_parameter("background_color_tint", background_color_tint)
