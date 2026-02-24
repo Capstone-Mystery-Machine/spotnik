@@ -7,56 +7,45 @@ signal outer_exited(body: CollisionObject3D)
 
 @export var inner_radius: float = 0.5
 
-# Bodies currently inside the INNER radius
-var inner_bodies: Dictionary[CollisionObject3D, bool] = { }
-var space_state: PhysicsDirectSpaceState3D
-var inner_shape: SphereShape3D
+var outer_bodies: Dictionary = { }
+var inner_bodies: Dictionary = { }
+
+var inner_radius_sq: float
 
 
 func _ready() -> void:
-	space_state = get_world_3d().direct_space_state
-
-	inner_shape = SphereShape3D.new()
-	inner_shape.radius = inner_radius
+	inner_radius_sq = inner_radius * inner_radius
 
 
 func _process(_delta: float) -> void:
-	var query := PhysicsShapeQueryParameters3D.new()
-	query.shape = inner_shape
-	query.transform = Transform3D(Basis(), global_transform.origin)
-	query.collide_with_bodies = true
-	query.collide_with_areas = false
+	var center := global_position
 
-	var results: Array = space_state.intersect_shape(query)
+	for body in outer_bodies:
+		var dist_sq := center.distance_squared_to(body.global_position)
 
-	var currently_inside: Dictionary[CollisionObject3D, bool] = { }
-
-	for hit in results:
-		var body := hit.collider as CollisionObject3D
-		if body == null:
-			continue
-
-		currently_inside[body] = true
-
-		if not inner_bodies.has(body):
-			inner_bodies[body] = true
-			print(body.name, " entered INNER radius")
-			emit_signal("inner_entered", body)
-
-	# Detect exits
-	for body in inner_bodies.keys():
-		if not currently_inside.has(body):
+		if dist_sq <= inner_radius_sq:
+			if not inner_bodies.has(body):
+				inner_bodies[body] = true
+				print(body.name, " entered INNER radius")
+				emit_signal("inner_entered", body)
+		elif inner_bodies.has(body):
 			print(body.name, " exited INNER radius")
-			emit_signal("inner_exited", body)
 			inner_bodies.erase(body)
+			emit_signal("inner_exited", body)
 
 
 func _on_body_entered(body: CollisionObject3D) -> void:
-	print(body.name, " entered OUTER area")
+	print(body.name, " entered OUTER radius")
+	outer_bodies[body] = true
 	emit_signal("outer_entered", body)
 
 
 func _on_body_exited(body: CollisionObject3D) -> void:
+	outer_bodies.erase(body)
+
+	if inner_bodies.erase(body):
+		print(body.name, " exited INNER radius")
+		emit_signal("inner_exited", body)
+
 	print(body.name, " exited OUTER area")
-	inner_bodies.erase(body)
 	emit_signal("outer_exited", body)

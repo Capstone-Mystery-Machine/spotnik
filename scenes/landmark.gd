@@ -32,6 +32,43 @@ signal inner_exited(body: CollisionObject3D)
 signal outer_entered(body: CollisionObject3D)
 signal outer_exited(body: CollisionObject3D)
 
+# ------------------ ADDED ------------------
+
+@export var max_scale: float = 5
+
+@onready var detector: Area3D = $CameraPointerDetector
+@onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
+
+var outer_radius: float
+var inner_radius: float
+
+
+func _ready() -> void:
+	# Get radii from detector
+	outer_radius = outer_shape.shape.radius
+	inner_radius = detector.inner_radius
+
+
+func _process(delta: float) -> void:
+	if detector.outer_bodies.is_empty():
+		scale = scale.lerp(Vector3.ONE, 10 * delta)
+		return
+
+	var body = detector.outer_bodies.keys()[0]
+	var distance = global_position.distance_to(body.global_position)
+
+	var t = 1.0 - clamp(
+		(distance - inner_radius) / (outer_radius - inner_radius),
+		0.0,
+		1.0,
+	)
+
+	var target_scale = lerp(1.0, max_scale, t)
+
+	scale = scale.lerp(Vector3.ONE * target_scale, 10 * delta)
+
+# ------------------------------------------------
+
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
 	emit_signal("inner_entered", body)
