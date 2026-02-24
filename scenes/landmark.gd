@@ -1,5 +1,10 @@
 extends Node3D
 
+signal inner_entered(body: CollisionObject3D)
+signal inner_exited(body: CollisionObject3D)
+signal outer_entered(body: CollisionObject3D)
+signal outer_exited(body: CollisionObject3D)
+
 var international_designator: String
 var norad_catalog_id: String
 var satellite_name: String
@@ -25,12 +30,6 @@ func setup(
 	launch_date = launch
 	latitude = lat
 	longitude = long
-
-
-signal inner(body: CollisionObject3D)
-signal inner_exited(body: CollisionObject3D)
-signal outer_entered(body: CollisionObject3D)
-signal outer_exited(body: CollisionObject3D)
 
 ## Represents the maximum scale size the satellite node will grow to.
 @export var max_scale: float = 5.0
@@ -70,8 +69,8 @@ func _process(delta: float) -> void:
 	scale = scale.lerp(Vector3.ONE * target_scale, spawn_radius * delta)
 
 
-func _on_camera_pointer_detector_inner(body: CollisionObject3D) -> void:
-	emit_signal("inner", body)
+func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
+	emit_signal("inner_entered", body)
 	SignalBus.ui_info.emit(self)
 
 
