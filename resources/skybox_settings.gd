@@ -289,6 +289,8 @@ signal property_changed(property_name: StringName)
 			emit_changed()
 			property_changed.emit(&"nebulae_dissolve_warp_intensity")
 
+@export_group("Flow Map Distortion Effects Settings")
+
 ## Represents the strength of the flow map distortion.
 @export_range(0.0, 1.0, 0.001) var nebulae_flow_intensity: float = 0.04:
 	set(value):
