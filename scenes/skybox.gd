@@ -93,6 +93,7 @@ func _apply_nebulae_material(
 		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
 
 	if settings != null:
+		print("HEELO!")
 		material.set_shader_parameter("carving_intensity", settings.nebulae_carving_intensity)
 		material.set_shader_parameter("carving_noise_texture", settings.nebulae_carving_noise_texture)
 		material.set_shader_parameter("carving_scale", settings.nebulae_carving_scale)

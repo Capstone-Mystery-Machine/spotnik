@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix, depth_draw_never, cull_back;
+render_mode blend_mix, depth_draw_never, cull_back, unshaded;
 
 uniform vec4 albedo : source_color;
 uniform vec4 emission : source_color;
@@ -39,7 +39,6 @@ void fragment() {
 	float carving_noise = texture(carving_noise_texture, noise_uv).r;
 	float carving_multiplier = mix(1.0 - carving_intensity, 1.0, carving_noise);
 
-	ALBEDO = albedo.rgb * base_albedo_texture.rgb;
-	EMISSION = (emission.rgb + base_emission_texture) * emission_energy;
+	ALBEDO = (albedo.rgb * base_albedo_texture.rgb) + ((emission.rgb + base_emission_texture) * emission_energy);
 	ALPHA *= clamp(albedo.a * base_albedo_texture.a * carving_multiplier, 0.0, 1.0);
 }

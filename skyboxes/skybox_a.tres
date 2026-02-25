@@ -11,19 +11,16 @@
 [sub_resource type="Resource" id="Resource_m5ndq"]
 script = ExtResource("1_dsmt4")
 albedo_color = Color(0, 0, 0, 0.75)
-emission_color = Color(0.01, 0.01, 0.25, 1)
-emission_energy = 0.95
+emission_energy = 1.2
 
 [sub_resource type="Resource" id="Resource_o8ugm"]
 script = ExtResource("1_dsmt4")
 albedo_color = Color(0, 0, 0, 0.65)
-emission_color = Color(0.15, 0.1, 0.2, 1)
-emission_energy = 0.75
+emission_energy = 0.8
 
 [sub_resource type="Resource" id="Resource_bgfys"]
 script = ExtResource("1_dsmt4")
 albedo_color = Color(0, 0, 0, 0.4)
-emission_color = Color(0.05, 0.05, 0.01, 1)
 emission_energy = 0.5
 
 [sub_resource type="Resource" id="Resource_352bn"]
