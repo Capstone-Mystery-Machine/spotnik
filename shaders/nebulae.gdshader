@@ -18,18 +18,17 @@ uniform float flow_intensity;
 
 void fragment() {
 	float pole_fade = sin(UV.y * PI);
-
 	vec2 flow_offset = vec2(
 		sin(TIME * flow_speed + UV.y * 10.0) * flow_intensity * pole_fade, 
 		0.0
 	);
 	
 	vec2 distorted_uv = UV + flow_offset;
-
 	vec4 base_albedo_texture = texture(texture_albedo, distorted_uv);
 
 	vec2 warp_uv = (UV * dissolve_scale) + (TIME * dissolve_speed * 0.5);
-	vec2 warp_direction = texture(dissolve_noise_texture, warp_uv).rg * dissolve_warp_intensity;
+	vec2 warp_noise = texture(dissolve_noise_texture, warp_uv).rg - 0.5;
+	vec2 warp_direction = warp_noise * dissolve_warp_intensity * pole_fade;
 
 	vec2 dissolve_uv = (UV * dissolve_scale) + (TIME * dissolve_speed) + warp_direction;
 	float dissolve_noise = texture(dissolve_noise_texture, dissolve_uv).r;
