@@ -191,7 +191,7 @@ signal property_changed(property_name: StringName)
 @export var stars_point_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.9),
 	Color(0, 0, 0, 1.0),
-	0.5,
+	0.7,
 ):
 	set(value):
 		if stars_point_near_material != value:
@@ -203,7 +203,7 @@ signal property_changed(property_name: StringName)
 @export var stars_point_mid_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.75),
 	Color(0, 0, 0, 1.0),
-	0.7,
+	0.55,
 ):
 	set(value):
 		if stars_point_mid_material != value:
