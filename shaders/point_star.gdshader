@@ -6,7 +6,6 @@ uniform vec4 emission : source_color;
 uniform float emission_energy : hint_range(0.0, 100.0, 0.0001);
 
 uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
-uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
 
 uniform sampler2D color_palette : source_color;
 
@@ -16,7 +15,6 @@ uniform float twinkle_speed;
 
 void fragment() {
 	vec4 albedo_texture = texture(texture_albedo, UV);
-	vec3 emission_texture = texture(texture_emission, UV).rgb;
 
 	float color_zone = (sin(UV.x * 20.0) + cos(UV.y * 15.0) + 2.0) / 4.0;
 	vec3 star_tint = texture(color_palette, vec2(color_zone, 0.5)).rgb;
@@ -26,6 +24,6 @@ void fragment() {
 
 	float glow_multiplier = mix(1.0 - twinkle_intensity, 1.0 + twinkle_intensity, twinkle);
 
-	ALBEDO = (emission.rgb + emission_texture) * star_tint * emission_energy * glow_multiplier;
+	ALBEDO = (emission.rgb + albedo_texture.rgb) * star_tint * emission_energy * glow_multiplier;
 	ALPHA *= albedo.a * albedo_texture.a;
 }

@@ -6,7 +6,6 @@ uniform vec4 emission : source_color;
 uniform float emission_energy : hint_range(0.0, 100.0, 0.0001);
 
 uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
-uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
 
 uniform float dissolve_intensity : hint_range(0.0, 1.0);
 uniform sampler2D dissolve_noise_texture : hint_default_black, filter_linear_mipmap, repeat_enable;
@@ -28,7 +27,6 @@ void fragment() {
 	vec2 distorted_uv = UV + flow_offset;
 
 	vec4 base_albedo_texture = texture(texture_albedo, distorted_uv);
-	vec3 base_emission_texture = texture(texture_emission, distorted_uv).rgb;
 
 	vec2 warp_uv = (UV * dissolve_scale) + (TIME * dissolve_speed * 0.5);
 	vec2 warp_direction = texture(dissolve_noise_texture, warp_uv).rg * dissolve_warp_intensity;
@@ -37,6 +35,6 @@ void fragment() {
 	float dissolve_noise = texture(dissolve_noise_texture, dissolve_uv).r;
 	float dissolve_multiplier = mix(1.0, dissolve_noise, dissolve_intensity);
 
-	ALBEDO = (albedo.rgb * base_albedo_texture.rgb) + ((emission.rgb + base_emission_texture) * emission_energy);
+	ALBEDO = (albedo.rgb * base_albedo_texture.rgb) + ((emission.rgb + base_albedo_texture.rgb) * emission_energy);
 	ALPHA *= clamp(albedo.a * base_albedo_texture.a * dissolve_multiplier, 0.0, 1.0);
 }

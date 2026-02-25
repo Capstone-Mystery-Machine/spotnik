@@ -66,7 +66,6 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 
 	elif material is ShaderMaterial:
 		material.set_shader_parameter("texture_albedo", texture_2d)
-		material.set_shader_parameter("texture_emission", texture_2d)
 
 
 # Applies exported settings to the nebulae shaders.
