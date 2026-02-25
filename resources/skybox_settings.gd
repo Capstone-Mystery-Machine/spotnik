@@ -135,9 +135,9 @@ signal property_changed(property_name: StringName)
 
 ## Represents the material for the near nebulae layer.
 @export var nebulae_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
-	Color(0, 0, 0, 0.4),
+	Color(1.0, 1.0, 1.0, 0.25),
 	Color(0.05, 0.05, 0.01, 1.0),
-	0.5,
+	1.0,
 ):
 	set(value):
 		if nebulae_near_material != value:
@@ -147,9 +147,9 @@ signal property_changed(property_name: StringName)
 
 ## Represents the material for the mid nebulae layer.
 @export var nebulae_mid_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
-	Color(0, 0, 0, 0.65),
-	Color(0.15, 0.1, 0.2, 1.0),
-	0.75,
+	Color(1.0, 1.0, 1.0, 0.65),
+	Color(0.0, 0.0, 0.0, 1.0),
+	0.8,
 ):
 	set(value):
 		if nebulae_mid_material != value:
@@ -159,9 +159,9 @@ signal property_changed(property_name: StringName)
 
 ## Represents the material for the far nebulae layer.
 @export var nebulae_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
-	Color(0, 0, 0, 0.75),
-	Color(0.01, 0.01, 0.25, 1.0),
-	0.95,
+	Color(1.0, 1.0, 1.0, 0.75),
+	Color(0.0, 0.0, 0.0, 1.0),
+	1.2,
 ):
 	set(value):
 		if nebulae_far_material != value:
@@ -247,42 +247,50 @@ signal property_changed(property_name: StringName)
 			emit_changed()
 			property_changed.emit(&"stars_field_far_material")
 
-@export_group("Nebulae Effects Settings")
+@export_group("Dissolve Effects Settings")
 
-## Represents the opacity removed by the carving noise.
-@export_range(0.0, 1.0, 0.01) var nebulae_carving_intensity: float = 0.3:
+## Represents the opacity removed by the dissolve noise.
+@export_range(0.0, 1.0, 0.001) var nebulae_dissolve_intensity: float = 1.0:
 	set(value):
-		if nebulae_carving_intensity != value:
-			nebulae_carving_intensity = value
+		if nebulae_dissolve_intensity != value:
+			nebulae_dissolve_intensity = value
 			emit_changed()
-			property_changed.emit(&"nebulae_carving_intensity")
+			property_changed.emit(&"nebulae_dissolve_intensity")
 
-## Represents the noise texture used to carve the nebulae.
-@export var nebulae_carving_noise_texture: NoiseTexture2D:
+## Represents the noise texture used to dissolve the nebulae.
+@export var nebulae_dissolve_noise_texture: NoiseTexture2D:
 	set(value):
-		if nebulae_carving_noise_texture != value:
-			nebulae_carving_noise_texture = value
+		if nebulae_dissolve_noise_texture != value:
+			nebulae_dissolve_noise_texture = value
 			emit_changed()
-			property_changed.emit(&"nebulae_carving_noise_texture")
+			property_changed.emit(&"nebulae_dissolve_noise_texture")
 
-## Represents the scale of the carving noise.
-@export var nebulae_carving_scale: float = 2.5:
+## Represents the dissolved hole size multiplier of the disolving noise.
+@export_range(0.0, 1.0, 0.001) var nebulae_dissolve_scale: float = 1.0:
 	set(value):
-		if nebulae_carving_scale != value:
-			nebulae_carving_scale = value
+		if nebulae_dissolve_scale != value:
+			nebulae_dissolve_scale = value
 			emit_changed()
-			property_changed.emit(&"nebulae_carving_scale")
+			property_changed.emit(&"nebulae_dissolve_scale")
 
-## Represents the movement speed of the carving noise.
-@export var nebulae_carving_speed: float = 0.08:
+## Represents the movement speed of the disolving noise.
+@export var nebulae_dissolve_speed: Vector2 = Vector2(-0.002, 0.001):
 	set(value):
-		if nebulae_carving_speed != value:
-			nebulae_carving_speed = value
+		if nebulae_dissolve_speed != value:
+			nebulae_dissolve_speed = value
 			emit_changed()
-			property_changed.emit(&"nebulae_carving_speed")
+			property_changed.emit(&"nebulae_dissolve_speed")
+
+## Represents the texture warp intensity of the disolving noise.
+@export_range(0.0, 1.0, 0.001) var nebulae_dissolve_warp_intensity: float = 0.1:
+	set(value):
+		if nebulae_dissolve_warp_intensity != value:
+			nebulae_dissolve_warp_intensity = value
+			emit_changed()
+			property_changed.emit(&"nebulae_dissolve_warp_intensity")
 
 ## Represents the strength of the flow map distortion.
-@export var nebulae_flow_intensity: float = 0.04:
+@export_range(0.0, 1.0, 0.001) var nebulae_flow_intensity: float = 0.04:
 	set(value):
 		if nebulae_flow_intensity != value:
 			nebulae_flow_intensity = value
@@ -290,7 +298,7 @@ signal property_changed(property_name: StringName)
 			property_changed.emit(&"nebulae_flow_intensity")
 
 ## Represents the movement speed of the flow map distortion.
-@export var nebulae_flow_speed: float = 0.02:
+@export_range(0.0, 1.0, 0.001) var nebulae_flow_speed: float = 0.02:
 	set(value):
 		if nebulae_flow_speed != value:
 			nebulae_flow_speed = value

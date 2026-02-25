@@ -15,8 +15,8 @@ domain_warp_enabled = true
 domain_warp_fractal_type = 2
 
 [resource]
-width = 2160
-height = 1080
+width = 4096
+height = 2048
 noise = SubResource("FastNoiseLite_lidsi")
 color_ramp = SubResource("Gradient_p073a")
 in_3d_space = true

@@ -93,10 +93,11 @@ func _apply_nebulae_material(
 		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
 
 	if settings != null:
-		material.set_shader_parameter("carving_intensity", settings.nebulae_carving_intensity)
-		material.set_shader_parameter("carving_noise_texture", settings.nebulae_carving_noise_texture)
-		material.set_shader_parameter("carving_scale", settings.nebulae_carving_scale)
-		material.set_shader_parameter("carving_speed", settings.nebulae_carving_speed)
+		material.set_shader_parameter("dissolve_intensity", settings.nebulae_dissolve_intensity)
+		material.set_shader_parameter("dissolve_noise_texture", settings.nebulae_dissolve_noise_texture)
+		material.set_shader_parameter("dissolve_scale", settings.nebulae_dissolve_scale)
+		material.set_shader_parameter("dissolve_speed", settings.nebulae_dissolve_speed)
+		material.set_shader_parameter("dissolve_warp_intensity", settings.nebulae_dissolve_warp_intensity)
 		material.set_shader_parameter("flow_intensity", settings.nebulae_flow_intensity)
 		material.set_shader_parameter("flow_speed", settings.nebulae_flow_speed)
 
@@ -365,7 +366,7 @@ func _disconnect_resources():
 # Responds to setting and sub-resource changes.
 func _on_property_changed(property_name: StringName) -> void:
 	match property_name:
-		&"nebulae_texture", &"nebulae_carving_intensity", &"nebulae_carving_noise_texture", &"nebulae_carving_scale", &"nebulae_carving_speed", &"nebulae_flow_intensity", &"nebulae_flow_speed":
+		&"nebulae_texture", &"nebulae_dissolve_intensity", &"nebulae_dissolve_noise_texture", &"nebulae_dissolve_scale", &"nebulae_dissolve_speed", &"nebulae_dissolve_warp_intensity", &"nebulae_flow_intensity", &"nebulae_flow_speed":
 			_update_nebulae_materials()
 		&"stars_field_texture":
 			_update_stars_field_materials()

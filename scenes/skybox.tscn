@@ -121,6 +121,8 @@ shader = ExtResource("3_8u7e8")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/emission = Color(0, 0, 0, 1)
 shader_parameter/emission_energy = 0.0
+shader_parameter/dissolve_intensity = 0.0
+shader_parameter/dissolve_speed = Vector2(0, 0)
 shader_parameter/flow_speed = 0.02
 shader_parameter/flow_intensity = 0.04
 
@@ -136,6 +138,8 @@ shader = ExtResource("3_8u7e8")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/emission = Color(0, 0, 0, 1)
 shader_parameter/emission_energy = 0.0
+shader_parameter/dissolve_intensity = 0.0
+shader_parameter/dissolve_speed = Vector2(0, 0)
 shader_parameter/flow_speed = 0.02
 shader_parameter/flow_intensity = 0.04
 
@@ -151,6 +155,8 @@ shader = ExtResource("3_8u7e8")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/emission = Color(0, 0, 0, 1)
 shader_parameter/emission_energy = 0.0
+shader_parameter/dissolve_intensity = 0.0
+shader_parameter/dissolve_speed = Vector2(0, 0)
 shader_parameter/flow_speed = 0.02
 shader_parameter/flow_intensity = 0.04
 
@@ -222,6 +228,7 @@ skeleton = NodePath("../..")
 
 [node name="NebulaeLayerMidMesh" type="MeshInstance3D" parent="NebulaeLayerNearMesh"]
 transform = Transform3D(0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, 0.9975641, 0, 0, 0)
+visible = false
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
