@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SkyboxSettings" load_steps=19 format=3 uid="uid://bsv1omabacd4u"]
+[gd_resource type="Resource" script_class="SkyboxSettings" load_steps=20 format=3 uid="uid://bsv1omabacd4u"]
 
 [ext_resource type="Script" uid="uid://boku2lrftr83t" path="res://resources/skybox_layer_material.gd" id="1_dsmt4"]
 [ext_resource type="Texture2D" uid="uid://dqjoam64hpcs1" path="res://textures/skybox_nebulae_dissolve_noise_a.tres" id="1_o8ugm"]
@@ -6,63 +6,65 @@
 [ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://textures/skybox_nebulae_a.png" id="3_bgfys"]
 [ext_resource type="Script" uid="uid://cp8j3wwp2xesw" path="res://resources/twinkle_effect_settings.gd" id="3_if531"]
 [ext_resource type="Texture2D" uid="uid://c47uk04kxrdwu" path="res://textures/skybox_field_stars_a.tres" id="5_352bn"]
+[ext_resource type="Texture2D" uid="uid://dqmpdcfv1qgpf" path="res://textures/skybox_point_stars_gradient_a.tres" id="6_bgfys"]
 [ext_resource type="Texture2D" uid="uid://cb1x5cv0w6ae8" path="res://textures/skybox_point_stars_a.tres" id="7_ycl7b"]
+
+[sub_resource type="Resource" id="Resource_dsmt4"]
+script = ExtResource("1_dsmt4")
+albedo_color = Color(1, 1, 1, 0.5)
+emission_energy = 0.8
+
+[sub_resource type="Resource" id="Resource_5b2km"]
+script = ExtResource("1_dsmt4")
+albedo_color = Color(1, 1, 1, 0.45000002)
+emission_energy = 0.6
+
+[sub_resource type="Resource" id="Resource_if531"]
+script = ExtResource("1_dsmt4")
+albedo_color = Color(1, 1, 1, 0.15)
+emission_color = Color(0.05, 0.05, 0.01, 1)
+emission_energy = 0.4
 
 [sub_resource type="Resource" id="Resource_m5ndq"]
 script = ExtResource("1_dsmt4")
-albedo_color = Color(0.19076231, 0.19076234, 0.19076231, 0.7490196)
-emission_energy = 1.2
+albedo_color = Color(1, 1, 1, 0.45)
+emission_color = Color(1, 1, 1, 1)
+emission_energy = 0.5
 
 [sub_resource type="Resource" id="Resource_o8ugm"]
 script = ExtResource("1_dsmt4")
-albedo_color = Color(1, 1, 1, 0.6509804)
-emission_energy = 0.8
+albedo_color = Color(1, 1, 1, 0.6)
+emission_color = Color(1, 1, 1, 1)
+emission_energy = 0.5
 
 [sub_resource type="Resource" id="Resource_bgfys"]
 script = ExtResource("1_dsmt4")
-albedo_color = Color(1, 1, 1, 0.2509804)
-emission_energy = 1.0
+albedo_color = Color(0, 0, 0, 0.5)
+emission_energy = 0.45
 
 [sub_resource type="Resource" id="Resource_352bn"]
-script = ExtResource("1_dsmt4")
-albedo_color = Color(0, 0, 0, 0.45)
-emission_color = Color(1, 1, 1, 1)
-emission_energy = 0.5
-
-[sub_resource type="Resource" id="Resource_ycl7b"]
-script = ExtResource("1_dsmt4")
-albedo_color = Color(0, 0, 0, 0.6)
-emission_color = Color(1, 1, 1, 1)
-emission_energy = 0.55
-
-[sub_resource type="Resource" id="Resource_nflt8"]
-script = ExtResource("1_dsmt4")
-albedo_color = Color(0, 0, 0, 0.5)
-emission_energy = 0.5
-
-[sub_resource type="Resource" id="Resource_8opms"]
 script = ExtResource("3_if531")
 frequency = 2000.0
 intensity = 0.9
 speed = 4.0
 
-[sub_resource type="Resource" id="Resource_g1dgs"]
+[sub_resource type="Resource" id="Resource_ycl7b"]
 script = ExtResource("1_dsmt4")
 albedo_color = Color(0, 0, 0, 0.75)
 emission_energy = 0.45
 
-[sub_resource type="Resource" id="Resource_mmnh3"]
+[sub_resource type="Resource" id="Resource_nflt8"]
 script = ExtResource("3_if531")
 frequency = 1000.0
 intensity = 0.6
 speed = 1.5
 
-[sub_resource type="Resource" id="Resource_3w7ei"]
+[sub_resource type="Resource" id="Resource_8opms"]
 script = ExtResource("1_dsmt4")
 albedo_color = Color(0, 0, 0, 0.9)
 emission_energy = 0.6
 
-[sub_resource type="Resource" id="Resource_5swug"]
+[sub_resource type="Resource" id="Resource_g1dgs"]
 script = ExtResource("3_if531")
 frequency = 100.0
 intensity = 0.3
@@ -71,19 +73,19 @@ intensity = 0.3
 script = ExtResource("2_5b2km")
 projection_radius = 100.0
 nebulae_texture = ExtResource("3_bgfys")
-nebulae_near_material = SubResource("Resource_bgfys")
-nebulae_mid_material = SubResource("Resource_o8ugm")
-nebulae_far_material = SubResource("Resource_m5ndq")
+nebulae_near_material = SubResource("Resource_if531")
+nebulae_mid_material = SubResource("Resource_5b2km")
+nebulae_far_material = SubResource("Resource_dsmt4")
 stars_field_texture = ExtResource("5_352bn")
 stars_point_texture = ExtResource("7_ycl7b")
-stars_point_near_material = SubResource("Resource_3w7ei")
-stars_point_mid_material = SubResource("Resource_g1dgs")
-stars_point_far_material = SubResource("Resource_nflt8")
-stars_field_near_material = SubResource("Resource_ycl7b")
-stars_field_far_material = SubResource("Resource_352bn")
+stars_point_near_material = SubResource("Resource_8opms")
+stars_point_mid_material = SubResource("Resource_ycl7b")
+stars_point_far_material = SubResource("Resource_bgfys")
+stars_field_near_material = SubResource("Resource_o8ugm")
+stars_field_far_material = SubResource("Resource_m5ndq")
+stars_point_color_palette = ExtResource("6_bgfys")
 nebulae_dissolve_noise_texture = ExtResource("1_o8ugm")
-nebulae_dissolve_speed = Vector2(-0.001, -0.002)
-stars_point_near_twinkle = SubResource("Resource_5swug")
-stars_point_mid_twinkle = SubResource("Resource_mmnh3")
-stars_point_far_twinkle = SubResource("Resource_8opms")
+stars_point_near_twinkle = SubResource("Resource_g1dgs")
+stars_point_mid_twinkle = SubResource("Resource_nflt8")
+stars_point_far_twinkle = SubResource("Resource_352bn")
 metadata/_custom_type_script = "uid://blmakxhunk6lk"

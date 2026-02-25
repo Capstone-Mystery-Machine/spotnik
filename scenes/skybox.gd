@@ -151,6 +151,9 @@ func _apply_stars_point_material(
 		material.set_shader_parameter("emission", skybox_layer_material.emission_color)
 		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
 
+	if settings != null:
+		material.set_shader_parameter("color_palette", settings.stars_point_color_palette)
+
 	if twinkle_effect_settings != null:
 		material.set_shader_parameter("twinkle_frequency", twinkle_effect_settings.frequency)
 		material.set_shader_parameter("twinkle_intensity", twinkle_effect_settings.intensity)
@@ -370,7 +373,7 @@ func _on_property_changed(property_name: StringName) -> void:
 			_update_nebulae_materials()
 		&"stars_field_texture":
 			_update_stars_field_materials()
-		&"stars_point_texture":
+		&"stars_point_texture", &"stars_point_color_palette":
 			_update_stars_point_materials()
 		&"projection_radius", &"nebulae_displacement_multiplier", &"stars_point_radius_multiplier", &"stars_point_displacement_multiplier", &"stars_field_radius_multiplier", &"stars_field_displacement_multiplier", &"void_radius_multiplier":
 			_update_projection_radius()
