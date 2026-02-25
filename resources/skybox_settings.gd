@@ -99,7 +99,7 @@ signal property_changed(property_name: StringName)
 @export var stars_point_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.5),
 	Color(0, 0, 0, 1.0),
-	0.5,
+	0.45,
 ):
 	set(value):
 		if stars_point_far_material != value:
@@ -111,7 +111,7 @@ signal property_changed(property_name: StringName)
 @export var stars_field_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(1.0, 1.0, 1.0, 0.6),
 	Color(1.0, 1.0, 1.0, 1.0),
-	0.55,
+	0.5,
 ):
 	set(value):
 		if stars_field_near_material != value:
@@ -250,7 +250,7 @@ signal property_changed(property_name: StringName)
 @export_group("Nebulae Effects Settings")
 
 ## Represents the opacity removed by the carving noise.
-@export_range(0.0, 1.0, 0.01) var nebulae_carving_intensity: float = 0.65:
+@export_range(0.0, 1.0, 0.01) var nebulae_carving_intensity: float = 0.3:
 	set(value):
 		if nebulae_carving_intensity != value:
 			nebulae_carving_intensity = value
