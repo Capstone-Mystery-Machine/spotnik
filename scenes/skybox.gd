@@ -399,7 +399,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if Engine.is_editor_hint() or settings == null:
+	if settings == null:
 		return
 
 	var stars_field_far_speed = settings.rotation_speed * settings.stars_field_far_speed_multiplier
