@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="SkyboxSettings" load_steps=19 format=3 uid="uid://bsv1omabacd4u"]
 
 [ext_resource type="Script" uid="uid://boku2lrftr83t" path="res://resources/skybox_layer_material.gd" id="1_dsmt4"]
-[ext_resource type="Texture2D" uid="uid://dqjoam64hpcs1" path="res://textures/skybox_nebulae_carving_noise.tres" id="1_o8ugm"]
+[ext_resource type="Texture2D" uid="uid://dqjoam64hpcs1" path="res://textures/skybox_nebulae_carving_noise_a.tres" id="1_o8ugm"]
 [ext_resource type="Script" uid="uid://blmakxhunk6lk" path="res://resources/skybox_settings.gd" id="2_5b2km"]
-[ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://textures/skybox_nebulae.png" id="3_bgfys"]
+[ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://textures/skybox_nebulae_a.png" id="3_bgfys"]
 [ext_resource type="Script" uid="uid://cp8j3wwp2xesw" path="res://resources/twinkle_effect_settings.gd" id="3_if531"]
-[ext_resource type="Texture2D" uid="uid://c47uk04kxrdwu" path="res://textures/skybox_field_stars.tres" id="5_352bn"]
-[ext_resource type="Texture2D" uid="uid://cb1x5cv0w6ae8" path="res://textures/skybox_point_stars.tres" id="7_ycl7b"]
+[ext_resource type="Texture2D" uid="uid://c47uk04kxrdwu" path="res://textures/skybox_field_stars_a.tres" id="5_352bn"]
+[ext_resource type="Texture2D" uid="uid://cb1x5cv0w6ae8" path="res://textures/skybox_point_stars_a.tres" id="7_ycl7b"]
 
 [sub_resource type="Resource" id="Resource_m5ndq"]
 script = ExtResource("1_dsmt4")

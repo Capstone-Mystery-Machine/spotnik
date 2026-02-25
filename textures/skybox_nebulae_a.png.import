@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6n8qito3srpu"
-path.s3tc="res://.godot/imported/skybox_nebulae.png-a1865810047a3e7334992da902419bee.s3tc.ctex"
-path.etc2="res://.godot/imported/skybox_nebulae.png-a1865810047a3e7334992da902419bee.etc2.ctex"
+path.s3tc="res://.godot/imported/skybox_nebulae_a.png-a8e899da81e63c4e145a58efb8f32ce2.s3tc.ctex"
+path.etc2="res://.godot/imported/skybox_nebulae_a.png-a8e899da81e63c4e145a58efb8f32ce2.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/skybox_nebulae.png"
-dest_files=["res://.godot/imported/skybox_nebulae.png-a1865810047a3e7334992da902419bee.s3tc.ctex", "res://.godot/imported/skybox_nebulae.png-a1865810047a3e7334992da902419bee.etc2.ctex"]
+source_file="res://textures/skybox_nebulae_a.png"
+dest_files=["res://.godot/imported/skybox_nebulae_a.png-a8e899da81e63c4e145a58efb8f32ce2.s3tc.ctex", "res://.godot/imported/skybox_nebulae_a.png-a8e899da81e63c4e145a58efb8f32ce2.etc2.ctex"]
 
 [params]
 
