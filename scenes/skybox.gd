@@ -93,7 +93,6 @@ func _apply_nebulae_material(
 		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
 
 	if settings != null:
-		print("HEELO!")
 		material.set_shader_parameter("carving_intensity", settings.nebulae_carving_intensity)
 		material.set_shader_parameter("carving_noise_texture", settings.nebulae_carving_noise_texture)
 		material.set_shader_parameter("carving_scale", settings.nebulae_carving_scale)
@@ -365,7 +364,6 @@ func _disconnect_resources():
 
 # Responds to setting and sub-resource changes.
 func _on_property_changed(property_name: StringName) -> void:
-	print(property_name)
 	match property_name:
 		&"nebulae_texture", &"nebulae_carving_intensity", &"nebulae_carving_noise_texture", &"nebulae_carving_scale", &"nebulae_carving_speed", &"nebulae_flow_intensity", &"nebulae_flow_speed":
 			_update_nebulae_materials()
