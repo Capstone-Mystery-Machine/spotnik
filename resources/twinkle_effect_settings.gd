@@ -5,7 +5,8 @@ extends Resource
 
 signal property_changed(property_name: StringName)
 
-## Represents the spatial density of the twinkle pattern. Higher values make stars twinkle independently.
+## Represents the spatial density of the twinkle pattern. Higher values make stars
+## twinkle independently.
 @export_range(0.0, 5000.0, 1.0) var frequency: float = 1500.0:
 	set(value):
 		if frequency != value:

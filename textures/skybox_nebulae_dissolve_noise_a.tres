@@ -6,8 +6,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.735357, 0.735357, 0.735357, 1, 1, 1, 1, 
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0kdub"]
 seed = 1
-frequency = 0.02
-fractal_octaves = 3
+fractal_octaves = 2
 
 [resource]
 width = 256

@@ -73,6 +73,7 @@ func _apply_nebulae_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
 		skybox_layer_material: SkyboxLayerMaterial,
+		flow_map_distortion_settings: FlowMapDistortionEffectSettings,
 		node_name: String,
 ):
 	_apply_texture(mesh_instance, texture_2d, node_name)
@@ -97,8 +98,8 @@ func _apply_nebulae_material(
 		material.set_shader_parameter("dissolve_scale", settings.nebulae_dissolve_scale)
 		material.set_shader_parameter("dissolve_speed", settings.nebulae_dissolve_speed)
 		material.set_shader_parameter("dissolve_warp_intensity", settings.nebulae_dissolve_warp_intensity)
-		material.set_shader_parameter("flow_intensity", settings.nebulae_flow_intensity)
-		material.set_shader_parameter("flow_speed", settings.nebulae_flow_speed)
+		material.set_shader_parameter("flow_intensity", flow_map_distortion_settings.intensity)
+		material.set_shader_parameter("flow_speed", flow_map_distortion_settings.speed)
 
 
 # Applies exported settings to the star field shaders.
@@ -168,6 +169,7 @@ func _update_nebulae_materials():
 		_nebulae_layer_near_mesh,
 		settings.nebulae_texture,
 		settings.nebulae_near_material,
+		settings.nebulae_near_flow_map_distortion,
 		"NebulaeLayerNearMesh",
 	)
 
@@ -175,6 +177,7 @@ func _update_nebulae_materials():
 		_nebulae_layer_mid_mesh,
 		settings.nebulae_texture,
 		settings.nebulae_mid_material,
+		settings.nebulae_mid_flow_map_distortion,
 		"NebulaeLayerMidMesh",
 	)
 
@@ -182,6 +185,7 @@ func _update_nebulae_materials():
 		_nebulae_layer_far_mesh,
 		settings.nebulae_texture,
 		settings.nebulae_far_material,
+		settings.nebulae_far_flow_map_distortion,
 		"NebulaeLayerFarMesh",
 	)
 
@@ -368,7 +372,7 @@ func _disconnect_resources():
 # Responds to setting and sub-resource changes.
 func _on_property_changed(property_name: StringName) -> void:
 	match property_name:
-		&"nebulae_texture", &"nebulae_dissolve_intensity", &"nebulae_dissolve_noise_texture", &"nebulae_dissolve_scale", &"nebulae_dissolve_speed", &"nebulae_dissolve_warp_intensity", &"nebulae_flow_intensity", &"nebulae_flow_speed":
+		&"nebulae_texture", &"nebulae_dissolve_intensity", &"nebulae_dissolve_noise_texture", &"nebulae_dissolve_scale", &"nebulae_dissolve_speed", &"nebulae_dissolve_warp_intensity":
 			_update_nebulae_materials()
 		&"stars_field_texture":
 			_update_stars_field_materials()
@@ -380,7 +384,10 @@ func _on_property_changed(property_name: StringName) -> void:
 			_update_nebulae_materials()
 			_update_stars_field_materials()
 			_update_stars_point_materials()
-		&"frequency", &"intensity", &"speed":
+		&"frequency", &"intensity":
+			_update_nebulae_materials()
+		&"speed":
+			_update_nebulae_materials()
 			_update_stars_point_materials()
 		&"nebulae_near_material", &"nebulae_mid_material", &"nebulae_far_material":
 			_disconnect_resources()

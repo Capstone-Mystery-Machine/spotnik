@@ -137,7 +137,7 @@ signal property_changed(property_name: StringName)
 @export var nebulae_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(1.0, 1.0, 1.0, 0.25),
 	Color(0.05, 0.05, 0.01, 1.0),
-	1.0,
+	0.4,
 ):
 	set(value):
 		if nebulae_near_material != value:
@@ -149,7 +149,7 @@ signal property_changed(property_name: StringName)
 @export var nebulae_mid_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(1.0, 1.0, 1.0, 0.65),
 	Color(0.0, 0.0, 0.0, 1.0),
-	0.8,
+	0.6,
 ):
 	set(value):
 		if nebulae_mid_material != value:
@@ -161,7 +161,7 @@ signal property_changed(property_name: StringName)
 @export var nebulae_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(1.0, 1.0, 1.0, 0.75),
 	Color(0.0, 0.0, 0.0, 1.0),
-	1.2,
+	0.8,
 ):
 	set(value):
 		if nebulae_far_material != value:
@@ -247,6 +247,16 @@ signal property_changed(property_name: StringName)
 			emit_changed()
 			property_changed.emit(&"stars_field_far_material")
 
+@export_group("Color Palette Effects Settings")
+
+# Represents the 1D gradient used as a color palette for point stars.
+@export var stars_point_color_palette: GradientTexture1D:
+	set(value):
+		if stars_point_color_palette != value:
+			stars_point_color_palette = value
+			emit_changed()
+			property_changed.emit(&"stars_point_color_palette")
+
 @export_group("Dissolve Effects Settings")
 
 ## Represents the opacity removed by the dissolve noise.
@@ -274,7 +284,7 @@ signal property_changed(property_name: StringName)
 			property_changed.emit(&"nebulae_dissolve_scale")
 
 ## Represents the movement speed of the disolving noise.
-@export var nebulae_dissolve_speed: Vector2 = Vector2(-0.002, 0.001):
+@export var nebulae_dissolve_speed: Vector2 = Vector2(-0.001, -0.002):
 	set(value):
 		if nebulae_dissolve_speed != value:
 			nebulae_dissolve_speed = value
@@ -291,21 +301,38 @@ signal property_changed(property_name: StringName)
 
 @export_group("Flow Map Distortion Effects Settings")
 
-## Represents the strength of the flow map distortion.
-@export_range(0.0, 1.0, 0.001) var nebulae_flow_intensity: float = 0.04:
+## Represents the flow map distortion settings for the near nebulae.
+@export var nebulae_near_flow_map_distortion: FlowMapDistortionEffectSettings = FlowMapDistortionEffectSettings.new(
+	0.06,
+	0.03,
+):
 	set(value):
-		if nebulae_flow_intensity != value:
-			nebulae_flow_intensity = value
+		if nebulae_near_flow_map_distortion != value:
+			nebulae_near_flow_map_distortion = value
 			emit_changed()
-			property_changed.emit(&"nebulae_flow_intensity")
+			property_changed.emit(&"nebulae_near_flow_map_distortion")
 
-## Represents the movement speed of the flow map distortion.
-@export_range(0.0, 1.0, 0.001) var nebulae_flow_speed: float = 0.02:
+## Represents the flow map distortion settings for the mid nebulae.
+@export var nebulae_mid_flow_map_distortion: FlowMapDistortionEffectSettings = FlowMapDistortionEffectSettings.new(
+	0.04,
+	0.02,
+):
 	set(value):
-		if nebulae_flow_speed != value:
-			nebulae_flow_speed = value
+		if nebulae_mid_flow_map_distortion != value:
+			nebulae_mid_flow_map_distortion = value
 			emit_changed()
-			property_changed.emit(&"nebulae_flow_speed")
+			property_changed.emit(&"nebulae_mid_flow_map_distortion")
+
+## Represents the flow map distortion settings for the far nebulae.
+@export var nebulae_far_flow_map_distortion: FlowMapDistortionEffectSettings = FlowMapDistortionEffectSettings.new(
+	0.02,
+	0.01,
+):
+	set(value):
+		if nebulae_far_flow_map_distortion != value:
+			nebulae_far_flow_map_distortion = value
+			emit_changed()
+			property_changed.emit(&"nebulae_far_flow_map_distortion")
 
 @export_group("Twinkle Effect Settings")
 
