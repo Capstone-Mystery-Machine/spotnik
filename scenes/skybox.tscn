@@ -17,6 +17,7 @@ glow_hdr_luminance_cap = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bbgff"]
 resource_local_to_scene = true
+render_priority = -99
 shading_mode = 0
 disable_ambient_light = true
 disable_fog = true
@@ -31,6 +32,7 @@ flip_faces = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxhb4"]
 resource_local_to_scene = true
+render_priority = -98
 transparency = 1
 blend_mode = 1
 depth_draw_mode = 2
@@ -49,6 +51,7 @@ flip_faces = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u7e8"]
 resource_local_to_scene = true
+render_priority = -97
 transparency = 1
 blend_mode = 1
 depth_draw_mode = 2
@@ -65,7 +68,7 @@ flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ab0bn"]
 resource_local_to_scene = true
-render_priority = 0
+render_priority = -96
 shader = ExtResource("2_wkasw")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/emission = Color(0, 0, 0, 1)
@@ -81,7 +84,7 @@ flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bbgff"]
 resource_local_to_scene = true
-render_priority = 0
+render_priority = -95
 shader = ExtResource("2_wkasw")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/emission = Color(0, 0, 0, 1)
@@ -97,7 +100,7 @@ flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sf6vd"]
 resource_local_to_scene = true
-render_priority = 0
+render_priority = -94
 shader = ExtResource("2_wkasw")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/emission = Color(0, 0, 0, 1)
@@ -113,14 +116,11 @@ flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cawid"]
 resource_local_to_scene = true
-render_priority = 0
+render_priority = -90
 shader = ExtResource("3_8u7e8")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/emission = Color(0, 0, 0, 1)
 shader_parameter/emission_energy = 0.0
-shader_parameter/carving_speed = 0.08
-shader_parameter/carving_scale = 2.5
-shader_parameter/carving_intensity = 0.65
 shader_parameter/flow_speed = 0.02
 shader_parameter/flow_intensity = 0.04
 
@@ -131,14 +131,11 @@ flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4r0s7"]
 resource_local_to_scene = true
-render_priority = 0
+render_priority = -93
 shader = ExtResource("3_8u7e8")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/emission = Color(0, 0, 0, 1)
 shader_parameter/emission_energy = 0.0
-shader_parameter/carving_speed = 0.08
-shader_parameter/carving_scale = 2.5
-shader_parameter/carving_intensity = 0.65
 shader_parameter/flow_speed = 0.02
 shader_parameter/flow_intensity = 0.04
 
@@ -149,14 +146,11 @@ flip_faces = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bt3n1"]
 resource_local_to_scene = true
-render_priority = 0
+render_priority = -92
 shader = ExtResource("3_8u7e8")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/emission = Color(0, 0, 0, 1)
 shader_parameter/emission_energy = 0.0
-shader_parameter/carving_speed = 0.08
-shader_parameter/carving_scale = 2.5
-shader_parameter/carving_intensity = 0.65
 shader_parameter/flow_speed = 0.02
 shader_parameter/flow_intensity = 0.04
 
