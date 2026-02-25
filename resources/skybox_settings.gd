@@ -259,14 +259,6 @@ signal property_changed(property_name: StringName)
 
 @export_group("Dissolve Effects Settings")
 
-## Represents the opacity removed by the dissolve noise.
-@export_range(0.0, 1.0, 0.001) var nebulae_dissolve_intensity: float = 1.0:
-	set(value):
-		if nebulae_dissolve_intensity != value:
-			nebulae_dissolve_intensity = value
-			emit_changed()
-			property_changed.emit(&"nebulae_dissolve_intensity")
-
 ## Represents the noise texture used to dissolve the nebulae.
 @export var nebulae_dissolve_noise_texture: NoiseTexture2D:
 	set(value):
@@ -275,29 +267,44 @@ signal property_changed(property_name: StringName)
 			emit_changed()
 			property_changed.emit(&"nebulae_dissolve_noise_texture")
 
-## Represents the dissolved hole size multiplier of the disolving noise.
-@export_range(0.0, 1.0, 0.001) var nebulae_dissolve_scale: float = 1.0:
+## Represents the flow map distortion settings for the near nebulae.
+@export var nebulae_near_dissolve: DissolveEffectSettings = DissolveEffectSettings.new(
+	1.0,
+	2.0,
+	Vector2(-0.003, -0.004),
+	0.15,
+):
 	set(value):
-		if nebulae_dissolve_scale != value:
-			nebulae_dissolve_scale = value
+		if nebulae_near_dissolve != value:
+			nebulae_near_dissolve = value
 			emit_changed()
-			property_changed.emit(&"nebulae_dissolve_scale")
+			property_changed.emit(&"nebulae_near_dissolve")
 
-## Represents the movement speed of the disolving noise.
-@export var nebulae_dissolve_speed: Vector2 = Vector2(-0.001, -0.002):
+## Represents the flow map distortion settings for the mid nebulae.
+@export var nebulae_mid_dissolve: DissolveEffectSettings = DissolveEffectSettings.new(
+	0.8,
+	1.5,
+	Vector2(-0.002, 0.002),
+	0.1,
+):
 	set(value):
-		if nebulae_dissolve_speed != value:
-			nebulae_dissolve_speed = value
+		if nebulae_mid_dissolve != value:
+			nebulae_mid_dissolve = value
 			emit_changed()
-			property_changed.emit(&"nebulae_dissolve_speed")
+			property_changed.emit(&"nebulae_mid_dissolve")
 
-## Represents the texture warp intensity of the disolving noise.
-@export_range(0.0, 1.0, 0.001) var nebulae_dissolve_warp_intensity: float = 0.1:
+## Represents the flow map distortion settings for the far nebulae.
+@export var nebulae_far_dissolve: DissolveEffectSettings = DissolveEffectSettings.new(
+	0.5,
+	1.0,
+	Vector2(0.001, -0.001),
+	0.05,
+):
 	set(value):
-		if nebulae_dissolve_warp_intensity != value:
-			nebulae_dissolve_warp_intensity = value
+		if nebulae_far_dissolve != value:
+			nebulae_far_dissolve = value
 			emit_changed()
-			property_changed.emit(&"nebulae_dissolve_warp_intensity")
+			property_changed.emit(&"nebulae_far_dissolve")
 
 @export_group("Flow Map Distortion Effects Settings")
 

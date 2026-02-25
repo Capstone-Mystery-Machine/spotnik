@@ -73,6 +73,7 @@ func _apply_nebulae_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
 		skybox_layer_material: SkyboxLayerMaterial,
+		dissolve_settings: DissolveEffectSettings,
 		flow_map_distortion_settings: FlowMapDistortionEffectSettings,
 		node_name: String,
 ):
@@ -93,11 +94,11 @@ func _apply_nebulae_material(
 		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
 
 	if settings != null:
-		material.set_shader_parameter("dissolve_intensity", settings.nebulae_dissolve_intensity)
 		material.set_shader_parameter("dissolve_noise_texture", settings.nebulae_dissolve_noise_texture)
-		material.set_shader_parameter("dissolve_scale", settings.nebulae_dissolve_scale)
-		material.set_shader_parameter("dissolve_speed", settings.nebulae_dissolve_speed)
-		material.set_shader_parameter("dissolve_warp_intensity", settings.nebulae_dissolve_warp_intensity)
+		material.set_shader_parameter("dissolve_intensity", dissolve_settings.intensity)
+		material.set_shader_parameter("dissolve_scale", dissolve_settings.scale)
+		material.set_shader_parameter("dissolve_speed", dissolve_settings.speed)
+		material.set_shader_parameter("dissolve_warp_intensity", dissolve_settings.warp_intensity)
 		material.set_shader_parameter("flow_intensity", flow_map_distortion_settings.intensity)
 		material.set_shader_parameter("flow_speed", flow_map_distortion_settings.speed)
 
@@ -169,6 +170,7 @@ func _update_nebulae_materials():
 		_nebulae_layer_near_mesh,
 		settings.nebulae_texture,
 		settings.nebulae_near_material,
+		settings.nebulae_near_dissolve,
 		settings.nebulae_near_flow_map_distortion,
 		"NebulaeLayerNearMesh",
 	)
@@ -177,6 +179,7 @@ func _update_nebulae_materials():
 		_nebulae_layer_mid_mesh,
 		settings.nebulae_texture,
 		settings.nebulae_mid_material,
+		settings.nebulae_mid_dissolve,
 		settings.nebulae_mid_flow_map_distortion,
 		"NebulaeLayerMidMesh",
 	)
@@ -185,6 +188,7 @@ func _update_nebulae_materials():
 		_nebulae_layer_far_mesh,
 		settings.nebulae_texture,
 		settings.nebulae_far_material,
+		settings.nebulae_far_dissolve,
 		settings.nebulae_far_flow_map_distortion,
 		"NebulaeLayerFarMesh",
 	)
@@ -340,6 +344,12 @@ func _connect_resources():
 	_connect_resource(settings.nebulae_near_material)
 	_connect_resource(settings.nebulae_mid_material)
 	_connect_resource(settings.nebulae_far_material)
+	_connect_resource(settings.nebulae_near_dissolve)
+	_connect_resource(settings.nebulae_mid_dissolve)
+	_connect_resource(settings.nebulae_far_dissolve)
+	_connect_resource(settings.nebulae_near_flow_map_distortion)
+	_connect_resource(settings.nebulae_mid_flow_map_distortion)
+	_connect_resource(settings.nebulae_far_flow_map_distortion)
 	_connect_resource(settings.stars_field_near_material)
 	_connect_resource(settings.stars_field_far_material)
 	_connect_resource(settings.stars_point_near_material)
@@ -359,6 +369,12 @@ func _disconnect_resources():
 	_disconnect_resource(settings.nebulae_near_material)
 	_disconnect_resource(settings.nebulae_mid_material)
 	_disconnect_resource(settings.nebulae_far_material)
+	_disconnect_resource(settings.nebulae_near_dissolve)
+	_disconnect_resource(settings.nebulae_mid_dissolve)
+	_disconnect_resource(settings.nebulae_far_dissolve)
+	_disconnect_resource(settings.nebulae_near_flow_map_distortion)
+	_disconnect_resource(settings.nebulae_mid_flow_map_distortion)
+	_disconnect_resource(settings.nebulae_far_flow_map_distortion)
 	_disconnect_resource(settings.stars_field_near_material)
 	_disconnect_resource(settings.stars_field_far_material)
 	_disconnect_resource(settings.stars_point_near_material)
@@ -384,12 +400,12 @@ func _on_property_changed(property_name: StringName) -> void:
 			_update_nebulae_materials()
 			_update_stars_field_materials()
 			_update_stars_point_materials()
-		&"frequency", &"intensity":
+		&"frequency", &"intensity", &"warp_intensity":
 			_update_nebulae_materials()
 		&"speed":
 			_update_nebulae_materials()
 			_update_stars_point_materials()
-		&"nebulae_near_material", &"nebulae_mid_material", &"nebulae_far_material":
+		&"nebulae_near_dissolve", &"nebulae_mid_dissolve", &"nebulae_far_dissolve", &"nebulae_near_flow_map_distortion", &"nebulae_mid_flow_map_distortion", &"nebulae_far_flow_map_distortion", &"nebulae_near_material", &"nebulae_mid_material", &"nebulae_far_material":
 			_disconnect_resources()
 			_connect_resources()
 			_update_nebulae_materials()
