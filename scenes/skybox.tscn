@@ -6,13 +6,11 @@
 
 [sub_resource type="Environment" id="Environment_tpkrh"]
 tonemap_mode = 3
-tonemap_exposure = 0.8
+tonemap_exposure = 0.65
 glow_enabled = true
-glow_intensity = 0.6
-glow_bloom = 0.1
+glow_bloom = 0.2
 glow_hdr_threshold = 0.75
 glow_hdr_scale = 1.0
-glow_hdr_luminance_cap = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bbgff"]
 resource_local_to_scene = true
