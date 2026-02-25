@@ -1,9 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=26 format=3 uid="uid://vugrltu8ff0i"]
 
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
 [ext_resource type="Shader" uid="uid://cr6fcjle7lg53" path="res://shaders/point_star.gdshader" id="2_wkasw"]
 [ext_resource type="Shader" uid="uid://b3485rvpg1yev" path="res://shaders/nebulae.gdshader" id="3_8u7e8"]
-[ext_resource type="Texture2D" uid="uid://c47uk04kxrdwu" path="res://textures/skybox_field_stars_a.tres" id="4_vk4a3"]
 
 [sub_resource type="Environment" id="Environment_tpkrh"]
 tonemap_mode = 3
@@ -30,6 +29,25 @@ resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_bbgff")
 flip_faces = true
 
+[sub_resource type="Gradient" id="Gradient_p073a"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5375375)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lidsi"]
+noise_type = 2
+seed = 9
+frequency = 0.4307
+fractal_type = 0
+domain_warp_fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bgfys"]
+width = 2048
+height = 1024
+noise = SubResource("FastNoiseLite_lidsi")
+color_ramp = SubResource("Gradient_p073a")
+seamless = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxhb4"]
 resource_local_to_scene = true
 render_priority = -98
@@ -41,7 +59,7 @@ disable_ambient_light = true
 disable_fog = true
 disable_specular_occlusion = true
 albedo_color = Color(0.5, 0.5, 0.5, 0.45)
-albedo_texture = ExtResource("4_vk4a3")
+albedo_texture = SubResource("NoiseTexture2D_bgfys")
 disable_receive_shadows = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_peegs"]

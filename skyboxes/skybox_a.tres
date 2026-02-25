@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cs3kp73yy1cfd" path="res://resources/dissolve_effect_settings.gd" id="2_ycl7b"]
 [ext_resource type="Texture2D" uid="uid://b6n8qito3srpu" path="res://textures/skybox_nebulae_a.png" id="3_bgfys"]
 [ext_resource type="Script" uid="uid://cp8j3wwp2xesw" path="res://resources/twinkle_effect_settings.gd" id="3_if531"]
-[ext_resource type="Texture2D" uid="uid://c47uk04kxrdwu" path="res://textures/skybox_field_stars_a.tres" id="5_352bn"]
+[ext_resource type="Texture2D" uid="uid://cmd4xekfolfe8" path="res://textures/skybox_field_stars_a.tres" id="5_352bn"]
 [ext_resource type="Texture2D" uid="uid://dqmpdcfv1qgpf" path="res://textures/skybox_point_stars_gradient_a.tres" id="6_bgfys"]
 [ext_resource type="Texture2D" uid="uid://cb1x5cv0w6ae8" path="res://textures/skybox_point_stars_a.tres" id="7_ycl7b"]
 
@@ -66,7 +66,7 @@ emission_energy = 0.4
 script = ExtResource("1_dsmt4")
 albedo_color = Color(1, 1, 1, 0.45)
 emission_color = Color(1, 1, 1, 1)
-emission_energy = 0.5
+emission_energy = 0.7
 
 [sub_resource type="Resource" id="Resource_o8ugm"]
 script = ExtResource("1_dsmt4")

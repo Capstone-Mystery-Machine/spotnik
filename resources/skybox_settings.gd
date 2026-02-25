@@ -74,7 +74,7 @@ signal property_changed(property_name: StringName)
 			property_changed.emit(&"rotation_speed")
 
 ## Represents the rotation speed multiplier for the far field stars.
-@export_range(-2.0, 2.0, 0.00001) var stars_field_far_speed_multiplier: float = 1.0:
+@export_range(-2.0, 2.0, 0.00001) var stars_field_far_speed_multiplier: float = 1.0125:
 	set(value):
 		if stars_field_far_speed_multiplier != value:
 			stars_field_far_speed_multiplier = value
@@ -82,7 +82,7 @@ signal property_changed(property_name: StringName)
 			property_changed.emit(&"stars_field_far_speed_multiplier")
 
 ## Represents the rotation speed multiplier for the near field stars.
-@export_range(-2.0, 2.0, 0.00001) var stars_field_near_speed_multiplier: float = 1.0:
+@export_range(-2.0, 2.0, 0.00001) var stars_field_near_speed_multiplier: float = 1.025:
 	set(value):
 		if stars_field_near_speed_multiplier != value:
 			stars_field_near_speed_multiplier = value
@@ -191,7 +191,7 @@ signal property_changed(property_name: StringName)
 @export var stars_point_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.9),
 	Color(0, 0, 0, 1.0),
-	0.6,
+	0.5,
 ):
 	set(value):
 		if stars_point_near_material != value:
@@ -203,7 +203,7 @@ signal property_changed(property_name: StringName)
 @export var stars_point_mid_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
 	Color(0, 0, 0, 0.75),
 	Color(0, 0, 0, 1.0),
-	0.45,
+	0.7,
 ):
 	set(value):
 		if stars_point_mid_material != value:
