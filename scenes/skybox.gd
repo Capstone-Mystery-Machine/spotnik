@@ -317,38 +317,65 @@ func _update_projection_radius():
 
 
 func _update_nebulae_near_visibility():
+	if settings == null:
+		return
+
 	_nebulae_layer_near_mesh.visible = settings.nebulae_near_layer_visible
 
 
 func _update_nebulae_mid_visibility():
+	if settings == null:
+		return
+
 	_nebulae_layer_mid_mesh.visible = settings.nebulae_mid_layer_visible
 
 
 func _update_nebulae_far_visibility():
+	if settings == null:
+		return
+
 	_nebulae_layer_far_mesh.visible = settings.nebulae_far_layer_visible
 
 
 func _update_stars_point_near_visibility():
+	if settings == null:
+		return
+
 	_stars_layer_near_mesh.visible = settings.stars_point_near_layer_visible
 
 
 func _update_stars_point_mid_visibility():
+	if settings == null:
+		return
+
 	_stars_layer_mid_mesh.visible = settings.stars_point_mid_layer_visible
 
 
 func _update_stars_point_far_visibility():
+	if settings == null:
+		return
+
 	_stars_layer_far_mesh.visible = settings.stars_point_far_layer_visible
 
 
 func _update_stars_field_near_visibility():
+	if settings == null:
+		return
+
 	_stars_layer_near_field_mesh.visible = settings.stars_field_near_layer_visible
 
 
 func _update_stars_field_far_visibility():
+	if settings == null:
+		return
+
 	_stars_layer_far_field_mesh.visible = settings.stars_field_far_layer_visible
 
 
 func _update_void_layer_visibility():
+	if settings == null:
+		return
+
 	_void_layer_mesh.visible = settings.void_layer_visible
 
 
