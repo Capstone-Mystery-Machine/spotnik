@@ -378,3 +378,77 @@ signal property_changed(property_name: StringName)
 			stars_point_far_twinkle = value
 			emit_changed()
 			property_changed.emit(&"stars_point_far_twinkle")
+
+@export_group("Layer Visibility Settings")
+
+## Represents if the near nebulae layer is visible.
+@export var nebulae_near_layer_visible: bool = true:
+	set(value):
+		if nebulae_near_layer_visible != value:
+			nebulae_near_layer_visible = value
+			emit_changed()
+			property_changed.emit(&"nebulae_near_layer_visible")
+
+## Represents if the mid nebulae layer is visible.
+@export var nebulae_mid_layer_visible: bool = true:
+	set(value):
+		if nebulae_mid_layer_visible != value:
+			nebulae_mid_layer_visible = value
+			emit_changed()
+			property_changed.emit(&"nebulae_mid_layer_visible")
+
+## Represents if the far nebulae layer is visible.
+@export var nebulae_far_layer_visible: bool = true:
+	set(value):
+		if nebulae_far_layer_visible != value:
+			nebulae_far_layer_visible = value
+			emit_changed()
+			property_changed.emit(&"nebulae_far_layer_visible")
+
+## Represents if the near point star layer is visible.
+@export var stars_point_near_layer_visible: bool = true:
+	set(value):
+		if stars_point_near_layer_visible != value:
+			stars_point_near_layer_visible = value
+			emit_changed()
+			property_changed.emit(&"stars_point_near_layer_visible")
+
+## Represents if the mid point star layer is visible.
+@export var stars_point_mid_layer_visible: bool = true:
+	set(value):
+		if stars_point_mid_layer_visible != value:
+			stars_point_mid_layer_visible = value
+			emit_changed()
+			property_changed.emit(&"stars_point_mid_layer_visible")
+
+## Represents if the far point star layer is visible.
+@export var stars_point_far_layer_visible: bool = true:
+	set(value):
+		if stars_point_far_layer_visible != value:
+			stars_point_far_layer_visible = value
+			emit_changed()
+			property_changed.emit(&"stars_point_far_layer_visible")
+
+## Represents if the near field star layer is visible.
+@export var stars_field_near_layer_visible: bool = true:
+	set(value):
+		if stars_field_near_layer_visible != value:
+			stars_field_near_layer_visible = value
+			emit_changed()
+			property_changed.emit(&"stars_field_near_layer_visible")
+
+## Represents if the far field star layer is visible.
+@export var stars_field_far_layer_visible: bool = true:
+	set(value):
+		if stars_field_far_layer_visible != value:
+			stars_field_far_layer_visible = value
+			emit_changed()
+			property_changed.emit(&"stars_field_far_layer_visible")
+
+## Represents if the void layer is visible.
+@export var void_layer_visible: bool = true:
+	set(value):
+		if void_layer_visible != value:
+			void_layer_visible = value
+			emit_changed()
+			property_changed.emit(&"void_layer_visible")

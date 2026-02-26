@@ -316,10 +316,57 @@ func _update_projection_radius():
 	)
 
 
+func _update_nebulae_near_visibility():
+	_nebulae_layer_near_mesh.visible = settings.nebulae_near_layer_visible
+
+
+func _update_nebulae_mid_visibility():
+	_nebulae_layer_mid_mesh.visible = settings.nebulae_mid_layer_visible
+
+
+func _update_nebulae_far_visibility():
+	_nebulae_layer_far_mesh.visible = settings.nebulae_far_layer_visible
+
+
+func _update_stars_point_near_visibility():
+	_stars_layer_near_mesh.visible = settings.stars_point_near_layer_visible
+
+
+func _update_stars_point_mid_visibility():
+	_stars_layer_mid_mesh.visible = settings.stars_point_mid_layer_visible
+
+
+func _update_stars_point_far_visibility():
+	_stars_layer_far_mesh.visible = settings.stars_point_far_layer_visible
+
+
+func _update_stars_field_near_visibility():
+	_stars_layer_near_field_mesh.visible = settings.stars_field_near_layer_visible
+
+
+func _update_stars_field_far_visibility():
+	_stars_layer_far_field_mesh.visible = settings.stars_field_far_layer_visible
+
+
+func _update_void_layer_visibility():
+	_void_layer_mesh.visible = settings.void_layer_visible
+
+
 func _update_all():
+	_update_nebulae_near_visibility()
+	_update_nebulae_mid_visibility()
+	_update_nebulae_far_visibility()
+	_update_stars_point_near_visibility()
+	_update_stars_point_mid_visibility()
+	_update_stars_point_far_visibility()
+	_update_stars_field_near_visibility()
+	_update_stars_field_far_visibility()
+	_update_void_layer_visibility()
+
 	_update_nebulae_materials()
 	_update_stars_point_materials()
 	_update_stars_field_materials()
+
 	_update_projection_radius()
 
 
@@ -405,6 +452,24 @@ func _on_property_changed(property_name: StringName) -> void:
 		&"speed":
 			_update_nebulae_materials()
 			_update_stars_point_materials()
+		&"nebulae_near_layer_visible":
+			_update_nebulae_near_visibility()
+		&"nebulae_mid_layer_visible":
+			_update_nebulae_mid_visibility()
+		&"nebulae_far_layer_visible":
+			_update_nebulae_far_visibility()
+		&"stars_point_near_layer_visible":
+			_update_stars_point_near_visibility()
+		&"stars_point_mid_layer_visible":
+			_update_stars_point_mid_visibility()
+		&"stars_point_far_layer_visible":
+			_update_stars_point_far_visibility()
+		&"stars_field_near_layer_visible":
+			_update_stars_field_near_visibility()
+		&"stars_field_far_layer_visible":
+			_update_stars_field_far_visibility()
+		&"void_layer_visible":
+			_update_void_layer_visibility()
 		&"nebulae_near_dissolve", &"nebulae_mid_dissolve", &"nebulae_far_dissolve", &"nebulae_near_flow_map_distortion", &"nebulae_mid_flow_map_distortion", &"nebulae_far_flow_map_distortion", &"nebulae_near_material", &"nebulae_mid_material", &"nebulae_far_material":
 			_disconnect_resources()
 			_connect_resources()
