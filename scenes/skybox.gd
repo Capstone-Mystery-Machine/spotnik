@@ -388,7 +388,7 @@ func _disconnect_resources():
 # Responds to setting and sub-resource changes.
 func _on_property_changed(property_name: StringName) -> void:
 	match property_name:
-		&"nebulae_texture", &"nebulae_dissolve_intensity", &"nebulae_dissolve_noise_texture", &"nebulae_dissolve_scale", &"nebulae_dissolve_speed", &"nebulae_dissolve_warp_intensity":
+		&"nebulae_texture", &"nebulae_dissolve_intensity", &"nebulae_dissolve_noise_texture":
 			_update_nebulae_materials()
 		&"stars_field_texture":
 			_update_stars_field_materials()
