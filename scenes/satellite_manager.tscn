@@ -4,3 +4,5 @@
 
 [node name="Satellite Manager" type="Node3D"]
 script = ExtResource("1_ithk4")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
