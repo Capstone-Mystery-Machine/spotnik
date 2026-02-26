@@ -1,36 +1,21 @@
 extends Node3D
 
 @export var landmark_scene: PackedScene
-@export var json_path: String = "res://satellites/satellites.json"
+@export var json_url: String = "http://localhost:8080/satellites/satellites.json"
 
 var satellite_data: Array = []
 
-## Represents the distance the satellite nodes will
-## spawn from the camera.
 @export var spawn_radius: float = 10
 
 
 func _ready() -> void:
-	load_satellite_data()
+	$HTTPRequest.request_completed.connect(_on_request_completed)
+	$HTTPRequest.request(json_url)
+
+
+func _on_request_completed(_result: int, _code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	satellite_data = JSON.parse_string(body.get_string_from_utf8())
 	spawn_all_landmarks()
-
-
-func load_satellite_data() -> void:
-	if not FileAccess.file_exists(json_path):
-		push_error("JSON file not found at: " + json_path)
-		return
-
-	var file = FileAccess.open(json_path, FileAccess.READ)
-	var json_text = file.get_as_text()
-	file.close()
-
-	var parsed = JSON.parse_string(json_text)
-
-	if typeof(parsed) != TYPE_ARRAY:
-		push_error("JSON format invalid!")
-		return
-
-	satellite_data = parsed
 
 
 func spawn_all_landmarks() -> void:
