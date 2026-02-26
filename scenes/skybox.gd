@@ -3,434 +3,18 @@ extends Node3D
 ## Spherical skybox with a projected layered projected panorama textures via
 ## [MeshInstance3D] instances with [SphereMesh] meshes.
 
-@export_group("Texture Settings")
-
-@export_subgroup("Void Settings")
-
-## Represents the texture applied to the background void layer.
-@export var void_texture: Texture2D:
+## Represents the resource containing all skybox visual and simulation settings.
+@export var settings: SkyboxSettings:
 	set(value):
-		void_texture = value
+		_disconnect_resources()
+		settings = value
+		_connect_resources()
 		if is_node_ready():
-			_update_void_texture()
-
-@export_subgroup("Nebulae Settings")
-
-## Represents the texture applied to the nebulae layers.
-@export var nebulae_texture: Texture2D:
-	set(value):
-		nebulae_texture = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-@export_group("Texture Settings/Nebulae Settings/Near Nebulae")
-
-## Represents the base albedo color and transparency applied to the near nebulae layer.
-@export var nebulae_near_albedo_color: Color = Color(0, 0, 0, 0.4):
-	set(value):
-		nebulae_near_albedo_color = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents the glowing emission color applied to the near nebulae layer.
-@export var nebulae_near_emission_color: Color = Color(0.05, 0.05, 0.01, 1.0):
-	set(value):
-		nebulae_near_emission_color = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents the brightness multiplier for the emission color applied to the near
-## nebulae layer.
-@export var nebulae_near_emission_energy: float = 0.5:
-	set(value):
-		nebulae_near_emission_energy = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-@export_group("Texture Settings/Nebulae Settings/Mid Nebulae")
-
-## Represents the base albedo color and transparency applied to the mid nebulae layer.
-@export var nebulae_mid_albedo_color: Color = Color(0, 0, 0, 0.65):
-	set(value):
-		nebulae_mid_albedo_color = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents the glowing emission color applied to the mid nebulae layer.
-@export var nebulae_mid_emission_color: Color = Color(0.15, 0.1, 0.2, 1.0):
-	set(value):
-		nebulae_mid_emission_color = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents the brightness multiplier for the emission color applied to the mid
-## nebulae layer.
-@export var nebulae_mid_emission_energy: float = 0.75:
-	set(value):
-		nebulae_mid_emission_energy = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-@export_group("Texture Settings/Nebulae Settings/Far Nebulae")
-
-## Represents the base albedo color and transparency applied to the far nebulae layer.
-@export var nebulae_far_albedo_color: Color = Color(0, 0, 0, 0.75):
-	set(value):
-		nebulae_far_albedo_color = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents the glowing emission color applied to the far nebulae layer.
-@export var nebulae_far_emission_color: Color = Color(0.01, 0.01, 0.25, 1.0):
-	set(value):
-		nebulae_far_emission_color = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents the brightness multiplier for the emission color applied to the far
-## nebulae layer.
-@export var nebulae_far_emission_energy: float = 0.95:
-	set(value):
-		nebulae_far_emission_energy = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-@export_subgroup("Stars Settings")
-
-@export_group("Texture Settings/Star Settings/Field Stars")
-
-## Represents the texture applied to the field stars layer.
-@export var stars_field_texture: Texture2D:
-	set(value):
-		stars_field_texture = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the base albedo color and transparency applied to the field stars layer.
-@export var stars_field_albedo_color: Color = Color(0, 0, 0, 0.6):
-	set(value):
-		stars_field_albedo_color = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the glowing emission color applied to the field stars layer.
-@export var stars_field_emission_color: Color = Color(0.015, 0.015, 0.015, 1):
-	set(value):
-		stars_field_emission_color = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the brightness multiplier for the emission color applied to the field
-## stars layer.
-@export var stars_field_emission_energy: float = 2.0:
-	set(value):
-		stars_field_emission_energy = value
-		if is_node_ready():
-			_update_stars_materials()
-
-@export_group("Texture Settings/Star Settings/Near Stars")
-
-## Represents the texture applied to the near stars layer.
-@export var stars_near_texture: Texture2D:
-	set(value):
-		stars_near_texture = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the base albedo color and transparency applied to the near stars layer.
-@export var stars_near_albedo_color: Color = Color(0, 0, 0, 0.9):
-	set(value):
-		stars_near_albedo_color = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the glowing emission color applied to the near stars layer.
-@export var stars_near_emission_color: Color = Color(0, 0, 0, 1.0):
-	set(value):
-		stars_near_emission_color = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the brightness multiplier for the emission color applied to the near
-## stars layer.
-@export var stars_near_emission_energy: float = 2.0:
-	set(value):
-		stars_near_emission_energy = value
-		if is_node_ready():
-			_update_stars_materials()
-
-@export_group("Texture Settings/Star Settings/Mid Stars")
-
-## Represents the texture applied to the mid stars layer.
-@export var stars_mid_texture: Texture2D:
-	set(value):
-		stars_mid_texture = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the base albedo color and transparency applied to the mid stars layer.
-@export var stars_mid_albedo_color: Color = Color(0, 0, 0, 0.75):
-	set(value):
-		stars_mid_albedo_color = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the glowing emission color applied to the mid stars layer.
-@export var stars_mid_emission_color: Color = Color(0, 0, 0, 1.0):
-	set(value):
-		stars_mid_emission_color = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the brightness multiplier for the emission color applied to the mid
-## stars layer.
-@export var stars_mid_emission_energy: float = 1.75:
-	set(value):
-		stars_mid_emission_energy = value
-		if is_node_ready():
-			_update_stars_materials()
-
-@export_group("Texture Settings/Star Settings/Far Stars")
-
-## Represents the texture applied to the far stars layer.
-@export var stars_far_texture: Texture2D:
-	set(value):
-		stars_far_texture = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the base albedo color and transparency applied to the far stars layer.
-@export var stars_far_albedo_color: Color = Color(0, 0, 0, 0.5):
-	set(value):
-		stars_far_albedo_color = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the glowing emission color applied to the far stars layer.
-@export var stars_far_emission_color: Color = Color(0, 0, 0, 1.0):
-	set(value):
-		stars_far_emission_color = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the brightness multiplier for the emission color applied to the far
-## stars layer.
-@export var stars_far_emission_energy: float = 1.5:
-	set(value):
-		stars_far_emission_energy = value
-		if is_node_ready():
-			_update_stars_materials()
-
-@export_group("Projection Settings")
-
-## Represents how far out the skybox's `MeshInstance3D`'s `SphereMesh` is projected
-## from its center of mass.
-@export_range(0.0, 1000.0, 0.00001, "suffix:m") var projection_radius: float = 1.0:
-	set(value):
-		projection_radius = value
-		if is_node_ready():
-			_update_projection_radius()
-
-## Represents the radius multiplier applied to the nebulae mid and far layers,
-## based on the near layer's computed projection radius.
-@export_range(1.0, 2.0, 0.00001) var nebulae_volume_multiplier: float = 1.1:
-	set(value):
-		nebulae_volume_multiplier = value
-		if is_node_ready():
-			_update_projection_radius()
-
-## Represents the radius multiplier applied to the stars mesh layer, based on the
-## projection radius.
-@export_range(1.0, 2.0, 0.00001) var stars_radius_multiplier: float = 1.0125:
-	set(value):
-		stars_radius_multiplier = value
-		if is_node_ready():
-			_update_projection_radius()
-
-## Represents the radius multiplier applied to the stars mid and far layers,
-## based on the previous star layer's computed projection radius.
-@export_range(1.0, 2.0, 0.00001) var stars_separation_multiplier: float = 1.25:
-	set(value):
-		stars_separation_multiplier = value
-		if is_node_ready():
-			_update_projection_radius()
-
-## Represents the radius multiplier applied to the void mesh layer, based on the
-## stars layer's computed projection radius.
-@export_range(1.0, 2.0, 0.00001) var void_radius_multiplier: float = 1.0125:
-	set(value):
-		void_radius_multiplier = value
-		if is_node_ready():
-			_update_projection_radius()
-
-@export_group("Simulation Settings")
-
-## Represents the base rotation speed applied to the void layer.
-@export_range(-0.1, 0.1, 0.00001, "suffix:rad/s") var rotation_speed: float = 0.00025
-
-## Represents the rotation speed multiplier applied to the stars field layer, based on
-## the base rotation speed.
-@export_range(-2.0, 2.0, 0.00001) var stars_field_speed_multiplier: float = 1.0
-
-## Represents the rotation speed multiplier applied to the stars far layer, based on
-## the base rotation speed.
-@export_range(-2.0, 2.0, 0.00001) var stars_far_speed_multiplier: float = 1.0
-
-## Represents the rotation speed multiplier applied to the stars mid layer, based on
-## the stars far layer's computed speed.
-@export_range(-2.0, 2.0, 0.00001) var stars_mid_speed_multiplier: float = 1.005
-
-## Represents the rotation speed multiplier applied to the stars near layer, based on
-## the stars mid layer's computed speed.
-@export_range(-2.0, 2.0, 0.00001) var stars_near_speed_multiplier: float = 1.01
-
-## Represents the rotation speed multiplier applied to the nebulae layers, based
-## on the stars layer's computed speed.
-@export_range(-2.0, 2.0, 0.00001) var nebulae_speed_multiplier: float = 0.99
-
-@export_group("Nebulae Effects Settings")
-
-## Represents how much of the nebulae opacity is removed by the carving noise.
-@export_range(0.0, 1.0, 0.01) var nebulae_carving_intensity: float = 0.65:
-	set(value):
-		nebulae_carving_intensity = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents the 3D noise texture used to carve out the nebulae volume.
-@export var nebulae_carving_noise_texture: Texture3D:
-	set(value):
-		nebulae_carving_noise_texture = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents the size of the noise pattern used for carving.
-@export var nebulae_carving_scale: float = 2.5:
-	set(value):
-		nebulae_carving_scale = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents how fast the 3D noise moves to carve out the nebulae.
-@export var nebulae_carving_speed: float = 0.08:
-	set(value):
-		nebulae_carving_speed = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents the strength of the swirling flow map distortion.
-@export var nebulae_flow_intensity: float = 0.04:
-	set(value):
-		nebulae_flow_intensity = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-## Represents how fast the flow map distortion moves.
-@export var nebulae_flow_speed: float = 0.02:
-	set(value):
-		nebulae_flow_speed = value
-		if is_node_ready():
-			_update_nebulae_materials()
-
-@export_group("Star Field Effects Settings")
-
-## Represents the color tint applied to the background star layer.
-@export var stars_field_background_color_tint: Color = Color(0.8, 0.8, 1.0, 1.0):
-	set(value):
-		stars_field_background_color_tint = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents how much the background star layer is dimmed.
-@export_range(0.0, 1.0, 0.001) var stars_field_background_dimming: float = 0.15:
-	set(value):
-		stars_field_background_dimming = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the horizontal shift offset for the background star layer.
-@export_range(0.0, 1.0, 0.001) var stars_field_background_horizontal_shift: float = 0.33:
-	set(value):
-		stars_field_background_horizontal_shift = value
-		if is_node_ready():
-			_update_stars_materials()
-
-@export_group("Twinkle Effect Settings")
-
-@export_subgroup("Near Stars")
-
-## Represents the intensity of the twinkle effect applied to the near stars layer.
-@export_range(0.0, 1.0, 0.001) var stars_near_twinkle_intensity: float = 0.3:
-	set(value):
-		stars_near_twinkle_intensity = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the spatial density of the twinkle pattern on the near stars layer.
-## Higher values make stars twinkle independently.
-@export_range(0.0, 5000.0, 1.0) var stars_near_twinkle_frequency: float = 800.0:
-	set(value):
-		stars_near_twinkle_frequency = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the pulsing speed of the twinkle effect on the near stars layer.
-@export_range(0.0, 20.0, 0.001) var stars_near_twinkle_speed: float = 2.0:
-	set(value):
-		stars_near_twinkle_speed = value
-		if is_node_ready():
-			_update_stars_materials()
-
-@export_subgroup("Mid Stars")
-
-## Represents the intensity of the twinkle effect applied to the mid stars layer.
-@export_range(0.0, 1.0, 0.001) var stars_mid_twinkle_intensity: float = 0.6:
-	set(value):
-		stars_mid_twinkle_intensity = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the spatial density of the twinkle pattern on the mid stars layer.
-## Higher values make stars twinkle independently.
-@export_range(0.0, 5000.0, 1.0) var stars_mid_twinkle_frequency: float = 1500.0:
-	set(value):
-		stars_mid_twinkle_frequency = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the pulsing speed of the twinkle effect on the mid stars layer.
-@export_range(0.0, 20.0, 0.001) var stars_mid_twinkle_speed: float = 2.0:
-	set(value):
-		stars_mid_twinkle_speed = value
-		if is_node_ready():
-			_update_stars_materials()
-
-@export_subgroup("Far Stars")
-
-## Represents the intensity of the twinkle effect applied to the far stars layer.
-@export_range(0.0, 1.0, 0.001) var stars_far_twinkle_intensity: float = 0.9:
-	set(value):
-		stars_far_twinkle_intensity = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the spatial density of the twinkle pattern on the far stars layer.
-## Higher values make stars twinkle independently.
-@export_range(0.0, 5000.0, 1.0) var stars_far_twinkle_frequency: float = 2500.0:
-	set(value):
-		stars_far_twinkle_frequency = value
-		if is_node_ready():
-			_update_stars_materials()
-
-## Represents the pulsing speed of the twinkle effect on the far stars layer.
-@export_range(0.0, 20.0, 0.001) var stars_far_twinkle_speed: float = 4.0:
-	set(value):
-		stars_far_twinkle_speed = value
-		if is_node_ready():
-			_update_stars_materials()
+			_update_all()
 
 @onready var _void_layer_mesh: MeshInstance3D = $VoidLayerMesh
-@onready var _stars_layer_field_mesh: MeshInstance3D = $StarsLayerFieldMesh
+@onready var _stars_layer_far_field_mesh: MeshInstance3D = $StarsLayerFarFieldMesh
+@onready var _stars_layer_near_field_mesh: MeshInstance3D = $StarsLayerNearFieldMesh
 @onready var _stars_layer_far_mesh: MeshInstance3D = $StarsLayerFarMesh
 @onready var _stars_layer_mid_mesh: MeshInstance3D = $StarsLayerMidMesh
 @onready var _stars_layer_near_mesh: MeshInstance3D = $StarsLayerNearMesh
@@ -445,14 +29,10 @@ func _apply_radius(mesh_instance: MeshInstance3D, radius: float, node_name: Stri
 
 	if !sphere_mesh:
 		push_error(
-			"bad dispatch to 'Skybox._apply_radius' (child node '" + node_name +
-			".mesh' is not 'SphereMesh')",
+			"bad dispatch to 'Skybox._apply_radius' (child node '"
+			+ node_name + ".mesh' is not 'SphereMesh')",
 		)
 		return
-
-	if sphere_mesh.resource_path != "":
-		sphere_mesh = sphere_mesh.duplicate()
-		mesh_instance.mesh = sphere_mesh
 
 	sphere_mesh.radius = radius
 	sphere_mesh.height = radius * 2
@@ -464,8 +44,8 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 
 	if !sphere_mesh:
 		push_error(
-			"bad dispatch to 'Skybox._apply_texture' (child node '" + node_name + ".mesh' "
-			+ "is not 'SphereMesh')",
+			"bad dispatch to 'Skybox._apply_texture' (child node '"
+			+ node_name + ".mesh' is not 'SphereMesh')",
 		)
 		return
 
@@ -473,230 +53,457 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 
 	if !material:
 		push_error(
-			"bad dispatch to 'Skybox._apply_texture' (child node '" + node_name +
-			".mesh.material' is empty)",
+			"bad dispatch to 'Skybox._apply_texture' (child node '"
+			+ node_name + ".mesh.material' is empty)",
 		)
 		return
 
-	if material.resource_path != "":
-		material = material.duplicate()
-		sphere_mesh.material = material
-
 	if material is StandardMaterial3D:
 		material.albedo_texture = texture_2d
+
 		if mesh_instance != _void_layer_mesh:
 			material.emission_texture = texture_2d
 
 	elif material is ShaderMaterial:
 		material.set_shader_parameter("texture_albedo", texture_2d)
-		material.set_shader_parameter("texture_emission", texture_2d)
 
 
 # Applies exported settings to the nebulae shaders.
 func _apply_nebulae_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
-		albedo: Color,
-		emission: Color,
-		energy: float,
+		skybox_layer_material: SkyboxLayerMaterial,
+		dissolve_settings: DissolveEffectSettings,
+		flow_map_distortion_settings: FlowMapDistortionEffectSettings,
 		node_name: String,
 ):
 	_apply_texture(mesh_instance, texture_2d, node_name)
 
 	var material = mesh_instance.mesh.material
 
-	if material is ShaderMaterial:
-		material.set_shader_parameter("albedo", albedo)
-		material.set_shader_parameter("emission", emission)
-		material.set_shader_parameter("emission_energy", energy)
-		material.set_shader_parameter("carving_intensity", nebulae_carving_intensity)
-		material.set_shader_parameter("carving_noise_texture", nebulae_carving_noise_texture)
-		material.set_shader_parameter("carving_scale", nebulae_carving_scale)
-		material.set_shader_parameter("carving_speed", nebulae_carving_speed)
-		material.set_shader_parameter("flow_intensity", nebulae_flow_intensity)
-		material.set_shader_parameter("flow_speed", nebulae_flow_speed)
+	if not material is ShaderMaterial:
+		push_error(
+			"bad dispatch to 'Skybox._apply_nebulae_material' (child node '"
+			+ node_name + ".mesh.material' is not 'ShaderMaterial')",
+		)
+		return
 
+	if skybox_layer_material != null:
+		material.set_shader_parameter("albedo", skybox_layer_material.albedo_color)
+		material.set_shader_parameter("emission", skybox_layer_material.emission_color)
+		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
 
-# Applies exported settings to the star shaders.
-func _apply_star_material(
-		mesh_instance: MeshInstance3D,
-		texture_2d: Texture2D,
-		albedo: Color,
-		emission: Color,
-		energy: float,
-		twinkle_frequency: float,
-		twinkle_intensity: float,
-		twinkle_speed: float,
-		node_name: String,
-):
-	_apply_texture(mesh_instance, texture_2d, node_name)
-
-	var material = mesh_instance.mesh.material
-
-	if material is ShaderMaterial:
-		material.set_shader_parameter("albedo", albedo)
-		material.set_shader_parameter("emission", emission)
-		material.set_shader_parameter("emission_energy", energy)
-		material.set_shader_parameter("twinkle_frequency", twinkle_frequency)
-		material.set_shader_parameter("twinkle_intensity", twinkle_intensity)
-		material.set_shader_parameter("twinkle_speed", twinkle_speed)
+	if settings != null:
+		material.set_shader_parameter("dissolve_noise_texture", settings.nebulae_dissolve_noise_texture)
+		material.set_shader_parameter("dissolve_intensity", dissolve_settings.intensity)
+		material.set_shader_parameter("dissolve_scale", dissolve_settings.scale)
+		material.set_shader_parameter("dissolve_speed", dissolve_settings.speed)
+		material.set_shader_parameter("dissolve_warp_intensity", dissolve_settings.warp_intensity)
+		material.set_shader_parameter("flow_intensity", flow_map_distortion_settings.intensity)
+		material.set_shader_parameter("flow_speed", flow_map_distortion_settings.speed)
 
 
 # Applies exported settings to the star field shaders.
-func _apply_star_field_material(
+func _apply_stars_field_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
-		albedo: Color,
-		emission: Color,
-		energy: float,
-		background_color_tint: Color,
-		background_dimming: float,
-		background_horizontal_shift: float,
+		skybox_layer_material: SkyboxLayerMaterial,
 		node_name: String,
 ):
 	_apply_texture(mesh_instance, texture_2d, node_name)
 
 	var material = mesh_instance.mesh.material
 
-	if material is ShaderMaterial:
-		material.set_shader_parameter("albedo", albedo)
-		material.set_shader_parameter("emission", emission)
-		material.set_shader_parameter("emission_energy", energy)
-		material.set_shader_parameter("background_horizontal_shift", background_horizontal_shift)
-		material.set_shader_parameter("background_dimming", background_dimming)
-		material.set_shader_parameter("background_color_tint", background_color_tint)
+	if not material is StandardMaterial3D:
+		push_error(
+			"bad dispatch to 'Skybox._apply_stars_field_material' (child node '"
+			+ node_name + ".mesh.material' is not 'StandardMaterial3D')",
+		)
+		return
+
+	if skybox_layer_material != null:
+		var hdr_color = skybox_layer_material.emission_color * skybox_layer_material.emission_energy
+		hdr_color.a = skybox_layer_material.albedo_color.a
+
+		material.albedo_color = hdr_color
+
+
+# Applies exported settings to the point star shaders.
+func _apply_stars_point_material(
+		mesh_instance: MeshInstance3D,
+		texture_2d: Texture2D,
+		skybox_layer_material: SkyboxLayerMaterial,
+		twinkle_effect_settings: TwinkleEffectSettings,
+		node_name: String,
+):
+	_apply_texture(mesh_instance, texture_2d, node_name)
+
+	var material = mesh_instance.mesh.material
+
+	if not material is ShaderMaterial:
+		push_error(
+			"bad dispatch to 'Skybox._apply_stars_point_material' (child node '"
+			+ node_name + ".mesh.material' is not 'ShaderMaterial')",
+		)
+		return
+
+	if skybox_layer_material != null:
+		material.set_shader_parameter("albedo", skybox_layer_material.albedo_color)
+		material.set_shader_parameter("emission", skybox_layer_material.emission_color)
+		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
+
+	if settings != null:
+		material.set_shader_parameter("color_palette", settings.stars_point_color_palette)
+
+	if twinkle_effect_settings != null:
+		material.set_shader_parameter("twinkle_frequency", twinkle_effect_settings.frequency)
+		material.set_shader_parameter("twinkle_intensity", twinkle_effect_settings.intensity)
+		material.set_shader_parameter("twinkle_speed", twinkle_effect_settings.speed)
 
 
 # Updates the nebulae mesh layer's materials based on the exported variables.
 func _update_nebulae_materials():
+	if settings == null:
+		return
+
 	_apply_nebulae_material(
 		_nebulae_layer_near_mesh,
-		nebulae_texture,
-		nebulae_near_albedo_color,
-		nebulae_near_emission_color,
-		nebulae_near_emission_energy,
+		settings.nebulae_texture,
+		settings.nebulae_near_material,
+		settings.nebulae_near_dissolve,
+		settings.nebulae_near_flow_map_distortion,
 		"NebulaeLayerNearMesh",
 	)
 
 	_apply_nebulae_material(
 		_nebulae_layer_mid_mesh,
-		nebulae_texture,
-		nebulae_mid_albedo_color,
-		nebulae_mid_emission_color,
-		nebulae_mid_emission_energy,
+		settings.nebulae_texture,
+		settings.nebulae_mid_material,
+		settings.nebulae_mid_dissolve,
+		settings.nebulae_mid_flow_map_distortion,
 		"NebulaeLayerMidMesh",
 	)
 
 	_apply_nebulae_material(
 		_nebulae_layer_far_mesh,
-		nebulae_texture,
-		nebulae_far_albedo_color,
-		nebulae_far_emission_color,
-		nebulae_far_emission_energy,
+		settings.nebulae_texture,
+		settings.nebulae_far_material,
+		settings.nebulae_far_dissolve,
+		settings.nebulae_far_flow_map_distortion,
 		"NebulaeLayerFarMesh",
 	)
 
 
 # Updates the star mesh layer's materials based on the exported variables.
-func _update_stars_materials():
-	_apply_star_material(
+func _update_stars_field_materials():
+	if settings == null:
+		return
+
+	_apply_stars_field_material(
+		_stars_layer_near_field_mesh,
+		settings.stars_field_texture,
+		settings.stars_field_near_material,
+		"StarsLayerNearFieldMesh",
+	)
+
+	_apply_stars_field_material(
+		_stars_layer_far_field_mesh,
+		settings.stars_field_texture,
+		settings.stars_field_far_material,
+		"StarsLayerFarFieldMesh",
+	)
+
+
+# Updates the star mesh layer's materials based on the exported variables.
+func _update_stars_point_materials():
+	if settings == null:
+		return
+
+	_apply_stars_point_material(
 		_stars_layer_near_mesh,
-		stars_near_texture,
-		stars_near_albedo_color,
-		stars_near_emission_color,
-		stars_near_emission_energy,
-		stars_near_twinkle_frequency,
-		stars_near_twinkle_intensity,
-		stars_near_twinkle_speed,
+		settings.stars_point_texture,
+		settings.stars_point_near_material,
+		settings.stars_point_near_twinkle,
 		"StarsLayerNearMesh",
 	)
 
-	_apply_star_material(
+	_apply_stars_point_material(
 		_stars_layer_mid_mesh,
-		stars_mid_texture,
-		stars_mid_albedo_color,
-		stars_mid_emission_color,
-		stars_mid_emission_energy,
-		stars_mid_twinkle_frequency,
-		stars_mid_twinkle_intensity,
-		stars_mid_twinkle_speed,
+		settings.stars_point_texture,
+		settings.stars_point_mid_material,
+		settings.stars_point_mid_twinkle,
 		"StarsLayerMidMesh",
 	)
 
-	_apply_star_material(
+	_apply_stars_point_material(
 		_stars_layer_far_mesh,
-		stars_far_texture,
-		stars_far_albedo_color,
-		stars_far_emission_color,
-		stars_far_emission_energy,
-		stars_far_twinkle_frequency,
-		stars_far_twinkle_intensity,
-		stars_far_twinkle_speed,
+		settings.stars_point_texture,
+		settings.stars_point_far_material,
+		settings.stars_point_far_twinkle,
 		"StarsLayerFarMesh",
 	)
-
-	_apply_star_field_material(
-		_stars_layer_field_mesh,
-		stars_field_texture,
-		stars_field_albedo_color,
-		stars_field_emission_color,
-		stars_field_emission_energy,
-		stars_field_background_color_tint,
-		stars_field_background_dimming,
-		stars_field_background_horizontal_shift,
-		"StarsLayerFieldMesh",
-	)
-
-
-# Updates the void mesh layer's texture settings based on the exported variable.
-func _update_void_texture():
-	_apply_texture(_void_layer_mesh, void_texture, "VoidLayerMesh")
 
 
 ## Updates the child nodes' projection radius settings based on the exported variable.
 func _update_projection_radius():
-	var nebulae_mid_radius = projection_radius * nebulae_volume_multiplier
-	var nebulae_far_radius = nebulae_mid_radius * nebulae_volume_multiplier
+	if settings == null:
+		return
 
-	var stars_near_radius = nebulae_far_radius * stars_radius_multiplier
-	var stars_mid_radius = stars_near_radius * stars_separation_multiplier
-	var stars_far_radius = stars_mid_radius * stars_separation_multiplier
-	var stars_field_radius = stars_far_radius * stars_separation_multiplier
+	var nebulae_mid_radius = settings.projection_radius * settings.nebulae_displacement_multiplier
+	var nebulae_far_radius = nebulae_mid_radius * settings.nebulae_displacement_multiplier
 
-	var void_radius = stars_field_radius * void_radius_multiplier
+	var stars_near_radius = nebulae_far_radius * settings.stars_point_radius_multiplier
+	var stars_mid_radius = stars_near_radius * settings.stars_point_displacement_multiplier
+	var stars_far_radius = stars_mid_radius * settings.stars_point_displacement_multiplier
 
-	_apply_radius(_nebulae_layer_near_mesh, projection_radius, "NebulaeLayerNearMesh")
-	_apply_radius(_nebulae_layer_mid_mesh, nebulae_mid_radius, "NebulaeLayerMidMesh")
-	_apply_radius(_nebulae_layer_far_mesh, nebulae_far_radius, "NebulaeLayerFarMesh")
+	var stars_field_near_radius = stars_far_radius * settings.stars_point_radius_multiplier
+	var stars_field_far_radius = stars_field_near_radius * settings.stars_point_displacement_multiplier
 
-	_apply_radius(_stars_layer_near_mesh, stars_near_radius, "StarsLayerNearMesh")
-	_apply_radius(_stars_layer_mid_mesh, stars_mid_radius, "StarsLayerMidMesh")
-	_apply_radius(_stars_layer_far_mesh, stars_far_radius, "StarsLayerFarMesh")
-	_apply_radius(_stars_layer_field_mesh, stars_field_radius, "StarsLayerFieldMesh")
+	var void_radius = stars_field_far_radius * settings.void_radius_multiplier
 
-	_apply_radius(_void_layer_mesh, void_radius, "VoidLayerMesh")
+	_apply_radius(
+		_nebulae_layer_near_mesh,
+		settings.projection_radius,
+		"NebulaeLayerNearMesh",
+	)
+
+	_apply_radius(
+		_nebulae_layer_mid_mesh,
+		nebulae_mid_radius,
+		"NebulaeLayerMidMesh",
+	)
+
+	_apply_radius(
+		_nebulae_layer_far_mesh,
+		nebulae_far_radius,
+		"NebulaeLayerFarMesh",
+	)
+
+	_apply_radius(
+		_stars_layer_near_mesh,
+		stars_near_radius,
+		"StarsLayerNearMesh",
+	)
+
+	_apply_radius(
+		_stars_layer_mid_mesh,
+		stars_mid_radius,
+		"StarsLayerMidMesh",
+	)
+
+	_apply_radius(
+		_stars_layer_far_mesh,
+		stars_far_radius,
+		"StarsLayerFarMesh",
+	)
+
+	_apply_radius(
+		_stars_layer_near_field_mesh,
+		stars_field_near_radius,
+		"StarsLayerNearFieldMesh",
+	)
+
+	_apply_radius(
+		_stars_layer_far_field_mesh,
+		stars_field_far_radius,
+		"StarsLayerFarFieldMesh",
+	)
+
+	_apply_radius(
+		_void_layer_mesh,
+		void_radius,
+		"VoidLayerMesh",
+	)
 
 
-func _ready() -> void:
+func _update_nebulae_near_visibility():
+	_nebulae_layer_near_mesh.visible = settings.nebulae_near_layer_visible
+
+
+func _update_nebulae_mid_visibility():
+	_nebulae_layer_mid_mesh.visible = settings.nebulae_mid_layer_visible
+
+
+func _update_nebulae_far_visibility():
+	_nebulae_layer_far_mesh.visible = settings.nebulae_far_layer_visible
+
+
+func _update_stars_point_near_visibility():
+	_stars_layer_near_mesh.visible = settings.stars_point_near_layer_visible
+
+
+func _update_stars_point_mid_visibility():
+	_stars_layer_mid_mesh.visible = settings.stars_point_mid_layer_visible
+
+
+func _update_stars_point_far_visibility():
+	_stars_layer_far_mesh.visible = settings.stars_point_far_layer_visible
+
+
+func _update_stars_field_near_visibility():
+	_stars_layer_near_field_mesh.visible = settings.stars_field_near_layer_visible
+
+
+func _update_stars_field_far_visibility():
+	_stars_layer_far_field_mesh.visible = settings.stars_field_far_layer_visible
+
+
+func _update_void_layer_visibility():
+	_void_layer_mesh.visible = settings.void_layer_visible
+
+
+func _update_all():
+	_update_nebulae_near_visibility()
+	_update_nebulae_mid_visibility()
+	_update_nebulae_far_visibility()
+	_update_stars_point_near_visibility()
+	_update_stars_point_mid_visibility()
+	_update_stars_point_far_visibility()
+	_update_stars_field_near_visibility()
+	_update_stars_field_far_visibility()
+	_update_void_layer_visibility()
+
 	_update_nebulae_materials()
-	_update_stars_materials()
-	_update_void_texture()
+	_update_stars_point_materials()
+	_update_stars_field_materials()
+
 	_update_projection_radius()
 
 
-func _process(delta: float) -> void:
-	if Engine.is_editor_hint():
+# Connects a resource's property_changed signal.
+func _connect_resource(resource: Resource):
+	if resource != null and not resource.property_changed.is_connected(_on_property_changed):
+		resource.property_changed.connect(_on_property_changed)
+
+
+# Disconnects a resource's property_changed signal.
+func _disconnect_resource(resource: Resource):
+	if resource != null and resource.property_changed.is_connected(_on_property_changed):
+		resource.property_changed.disconnect(_on_property_changed)
+
+
+# Sets up all reactivity signals.
+func _connect_resources():
+	if settings == null:
 		return
 
-	var stars_field_speed = rotation_speed * stars_field_speed_multiplier
-	var stars_far_speed = stars_field_speed * stars_far_speed_multiplier
-	var stars_mid_speed = stars_far_speed * stars_mid_speed_multiplier
-	var stars_near_speed = stars_mid_speed * stars_near_speed_multiplier
-	var nebulae_speed = stars_near_speed * nebulae_speed_multiplier
+	_connect_resource(settings)
+	_connect_resource(settings.nebulae_near_material)
+	_connect_resource(settings.nebulae_mid_material)
+	_connect_resource(settings.nebulae_far_material)
+	_connect_resource(settings.nebulae_near_dissolve)
+	_connect_resource(settings.nebulae_mid_dissolve)
+	_connect_resource(settings.nebulae_far_dissolve)
+	_connect_resource(settings.nebulae_near_flow_map_distortion)
+	_connect_resource(settings.nebulae_mid_flow_map_distortion)
+	_connect_resource(settings.nebulae_far_flow_map_distortion)
+	_connect_resource(settings.stars_field_near_material)
+	_connect_resource(settings.stars_field_far_material)
+	_connect_resource(settings.stars_point_near_material)
+	_connect_resource(settings.stars_point_mid_material)
+	_connect_resource(settings.stars_point_far_material)
+	_connect_resource(settings.stars_point_near_twinkle)
+	_connect_resource(settings.stars_point_mid_twinkle)
+	_connect_resource(settings.stars_point_far_twinkle)
 
-	_void_layer_mesh.rotate_y(rotation_speed * delta)
-	_stars_layer_field_mesh.rotate_y(stars_field_speed * delta)
-	_stars_layer_far_mesh.rotate_y(stars_far_speed * delta)
-	_stars_layer_mid_mesh.rotate_y(stars_mid_speed * delta)
-	_stars_layer_near_mesh.rotate_y(stars_near_speed * delta)
+
+# Clears all reactivity signals.
+func _disconnect_resources():
+	if settings == null:
+		return
+
+	_disconnect_resource(settings)
+	_disconnect_resource(settings.nebulae_near_material)
+	_disconnect_resource(settings.nebulae_mid_material)
+	_disconnect_resource(settings.nebulae_far_material)
+	_disconnect_resource(settings.nebulae_near_dissolve)
+	_disconnect_resource(settings.nebulae_mid_dissolve)
+	_disconnect_resource(settings.nebulae_far_dissolve)
+	_disconnect_resource(settings.nebulae_near_flow_map_distortion)
+	_disconnect_resource(settings.nebulae_mid_flow_map_distortion)
+	_disconnect_resource(settings.nebulae_far_flow_map_distortion)
+	_disconnect_resource(settings.stars_field_near_material)
+	_disconnect_resource(settings.stars_field_far_material)
+	_disconnect_resource(settings.stars_point_near_material)
+	_disconnect_resource(settings.stars_point_mid_material)
+	_disconnect_resource(settings.stars_point_far_material)
+	_disconnect_resource(settings.stars_point_near_twinkle)
+	_disconnect_resource(settings.stars_point_mid_twinkle)
+	_disconnect_resource(settings.stars_point_far_twinkle)
+
+
+# Responds to setting and sub-resource changes.
+func _on_property_changed(property_name: StringName) -> void:
+	match property_name:
+		&"nebulae_texture", &"nebulae_dissolve_intensity", &"nebulae_dissolve_noise_texture":
+			_update_nebulae_materials()
+		&"stars_field_texture":
+			_update_stars_field_materials()
+		&"stars_point_texture", &"stars_point_color_palette":
+			_update_stars_point_materials()
+		&"projection_radius", &"nebulae_displacement_multiplier", &"stars_point_radius_multiplier", &"stars_point_displacement_multiplier", &"stars_field_radius_multiplier", &"stars_field_displacement_multiplier", &"void_radius_multiplier":
+			_update_projection_radius()
+		&"albedo_color", &"emission_color", &"emission_energy":
+			_update_nebulae_materials()
+			_update_stars_field_materials()
+			_update_stars_point_materials()
+		&"frequency", &"intensity", &"warp_intensity":
+			_update_nebulae_materials()
+		&"speed":
+			_update_nebulae_materials()
+			_update_stars_point_materials()
+		&"nebulae_near_layer_visible":
+			_update_nebulae_near_visibility()
+		&"nebulae_mid_layer_visible":
+			_update_nebulae_mid_visibility()
+		&"nebulae_far_layer_visible":
+			_update_nebulae_far_visibility()
+		&"stars_point_near_layer_visible":
+			_update_stars_point_near_visibility()
+		&"stars_point_mid_layer_visible":
+			_update_stars_point_mid_visibility()
+		&"stars_point_far_layer_visible":
+			_update_stars_point_far_visibility()
+		&"stars_field_near_layer_visible":
+			_update_stars_field_near_visibility()
+		&"stars_field_far_layer_visible":
+			_update_stars_field_far_visibility()
+		&"void_layer_visible":
+			_update_void_layer_visibility()
+		&"nebulae_near_dissolve", &"nebulae_mid_dissolve", &"nebulae_far_dissolve", &"nebulae_near_flow_map_distortion", &"nebulae_mid_flow_map_distortion", &"nebulae_far_flow_map_distortion", &"nebulae_near_material", &"nebulae_mid_material", &"nebulae_far_material":
+			_disconnect_resources()
+			_connect_resources()
+			_update_nebulae_materials()
+		&"stars_field_near_material", &"stars_field_far_material":
+			_disconnect_resources()
+			_connect_resources()
+			_update_stars_field_materials()
+		&"stars_point_near_material", &"stars_point_mid_material", &"stars_point_far_material", &"stars_point_near_twinkle", &"stars_point_mid_twinkle", &"stars_point_far_twinkle":
+			_disconnect_resources()
+			_connect_resources()
+			_update_stars_point_materials()
+
+
+func _ready() -> void:
+	_connect_resources()
+	_update_all()
+
+
+func _process(delta: float) -> void:
+	if settings == null:
+		return
+
+	var stars_field_far_speed = settings.rotation_speed * settings.stars_field_far_speed_multiplier
+	var stars_field_near_speed = stars_field_far_speed * settings.stars_field_near_speed_multiplier
+	var stars_point_far_speed = stars_field_near_speed * settings.stars_point_far_speed_multiplier
+	var stars_point_mid_speed = stars_point_far_speed * settings.stars_point_mid_speed_multiplier
+	var stars_point_near_speed = stars_point_mid_speed * settings.stars_point_near_speed_multiplier
+	var nebulae_speed = stars_point_near_speed * settings.nebulae_speed_multiplier
+
+	_void_layer_mesh.rotate_y(settings.rotation_speed * delta)
+	_stars_layer_far_field_mesh.rotate_y(stars_field_far_speed * delta)
+	_stars_layer_near_field_mesh.rotate_y(stars_field_near_speed * delta)
+	_stars_layer_far_mesh.rotate_y(stars_point_far_speed * delta)
+	_stars_layer_mid_mesh.rotate_y(stars_point_mid_speed * delta)
+	_stars_layer_near_mesh.rotate_y(stars_point_near_speed * delta)
 	_nebulae_layer_near_mesh.rotate_y(nebulae_speed * delta)
