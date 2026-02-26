@@ -1,5 +1,10 @@
 extends Node3D
 
+signal inner_entered(body: CollisionObject3D)
+signal inner_exited(body: CollisionObject3D)
+signal outer_entered(body: CollisionObject3D)
+signal outer_exited(body: CollisionObject3D)
+
 var international_designator: String
 var norad_catalog_id: String
 var satellite_name: String
@@ -26,18 +31,47 @@ func setup(
 	latitude = lat
 	longitude = long
 
+## Represents the maximum scale size the satellite node will grow to.
+@export var max_scale: float = 5.0
 
-signal inner_entered(body: CollisionObject3D)
-signal inner_exited(body: CollisionObject3D)
-signal outer_entered(body: CollisionObject3D)
-signal outer_exited(body: CollisionObject3D)
-signal ui_open
+## Represents the distance between the camera and where satellites spawn.
+@export var spawn_radius: float = 10.0
+
+@onready var detector: Area3D = $CameraPointerDetector
+@onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
+
+var outer_radius: float
+var inner_radius: float
+var pointer: CollisionObject3D
+
+
+func _ready() -> void:
+	outer_radius = outer_shape.shape.radius
+	inner_radius = detector.inner_radius
+
+
+func _process(delta: float) -> void:
+	if pointer == null:
+		scale = scale.lerp(Vector3.ONE, spawn_radius * delta)
+		return
+
+	var body = pointer
+	var distance = global_position.distance_to(body.global_position)
+
+	var t = 1.0 - clamp(
+		(distance - inner_radius) / (outer_radius - inner_radius),
+		0.0,
+		1.0,
+	)
+
+	var target_scale = lerp(1.0, max_scale, t)
+
+	scale = scale.lerp(Vector3.ONE * target_scale, spawn_radius * delta)
 
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
 	emit_signal("inner_entered", body)
-	emit_signal("ui_open")
-	SignalBus.ui_info.emit(international_designator, norad_catalog_id, satellite_name, country, launch_date, latitude, longitude)
+	SignalBus.ui_info.emit(self)
 
 
 func _on_camera_pointer_detector_inner_exited(body: CollisionObject3D) -> void:
@@ -45,8 +79,10 @@ func _on_camera_pointer_detector_inner_exited(body: CollisionObject3D) -> void:
 
 
 func _on_camera_pointer_detector_outer_entered(body: CollisionObject3D) -> void:
+	pointer = body
 	emit_signal("outer_entered", body)
 
 
 func _on_camera_pointer_detector_outer_exited(body: CollisionObject3D) -> void:
+	pointer = null
 	emit_signal("outer_exited", body)

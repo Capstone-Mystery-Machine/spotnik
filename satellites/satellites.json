@@ -1,0 +1,29 @@
+[
+  {
+    "int_designator": "2020-001A",
+    "norad_id": "12345",
+    "name": "SatOne",
+    "country": "USA",
+    "launch": 20200115,
+    "latitude": 45.1234,
+    "longitude": -120.5432
+  },
+  {
+    "int_designator": "2021-045B",
+    "norad_id": "23456",
+    "name": "SatTwo",
+    "country": "Japan",
+    "launch": 20210322,
+    "latitude": 55.34,
+    "longitude": 82.54
+  },
+  {
+    "int_designator": "2019-010C",
+    "norad_id": "34567",
+    "name": "SatThree",
+    "country": "France",
+    "launch": 20190418,
+    "latitude": 0.1234,
+    "longitude": 12.79
+  }
+]

@@ -1,11 +1,13 @@
 extends Node3D
 
 @export var landmark_scene: PackedScene
-@export var json_path: String = "/Users/dannyjohnston/Downloads/satellites.json"
+@export var json_path: String = "res://satellites/satellites.json"
 
 var satellite_data: Array = []
 
-var spawn_radius: float = 10.0
+## Represents the distance the satellite nodes will
+## spawn from the camera.
+@export var spawn_radius: float = 10
 
 
 func _ready() -> void:
