@@ -89,18 +89,56 @@ func _apply_nebulae_material(
 		return
 
 	if skybox_layer_material != null:
-		material.set_shader_parameter("albedo", skybox_layer_material.albedo_color)
-		material.set_shader_parameter("emission", skybox_layer_material.emission_color)
-		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
+		material.set_shader_parameter(
+			"albedo",
+			skybox_layer_material.albedo_color,
+		)
+
+		material.set_shader_parameter(
+			"emission",
+			skybox_layer_material.emission_color,
+		)
+
+		material.set_shader_parameter(
+			"emission_energy",
+			skybox_layer_material.emission_energy,
+		)
 
 	if settings != null:
-		material.set_shader_parameter("dissolve_noise_texture", settings.nebulae_dissolve_noise_texture)
-		material.set_shader_parameter("dissolve_intensity", dissolve_settings.intensity)
-		material.set_shader_parameter("dissolve_scale", dissolve_settings.scale)
-		material.set_shader_parameter("dissolve_speed", dissolve_settings.speed)
-		material.set_shader_parameter("dissolve_warp_intensity", dissolve_settings.warp_intensity)
-		material.set_shader_parameter("flow_intensity", flow_map_distortion_settings.intensity)
-		material.set_shader_parameter("flow_speed", flow_map_distortion_settings.speed)
+		material.set_shader_parameter(
+			"dissolve_noise_texture",
+			settings.nebulae_dissolve_noise_texture,
+		)
+
+		material.set_shader_parameter(
+			"dissolve_intensity",
+			dissolve_settings.intensity,
+		)
+
+		material.set_shader_parameter(
+			"dissolve_scale",
+			dissolve_settings.scale,
+		)
+
+		material.set_shader_parameter(
+			"dissolve_speed",
+			dissolve_settings.speed,
+		)
+
+		material.set_shader_parameter(
+			"dissolve_warp_intensity",
+			dissolve_settings.warp_intensity,
+		)
+
+		material.set_shader_parameter(
+			"flow_intensity",
+			flow_map_distortion_settings.intensity,
+		)
+
+		material.set_shader_parameter(
+			"flow_speed",
+			flow_map_distortion_settings.speed,
+		)
 
 
 # Applies exported settings to the star field shaders.
@@ -148,17 +186,42 @@ func _apply_stars_point_material(
 		return
 
 	if skybox_layer_material != null:
-		material.set_shader_parameter("albedo", skybox_layer_material.albedo_color)
-		material.set_shader_parameter("emission", skybox_layer_material.emission_color)
-		material.set_shader_parameter("emission_energy", skybox_layer_material.emission_energy)
+		material.set_shader_parameter(
+			"albedo",
+			skybox_layer_material.albedo_color,
+		)
+
+		material.set_shader_parameter(
+			"emission",
+			skybox_layer_material.emission_color,
+		)
+
+		material.set_shader_parameter(
+			"emission_energy",
+			skybox_layer_material.emission_energy,
+		)
 
 	if settings != null:
-		material.set_shader_parameter("color_palette", settings.stars_point_color_palette)
+		material.set_shader_parameter(
+			"color_palette",
+			settings.stars_point_color_palette,
+		)
 
 	if twinkle_effect_settings != null:
-		material.set_shader_parameter("twinkle_frequency", twinkle_effect_settings.frequency)
-		material.set_shader_parameter("twinkle_intensity", twinkle_effect_settings.intensity)
-		material.set_shader_parameter("twinkle_speed", twinkle_effect_settings.speed)
+		material.set_shader_parameter(
+			"twinkle_frequency",
+			twinkle_effect_settings.frequency,
+		)
+
+		material.set_shader_parameter(
+			"twinkle_intensity",
+			twinkle_effect_settings.intensity,
+		)
+
+		material.set_shader_parameter(
+			"twinkle_speed",
+			twinkle_effect_settings.speed,
+		)
 
 
 # Updates the nebulae mesh layer's materials based on the exported variables.
