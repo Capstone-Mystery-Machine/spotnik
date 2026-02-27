@@ -6,9 +6,9 @@ extends Node3D
 ## Represents the resource containing all skybox visual and simulation settings.
 @export var settings: SkyboxSettings:
 	set(value):
-		_disconnect_resources()
+		_disconnect_all()
 		settings = value
-		_connect_resources()
+		_connect_all()
 		if is_node_ready():
 			_update_all()
 
@@ -223,6 +223,68 @@ func _apply_stars_point_material(
 			"twinkle_speed",
 			twinkle_effect_settings.speed,
 		)
+
+
+# Sets up all reactivity signals.
+func _connect_all() -> void:
+	if settings == null:
+		return
+
+	_connect_resource(settings)
+	_connect_resource(settings.nebulae_near_material)
+	_connect_resource(settings.nebulae_mid_material)
+	_connect_resource(settings.nebulae_far_material)
+	_connect_resource(settings.nebulae_near_dissolve)
+	_connect_resource(settings.nebulae_mid_dissolve)
+	_connect_resource(settings.nebulae_far_dissolve)
+	_connect_resource(settings.nebulae_near_flow_map_distortion)
+	_connect_resource(settings.nebulae_mid_flow_map_distortion)
+	_connect_resource(settings.nebulae_far_flow_map_distortion)
+	_connect_resource(settings.stars_field_near_material)
+	_connect_resource(settings.stars_field_far_material)
+	_connect_resource(settings.stars_point_near_material)
+	_connect_resource(settings.stars_point_mid_material)
+	_connect_resource(settings.stars_point_far_material)
+	_connect_resource(settings.stars_point_near_twinkle)
+	_connect_resource(settings.stars_point_mid_twinkle)
+	_connect_resource(settings.stars_point_far_twinkle)
+
+
+# Connects a resource's property_changed signal.
+func _connect_resource(resource: Resource) -> void:
+	if resource != null and not resource.property_changed.is_connected(_on_property_changed):
+		resource.property_changed.connect(_on_property_changed)
+
+
+# Clears all reactivity signals.
+func _disconnect_all() -> void:
+	if settings == null:
+		return
+
+	_disconnect_resource(settings)
+	_disconnect_resource(settings.nebulae_near_material)
+	_disconnect_resource(settings.nebulae_mid_material)
+	_disconnect_resource(settings.nebulae_far_material)
+	_disconnect_resource(settings.nebulae_near_dissolve)
+	_disconnect_resource(settings.nebulae_mid_dissolve)
+	_disconnect_resource(settings.nebulae_far_dissolve)
+	_disconnect_resource(settings.nebulae_near_flow_map_distortion)
+	_disconnect_resource(settings.nebulae_mid_flow_map_distortion)
+	_disconnect_resource(settings.nebulae_far_flow_map_distortion)
+	_disconnect_resource(settings.stars_field_near_material)
+	_disconnect_resource(settings.stars_field_far_material)
+	_disconnect_resource(settings.stars_point_near_material)
+	_disconnect_resource(settings.stars_point_mid_material)
+	_disconnect_resource(settings.stars_point_far_material)
+	_disconnect_resource(settings.stars_point_near_twinkle)
+	_disconnect_resource(settings.stars_point_mid_twinkle)
+	_disconnect_resource(settings.stars_point_far_twinkle)
+
+
+# Disconnects a resource's property_changed signal.
+func _disconnect_resource(resource: Resource) -> void:
+	if resource != null and resource.property_changed.is_connected(_on_property_changed):
+		resource.property_changed.disconnect(_on_property_changed)
 
 
 func _update_nebulae_materials() -> void:
@@ -524,72 +586,7 @@ func _update_all() -> void:
 	_update_projection_radius()
 
 
-# Connects a resource's property_changed signal.
-func _connect_resource(resource: Resource) -> void:
-	if resource != null and not resource.property_changed.is_connected(_on_property_changed):
-		resource.property_changed.connect(_on_property_changed)
-
-
-# Disconnects a resource's property_changed signal.
-func _disconnect_resource(resource: Resource) -> void:
-	if resource != null and resource.property_changed.is_connected(_on_property_changed):
-		resource.property_changed.disconnect(_on_property_changed)
-
-
-# Sets up all reactivity signals.
-func _connect_resources() -> void:
-	if settings == null:
-		return
-
-	_connect_resource(settings)
-	_connect_resource(settings.nebulae_near_material)
-	_connect_resource(settings.nebulae_mid_material)
-	_connect_resource(settings.nebulae_far_material)
-	_connect_resource(settings.nebulae_near_dissolve)
-	_connect_resource(settings.nebulae_mid_dissolve)
-	_connect_resource(settings.nebulae_far_dissolve)
-	_connect_resource(settings.nebulae_near_flow_map_distortion)
-	_connect_resource(settings.nebulae_mid_flow_map_distortion)
-	_connect_resource(settings.nebulae_far_flow_map_distortion)
-	_connect_resource(settings.stars_field_near_material)
-	_connect_resource(settings.stars_field_far_material)
-	_connect_resource(settings.stars_point_near_material)
-	_connect_resource(settings.stars_point_mid_material)
-	_connect_resource(settings.stars_point_far_material)
-	_connect_resource(settings.stars_point_near_twinkle)
-	_connect_resource(settings.stars_point_mid_twinkle)
-	_connect_resource(settings.stars_point_far_twinkle)
-
-
-# Clears all reactivity signals.
-func _disconnect_resources() -> void:
-	if settings == null:
-		return
-
-	_disconnect_resource(settings)
-	_disconnect_resource(settings.nebulae_near_material)
-	_disconnect_resource(settings.nebulae_mid_material)
-	_disconnect_resource(settings.nebulae_far_material)
-	_disconnect_resource(settings.nebulae_near_dissolve)
-	_disconnect_resource(settings.nebulae_mid_dissolve)
-	_disconnect_resource(settings.nebulae_far_dissolve)
-	_disconnect_resource(settings.nebulae_near_flow_map_distortion)
-	_disconnect_resource(settings.nebulae_mid_flow_map_distortion)
-	_disconnect_resource(settings.nebulae_far_flow_map_distortion)
-	_disconnect_resource(settings.stars_field_near_material)
-	_disconnect_resource(settings.stars_field_far_material)
-	_disconnect_resource(settings.stars_point_near_material)
-	_disconnect_resource(settings.stars_point_mid_material)
-	_disconnect_resource(settings.stars_point_far_material)
-	_disconnect_resource(settings.stars_point_near_twinkle)
-	_disconnect_resource(settings.stars_point_mid_twinkle)
-	_disconnect_resource(settings.stars_point_far_twinkle)
-
-
-func _on_dissolve_effect_settings_property_changed(
-		_property_name: StringName,
-		resource: DissolveEffectSettings,
-) -> void:
+func _on_dissolve_effect_settings_property_changed(resource: DissolveEffectSettings) -> void:
 	match resource:
 		settings.nebulae_near_dissolve:
 			_update_nebulae_near_materials()
@@ -600,7 +597,6 @@ func _on_dissolve_effect_settings_property_changed(
 
 
 func _on_flow_map_distortion_effect_settings_property_changed(
-		_property_name: StringName,
 		resource: FlowMapDistortionEffectSettings,
 ) -> void:
 	match resource:
@@ -612,10 +608,7 @@ func _on_flow_map_distortion_effect_settings_property_changed(
 			_update_nebulae_far_materials()
 
 
-func _on_skybox_layer_material_property_changed(
-		_property_name: StringName,
-		resource: SkyboxLayerMaterial,
-) -> void:
+func _on_skybox_layer_material_property_changed(resource: SkyboxLayerMaterial) -> void:
 	match resource:
 		settings.nebulae_near_material:
 			_update_nebulae_near_materials()
@@ -635,7 +628,11 @@ func _on_skybox_layer_material_property_changed(
 			_update_stars_field_far_materials()
 
 
-func _on_skybox_settings_property_changed(property_name: StringName) -> void:
+func _on_skybox_settings_property_changed(
+		property_name: StringName,
+		new_value: Variant,
+		old_value: Variant,
+) -> void:
 	match property_name:
 		&"nebulae_texture", &"nebulae_dissolve_noise_texture":
 			_update_nebulae_materials()
@@ -664,16 +661,16 @@ func _on_skybox_settings_property_changed(property_name: StringName) -> void:
 		&"void_layer_visible":
 			_update_void_layer_visibility()
 		&"nebulae_near_dissolve", &"nebulae_mid_dissolve", &"nebulae_far_dissolve", &"nebulae_near_flow_map_distortion", &"nebulae_mid_flow_map_distortion", &"nebulae_far_flow_map_distortion", &"nebulae_near_material", &"nebulae_mid_material", &"nebulae_far_material":
-			_disconnect_resources()
-			_connect_resources()
+			_disconnect_resource(old_value)
+			_connect_resource(new_value)
 			_update_nebulae_materials()
 		&"stars_field_near_material", &"stars_field_far_material":
-			_disconnect_resources()
-			_connect_resources()
+			_disconnect_resource(old_value)
+			_connect_resource(new_value)
 			_update_stars_field_materials()
 		&"stars_point_near_material", &"stars_point_mid_material", &"stars_point_far_material", &"stars_point_near_twinkle", &"stars_point_mid_twinkle", &"stars_point_far_twinkle":
-			_disconnect_resources()
-			_connect_resources()
+			_disconnect_resource(old_value)
+			_connect_resource(new_value)
 			_update_stars_point_materials()
 
 
@@ -691,25 +688,30 @@ func _on_twinkle_effect_settings_property_changed(
 
 
 # Handles updating the [Skybox] node in response to any settings changes.
-func _on_property_changed(property_name: StringName, resource: Resource) -> void:
+func _on_property_changed(
+		resource: Resource,
+		property_name: StringName,
+		new_value: Variant,
+		old_value: Variant,
+) -> void:
 	if resource is DissolveEffectSettings:
-		_on_dissolve_effect_settings_property_changed(property_name, resource)
+		_on_dissolve_effect_settings_property_changed(resource)
 
 	elif resource is FlowMapDistortionEffectSettings:
-		_on_flow_map_distortion_effect_settings_property_changed(property_name, resource)
+		_on_flow_map_distortion_effect_settings_property_changed(resource)
 
 	elif resource is SkyboxLayerMaterial:
-		_on_skybox_layer_material_property_changed(property_name, resource)
+		_on_skybox_layer_material_property_changed(resource)
 
 	elif resource is SkyboxSettings:
-		_on_skybox_settings_property_changed(property_name)
+		_on_skybox_settings_property_changed(property_name, new_value, old_value)
 
 	elif resource is TwinkleEffectSettings:
 		_on_twinkle_effect_settings_property_changed(property_name, resource)
 
 
 func _ready() -> void:
-	_connect_resources()
+	_connect_all()
 	_update_all()
 
 
