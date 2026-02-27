@@ -13,7 +13,12 @@ func _ready() -> void:
 	$HTTPRequest.request(json_url)
 
 
-func _on_request_completed(_result: int, _code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+func _on_request_completed(
+		_result: int,
+		_code: int,
+		_headers: PackedStringArray,
+		body: PackedByteArray,
+) -> void:
 	satellite_data = JSON.parse_string(body.get_string_from_utf8())
 	spawn_all_landmarks()
 
