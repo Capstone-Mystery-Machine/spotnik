@@ -312,22 +312,22 @@ func _update_projection_radius():
 	if settings == null:
 		return
 
-	var nebulae_mid_radius = settings.projection_radius \
-	* settings.nebulae_displacement_multiplier
-	var nebulae_far_radius = nebulae_mid_radius \
-	* settings.nebulae_displacement_multiplier
+	var nebulae_mid_radius = \
+	settings.projection_radius * settings.nebulae_displacement_multiplier
+	var nebulae_far_radius = \
+	nebulae_mid_radius * settings.nebulae_displacement_multiplier
 
-	var stars_near_radius = nebulae_far_radius \
-	* settings.stars_point_radius_multiplier
-	var stars_mid_radius = stars_near_radius \
-	* settings.stars_point_displacement_multiplier
-	var stars_far_radius = stars_mid_radius \
-	* settings.stars_point_displacement_multiplier
+	var stars_near_radius = \
+	nebulae_far_radius * settings.stars_point_radius_multiplier
+	var stars_mid_radius = \
+	stars_near_radius * settings.stars_point_displacement_multiplier
+	var stars_far_radius = \
+	stars_mid_radius * settings.stars_point_displacement_multiplier
 
-	var stars_field_near_radius = stars_far_radius \
-	* settings.stars_point_radius_multiplier
-	var stars_field_far_radius = stars_field_near_radius \
-	* settings.stars_point_displacement_multiplier
+	var stars_field_near_radius = \
+	stars_far_radius * settings.stars_point_radius_multiplier
+	var stars_field_far_radius = \
+	stars_field_near_radius * settings.stars_point_displacement_multiplier
 
 	var void_radius = stars_field_far_radius * settings.void_radius_multiplier
 
