@@ -1,4 +1,6 @@
 extends Node
+## Requests the permissions required by the app's export target when the node
+## is made ready.
 
 @onready var scene_tree: SceneTree = get_tree()
 
