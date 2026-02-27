@@ -309,7 +309,8 @@ signal property_changed(property_name: StringName, resource: SkyboxSettings)
 @export_group("Flow Map Distortion Effects Settings")
 
 ## Represents the flow map distortion settings for the near nebulae.
-@export var nebulae_near_flow_map_distortion: FlowMapDistortionEffectSettings = FlowMapDistortionEffectSettings.new(
+@export var nebulae_near_flow_map_distortion: FlowMapDistortionEffectSettings = \
+FlowMapDistortionEffectSettings.new(
 	0.06,
 	0.03,
 ):
@@ -320,7 +321,8 @@ signal property_changed(property_name: StringName, resource: SkyboxSettings)
 			property_changed.emit(&"nebulae_near_flow_map_distortion", self)
 
 ## Represents the flow map distortion settings for the mid nebulae.
-@export var nebulae_mid_flow_map_distortion: FlowMapDistortionEffectSettings = FlowMapDistortionEffectSettings.new(
+@export var nebulae_mid_flow_map_distortion: FlowMapDistortionEffectSettings = \
+FlowMapDistortionEffectSettings.new(
 	0.04,
 	0.02,
 ):
@@ -331,7 +333,8 @@ signal property_changed(property_name: StringName, resource: SkyboxSettings)
 			property_changed.emit(&"nebulae_mid_flow_map_distortion", self)
 
 ## Represents the flow map distortion settings for the far nebulae.
-@export var nebulae_far_flow_map_distortion: FlowMapDistortionEffectSettings = FlowMapDistortionEffectSettings.new(
+@export var nebulae_far_flow_map_distortion: FlowMapDistortionEffectSettings = \
+FlowMapDistortionEffectSettings.new(
 	0.02,
 	0.01,
 ):
