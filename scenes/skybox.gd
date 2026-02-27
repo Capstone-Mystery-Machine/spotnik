@@ -529,26 +529,66 @@ func _disconnect_resources():
 	_disconnect_resource(settings.stars_point_far_twinkle)
 
 
-# Responds to setting and sub-resource changes.
-func _on_property_changed(property_name: StringName) -> void:
+func _on_dissolve_effect_settings_property_changed(
+		_property_name: StringName,
+		resource: DissolveEffectSettings,
+) -> void:
+	match resource:
+		settings.nebulae_near_dissolve:
+			_update_nebulae_materials()
+		settings.nebulae_mid_dissolve:
+			_update_nebulae_materials()
+		settings.nebulae_far_dissolve:
+			_update_nebulae_materials()
+
+
+func _on_flow_map_distortion_effect_settings_property_changed(
+		_property_name: StringName,
+		resource: FlowMapDistortionEffectSettings,
+) -> void:
+	match resource:
+		settings.nebulae_near_flow_map_distortion:
+			_update_nebulae_materials()
+		settings.nebulae_mid_flow_map_distortion:
+			_update_nebulae_materials()
+		settings.nebulae_far_flow_map_distortion:
+			_update_nebulae_materials()
+
+
+func _on_skybox_layer_material_property_changed(
+		_property_name: StringName,
+		resource: SkyboxLayerMaterial,
+) -> void:
+	match resource:
+		settings.nebulae_near_material:
+			_update_nebulae_materials()
+		settings.nebulae_mid_material:
+			_update_nebulae_materials()
+		settings.nebulae_far_material:
+			_update_nebulae_materials()
+		settings.stars_point_near_material:
+			_update_stars_point_materials()
+		settings.stars_point_mid_material:
+			_update_stars_point_materials()
+		settings.stars_point_far_material:
+			_update_stars_point_materials()
+		settings.stars_field_near_material:
+			_update_stars_field_materials()
+		settings.stars_field_far_material:
+			_update_stars_field_materials()
+
+
+func _on_skybox_settings_property_changed(property_name: StringName) -> void:
 	match property_name:
-		&"nebulae_texture", &"nebulae_dissolve_intensity", &"nebulae_dissolve_noise_texture":
+		&"nebulae_texture", &"nebulae_dissolve_noise_texture":
 			_update_nebulae_materials()
 		&"stars_field_texture":
 			_update_stars_field_materials()
 		&"stars_point_texture", &"stars_point_color_palette":
 			_update_stars_point_materials()
 		&"projection_radius", &"nebulae_displacement_multiplier", &"stars_point_radius_multiplier", &"stars_point_displacement_multiplier", &"stars_field_radius_multiplier", &"stars_field_displacement_multiplier", &"void_radius_multiplier":
+			print("heelo")
 			_update_projection_radius()
-		&"albedo_color", &"emission_color", &"emission_energy":
-			_update_nebulae_materials()
-			_update_stars_field_materials()
-			_update_stars_point_materials()
-		&"frequency", &"intensity", &"warp_intensity":
-			_update_nebulae_materials()
-		&"speed":
-			_update_nebulae_materials()
-			_update_stars_point_materials()
 		&"nebulae_near_layer_visible":
 			_update_nebulae_near_visibility()
 		&"nebulae_mid_layer_visible":
@@ -579,6 +619,37 @@ func _on_property_changed(property_name: StringName) -> void:
 			_disconnect_resources()
 			_connect_resources()
 			_update_stars_point_materials()
+
+
+func _on_twinkle_effect_settings_property_changed(
+		_property_name: StringName,
+		resource: TwinkleEffectSettings,
+) -> void:
+	match resource:
+		settings.stars_point_near_twinkle:
+			_update_stars_point_materials()
+		settings.stars_point_mid_twinkle:
+			_update_stars_point_materials()
+		settings.stars_point_far_twinkle:
+			_update_stars_point_materials()
+
+
+# Handles updating the [Skybox] node in response to any settings changes.
+func _on_property_changed(property_name: StringName, resource: Resource) -> void:
+	if resource is DissolveEffectSettings:
+		_on_dissolve_effect_settings_property_changed(property_name, resource)
+
+	elif resource is FlowMapDistortionEffectSettings:
+		_on_flow_map_distortion_effect_settings_property_changed(property_name, resource)
+
+	elif resource is SkyboxLayerMaterial:
+		_on_skybox_layer_material_property_changed(property_name, resource)
+
+	elif resource is SkyboxSettings:
+		_on_skybox_settings_property_changed(property_name)
+
+	elif resource is TwinkleEffectSettings:
+		_on_twinkle_effect_settings_property_changed(property_name, resource)
 
 
 func _ready() -> void:
