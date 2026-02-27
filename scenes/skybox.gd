@@ -312,15 +312,22 @@ func _update_projection_radius():
 	if settings == null:
 		return
 
-	var nebulae_mid_radius = settings.projection_radius * settings.nebulae_displacement_multiplier
-	var nebulae_far_radius = nebulae_mid_radius * settings.nebulae_displacement_multiplier
+	var nebulae_mid_radius = settings.projection_radius \
+	* settings.nebulae_displacement_multiplier
+	var nebulae_far_radius = nebulae_mid_radius \
+	* settings.nebulae_displacement_multiplier
 
-	var stars_near_radius = nebulae_far_radius * settings.stars_point_radius_multiplier
-	var stars_mid_radius = stars_near_radius * settings.stars_point_displacement_multiplier
-	var stars_far_radius = stars_mid_radius * settings.stars_point_displacement_multiplier
+	var stars_near_radius = nebulae_far_radius \
+	* settings.stars_point_radius_multiplier
+	var stars_mid_radius = stars_near_radius \
+	* settings.stars_point_displacement_multiplier
+	var stars_far_radius = stars_mid_radius \
+	* settings.stars_point_displacement_multiplier
 
-	var stars_field_near_radius = stars_far_radius * settings.stars_point_radius_multiplier
-	var stars_field_far_radius = stars_field_near_radius * settings.stars_point_displacement_multiplier
+	var stars_field_near_radius = stars_far_radius \
+	* settings.stars_point_radius_multiplier
+	var stars_field_far_radius = stars_field_near_radius \
+	* settings.stars_point_displacement_multiplier
 
 	var void_radius = stars_field_far_radius * settings.void_radius_multiplier
 
@@ -583,12 +590,18 @@ func _process(delta: float) -> void:
 	if settings == null:
 		return
 
-	var stars_field_far_speed = settings.rotation_speed * settings.stars_field_far_speed_multiplier
-	var stars_field_near_speed = stars_field_far_speed * settings.stars_field_near_speed_multiplier
-	var stars_point_far_speed = stars_field_near_speed * settings.stars_point_far_speed_multiplier
-	var stars_point_mid_speed = stars_point_far_speed * settings.stars_point_mid_speed_multiplier
-	var stars_point_near_speed = stars_point_mid_speed * settings.stars_point_near_speed_multiplier
-	var nebulae_speed = stars_point_near_speed * settings.nebulae_speed_multiplier
+	var stars_field_far_speed = settings.rotation_speed \
+	* settings.stars_field_far_speed_multiplier
+	var stars_field_near_speed = stars_field_far_speed \
+	* settings.stars_field_near_speed_multiplier
+	var stars_point_far_speed = stars_field_near_speed \
+	* settings.stars_point_far_speed_multiplier
+	var stars_point_mid_speed = stars_point_far_speed \
+	* settings.stars_point_mid_speed_multiplier
+	var stars_point_near_speed = stars_point_mid_speed \
+	* settings.stars_point_near_speed_multiplier
+	var nebulae_speed = stars_point_near_speed \
+	* settings.nebulae_speed_multiplier
 
 	_void_layer_mesh.rotate_y(settings.rotation_speed * delta)
 	_stars_layer_far_field_mesh.rotate_y(stars_field_far_speed * delta)
