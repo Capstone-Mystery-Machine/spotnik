@@ -325,9 +325,9 @@ func _update_projection_radius():
 	stars_mid_radius * settings.stars_point_displacement_multiplier
 
 	var stars_field_near_radius = \
-	stars_far_radius * settings.stars_point_radius_multiplier
+	stars_far_radius * settings.stars_field_radius_multiplier
 	var stars_field_far_radius = \
-	stars_field_near_radius * settings.stars_point_displacement_multiplier
+	stars_field_near_radius * settings.stars_field_displacement_multiplier
 
 	var void_radius = stars_field_far_radius * settings.void_radius_multiplier
 
