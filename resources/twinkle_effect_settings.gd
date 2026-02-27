@@ -3,7 +3,7 @@ class_name TwinkleEffectSettings
 extends Resource
 ## Resource for star twinkle effect settings.
 
-signal property_changed(property_name: StringName)
+signal property_changed(property_name: StringName, resource: TwinkleEffectSettings)
 
 ## Represents the spatial density of the twinkle pattern. Higher values make stars
 ## twinkle independently.
@@ -12,7 +12,7 @@ signal property_changed(property_name: StringName)
 		if frequency != value:
 			frequency = value
 			emit_changed()
-			property_changed.emit(&"frequency")
+			property_changed.emit(&"frequency", self)
 
 ## Represents the intensity of the twinkle effect.
 @export_range(0.0, 1.0, 0.001) var intensity: float = 0.5:
@@ -20,7 +20,7 @@ signal property_changed(property_name: StringName)
 		if intensity != value:
 			intensity = value
 			emit_changed()
-			property_changed.emit(&"intensity")
+			property_changed.emit(&"intensity", self)
 
 ## Represents the pulsing speed of the twinkle effect.
 @export_range(0.0, 20.0, 0.001) var speed: float = 2.0:
@@ -28,7 +28,7 @@ signal property_changed(property_name: StringName)
 		if speed != value:
 			speed = value
 			emit_changed()
-			property_changed.emit(&"speed")
+			property_changed.emit(&"speed", self)
 
 
 func _init(

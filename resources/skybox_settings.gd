@@ -3,7 +3,7 @@ class_name SkyboxSettings
 extends Resource
 ## Resource for skybox settings.
 
-signal property_changed(property_name: StringName)
+signal property_changed(property_name: StringName, resource: SkyboxSettings)
 
 @export_group("Projection Settings")
 
@@ -13,7 +13,7 @@ signal property_changed(property_name: StringName)
 		if projection_radius != value:
 			projection_radius = value
 			emit_changed()
-			property_changed.emit(&"projection_radius")
+			property_changed.emit(&"projection_radius", self)
 
 ## Represents the radius multiplier for the mid and far nebulae layers.
 @export_range(1.0, 2.0, 0.00001) var nebulae_displacement_multiplier: float = 1.1:
@@ -21,7 +21,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_displacement_multiplier != value:
 			nebulae_displacement_multiplier = value
 			emit_changed()
-			property_changed.emit(&"nebulae_displacement_multiplier")
+			property_changed.emit(&"nebulae_displacement_multiplier", self)
 
 ## Represents the radius multiplier for the point stars layers.
 @export_range(1.0, 2.0, 0.00001) var stars_point_radius_multiplier: float = 1.0125:
@@ -29,7 +29,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_radius_multiplier != value:
 			stars_point_radius_multiplier = value
 			emit_changed()
-			property_changed.emit(&"stars_point_radius_multiplier")
+			property_changed.emit(&"stars_point_radius_multiplier", self)
 
 ## Represents the radius multiplier for subsequent point stars layers.
 @export_range(1.0, 2.0, 0.00001) var stars_point_displacement_multiplier: float = 1.25:
@@ -37,7 +37,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_displacement_multiplier != value:
 			stars_point_displacement_multiplier = value
 			emit_changed()
-			property_changed.emit(&"stars_point_displacement_multiplier")
+			property_changed.emit(&"stars_point_displacement_multiplier", self)
 
 ## Represents the radius multiplier for the field stars layers.
 @export_range(1.0, 2.0, 0.00001) var stars_field_radius_multiplier: float = 1.0125:
@@ -45,7 +45,7 @@ signal property_changed(property_name: StringName)
 		if stars_field_radius_multiplier != value:
 			stars_field_radius_multiplier = value
 			emit_changed()
-			property_changed.emit(&"stars_field_radius_multiplier")
+			property_changed.emit(&"stars_field_radius_multiplier", self)
 
 ## Represents the radius multiplier for subsequent field stars layers.
 @export_range(1.0, 2.0, 0.00001) var stars_field_displacement_multiplier: float = 1.025:
@@ -53,7 +53,7 @@ signal property_changed(property_name: StringName)
 		if stars_field_displacement_multiplier != value:
 			stars_field_displacement_multiplier = value
 			emit_changed()
-			property_changed.emit(&"stars_field_displacement_multiplier")
+			property_changed.emit(&"stars_field_displacement_multiplier", self)
 
 ## Represents the radius multiplier for the void layer.
 @export_range(1.0, 2.0, 0.00001) var void_radius_multiplier: float = 1.0125:
@@ -61,7 +61,7 @@ signal property_changed(property_name: StringName)
 		if void_radius_multiplier != value:
 			void_radius_multiplier = value
 			emit_changed()
-			property_changed.emit(&"void_radius_multiplier")
+			property_changed.emit(&"void_radius_multiplier", self)
 
 @export_group("Simulation Settings")
 
@@ -71,7 +71,7 @@ signal property_changed(property_name: StringName)
 		if rotation_speed != value:
 			rotation_speed = value
 			emit_changed()
-			property_changed.emit(&"rotation_speed")
+			property_changed.emit(&"rotation_speed", self)
 
 ## Represents the rotation speed multiplier for the far field stars.
 @export_range(-2.0, 2.0, 0.00001) var stars_field_far_speed_multiplier: float = 1.0125:
@@ -79,7 +79,7 @@ signal property_changed(property_name: StringName)
 		if stars_field_far_speed_multiplier != value:
 			stars_field_far_speed_multiplier = value
 			emit_changed()
-			property_changed.emit(&"stars_field_far_speed_multiplier")
+			property_changed.emit(&"stars_field_far_speed_multiplier", self)
 
 ## Represents the rotation speed multiplier for the near field stars.
 @export_range(-2.0, 2.0, 0.00001) var stars_field_near_speed_multiplier: float = 1.025:
@@ -87,7 +87,7 @@ signal property_changed(property_name: StringName)
 		if stars_field_near_speed_multiplier != value:
 			stars_field_near_speed_multiplier = value
 			emit_changed()
-			property_changed.emit(&"stars_field_near_speed_multiplier")
+			property_changed.emit(&"stars_field_near_speed_multiplier", self)
 
 ## Represents the rotation speed multiplier for the far point stars.
 @export_range(-2.0, 2.0, 0.00001) var stars_point_far_speed_multiplier: float = 1.0:
@@ -95,7 +95,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_far_speed_multiplier != value:
 			stars_point_far_speed_multiplier = value
 			emit_changed()
-			property_changed.emit(&"stars_point_far_speed_multiplier")
+			property_changed.emit(&"stars_point_far_speed_multiplier", self)
 
 ## Represents the rotation speed multiplier for the mid point stars.
 @export_range(-2.0, 2.0, 0.00001) var stars_point_mid_speed_multiplier: float = 1.005:
@@ -103,7 +103,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_mid_speed_multiplier != value:
 			stars_point_mid_speed_multiplier = value
 			emit_changed()
-			property_changed.emit(&"stars_point_mid_speed_multiplier")
+			property_changed.emit(&"stars_point_mid_speed_multiplier", self)
 
 ## Represents the rotation speed multiplier for the near point stars.
 @export_range(-2.0, 2.0, 0.00001) var stars_point_near_speed_multiplier: float = 1.01:
@@ -111,7 +111,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_near_speed_multiplier != value:
 			stars_point_near_speed_multiplier = value
 			emit_changed()
-			property_changed.emit(&"stars_point_near_speed_multiplier")
+			property_changed.emit(&"stars_point_near_speed_multiplier", self)
 
 ## Represents the rotation speed multiplier for the nebulae.
 @export_range(-2.0, 2.0, 0.00001) var nebulae_speed_multiplier: float = 0.99:
@@ -119,7 +119,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_speed_multiplier != value:
 			nebulae_speed_multiplier = value
 			emit_changed()
-			property_changed.emit(&"nebulae_speed_multiplier")
+			property_changed.emit(&"nebulae_speed_multiplier", self)
 
 @export_group("Materials Settings")
 
@@ -131,7 +131,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_texture != value:
 			nebulae_texture = value
 			emit_changed()
-			property_changed.emit(&"nebulae_texture")
+			property_changed.emit(&"nebulae_texture", self)
 
 ## Represents the material for the near nebulae layer.
 @export var nebulae_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
@@ -143,7 +143,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_near_material != value:
 			nebulae_near_material = value
 			emit_changed()
-			property_changed.emit(&"nebulae_near_material")
+			property_changed.emit(&"nebulae_near_material", self)
 
 ## Represents the material for the mid nebulae layer.
 @export var nebulae_mid_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
@@ -155,7 +155,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_mid_material != value:
 			nebulae_mid_material = value
 			emit_changed()
-			property_changed.emit(&"nebulae_mid_material")
+			property_changed.emit(&"nebulae_mid_material", self)
 
 ## Represents the material for the far nebulae layer.
 @export var nebulae_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
@@ -167,7 +167,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_far_material != value:
 			nebulae_far_material = value
 			emit_changed()
-			property_changed.emit(&"nebulae_far_material")
+			property_changed.emit(&"nebulae_far_material", self)
 
 @export_subgroup("Stars Settings")
 
@@ -177,7 +177,7 @@ signal property_changed(property_name: StringName)
 		if stars_field_texture != value:
 			stars_field_texture = value
 			emit_changed()
-			property_changed.emit(&"stars_field_texture")
+			property_changed.emit(&"stars_field_texture", self)
 
 ## Represents the texture for the point stars layers.
 @export var stars_point_texture: NoiseTexture2D:
@@ -185,7 +185,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_texture != value:
 			stars_point_texture = value
 			emit_changed()
-			property_changed.emit(&"stars_point_texture")
+			property_changed.emit(&"stars_point_texture", self)
 
 ## Represents the material for the near point stars layer.
 @export var stars_point_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
@@ -197,7 +197,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_near_material != value:
 			stars_point_near_material = value
 			emit_changed()
-			property_changed.emit(&"stars_point_near_material")
+			property_changed.emit(&"stars_point_near_material", self)
 
 ## Represents the material for the mid point stars layer.
 @export var stars_point_mid_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
@@ -209,7 +209,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_mid_material != value:
 			stars_point_mid_material = value
 			emit_changed()
-			property_changed.emit(&"stars_point_mid_material")
+			property_changed.emit(&"stars_point_mid_material", self)
 
 ## Represents the material for the far point stars layer.
 @export var stars_point_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
@@ -221,7 +221,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_far_material != value:
 			stars_point_far_material = value
 			emit_changed()
-			property_changed.emit(&"stars_point_far_material")
+			property_changed.emit(&"stars_point_far_material", self)
 
 ## Represents the material for the near field stars layer.
 @export var stars_field_near_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
@@ -233,7 +233,7 @@ signal property_changed(property_name: StringName)
 		if stars_field_near_material != value:
 			stars_field_near_material = value
 			emit_changed()
-			property_changed.emit(&"stars_field_near_material")
+			property_changed.emit(&"stars_field_near_material", self)
 
 ## Represents the material for the far field stars layer.
 @export var stars_field_far_material: SkyboxLayerMaterial = SkyboxLayerMaterial.new(
@@ -245,7 +245,7 @@ signal property_changed(property_name: StringName)
 		if stars_field_far_material != value:
 			stars_field_far_material = value
 			emit_changed()
-			property_changed.emit(&"stars_field_far_material")
+			property_changed.emit(&"stars_field_far_material", self)
 
 @export_group("Color Palette Effects Settings")
 
@@ -255,7 +255,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_color_palette != value:
 			stars_point_color_palette = value
 			emit_changed()
-			property_changed.emit(&"stars_point_color_palette")
+			property_changed.emit(&"stars_point_color_palette", self)
 
 @export_group("Dissolve Effects Settings")
 
@@ -265,7 +265,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_dissolve_noise_texture != value:
 			nebulae_dissolve_noise_texture = value
 			emit_changed()
-			property_changed.emit(&"nebulae_dissolve_noise_texture")
+			property_changed.emit(&"nebulae_dissolve_noise_texture", self)
 
 ## Represents the flow map distortion settings for the near nebulae.
 @export var nebulae_near_dissolve: DissolveEffectSettings = DissolveEffectSettings.new(
@@ -278,7 +278,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_near_dissolve != value:
 			nebulae_near_dissolve = value
 			emit_changed()
-			property_changed.emit(&"nebulae_near_dissolve")
+			property_changed.emit(&"nebulae_near_dissolve", self)
 
 ## Represents the flow map distortion settings for the mid nebulae.
 @export var nebulae_mid_dissolve: DissolveEffectSettings = DissolveEffectSettings.new(
@@ -291,7 +291,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_mid_dissolve != value:
 			nebulae_mid_dissolve = value
 			emit_changed()
-			property_changed.emit(&"nebulae_mid_dissolve")
+			property_changed.emit(&"nebulae_mid_dissolve", self)
 
 ## Represents the flow map distortion settings for the far nebulae.
 @export var nebulae_far_dissolve: DissolveEffectSettings = DissolveEffectSettings.new(
@@ -304,7 +304,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_far_dissolve != value:
 			nebulae_far_dissolve = value
 			emit_changed()
-			property_changed.emit(&"nebulae_far_dissolve")
+			property_changed.emit(&"nebulae_far_dissolve", self)
 
 @export_group("Flow Map Distortion Effects Settings")
 
@@ -317,7 +317,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_near_flow_map_distortion != value:
 			nebulae_near_flow_map_distortion = value
 			emit_changed()
-			property_changed.emit(&"nebulae_near_flow_map_distortion")
+			property_changed.emit(&"nebulae_near_flow_map_distortion", self)
 
 ## Represents the flow map distortion settings for the mid nebulae.
 @export var nebulae_mid_flow_map_distortion: FlowMapDistortionEffectSettings = FlowMapDistortionEffectSettings.new(
@@ -328,7 +328,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_mid_flow_map_distortion != value:
 			nebulae_mid_flow_map_distortion = value
 			emit_changed()
-			property_changed.emit(&"nebulae_mid_flow_map_distortion")
+			property_changed.emit(&"nebulae_mid_flow_map_distortion", self)
 
 ## Represents the flow map distortion settings for the far nebulae.
 @export var nebulae_far_flow_map_distortion: FlowMapDistortionEffectSettings = FlowMapDistortionEffectSettings.new(
@@ -339,7 +339,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_far_flow_map_distortion != value:
 			nebulae_far_flow_map_distortion = value
 			emit_changed()
-			property_changed.emit(&"nebulae_far_flow_map_distortion")
+			property_changed.emit(&"nebulae_far_flow_map_distortion", self)
 
 @export_group("Twinkle Effect Settings")
 
@@ -353,7 +353,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_near_twinkle != value:
 			stars_point_near_twinkle = value
 			emit_changed()
-			property_changed.emit(&"stars_point_near_twinkle")
+			property_changed.emit(&"stars_point_near_twinkle", self)
 
 ## Represents the twinkle settings for the mid point stars.
 @export var stars_point_mid_twinkle: TwinkleEffectSettings = TwinkleEffectSettings.new(
@@ -365,7 +365,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_mid_twinkle != value:
 			stars_point_mid_twinkle = value
 			emit_changed()
-			property_changed.emit(&"stars_point_mid_twinkle")
+			property_changed.emit(&"stars_point_mid_twinkle", self)
 
 ## Represents the twinkle settings for the far point stars.
 @export var stars_point_far_twinkle: TwinkleEffectSettings = TwinkleEffectSettings.new(
@@ -377,7 +377,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_far_twinkle != value:
 			stars_point_far_twinkle = value
 			emit_changed()
-			property_changed.emit(&"stars_point_far_twinkle")
+			property_changed.emit(&"stars_point_far_twinkle", self)
 
 @export_group("Layer Visibility Settings")
 
@@ -387,7 +387,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_near_layer_visible != value:
 			nebulae_near_layer_visible = value
 			emit_changed()
-			property_changed.emit(&"nebulae_near_layer_visible")
+			property_changed.emit(&"nebulae_near_layer_visible", self)
 
 ## Represents if the mid nebulae layer is visible.
 @export var nebulae_mid_layer_visible: bool = true:
@@ -395,7 +395,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_mid_layer_visible != value:
 			nebulae_mid_layer_visible = value
 			emit_changed()
-			property_changed.emit(&"nebulae_mid_layer_visible")
+			property_changed.emit(&"nebulae_mid_layer_visible", self)
 
 ## Represents if the far nebulae layer is visible.
 @export var nebulae_far_layer_visible: bool = true:
@@ -403,7 +403,7 @@ signal property_changed(property_name: StringName)
 		if nebulae_far_layer_visible != value:
 			nebulae_far_layer_visible = value
 			emit_changed()
-			property_changed.emit(&"nebulae_far_layer_visible")
+			property_changed.emit(&"nebulae_far_layer_visible", self)
 
 ## Represents if the near point star layer is visible.
 @export var stars_point_near_layer_visible: bool = true:
@@ -411,7 +411,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_near_layer_visible != value:
 			stars_point_near_layer_visible = value
 			emit_changed()
-			property_changed.emit(&"stars_point_near_layer_visible")
+			property_changed.emit(&"stars_point_near_layer_visible", self)
 
 ## Represents if the mid point star layer is visible.
 @export var stars_point_mid_layer_visible: bool = true:
@@ -419,7 +419,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_mid_layer_visible != value:
 			stars_point_mid_layer_visible = value
 			emit_changed()
-			property_changed.emit(&"stars_point_mid_layer_visible")
+			property_changed.emit(&"stars_point_mid_layer_visible", self)
 
 ## Represents if the far point star layer is visible.
 @export var stars_point_far_layer_visible: bool = true:
@@ -427,7 +427,7 @@ signal property_changed(property_name: StringName)
 		if stars_point_far_layer_visible != value:
 			stars_point_far_layer_visible = value
 			emit_changed()
-			property_changed.emit(&"stars_point_far_layer_visible")
+			property_changed.emit(&"stars_point_far_layer_visible", self)
 
 ## Represents if the near field star layer is visible.
 @export var stars_field_near_layer_visible: bool = true:
@@ -435,7 +435,7 @@ signal property_changed(property_name: StringName)
 		if stars_field_near_layer_visible != value:
 			stars_field_near_layer_visible = value
 			emit_changed()
-			property_changed.emit(&"stars_field_near_layer_visible")
+			property_changed.emit(&"stars_field_near_layer_visible", self)
 
 ## Represents if the far field star layer is visible.
 @export var stars_field_far_layer_visible: bool = true:
@@ -443,7 +443,7 @@ signal property_changed(property_name: StringName)
 		if stars_field_far_layer_visible != value:
 			stars_field_far_layer_visible = value
 			emit_changed()
-			property_changed.emit(&"stars_field_far_layer_visible")
+			property_changed.emit(&"stars_field_far_layer_visible", self)
 
 ## Represents if the void layer is visible.
 @export var void_layer_visible: bool = true:
@@ -451,4 +451,4 @@ signal property_changed(property_name: StringName)
 		if void_layer_visible != value:
 			void_layer_visible = value
 			emit_changed()
-			property_changed.emit(&"void_layer_visible")
+			property_changed.emit(&"void_layer_visible", self)
