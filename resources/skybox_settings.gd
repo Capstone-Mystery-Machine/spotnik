@@ -6,7 +6,7 @@ extends ResourceX
 @export_group("Projection Settings")
 
 ## Represents the projection distance of the skybox meshes.
-@export_range(0.0, 1000.0, 0.00001, "suffix:m") var projection_radius: float = 1.0:
+@export_range(0.00001, 1000.0, 0.00001, "suffix:m") var projection_radius: float = 1.0:
 	set(value):
 		if was_changed_event_emitted(&"projection_radius", value):
 			projection_radius = value
