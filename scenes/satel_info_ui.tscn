@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://frvw2x27fdeb" path="res://scenes/satellite_data_ui.gd" id="1_o0spf"]
 
-[node name="Satel_Info_UI" type="Node3D"]
+[node name="SatelInfoUI" type="Node3D"]
 script = ExtResource("1_o0spf")
 
 [node name="Info_Sprite" type="Sprite3D" parent="."]

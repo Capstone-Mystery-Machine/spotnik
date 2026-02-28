@@ -30,7 +30,7 @@ $Info_Sprite/Info_Viewport_Container/Info_Viewport/PanelContainer/Satel_Info/Car
 
 func _ready():
 	viewport_container.visible = false
-	SignalBus.ui_info.connect(_ui_info_signal)
+	SignalBus.instance.ui_info.connect(_ui_info_signal)
 
 
 func _ui_info_signal(landmark):

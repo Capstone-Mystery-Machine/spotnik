@@ -125,14 +125,7 @@ jobs:
 
       - name: Lint GDScript Files
         run: |
-          find . -name "*.gd" -not -path "./addons/*" | while read -r file; do
-            echo "Linting: $file"
-
-            if ! gdscript-formatter lint --pretty "$file"; then
-              echo "::error file=$file::Linting failed on this file."
-              exit 1
-            fi
-          done
+          find . -name "*.gd" -not -path "./addons/*" | xargs gdscript-formatter lint --pretty
 
       - name: Generate ClassDB
         run: |
