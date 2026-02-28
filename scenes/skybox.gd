@@ -312,12 +312,12 @@ func _update_nebulae_far_materials() -> void:
 		return
 
 	_apply_nebulae_material(
-		_nebulae_layer_near_mesh,
+		_nebulae_layer_far_mesh,
 		settings.nebulae_texture,
-		settings.nebulae_near_material,
-		settings.nebulae_near_dissolve,
-		settings.nebulae_near_flow_map_distortion,
-		"NebulaeLayerNearMesh",
+		settings.nebulae_far_material,
+		settings.nebulae_far_dissolve,
+		settings.nebulae_far_flow_map_distortion,
+		"NebulaeLayerFarMesh",
 	)
 
 
