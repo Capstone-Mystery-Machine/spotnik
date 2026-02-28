@@ -291,12 +291,14 @@ func _disconnect_resource(resource: Resource) -> void:
 		resource.property_changed.disconnect(_on_property_changed)
 
 
+## Updates all nebulae mesh layers' materials based on the exported variables.
 func _update_nebulae_materials() -> void:
 	_update_nebulae_far_materials()
 	_update_nebulae_mid_materials()
 	_update_nebulae_near_materials()
 
 
+## Updates all nebulae mesh layers' visibility based on the exported variables.
 func _update_nebulae_visibility() -> void:
 	_update_nebulae_far_visibility()
 	_update_nebulae_mid_visibility()
@@ -318,6 +320,7 @@ func _update_nebulae_far_materials() -> void:
 	)
 
 
+## Updates the far nebulae mesh layer's visibility based on the exported variables.
 func _update_nebulae_far_visibility() -> void:
 	if settings == null:
 		return
@@ -340,6 +343,7 @@ func _update_nebulae_near_materials() -> void:
 	)
 
 
+## Updates the near nebulae mesh layer's visibility based on the exported variables.
 func _update_nebulae_near_visibility() -> void:
 	if settings == null:
 		return
@@ -362,6 +366,7 @@ func _update_nebulae_mid_materials() -> void:
 	)
 
 
+## Updates the mid nebulae mesh layer's visibility based on the exported variables.
 func _update_nebulae_mid_visibility() -> void:
 	if settings == null:
 		return
@@ -454,11 +459,13 @@ func _update_stars_field_materials() -> void:
 	_update_stars_field_far_materials()
 
 
+## Updates all field star mesh layers' visibility based on the exported variables.
 func _update_stars_field_visibility() -> void:
 	_update_stars_field_near_visibility()
 	_update_stars_field_far_visibility()
 
 
+## Updates the far field star mesh layer's materials based on the exported variables.
 func _update_stars_field_far_materials() -> void:
 	if settings == null:
 		return
@@ -471,6 +478,7 @@ func _update_stars_field_far_materials() -> void:
 	)
 
 
+## Updates the far field star mesh layer's visibility based on the exported variables.
 func _update_stars_field_far_visibility() -> void:
 	if settings == null:
 		return
@@ -478,6 +486,7 @@ func _update_stars_field_far_visibility() -> void:
 	_stars_layer_far_field_mesh.visible = settings.stars_field_far_layer_visible
 
 
+## Updates the near field star mesh layer's materials based on the exported variables.
 func _update_stars_field_near_materials() -> void:
 	if settings == null:
 		return
@@ -490,6 +499,7 @@ func _update_stars_field_near_materials() -> void:
 	)
 
 
+## Updates the near field star mesh layer's visibility based on the exported variables.
 func _update_stars_field_near_visibility() -> void:
 	if settings == null:
 		return
@@ -504,12 +514,14 @@ func _update_stars_point_materials() -> void:
 	_update_stars_point_far_materials()
 
 
+## Updates all point star mesh layers' visibility based on the exported variables.
 func _update_stars_point_visibility() -> void:
 	_update_stars_point_near_visibility()
 	_update_stars_point_mid_visibility()
 	_update_stars_point_far_visibility()
 
 
+## Updates the far point star mesh layer's materials based on the exported variables.
 func _update_stars_point_far_materials() -> void:
 	if settings == null:
 		return
@@ -523,6 +535,7 @@ func _update_stars_point_far_materials() -> void:
 	)
 
 
+## Updates the far point star mesh layer's visibility based on the exported variables.
 func _update_stars_point_far_visibility() -> void:
 	if settings == null:
 		return
@@ -530,6 +543,7 @@ func _update_stars_point_far_visibility() -> void:
 	_stars_layer_far_mesh.visible = settings.stars_point_far_layer_visible
 
 
+## Updates the mid point star mesh layer's materials based on the exported variables.
 func _update_stars_point_mid_materials() -> void:
 	if settings == null:
 		return
@@ -543,6 +557,7 @@ func _update_stars_point_mid_materials() -> void:
 	)
 
 
+## Updates the mid point star mesh layer's visibility based on the exported variables.
 func _update_stars_point_mid_visibility() -> void:
 	if settings == null:
 		return
@@ -550,6 +565,7 @@ func _update_stars_point_mid_visibility() -> void:
 	_stars_layer_mid_mesh.visible = settings.stars_point_mid_layer_visible
 
 
+## Updates the near point star mesh layer's materials based on the exported variables.
 func _update_stars_point_near_materials() -> void:
 	if settings == null:
 		return
@@ -563,6 +579,7 @@ func _update_stars_point_near_materials() -> void:
 	)
 
 
+## Updates the near point star mesh layer's visibility based on the exported variables.
 func _update_stars_point_near_visibility() -> void:
 	if settings == null:
 		return
@@ -570,6 +587,7 @@ func _update_stars_point_near_visibility() -> void:
 	_stars_layer_near_mesh.visible = settings.stars_point_near_layer_visible
 
 
+## Updates the void mesh layer's visibility based on the exported variables.
 func _update_void_layer_visibility() -> void:
 	if settings == null:
 		return
@@ -577,6 +595,7 @@ func _update_void_layer_visibility() -> void:
 	_void_layer_mesh.visible = settings.void_layer_visible
 
 
+## Updates all mesh layers' visibility, materials, and projection radii based on the exported variables.
 func _update_all() -> void:
 	_update_nebulae_visibility()
 	_update_stars_point_visibility()
@@ -590,6 +609,7 @@ func _update_all() -> void:
 	_update_projection_radius()
 
 
+## Handles updating materials when a [DissolveEffectSettings] resource changes.
 func _on_dissolve_effect_settings_property_changed(resource: DissolveEffectSettings) -> void:
 	match resource:
 		settings.nebulae_near_dissolve:
@@ -600,6 +620,7 @@ func _on_dissolve_effect_settings_property_changed(resource: DissolveEffectSetti
 			_update_nebulae_far_materials()
 
 
+## Handles updating materials when a [FlowMapDistortionEffectSettings] resource changes.
 func _on_flow_map_distortion_effect_settings_property_changed(
 		resource: FlowMapDistortionEffectSettings,
 ) -> void:
@@ -612,6 +633,7 @@ func _on_flow_map_distortion_effect_settings_property_changed(
 			_update_nebulae_far_materials()
 
 
+## Handles updating materials when a [SkyboxLayerMaterial] resource changes.
 func _on_skybox_layer_material_property_changed(resource: SkyboxLayerMaterial) -> void:
 	match resource:
 		settings.nebulae_near_material:
@@ -632,6 +654,7 @@ func _on_skybox_layer_material_property_changed(resource: SkyboxLayerMaterial) -
 			_update_stars_field_far_materials()
 
 
+## Handles updating settings when the [SkyboxSettings] resource changes.
 func _on_skybox_settings_property_changed(
 		property_name: StringName,
 		new_value: Variant,
@@ -681,6 +704,7 @@ func _on_skybox_settings_property_changed(
 			_update_stars_point_materials()
 
 
+## Handles updating materials when a [TwinkleEffectSettings] resource changes.
 func _on_twinkle_effect_settings_property_changed(
 		_property_name: StringName,
 		resource: TwinkleEffectSettings,
