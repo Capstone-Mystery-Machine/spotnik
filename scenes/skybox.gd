@@ -39,7 +39,11 @@ func _apply_radius(mesh_instance: MeshInstance3D, radius: float, node_name: Stri
 
 
 ## Applies an exported texture setting to a child mesh layer.
-func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_name: String) -> void:
+func _apply_texture(
+		mesh_instance: MeshInstance3D,
+		texture_2d: Texture2D,
+		node_name: String,
+) -> void:
 	var sphere_mesh = mesh_instance.mesh as SphereMesh
 
 	if !sphere_mesh:
@@ -642,33 +646,37 @@ func _on_skybox_settings_property_changed(
 			_update_stars_point_materials()
 		&"projection_radius", &"nebulae_displacement_multiplier", &"stars_point_radius_multiplier", &"stars_point_displacement_multiplier", &"stars_field_radius_multiplier", &"stars_field_displacement_multiplier", &"void_radius_multiplier":
 			_update_projection_radius()
-		&"nebulae_near_layer_visible":
-			_update_nebulae_near_visibility()
-		&"nebulae_mid_layer_visible":
-			_update_nebulae_mid_visibility()
-		&"nebulae_far_layer_visible":
-			_update_nebulae_far_visibility()
-		&"stars_point_near_layer_visible":
-			_update_stars_point_near_visibility()
-		&"stars_point_mid_layer_visible":
-			_update_stars_point_mid_visibility()
-		&"stars_point_far_layer_visible":
-			_update_stars_point_far_visibility()
-		&"stars_field_near_layer_visible":
-			_update_stars_field_near_visibility()
-		&"stars_field_far_layer_visible":
-			_update_stars_field_far_visibility()
-		&"void_layer_visible":
-			_update_void_layer_visibility()
-		&"nebulae_near_dissolve", &"nebulae_mid_dissolve", &"nebulae_far_dissolve", &"nebulae_near_flow_map_distortion", &"nebulae_mid_flow_map_distortion", &"nebulae_far_flow_map_distortion", &"nebulae_near_material", &"nebulae_mid_material", &"nebulae_far_material":
+		&"stars_point_radius_multiplier", &"stars_point_displacement_multiplier":
+			_update_projection_radius()
+		&"stars_field_radius_multiplier", &"stars_field_displacement_multiplier":
+			_update_projection_radius()
+		&"void_radius_multiplier":
+			_update_projection_radius()
+		&"nebulae_near_dissolve", &"nebulae_mid_dissolve", &"nebulae_far_dissolve":
 			_disconnect_resource(old_value)
 			_connect_resource(new_value)
 			_update_nebulae_materials()
-		&"stars_field_near_material", &"stars_field_far_material":
+		&"nebulae_near_flow_map_distortion", &"nebulae_mid_flow_map_distortion":
 			_disconnect_resource(old_value)
 			_connect_resource(new_value)
-			_update_stars_field_materials()
-		&"stars_point_near_material", &"stars_point_mid_material", &"stars_point_far_material", &"stars_point_near_twinkle", &"stars_point_mid_twinkle", &"stars_point_far_twinkle":
+			_update_nebulae_materials()
+		&"nebulae_far_flow_map_distortion", &"nebulae_near_material":
+			_disconnect_resource(old_value)
+			_connect_resource(new_value)
+			_update_nebulae_materials()
+		&"nebulae_mid_material", &"nebulae_far_material":
+			_disconnect_resource(old_value)
+			_connect_resource(new_value)
+			_update_nebulae_materials()
+		&"stars_point_near_material", &"stars_point_mid_material":
+			_disconnect_resource(old_value)
+			_connect_resource(new_value)
+			_update_stars_point_materials()
+		&"stars_point_far_material", &"stars_point_near_twinkle":
+			_disconnect_resource(old_value)
+			_connect_resource(new_value)
+			_update_stars_point_materials()
+		&"stars_point_mid_twinkle", &"stars_point_far_twinkle":
 			_disconnect_resource(old_value)
 			_connect_resource(new_value)
 			_update_stars_point_materials()
