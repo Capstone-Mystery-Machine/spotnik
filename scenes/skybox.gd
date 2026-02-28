@@ -595,7 +595,8 @@ func _update_void_layer_visibility() -> void:
 	_void_layer_mesh.visible = settings.void_layer_visible
 
 
-## Updates all mesh layers' visibility, materials, and projection radii based on the exported variables.
+## Updates all mesh layers' visibility, materials, and projection radii based on
+## the exported variables.
 func _update_all() -> void:
 	_update_nebulae_visibility()
 	_update_stars_point_visibility()
