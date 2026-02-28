@@ -16,9 +16,9 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043747425, 0, 3.0517578e-05)
 settings = ExtResource("6_naeil")
 
-[node name="Satel_Info_UI" parent="." instance=ExtResource("2_cn1jf")]
+[node name="SatelInfoUI" parent="." instance=ExtResource("2_cn1jf")]
 
 [node name="Device" parent="." instance=ExtResource("1_tnvwq")]
 
-[node name="Satellite Manager" parent="." instance=ExtResource("4_op4v0")]
+[node name="SatelliteManager" parent="." instance=ExtResource("4_op4v0")]
 landmark_scene = ExtResource("3_cojv1")
