@@ -637,14 +637,13 @@ func _on_skybox_settings_property_changed(
 		new_value: Variant,
 		old_value: Variant,
 ) -> void:
+	# HACK: I do not like the duplication of cases that could be aggregated into
+	# a single case. BUT, the formatter has a 100 character max length limit, no
+	# ignore directive, and eats line continuations during auto formatting.
+	#
+	# So, we have to have duplication here.
 	match property_name:
-		&"nebulae_texture", &"nebulae_dissolve_noise_texture":
-			_update_nebulae_materials()
-		&"stars_field_texture":
-			_update_stars_field_materials()
-		&"stars_point_texture", &"stars_point_color_palette":
-			_update_stars_point_materials()
-		&"projection_radius", &"nebulae_displacement_multiplier", &"stars_point_radius_multiplier", &"stars_point_displacement_multiplier", &"stars_field_radius_multiplier", &"stars_field_displacement_multiplier", &"void_radius_multiplier":
+		&"projection_radius", &"nebulae_displacement_multiplier":
 			_update_projection_radius()
 		&"stars_point_radius_multiplier", &"stars_point_displacement_multiplier":
 			_update_projection_radius()
