@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var landmark_scene: PackedScene
-@export var json_url: String = "http://localhost:8080/satellites/satellites.json"
+@export var json_url: String = "http://localhost:8080/data/satellites.json"
 
 var satellite_data: Array = []
 
