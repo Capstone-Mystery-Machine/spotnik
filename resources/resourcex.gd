@@ -19,7 +19,7 @@ func was_changed_event_emitted(property_name: StringName, new_value: Variant) ->
 	if old_value == new_value:
 		return false
 
-	emit_changed()
-	property_changed.emit(self, property_name, new_value, old_value)
+	call_deferred("emit_changed")
+	property_changed.emit.call_deferred(self, property_name, new_value, old_value)
 
 	return true
