@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SignalBus="*res://scenes/SignalBus.gd"
+_SignalBus="res://autoloads/signal_bus.gd"
 
 [display]
 

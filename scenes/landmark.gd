@@ -1,3 +1,4 @@
+class_name Landmark
 extends Node3D
 
 signal inner_entered(body: CollisionObject3D)
@@ -71,7 +72,7 @@ func _process(delta: float) -> void:
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
 	emit_signal("inner_entered", body)
-	SignalBus.ui_info.emit(self)
+	SignalBus.instance.ui_info.emit(self)
 
 
 func _on_camera_pointer_detector_inner_exited(body: CollisionObject3D) -> void:
