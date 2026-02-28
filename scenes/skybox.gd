@@ -23,7 +23,7 @@ extends Node3D
 @onready var _nebulae_layer_far_mesh: MeshInstance3D = $NebulaeLayerNearMesh/NebulaeLayerFarMesh
 
 
-# Applies an exported radius setting to a child mesh layer.
+## Applies an exported radius setting to a child mesh layer.
 func _apply_radius(mesh_instance: MeshInstance3D, radius: float, node_name: String) -> void:
 	var sphere_mesh = mesh_instance.mesh as SphereMesh
 
@@ -38,7 +38,7 @@ func _apply_radius(mesh_instance: MeshInstance3D, radius: float, node_name: Stri
 	sphere_mesh.height = radius * 2
 
 
-# Applies an exported texture setting to a child mesh layer.
+## Applies an exported texture setting to a child mesh layer.
 func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_name: String) -> void:
 	var sphere_mesh = mesh_instance.mesh as SphereMesh
 
@@ -68,7 +68,7 @@ func _apply_texture(mesh_instance: MeshInstance3D, texture_2d: Texture2D, node_n
 		material.set_shader_parameter("texture_albedo", texture_2d)
 
 
-# Applies exported settings to the nebulae shaders.
+## Applies exported settings to the nebulae shaders.
 func _apply_nebulae_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
@@ -141,7 +141,7 @@ func _apply_nebulae_material(
 		)
 
 
-# Applies exported settings to the star field shaders.
+## Applies exported settings to the star field shaders.
 func _apply_stars_field_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
@@ -167,7 +167,7 @@ func _apply_stars_field_material(
 		material.albedo_color = hdr_color
 
 
-# Applies exported settings to the point star shaders.
+## Applies exported settings to the point star shaders.
 func _apply_stars_point_material(
 		mesh_instance: MeshInstance3D,
 		texture_2d: Texture2D,
@@ -225,7 +225,7 @@ func _apply_stars_point_material(
 		)
 
 
-# Sets up all reactivity signals.
+## Sets up all reactivity signals.
 func _connect_all() -> void:
 	if settings == null:
 		return
@@ -250,13 +250,13 @@ func _connect_all() -> void:
 	_connect_resource(settings.stars_point_far_twinkle)
 
 
-# Connects a resource's property_changed signal.
+## Connects a resource's property_changed signal.
 func _connect_resource(resource: Resource) -> void:
 	if resource != null and not resource.property_changed.is_connected(_on_property_changed):
 		resource.property_changed.connect(_on_property_changed)
 
 
-# Clears all reactivity signals.
+## Clears all reactivity signals.
 func _disconnect_all() -> void:
 	if settings == null:
 		return
@@ -281,7 +281,7 @@ func _disconnect_all() -> void:
 	_disconnect_resource(settings.stars_point_far_twinkle)
 
 
-# Disconnects a resource's property_changed signal.
+## Disconnects a resource's property_changed signal.
 func _disconnect_resource(resource: Resource) -> void:
 	if resource != null and resource.property_changed.is_connected(_on_property_changed):
 		resource.property_changed.disconnect(_on_property_changed)
@@ -299,7 +299,7 @@ func _update_nebulae_visibility() -> void:
 	_update_nebulae_near_visibility()
 
 
-# Updates the nebulae mesh layer's materials based on the exported variables.
+## Updates the nebulae mesh layer's materials based on the exported variables.
 func _update_nebulae_far_materials() -> void:
 	if settings == null:
 		return
@@ -321,7 +321,7 @@ func _update_nebulae_far_visibility() -> void:
 	_nebulae_layer_far_mesh.visible = settings.nebulae_far_layer_visible
 
 
-# Updates the nebulae mesh layer's materials based on the exported variables.
+## Updates the nebulae mesh layer's materials based on the exported variables.
 func _update_nebulae_near_materials() -> void:
 	if settings == null:
 		return
@@ -343,7 +343,7 @@ func _update_nebulae_near_visibility() -> void:
 	_nebulae_layer_near_mesh.visible = settings.nebulae_near_layer_visible
 
 
-# Updates the nebulae mesh layer's materials based on the exported variables.
+## Updates the nebulae mesh layer's materials based on the exported variables.
 func _update_nebulae_mid_materials() -> void:
 	if settings == null:
 		return
@@ -444,7 +444,7 @@ func _update_projection_radius() -> void:
 	)
 
 
-# Updates the star mesh layer's materials based on the exported variables.
+## Updates the star mesh layer's materials based on the exported variables.
 func _update_stars_field_materials() -> void:
 	_update_stars_field_near_materials()
 	_update_stars_field_far_materials()
@@ -493,7 +493,7 @@ func _update_stars_field_near_visibility() -> void:
 	_stars_layer_near_field_mesh.visible = settings.stars_field_near_layer_visible
 
 
-# Updates the star mesh layer's materials based on the exported variables.
+## Updates the star mesh layer's materials based on the exported variables.
 func _update_stars_point_materials() -> void:
 	_update_stars_point_near_materials()
 	_update_stars_point_mid_materials()
@@ -687,7 +687,7 @@ func _on_twinkle_effect_settings_property_changed(
 			_update_stars_point_far_materials()
 
 
-# Handles updating the [Skybox] node in response to any settings changes.
+## Handles updating the [Skybox] node in response to any settings changes.
 func _on_property_changed(
 		resource: Resource,
 		property_name: StringName,
