@@ -299,13 +299,6 @@ func _update_nebulae_visibility() -> void:
 	_update_nebulae_near_visibility()
 
 
-func _update_nebulae_far_visibility() -> void:
-	if settings == null:
-		return
-
-	_nebulae_layer_far_mesh.visible = settings.nebulae_far_layer_visible
-
-
 # Updates the nebulae mesh layer's materials based on the exported variables.
 func _update_nebulae_far_materials() -> void:
 	if settings == null:
@@ -321,11 +314,11 @@ func _update_nebulae_far_materials() -> void:
 	)
 
 
-func _update_nebulae_near_visibility() -> void:
+func _update_nebulae_far_visibility() -> void:
 	if settings == null:
 		return
 
-	_nebulae_layer_near_mesh.visible = settings.nebulae_near_layer_visible
+	_nebulae_layer_far_mesh.visible = settings.nebulae_far_layer_visible
 
 
 # Updates the nebulae mesh layer's materials based on the exported variables.
@@ -343,11 +336,11 @@ func _update_nebulae_near_materials() -> void:
 	)
 
 
-func _update_nebulae_mid_visibility() -> void:
+func _update_nebulae_near_visibility() -> void:
 	if settings == null:
 		return
 
-	_nebulae_layer_mid_mesh.visible = settings.nebulae_mid_layer_visible
+	_nebulae_layer_near_mesh.visible = settings.nebulae_near_layer_visible
 
 
 # Updates the nebulae mesh layer's materials based on the exported variables.
@@ -363,6 +356,13 @@ func _update_nebulae_mid_materials() -> void:
 		settings.nebulae_mid_flow_map_distortion,
 		"NebulaeLayerMidMesh",
 	)
+
+
+func _update_nebulae_mid_visibility() -> void:
+	if settings == null:
+		return
+
+	_nebulae_layer_mid_mesh.visible = settings.nebulae_mid_layer_visible
 
 
 ## Updates the child nodes' projection radius settings based on the exported variable.
