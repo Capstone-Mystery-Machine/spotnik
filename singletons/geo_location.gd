@@ -68,6 +68,7 @@ func _on_android_init() -> void:
 		)
 
 		Engine.get_main_loop().quit()
+		return
 
 	_provider_instance.onLocationUpdates.connect(_on_android_location_changed)
 	_provider_instance.StartListening()
