@@ -38,7 +38,7 @@ const ProviderName = {
 
 
 ## Returns the geo-location provider name specified in the project settings.
-func _get_geo_location_provider_name() -> StringName:
+func _get_geo_location_provider_name() -> Variant:
 	return ProjectSettings.get_setting("spotnik/geo_location/provider_name")
 
 
