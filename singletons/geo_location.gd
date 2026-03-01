@@ -70,6 +70,7 @@ func _on_android_init() -> void:
 		Engine.get_main_loop().quit()
 
 	_provider_instance.onLocationUpdates.connect(_on_android_location_changed)
+	_provider_instance.StartListening()
 
 
 ## Translates the Android geo-location provider's location data into a [LocationData]
