@@ -47,7 +47,7 @@ func _on_android_init() -> void:
 			% ProviderName.ANDROID_PROVIDER,
 		)
 
-		Engine.get_main_loop().quit()
+		Engine.get_main_loop().quit(OSX.ExitCode.GEO_LOCATION_PLUGIN_MISSING)
 		return
 
 	_provider_instance.onLocationUpdates.connect(_on_android_location_changed)
