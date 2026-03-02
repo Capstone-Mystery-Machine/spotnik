@@ -37,17 +37,6 @@ const ProviderName = {
 }
 
 
-## Returns the geo-location provider name specified in the project settings.
-func _get_geo_location_provider_name() -> Variant:
-	var platform_setting = "spotnik/geo_location/provider_name.%s" \
-	% OS.get_name().to_lower()
-
-	if ProjectSettings.has_setting(platform_setting):
-		return ProjectSettings.get_setting(platform_setting)
-
-	return ProjectSettings.get_setting("spotnik/geo_location/provider_name")
-
-
 ## Initializes the Android-specific geo-location provider and connects its signals.
 func _on_android_init() -> void:
 	_provider_instance = Engine.get_singleton(ProviderName.ANDROID_PROVIDER)
@@ -86,7 +75,9 @@ func init_provider() -> void:
 
 		return
 
-	var provider_name = _get_geo_location_provider_name()
+	var provider_name = ProjectSettingsX.get_platform_setting(
+		"spotnik/geo_location/provider_name",
+	)
 
 	print(
 		"'GeoLocation.init_provider': trying to load geo-location provider '%s'"
