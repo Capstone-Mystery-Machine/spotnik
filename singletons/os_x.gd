@@ -13,9 +13,13 @@ enum ExitCode {
 	## required permission grant prompt on boot.
 	PERMISSION_NOT_GRANTED,
 
-	## Spotnik exits telling any monitoring software that the geo-location plugin
-	## was unable to be loaded.
+	## Spotnik exits telling any monitoring software that the configured geo-location
+	## plugin was unable to be loaded.
 	GEO_LOCATION_PLUGIN_MISSING,
+
+	## Spotnik exits telling any monitoring software that the configured geo-location
+	## plugin is not supported.
+	GEO_LOCATION_PLUGIN_UNSUPPORTED,
 }
 
 

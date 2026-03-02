@@ -99,7 +99,7 @@ func init_provider() -> void:
 				% provider_name,
 			)
 
-			Engine.get_main_loop().quit()
+			Engine.get_main_loop().quit(OSX.ExitCode.GEO_LOCATION_PLUGIN_UNSUPPORTED)
 
 	print(
 		"'GeoLocation.init_provider': geo-location provider '%s' successfully loaded"
