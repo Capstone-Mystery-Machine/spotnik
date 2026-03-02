@@ -39,19 +39,24 @@ const ProviderName = {
 
 ## Returns the geo-location provider name specified in the project settings.
 func _get_geo_location_provider_name() -> Variant:
-	if OS.has_feature("android"):
+	if (OS.has_feature("android")
+		and ProjectSettings.has_setting("spotnik/geo_location/provider_name.android") ):
 		return ProjectSettings.get_setting("spotnik/geo_location/provider_name.android")
 
-	if OS.has_feature("ios"):
+	if (OS.has_feature("ios")
+		and ProjectSettings.has_setting("spotnik/geo_location/provider_name.ios") ):
 		return ProjectSettings.get_setting("spotnik/geo_location/provider_name.ios")
 
-	if OS.has_feature("linux"):
+	if (OS.has_feature("linux")
+		and ProjectSettings.has_setting("spotnik/geo_location/provider_name.linux") ):
 		return ProjectSettings.get_setting("spotnik/geo_location/provider_name.linux")
 
-	if OS.has_feature("macos"):
+	if (OS.has_feature("macos")
+		and ProjectSettings.has_setting("spotnik/geo_location/provider_name.macos") ):
 		return ProjectSettings.get_setting("spotnik/geo_location/provider_name.macos")
 
-	if OS.has_feature("windows"):
+	if (OS.has_feature("windows")
+		and ProjectSettings.has_setting("spotnik/geo_location/provider_name.windows") ):
 		return ProjectSettings.get_setting("spotnik/geo_location/provider_name.windows")
 
 	return ProjectSettings.get_setting("spotnik/geo_location/provider_name")
