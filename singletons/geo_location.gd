@@ -39,7 +39,7 @@ const ProviderName = {
 
 ## Initializes the Android-specific geo-location provider and connects its signals.
 func _on_android_init() -> void:
-	_provider_instance = Engine.get_singleton(ProviderName.ANDROID_PROVIDER)
+	_provider_instance = Engine.get_singleton(ProviderName.ANDROID_PROVIDER) as JNISingleton
 
 	if _provider_instance == null:
 		push_error(
@@ -51,16 +51,25 @@ func _on_android_init() -> void:
 		return
 
 	_provider_instance.onLocationUpdates.connect(_on_android_location_changed)
+
+	_provider_instance.SetMinTimeMs(3000)
+	_provider_instance.SetMinDistMeters(2.0)
+
 	_provider_instance.StartListening()
+
+	print(_provider_instance.GetLastLocation())
 
 
 ## Translates the Android geo-location provider's location data into a [LocationData]
 ## object and emits it.
-func _on_android_location_changed(location: Dictionary[String, float]) -> void:
+func _on_android_location_changed(location: Dictionary) -> void:
 	location_data = LocationData.new(
 		location.latitude,
 		location.longitude,
 	)
+
+	OS.alert("sup!")
+	print(location)
 
 	emit_signal("location_changed", location_data)
 
