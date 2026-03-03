@@ -74,6 +74,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var current_basis = target_node_3d.transform.basis
 	var target_basis = InputX.get_geocentric_basis()
+	#print("in gyro_input_controller process")
+	#print(target_basis)
 
 	var alignment = current_basis.z.dot(target_basis.z)
 	var error = abs(1.0 - alignment)

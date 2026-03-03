@@ -94,7 +94,6 @@ static func _is_touch_input_mode() -> bool:
 static func get_cardinal_east(gravitational_up: Vector3) -> Vector3:
 	var magnetic_field = Input.get_magnetometer()
 	var magnetic_north = magnetic_field.normalized()
-
 	return magnetic_north.cross(gravitational_up).normalized()
 
 

@@ -18,7 +18,8 @@ viewport_path = NodePath("SpriteWest/SubViewport")
 script = ExtResource("1_ymjux")
 
 [node name="SpriteNorth" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 billboard = 1
 texture = SubResource("ViewportTexture_k7agn")
 
@@ -35,7 +36,8 @@ theme_override_font_sizes/font_size = 48
 text = "N"
 
 [node name="SpriteEast" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_ymjux")
 
@@ -52,7 +54,8 @@ theme_override_font_sizes/font_size = 48
 text = "E"
 
 [node name="SpriteSouth" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 billboard = 1
 texture = SubResource("ViewportTexture_mtwlu")
 
@@ -69,7 +72,8 @@ theme_override_font_sizes/font_size = 48
 text = "S"
 
 [node name="SpriteWest" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_4dx88")
 
