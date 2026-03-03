@@ -50,7 +50,7 @@ func _ready() -> void:
 	inner_radius = detector.inner_radius
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if pointer == null:
 		scale = scale.lerp(Vector3.ONE, spawn_radius * delta)
 		return
