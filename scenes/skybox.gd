@@ -726,6 +726,9 @@ func _on_property_changed(
 		new_value: Variant,
 		old_value: Variant,
 ) -> void:
+	if not is_node_ready():
+		return
+
 	if resource is DissolveEffectSettings:
 		_on_dissolve_effect_settings_property_changed(resource)
 
