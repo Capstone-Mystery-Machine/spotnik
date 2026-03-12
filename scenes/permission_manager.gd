@@ -44,8 +44,8 @@ func _on_permission_declined(permission: String) -> void:
 		PackedStringArray(["OK"]),
 		func(_button_index: int):
 			print(
-				"'PermissionManager._on_permission_declined': permission '%s' was not granted, exiting"
-				% permission,
+				"'PermissionManager._on_permission_declined': permission '" \
+				+ permission + "' was not granted, exiting",
 			)
 
 			scene_tree.quit(OSX.ExitCode.PERMISSION_NOT_GRANTED),
