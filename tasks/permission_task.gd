@@ -26,10 +26,14 @@ var _expected_responses: int = 0
 func _dialog_permission_declined(permission: String) -> void:
 	DisplayServer.dialog_show(
 		"Permission Not Granted",
-		"Spotnik was not granted a required permission: " + permission + ". The app will exit now.",
+		"Spotnik was not granted a required permission: '" + permission + "'. The app will exit now.",
 		PackedStringArray(["OK"]),
 		func(_button_index: int):
-			print("'PermissionTask._dialog_declined': exiting due to declined " + permission)
+			print(
+				"'PermissionTask._dialog_declined': exiting due to declined '%s' permission"
+				% permission,
+			)
+
 			scene_tree.quit(OSX.ExitCode.PERMISSION_NOT_GRANTED),
 	)
 
