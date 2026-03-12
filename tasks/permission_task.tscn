@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wlhvj7mlb8m7"]
+
+[ext_resource type="Script" uid="uid://crga84b138g4k" path="res://tasks/permission_task.gd" id="1_c8sgr"]
+
+[node name="PermissionTask" type="Node"]
+script = ExtResource("1_c8sgr")
