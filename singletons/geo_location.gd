@@ -57,8 +57,6 @@ func _on_android_init() -> void:
 
 	_provider_instance.StartListening()
 
-	print(_provider_instance.GetLastLocation())
-
 
 ## Translates the Android geo-location provider's location data into a [LocationData]
 ## object and emits it.
@@ -67,9 +65,6 @@ func _on_android_location_changed(location: Dictionary) -> void:
 		location.latitude,
 		location.longitude,
 	)
-
-	OS.alert("sup!")
-	print(location)
 
 	emit_signal("location_changed", location_data)
 
