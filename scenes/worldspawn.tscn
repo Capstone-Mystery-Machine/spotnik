@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://b5ou2u38e78kf"]
 
-[ext_resource type="PackedScene" uid="uid://ckh0mf4o2awhw" path="res://scenes/device.tscn" id="1_tnvwq"]
+[ext_resource type="PackedScene" uid="uid://ckh0mf4o2awhw" path="res://nodes/device.tscn" id="1_tnvwq"]
 [ext_resource type="PackedScene" uid="uid://wlhvj7mlb8m7" path="res://tasks/permission_task.tscn" id="1_u00j1"]
-[ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://scenes/satel_info_ui.tscn" id="2_cn1jf"]
-[ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://scenes/landmark.tscn" id="3_cojv1"]
-[ext_resource type="PackedScene" uid="uid://b3c1tcyumuxs2" path="res://scenes/satellite_manager.tscn" id="4_op4v0"]
-[ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://scenes/skybox.tscn" id="5_kpp3c"]
+[ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://nodes/satel_info_ui.tscn" id="2_cn1jf"]
+[ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://nodes/landmark.tscn" id="3_cojv1"]
+[ext_resource type="PackedScene" uid="uid://b3c1tcyumuxs2" path="res://nodes/satellite_manager.tscn" id="4_op4v0"]
+[ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://nodes/skybox.tscn" id="5_kpp3c"]
 [ext_resource type="Resource" uid="uid://bsv1omabacd4u" path="res://skyboxes/skybox_a.tres" id="6_naeil"]
 
 [node name="Worldspawn" type="Node3D"]

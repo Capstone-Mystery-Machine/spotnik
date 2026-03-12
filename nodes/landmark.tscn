@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://df1r2r56qsixo"]
 
-[ext_resource type="Script" uid="uid://7cmm3t3cc3hy" path="res://scenes/landmark.gd" id="1_7q80c"]
-[ext_resource type="Script" uid="uid://cgv2aqh7ujavp" path="res://scenes/pointer_detector.gd" id="1_hek36"]
+[ext_resource type="Script" uid="uid://7cmm3t3cc3hy" path="res://nodes/landmark.gd" id="1_7q80c"]
+[ext_resource type="Script" uid="uid://cgv2aqh7ujavp" path="res://nodes/pointer_detector.gd" id="1_hek36"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cn1jf"]
 radius = 1.5

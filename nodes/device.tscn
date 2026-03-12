@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckh0mf4o2awhw"]
 
-[ext_resource type="Script" uid="uid://dtnbr8at4r04c" path="res://scenes/mouse_input_controller.gd" id="1_brmjm"]
-[ext_resource type="Script" uid="uid://dlgvxcexa2xa3" path="res://scenes/touch_input_controller.gd" id="2_mpkvn"]
-[ext_resource type="Script" uid="uid://2syosnsrxmfn" path="res://scenes/gyro_input_controller.gd" id="3_qfi86"]
+[ext_resource type="Script" uid="uid://dtnbr8at4r04c" path="res://nodes/mouse_input_controller.gd" id="1_brmjm"]
+[ext_resource type="Script" uid="uid://dlgvxcexa2xa3" path="res://nodes/touch_input_controller.gd" id="2_mpkvn"]
+[ext_resource type="Script" uid="uid://2syosnsrxmfn" path="res://nodes/gyro_input_controller.gd" id="3_qfi86"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qfi86"]
 
