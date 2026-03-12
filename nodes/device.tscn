@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckh0mf4o2awhw"]
 
-[ext_resource type="Script" uid="uid://dtnbr8at4r04c" path="res://nodes/mouse_input_controller.gd" id="1_brmjm"]
-[ext_resource type="Script" uid="uid://dlgvxcexa2xa3" path="res://nodes/touch_input_controller.gd" id="2_mpkvn"]
-[ext_resource type="Script" uid="uid://2syosnsrxmfn" path="res://nodes/gyro_input_controller.gd" id="3_qfi86"]
+[ext_resource type="PackedScene" uid="uid://dhtfxjp6o16ba" path="res://nodes/gyro_input_controller.tscn" id="1_wo32e"]
+[ext_resource type="PackedScene" uid="uid://d2fpp8fhgw01q" path="res://nodes/mouse_input_controller.tscn" id="2_p6uye"]
+[ext_resource type="PackedScene" uid="uid://bchxn5jertoc2" path="res://nodes/touch_input_controller.tscn" id="3_k7gbv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qfi86"]
 
@@ -19,14 +19,11 @@ sync_to_physics = false
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("BoxShape3D_qfi86")
 
-[node name="GyroInputController" type="Node" parent="." node_paths=PackedStringArray("target_node_3d")]
-script = ExtResource("3_qfi86")
+[node name="GyroInputController" parent="." node_paths=PackedStringArray("target_node_3d") instance=ExtResource("1_wo32e")]
 target_node_3d = NodePath("..")
 
-[node name="MouseInputController" type="Node" parent="." node_paths=PackedStringArray("target_node_3d")]
-script = ExtResource("1_brmjm")
+[node name="MouseInputController" parent="." node_paths=PackedStringArray("target_node_3d") instance=ExtResource("2_p6uye")]
 target_node_3d = NodePath("..")
 
-[node name="TouchInputController" type="Node" parent="." node_paths=PackedStringArray("target_node_3d")]
-script = ExtResource("2_mpkvn")
+[node name="TouchInputController" parent="." node_paths=PackedStringArray("target_node_3d") instance=ExtResource("3_k7gbv")]
 target_node_3d = NodePath("..")
