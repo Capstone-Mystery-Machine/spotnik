@@ -22,6 +22,7 @@ var location_data: LocationData = null
 ## Each provider name:
 ## [br]
 ## • Corresponds to a specific platform-level implementation or Godot plugin.
+# gdlint-ignore-next-line constant-name
 const ProviderName = {
 	## Spotnik is configured to not utilize a geo-location provider.
 	## [br]

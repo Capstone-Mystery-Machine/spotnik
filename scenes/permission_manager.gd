@@ -2,6 +2,7 @@ extends Node
 ## Requests the permissions required by the app's export target when the node
 ## is made ready.
 
+# gdlint-ignore-next-line constant-name
 const PermissionName = {
 	ANDROID_COARSE_LOCATION = &"android.permission.ACCESS_COARSE_LOCATION",
 	ANDROID_FINE_LOCATION = &"android.permission.ACCESS_FINE_LOCATION",
