@@ -189,21 +189,25 @@ jobs:
           - preset: "Android [DEBUG]"
             is-debug: true
             requires-android-sdk: true
+            requires-gradle: true
             requires-jdk: true
             output-extension: ".apk"
           - preset: "Linux [DEBUG]"
             is-debug: true
             requires-android-sdk: false
+            requires-gradle: false
             requires-jdk: false
             output-extension: ""
           - preset: "macOS [DEBUG]"
             is-debug: true
             requires-android-sdk: false
+            requires-gradle: false
             requires-jdk: false
             output-extension: ".app"
           - preset: "Windows Desktop [DEBUG]"
             is-debug: true
             requires-android-sdk: false
+            requires-gradle: false
             requires-jdk: false
             output-extension: ".exe"
 
@@ -356,9 +360,29 @@ jobs:
           export/android/debug_keystore_pass = "${{ env.ANDROID_KEYSTORE_DEBUG_STORE_PASSWORD }}"
           EOF
 
+      - name: Unpack Android Build Template
+        if: matrix.requires-gradle
+        run: |
+          mkdir --verbose --parents ./android/build
+
+          unzip -q ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable/android_source.zip -d ./android/build
+
+          chmod +x ./android/build/gradlew
+          touch ./android/build/.gdignore
+
+      - name: Configure Android Build Template Version
+        if: matrix.requires-gradle
+        run: |
+          cp ${{ env.ASSETS_GODOT_TEMPLATES_PATH }}/${{ env.GODOT_VERSION }}.stable/version.txt ./android/.build_version
+
+      - name: Install Gradle + Version
+        if: matrix.requires-gradle
+        run: |
+          ./android/build/gradlew --version
+
       - name: Export ${{ matrix.preset }} Artifacts
         run: |
-          mkdir -v -p artifacts/${{ env.PRESET_SLUG }}
+          mkdir --verbose --parents artifacts/${{ env.PRESET_SLUG }}
 
           cd $PROJECT_PATH          
 
