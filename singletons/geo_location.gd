@@ -116,6 +116,10 @@ func _on_geoip_poll() -> void:
 	)
 
 	if response == null:
+		push_error(
+			"bad dispatch to '_on_geoip_poll' (no response from provider)",
+		)
+
 		return
 
 	var body = response.body
