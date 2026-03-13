@@ -121,7 +121,7 @@ func _on_geoip_poll() -> void:
 
 	var body = response.body
 
-	if body != "success":
+	if body.status != "success":
 		push_error(
 			"bad dispatch to '_on_geoip_poll' (provider returned error %s)" % body.message,
 		)
