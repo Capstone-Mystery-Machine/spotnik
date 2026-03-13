@@ -93,7 +93,7 @@ func _on_android_location_changed(location: Dictionary) -> void:
 		location.longitude,
 	)
 
-	emit_signal("location_changed", location_data)
+	location_changed.emit(location_data)
 
 
 ## Initializes the GeoIP geo-location provider and connects its signals.
@@ -134,7 +134,7 @@ func _on_geoip_poll() -> void:
 		body.lon,
 	)
 
-	emit_signal("location_changed", location_data)
+	location_changed.emit(location_data)
 
 
 ## Initializes the geo-location provider based on the engine export's specific project
