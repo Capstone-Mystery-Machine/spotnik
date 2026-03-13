@@ -45,6 +45,12 @@ const ProviderName = {
 	## [br]
 	## [b]Behavior:[/b] Connects to the [code]PraxisMapperGPSPlugin[/code] plugin.
 	ANDROID_PROVIDER = &"PraxisMapperGPSPlugin",
+
+	## Spotnik is configured to use the GeoIP HTTP service.
+	## [br]
+	## [br]
+	## [b]Behavior:[/b] Connects to the [code]ip-api.com[/code] HTTP service.
+	GEOIP_PROVIDER = &"ip-api.com",
 }
 
 
