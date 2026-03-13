@@ -1,5 +1,5 @@
 class_name GlobalScopeX
-extends Node
+extends RefCounted
 ## A singleton for providing general-purpose utility API.
 
 ## Represents the smallest possible difference between two double precision

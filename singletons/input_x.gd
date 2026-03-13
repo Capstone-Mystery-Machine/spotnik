@@ -1,5 +1,5 @@
 class_name InputX
-extends Node
+extends RefCounted
 ## A singleton for handling Spotnik-specific input logic.
 ##
 ## The [b]InputX[/b] singleton handles the selection of which input mode Spotnik
