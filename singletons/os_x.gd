@@ -20,6 +20,14 @@ enum ExitCode {
 	## Spotnik exits telling any monitoring software that the configured geo-location
 	## plugin is not supported.
 	GEO_LOCATION_PLUGIN_UNSUPPORTED,
+
+	## Spotnik exits telling any monitoring software that the configured scene
+	## resource was tried to be loaded, but there failure trying to read its data.
+	TRANSITION_LOAD_RESOURCE_FAILED,
+
+	## Spotnik exits telling any monitoring software that the configured scene
+	## resource was tried to be loaded, but it was formatted wrongly or corrupted.
+	TRANSITION_LOAD_RESOURCE_MALFORMED,
 }
 
 

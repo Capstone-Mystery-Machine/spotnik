@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://vugrltu8ff0i"]
 
-[ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://scenes/skybox.gd" id="1_wkasw"]
+[ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://nodes/skybox.gd" id="1_wkasw"]
 [ext_resource type="Shader" uid="uid://cr6fcjle7lg53" path="res://shaders/point_star.gdshader" id="2_wkasw"]
 [ext_resource type="Shader" uid="uid://b3485rvpg1yev" path="res://shaders/nebulae.gdshader" id="3_8u7e8"]
 

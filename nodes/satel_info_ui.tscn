@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4guvadeiue3o"]
 
-[ext_resource type="Script" uid="uid://frvw2x27fdeb" path="res://scenes/satellite_data_ui.gd" id="1_o0spf"]
+[ext_resource type="Script" uid="uid://frvw2x27fdeb" path="res://nodes/satellite_data_ui.gd" id="1_o0spf"]
 
 [node name="SatelInfoUI" type="Node3D"]
 script = ExtResource("1_o0spf")
