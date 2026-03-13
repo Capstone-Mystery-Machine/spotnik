@@ -1,5 +1,5 @@
 class_name OSX
-extends Node
+extends RefCounted
 ## A singleton for handling Spotnik-specific OS / platform integration.
 
 ## Represents an enumeration of Spotnik-specific semantic process exit codes. External

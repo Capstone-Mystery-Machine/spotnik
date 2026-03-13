@@ -1,5 +1,5 @@
 class_name ProjectSettingsX
-extends Node
+extends RefCounted
 ## A singleton for Spotnik-specific project settings management.
 
 @warning_ignore("shadowed_variable_base_class")

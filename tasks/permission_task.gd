@@ -49,18 +49,7 @@ func _on_all_permissions_resolved() -> void:
 		_dialog_permission_declined("location")
 		return
 
-	_on_all_permissions_granted()
 	permissions_granted.emit()
-
-
-func _on_all_permissions_granted() -> void:
-	_on_geo_location_permission_granted()
-
-
-func _on_geo_location_permission_granted() -> void:
-	print("'PermissionTask._on_geo_location_permission_granted': geo-location permission granted")
-
-	GeoLocation.instance.init_provider()
 
 
 func _on_request_permissions_result(permission: String, _granted: bool) -> void:
@@ -80,7 +69,6 @@ func _task() -> void:
 	if not OSX.permission_request_required():
 		print("'PermissionTask._task': permissions requests not needed, skipping requests")
 
-		_on_all_permissions_granted()
 		return
 
 	var granted_permissions := OS.get_granted_permissions()
@@ -92,7 +80,6 @@ func _task() -> void:
 	if _expected_responses == 0 or OS.request_permissions():
 		print("'PermissionTask._task': permissions were already granted, skipping requests")
 
-		_on_all_permissions_granted()
 		return
 
 	scene_tree.on_request_permissions_result.connect(_on_request_permissions_result)
