@@ -26,7 +26,8 @@ var _expected_responses: int = 0
 func _dialog_permission_declined(permission: String) -> void:
 	DisplayServer.dialog_show(
 		"Permission Not Granted",
-		"Spotnik was not granted a required permission: '" + permission + "'. The app will exit now.",
+		"Spotnik was not granted a required permission: '" \
+		+ permission + "'. The app will exit now.",
 		PackedStringArray(["OK"]),
 		func(_button_index: int):
 			print(
