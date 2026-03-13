@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://xj0a4um106bh"]
 
-[ext_resource type="PackedScene" uid="uid://b828rwhfwoini" path="res://nodes/task_manager.tscn" id="1_8jgqb"]
-[ext_resource type="PackedScene" uid="uid://bkg2elg1a5g8u" path="res://tasks/transition_task.tscn" id="2_ykev4"]
+[ext_resource type="PackedScene" uid="uid://b828rwhfwoini" path="res://nodes/task_manager.tscn" id="1_smnf2"]
+[ext_resource type="PackedScene" uid="uid://bkg2elg1a5g8u" path="res://tasks/transition_task.tscn" id="2_a0egu"]
 
 [node name="LoadingScene" type="Node2D"]
 
-[node name="TaskManager" parent="." instance=ExtResource("1_8jgqb")]
+[node name="TaskManager" parent="." instance=ExtResource("1_smnf2")]
 
-[node name="TransitionTask" parent="TaskManager" instance=ExtResource("2_ykev4")]
+[node name="TransitionTask" parent="TaskManager" instance=ExtResource("2_a0egu")]
 target_scene_path = "uid://b5ou2u38e78kf"
