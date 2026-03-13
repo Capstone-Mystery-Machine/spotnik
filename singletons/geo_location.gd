@@ -7,19 +7,25 @@ extends RefCounted
 
 signal location_changed(location_data: LocationData)
 
+const GEOIP_HOST: String = "ip-api.com"
+
+const GEOIP_PATH: String = "/json/?fields=status,message,lat,lon"
+
+const GEOIP_PORT: int = 80
+
 ## Represents the minimum duration in milliseconds for the geo-location of the
 ## end-user to be queried again when via GeoIP HTTP service.
-const GEOIP_UPDATE_DURATION_INTERVAL = 1000 * 60 * 5
+const GEOIP_UPDATE_DURATION_INTERVAL: float = 1000 * 60 * 5
 
 ## Represents the minimum distance in meters for the geo-location of the end-user
 ## to be queried again when via sensors.
 ## [br]
 ## [b]NOTE:[/b] Not every geo-location provider supports this feature.
-const SENSOR_UPDATE_DISTANCE_INTERVAL = 2.0
+const SENSOR_UPDATE_DISTANCE_INTERVAL: float = 2.0
 
 ## Represents the minimum duration in milliseconds for the geo-location of the
 ## end-user to be queried again when via sensors.
-const SENSOR_UPDATE_DURATION_INTERVAL = 1000 * 3
+const SENSOR_UPDATE_DURATION_INTERVAL: float = 1000 * 3
 
 ## Represents the [GeoLocation] singleton.
 static var instance: GeoLocation = GeoLocation.new()
@@ -90,6 +96,47 @@ func _on_android_location_changed(location: Dictionary) -> void:
 	emit_signal("location_changed", location_data)
 
 
+## Initializes the GeoIP geo-location provider and connects its signals.
+func _on_geoip_init() -> void:
+	var scene_tree = Engine.get_main_loop()
+
+	while true:
+		await _on_geoip_poll()
+		await scene_tree.create_timer(GEOIP_UPDATE_DURATION_INTERVAL / 1000).timeout
+
+
+## Polls GeoIP HTTP service and then translates the provider's location data into
+## a [LocationData] object and emits it.
+func _on_geoip_poll() -> void:
+	var response = await GlobalScopeX.fetch_json(
+		false,
+		GEOIP_HOST,
+		GEOIP_PORT,
+		GEOIP_PATH,
+	)
+
+	if response == null:
+		location_data = null
+		return
+
+	var body = response.body
+
+	if body != "success":
+		push_error(
+			"bad dispatch to '_on_geoip_poll' (provider returned error %s)" % body.message,
+		)
+
+		location_data = null
+		return
+
+	location_data = LocationData.new(
+		body.lat,
+		body.lon,
+	)
+
+	emit_signal("location_changed", location_data)
+
+
 ## Initializes the geo-location provider based on the engine export's specific project
 ## settings.
 func init_provider() -> void:
@@ -112,6 +159,8 @@ func init_provider() -> void:
 	match provider_name:
 		ProviderName.ANDROID_PROVIDER:
 			_on_android_init()
+		ProviderName.GEOIP_PROVIDER:
+			_on_geoip_init()
 		null:
 			print(
 				"'GeoLocation.init_provider': no geo-location provider was specified, skipping",
