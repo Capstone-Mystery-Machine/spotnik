@@ -116,7 +116,6 @@ func _on_geoip_poll() -> void:
 	)
 
 	if response == null:
-		location_data = null
 		return
 
 	var body = response.body
@@ -126,7 +125,6 @@ func _on_geoip_poll() -> void:
 			"bad dispatch to '_on_geoip_poll' (provider returned error %s)" % body.message,
 		)
 
-		location_data = null
 		return
 
 	location_data = LocationData.new(
