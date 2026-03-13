@@ -7,15 +7,19 @@ extends RefCounted
 
 signal location_changed(location_data: LocationData)
 
+## Represents the minimum duration in milliseconds for the geo-location of the
+## end-user to be queried again when via GeoIP HTTP service.
+const GEOIP_UPDATE_DURATION_INTERVAL = 1000 * 60 * 5
+
 ## Represents the minimum distance in meters for the geo-location of the end-user
-## to be queried again.
+## to be queried again when via sensors.
 ## [br]
 ## [b]NOTE:[/b] Not every geo-location provider supports this feature.
-const UPDATE_DISTANCE_INTERVAL = 2.0
+const SENSOR_UPDATE_DISTANCE_INTERVAL = 2.0
 
 ## Represents the minimum duration in milliseconds for the geo-location of the
-## end-user to be queried again.
-const UPDATE_DURATION_INTERVAL = 3000
+## end-user to be queried again when via sensors.
+const SENSOR_UPDATE_DURATION_INTERVAL = 1000 * 3
 
 ## Represents the [GeoLocation] singleton.
 static var instance: GeoLocation = GeoLocation.new()
@@ -69,8 +73,8 @@ func _on_android_init() -> void:
 
 	_provider_instance.onLocationUpdates.connect(_on_android_location_changed)
 
-	_provider_instance.SetMinDistMeters(UPDATE_DISTANCE_INTERVAL)
-	_provider_instance.SetMinTimeMs(UPDATE_DURATION_INTERVAL)
+	_provider_instance.SetMinDistMeters(SENSOR_UPDATE_DISTANCE_INTERVAL)
+	_provider_instance.SetMinTimeMs(SENSOR_UPDATE_DURATION_INTERVAL)
 
 	_provider_instance.StartListening()
 
