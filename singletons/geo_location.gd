@@ -31,10 +31,10 @@ const SENSOR_UPDATE_DURATION_INTERVAL: float = 1000 * 3
 static var instance: GeoLocation = GeoLocation.new()
 
 ## Represents the runtime instance of the loaded geo-location provider.
-var _provider_instance: Variant = null
+static var _provider_instance: Variant = null
 
 ## Represents the most recently retrieved geographical location data.
-var location_data: LocationData = null
+static var location_data: LocationData = null
 
 ## Represents the available geo-location provider engine names.
 ## [br]
@@ -65,7 +65,7 @@ const ProviderName = {
 
 
 ## Initializes the Android-specific geo-location provider and connects its signals.
-func _on_android_init() -> void:
+static func _on_android_init() -> void:
 	_provider_instance = Engine.get_singleton(ProviderName.ANDROID_PROVIDER) as JNISingleton
 
 	if _provider_instance == null:
@@ -87,17 +87,17 @@ func _on_android_init() -> void:
 
 ## Translates the Android geo-location provider's location data into a [LocationData]
 ## object and emits it.
-func _on_android_location_changed(location: Dictionary) -> void:
+static func _on_android_location_changed(location: Dictionary) -> void:
 	location_data = LocationData.new(
 		location.latitude,
 		location.longitude,
 	)
 
-	location_changed.emit(location_data)
+	instance.location_changed.emit(location_data)
 
 
 ## Initializes the GeoIP geo-location provider and connects its signals.
-func _on_geoip_init() -> void:
+static func _on_geoip_init() -> void:
 	var scene_tree = Engine.get_main_loop()
 
 	while true:
@@ -107,7 +107,7 @@ func _on_geoip_init() -> void:
 
 ## Polls GeoIP HTTP service and then translates the provider's location data into
 ## a [LocationData] object and emits it.
-func _on_geoip_poll() -> void:
+static func _on_geoip_poll() -> void:
 	var response = await GlobalScopeX.fetch_json(
 		false,
 		GEOIP_HOST,
@@ -136,12 +136,12 @@ func _on_geoip_poll() -> void:
 		body.lon,
 	)
 
-	location_changed.emit(location_data)
+	instance.location_changed.emit(location_data)
 
 
 ## Initializes the geo-location provider based on the engine export's specific project
 ## settings.
-func init_provider() -> void:
+static func init_provider() -> void:
 	if _provider_instance != null:
 		push_error(
 			"bad dispatch to 'GeoLocation.init_provider' (provider was already loaded)",
