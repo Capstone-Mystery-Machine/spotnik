@@ -64,11 +64,9 @@ static func fetch(
 		client.poll()
 		await scene_tree.process_frame
 
-	var response_headers = client.get_response_headers_as_dictionary()
-
 	if !client.has_response():
 		return {
-			"headers": response_headers,
+			"headers": client.get_response_headers_as_dictionary(),
 			"body": null,
 		}
 
@@ -86,7 +84,7 @@ static func fetch(
 		response_body.append_array(chunk)
 
 	return {
-		"headers": response_headers,
+		"headers": client.get_response_headers_as_dictionary(),
 		"body": response_body,
 	}
 
@@ -135,7 +133,7 @@ static func fetch_utf8_string(
 	if response == null:
 		return null
 
-	var body = response.body as PackedByteArray
+	var body = response.body
 
 	if body == null:
 		push_error(
@@ -144,5 +142,5 @@ static func fetch_utf8_string(
 
 		return null
 
-	response.body = body.get_string_from_utf8()
+	response.body = (body as PackedByteArray).get_string_from_utf8()
 	return response
