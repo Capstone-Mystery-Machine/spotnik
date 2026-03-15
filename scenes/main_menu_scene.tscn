@@ -1,3 +1,64 @@
-[gd_scene format=3 uid="uid://b2l8pntu6erxw"]
+[gd_scene load_steps=2 format=3 uid="uid://b2l8pntu6erxw"]
+
+[ext_resource type="FontFile" uid="uid://dq143kx8xkyhv" path="res://textures/ComicNeue-Bold.ttf" id="1_xhf6x"]
 
 [node name="MainMenuScene" type="Node3D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Node2D"]
+offset_right = 3632.0
+offset_bottom = 3032.0
+color = Color(0, 0.09019608, 0.2784314, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Node2D"]
+offset_right = 3644.0
+offset_bottom = 150.0
+color = Color(0, 0.05398819, 0.19401616, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Node2D"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node2D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -150.0
+offset_right = 90.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="Node2D/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 30
+text = "View Sky"
+
+[node name="Button2" type="Button" parent="Node2D/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Node2D/CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.0
+offset_right = 94.0
+offset_bottom = 150.0
+grow_horizontal = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Node2D/CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_fonts/bold_font = ExtResource("1_xhf6x")
+bbcode_enabled = true
+text = "[font_size=40][center]Welcome to [font_size=42][b]Spotnik"
+fit_content = true
