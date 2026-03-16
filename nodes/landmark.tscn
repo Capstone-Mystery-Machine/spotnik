@@ -8,7 +8,7 @@ radius = 12.0
 
 [node name="Landmark" type="Node3D"]
 script = ExtResource("1_7q80c")
-max_scale = 3.0
+max_scale = 9.0
 spawn_radius = 100.0
 scale_speed = 10.0
 
