@@ -201,7 +201,7 @@ mesh = SubResource("SphereMesh_v7egd")
 
 [node name="StarsLayerFarFieldMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.1464466, -0.8535533, -0.49999994, 0.49999994, 0.49999997, -0.7071067, 0.85355324, -0.14644662, 0.49999994, 0, 0, 0)
-visible = false
+
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
@@ -209,7 +209,7 @@ mesh = SubResource("SphereMesh_peegs")
 
 [node name="StarsLayerNearFieldMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
-visible = false
+
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
@@ -217,7 +217,7 @@ mesh = SubResource("SphereMesh_8km2v")
 
 [node name="StarsLayerFarMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.3711385e-08, 0.7071067, 0.7071067, 0, 0.7071067, -0.7071067, -0.9999999, -3.0908616e-08, -3.0908616e-08, 0, 0, 0)
-visible = false
+
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
@@ -225,7 +225,7 @@ mesh = SubResource("SphereMesh_axuuh")
 
 [node name="StarsLayerMidMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.49999994, -0.49999997, -0.7071067, 0.7071067, 0.70710677, 0, 0.49999994, -0.49999997, 0.7071067, 0, 0, 0)
-visible = false
+
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
@@ -233,14 +233,14 @@ mesh = SubResource("SphereMesh_3am3h")
 
 [node name="StarsLayerNearMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
-visible = false
+
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
 mesh = SubResource("SphereMesh_2berh")
 
 [node name="NebulaeLayerNearMesh" type="MeshInstance3D" parent="."]
-visible = false
+
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
@@ -248,7 +248,7 @@ mesh = SubResource("SphereMesh_ha5gm")
 
 [node name="NebulaeLayerFarMesh" type="MeshInstance3D" parent="NebulaeLayerNearMesh"]
 transform = Transform3D(0.9975641, 0, -0.06975647, 0, 1, 0, 0.06975647, 0, 0.9975641, 0, 0, 0)
-visible = false
+
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
@@ -257,7 +257,7 @@ skeleton = NodePath("../..")
 
 [node name="NebulaeLayerMidMesh" type="MeshInstance3D" parent="NebulaeLayerNearMesh"]
 transform = Transform3D(0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, 0.9975641, 0, 0, 0)
-visible = false
+
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
