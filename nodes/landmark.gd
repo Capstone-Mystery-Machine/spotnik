@@ -42,6 +42,7 @@ func setup(
 
 @onready var detector: Area3D = $CameraPointerDetector
 @onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
+@onready var mesh_node: Node3D = $Mesh
 
 var outer_radius: float
 var inner_radius: float
@@ -57,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	var weight: float = min(scale_speed * delta, 1.0)
 
 	if pointer == null:
-		scale = scale.lerp(Vector3.ONE, weight)
+		mesh_node.scale = mesh_node.scale.lerp(Vector3.ONE, weight)
 		return
 
 	if outer_radius <= inner_radius:
@@ -73,7 +74,7 @@ func _physics_process(delta: float) -> void:
 
 	var target_scale = lerp(1.0, max_scale, t)
 
-	scale = scale.lerp(Vector3.ONE * target_scale, weight)
+	mesh_node.scale = mesh_node.scale.lerp(Vector3.ONE * target_scale, weight)
 
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
