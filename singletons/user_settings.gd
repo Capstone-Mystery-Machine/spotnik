@@ -7,7 +7,7 @@ signal setting_changed(
 		old_value: Variant,
 )
 
-const PATH_CONFIG_FILE: StringName = &"user://user_settings.ini"
+const PATH_USER_SETTINGS_FILE: StringName = &"user://user_settings.ini"
 
 # gdlint-ignore-next-line constant-name
 const Gamma = {
@@ -274,15 +274,15 @@ static func get_tick_rate() -> TickRate:
 
 
 static func has_file() -> bool:
-	return FileAccess.file_exists(PATH_CONFIG_FILE)
+	return FileAccess.file_exists(PATH_USER_SETTINGS_FILE)
 
 
 static func load() -> Error:
-	return _settings.load(PATH_CONFIG_FILE)
+	return _settings.load(PATH_USER_SETTINGS_FILE)
 
 
 static func save() -> Error:
-	return _settings.save(PATH_CONFIG_FILE)
+	return _settings.save(PATH_USER_SETTINGS_FILE)
 
 
 static func set_anisotropic_filtering_quality(value: Viewport.AnisotropicFiltering) -> void:
