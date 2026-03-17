@@ -7,6 +7,8 @@ signal setting_changed(
 		old_value: Variant,
 )
 
+const PATH_CONFIG_FILE: StringName = &"user://user_settings.ini"
+
 # gdlint-ignore-next-line constant-name
 const Gamma = {
 	DEFAULT = 1.0,
@@ -269,6 +271,14 @@ static func get_tick_rate() -> TickRate:
 		SettingName.TICK_RATE,
 		SettingDefaultValue[SettingName.TICK_RATE],
 	)
+
+
+static func load() -> void:
+	_settings.load(PATH_CONFIG_FILE)
+
+
+static func save() -> void:
+	_settings.save(PATH_CONFIG_FILE)
 
 
 static func set_anisotropic_filtering_quality(value: Viewport.AnisotropicFiltering) -> void:
