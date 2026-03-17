@@ -273,6 +273,10 @@ static func get_tick_rate() -> TickRate:
 	)
 
 
+static func has_file() -> bool:
+	return FileAccess.file_exists(PATH_CONFIG_FILE)
+
+
 static func load() -> Error:
 	return _settings.load(PATH_CONFIG_FILE)
 
