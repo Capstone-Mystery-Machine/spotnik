@@ -2,7 +2,7 @@ class_name UserSettings
 extends RefCounted
 
 signal setting_changed(
-		setting_name: Array[StringName],
+		setting_name: Array,
 		new_value: Variant,
 		old_value: Variant,
 )
@@ -36,16 +36,16 @@ const ResolutionScale = {
 
 # gdlint-ignore-next-line constant-name
 const SettingName = {
-	ANISOTROPIC_FILTERING_QUALITY = [&"rendering", &"anisotropic_filtering_quality"],
-	ANTI_ALIASING_QUALITY = [&"rendering", &"anti_aliasing"],
-	BLOOM_ENABLED = [&"rendering", &"bloom_enabled"],
-	MAX_FPS = [&"rendering", &"max_fps"],
-	MESH_QUALITY = [&"rendering", &"mesh_quality"],
-	GAMMA = [&"rendering", &"gamma"],
-	RESOLUTION_SCALE = [&"rendering", &"resolution_scale"],
-	SHADER_QUALITY = [&"rendering", &"shader_quality"],
-	TEXTURE_FILTERING = [&"rendering", &"texture_filtering"],
-	TICK_RATE = [&"physics", &"tick_rate"],
+	ANISOTROPIC_FILTERING_QUALITY = ["rendering", "anisotropic_filtering_quality"],
+	ANTI_ALIASING_QUALITY = ["rendering", "anti_aliasing"],
+	BLOOM_ENABLED = ["rendering", "bloom_enabled"],
+	MAX_FPS = ["rendering", "max_fps"],
+	MESH_QUALITY = ["rendering", "mesh_quality"],
+	GAMMA = ["rendering", "gamma"],
+	RESOLUTION_SCALE = ["rendering", "resolution_scale"],
+	SHADER_QUALITY = ["rendering", "shader_quality"],
+	TEXTURE_FILTERING = ["rendering", "texture_filtering"],
+	TICK_RATE = ["physics", "tick_rate"],
 }
 
 enum ShaderQuality {
@@ -126,7 +126,7 @@ static var _settings: ConfigFile = ConfigFile.new()
 
 
 static func _on_setting_changed(
-		setting_name: Array[StringName],
+		setting_name: Array,
 		new_value: Variant,
 		_old_value: Variant,
 ) -> void:
@@ -145,14 +145,14 @@ static func _on_setting_changed(
 			apply_tick_rate(new_value)
 
 
-static func get_setting(setting_name: Array[StringName], default_value: Variant = null) -> Variant:
+static func get_setting(setting_name: Array, default_value: Variant = null) -> Variant:
 	if _settings.has_section_key(setting_name[0], setting_name[1]):
 		return _settings.get_value(setting_name[0], setting_name[1])
 
 	return default_value
 
 
-static func set_setting(setting_name: Array[StringName], value: Variant) -> void:
+static func set_setting(setting_name: Array, value: Variant) -> void:
 	var old_value = get_setting(setting_name)
 	_settings.set_value(setting_name[0], setting_name[1], value)
 
