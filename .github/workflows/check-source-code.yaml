@@ -2,13 +2,17 @@ name: Check Source Code
 
 on:
   push:
+    branches:
+      - main
   pull_request:
   workflow_call:
 
 env:
   BIN_PATH: "${{ github.workspace }}/tools/bin"
   CHECKSUM_GDSCRIPT_FORMATTER: "77a5a0f3f3317b00ae2817c5f6c7461b8f597faec19e04fdc308191d43f5f2a8"
+  CHECKSUM_GODOT: "02ec53d1cc7dbb9cc6355393c61b9ab43d1244751a124f10248a4802830788cd"
   GDSCRIPT_FORMATTER_VERSION: "0.18.2"
+  GODOT_VERSION: "4.5.1"
 
 jobs:
   install-gdscript-formatter:
@@ -40,8 +44,36 @@ jobs:
         run: |
           chmod +x ${{ env.BIN_PATH }}/gdscript-formatter
 
+  install-godot:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout Repository Actions
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions/download-verify-extract-cache-archive
+
+      - name: Install Godot
+        id: godot-cache
+        uses: ./.github/actions/download-verify-extract-cache-archive
+        with:
+          url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip"
+          checksum: ${{ env.CHECKSUM_GODOT }}
+          archive-type: zip
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}
+
+      - name: Rename Godot Binary
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
+          mv ${{ env.BIN_PATH }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 ${{ env.BIN_PATH }}/godot
+
+      - name: Setup File Permissions
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
+          chmod +x ${{ env.BIN_PATH }}/godot
+
   check:
-    needs: install-gdscript-formatter
+    needs: [install-gdscript-formatter, install-godot]
     runs-on: ubuntu-slim
 
     steps:
@@ -55,6 +87,13 @@ jobs:
           extract-path: ${{ env.BIN_PATH }}
           cache-key-prefix: gdscript-formatter-${{ env.GDSCRIPT_FORMATTER_VERSION }}
 
+      - name: Restore Installed Godot
+        uses: ./.github/actions/restore-cached-archive
+        with:
+          checksum: ${{ env.CHECKSUM_GODOT }}
+          extract-path: ${{ env.BIN_PATH }}
+          cache-key-prefix: godot-${{ env.GODOT_VERSION }}
+
       - name: Add Bin Path to PATH
         run: |
           echo "${{ env.BIN_PATH }}" >> $GITHUB_PATH
@@ -62,6 +101,10 @@ jobs:
       - name: GDScript Formatter Version
         run: |
           gdscript-formatter --version
+
+      - name: Godot Version
+        run: |
+          godot --version
 
       - name: Check GDScript Files
         run: |
@@ -82,11 +125,19 @@ jobs:
 
       - name: Lint GDScript Files
         run: |
-          find . -name "*.gd" -not -path "./addons/*" | while read -r file; do
-            echo "Linting: $file"
+          find . -name "*.gd" -not -path "./addons/*" | xargs gdscript-formatter lint --pretty
 
-            if ! gdscript-formatter lint --pretty "$file"; then
-              echo "::error file=$file::Linting failed on this file."
+      - name: Generate ClassDB
+        run: |
+          godot --headless --editor --quit
+
+      - name: Type Check GDScript Files
+        run: |
+          find . -name "*.gd" -not -path "./addons/*" | while read -r file; do
+            echo "Type checking: $file"
+
+            if ! godot --headless --check-only --script "$file"; then
+              echo "::error file=$file::Type checking failed on this file."
               exit 1
             fi
           done

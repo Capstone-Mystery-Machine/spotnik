@@ -11,24 +11,22 @@ config_version=5
 [application]
 
 config/name="spotnik"
-run/main_scene="uid://b5ou2u38e78kf"
+run/main_scene="uid://bm5pv02d7syn2"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
-
-[autoload]
-
-SignalBus="*res://scenes/SignalBus.gd"
 
 [display]
 
 window/size/viewport_width=360
 window/size/viewport_height=800
 window/subwindows/embed_subwindows=false
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg")
+enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg", "res://addons/PraxisMapperGPSPlugin/plugin.cfg")
 
 [input]
 
@@ -48,3 +46,8 @@ sensors/enable_magnetometer=true
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
+
+[spotnik]
+
+geo_location/provider_name.android=&"PraxisMapperGPSPlugin"
+geo_location/provider_name=&"ip-api.com"

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://df1r2r56qsixo"]
+
+[ext_resource type="Script" uid="uid://7cmm3t3cc3hy" path="res://nodes/landmark.gd" id="1_7q80c"]
+[ext_resource type="Script" uid="uid://cgv2aqh7ujavp" path="res://nodes/pointer_detector.gd" id="1_hek36"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cn1jf"]
+radius = 12.0
+
+[node name="Landmark" type="Node3D"]
+script = ExtResource("1_7q80c")
+max_scale = 9.0
+spawn_radius = 100.0
+scale_speed = 10.0
+
+[node name="Mesh" type="CSGBox3D" parent="."]
+
+[node name="CameraPointerDetector" type="Area3D" parent="."]
+script = ExtResource("1_hek36")
+inner_radius = 4.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraPointerDetector"]
+shape = SubResource("SphereShape3D_cn1jf")
+
+[connection signal="body_entered" from="CameraPointerDetector" to="CameraPointerDetector" method="_on_body_entered"]
+[connection signal="body_exited" from="CameraPointerDetector" to="CameraPointerDetector" method="_on_body_exited"]
+[connection signal="inner_entered" from="CameraPointerDetector" to="." method="_on_camera_pointer_detector_inner_entered"]
+[connection signal="inner_exited" from="CameraPointerDetector" to="." method="_on_camera_pointer_detector_inner_exited"]
+[connection signal="outer_entered" from="CameraPointerDetector" to="." method="_on_camera_pointer_detector_outer_entered"]
+[connection signal="outer_exited" from="CameraPointerDetector" to="." method="_on_camera_pointer_detector_outer_exited"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3c1tcyumuxs2"]
+
+[ext_resource type="Script" uid="uid://ilbo4uhipx65" path="res://nodes/satellite_manager.gd" id="1_ithk4"]
+
+[node name="SatelliteManager" type="Node3D"]
+script = ExtResource("1_ithk4")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
