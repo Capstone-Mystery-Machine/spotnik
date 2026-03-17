@@ -72,6 +72,50 @@ const SettingDefaultValue = {
 	Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST,
 	SettingName.TICK_RATE: TickRate.LOW,
 }
+
+enum QualityProfile {
+	LOW,
+	MEDIUM,
+	HIGH,
+}
+
+const QualityProfileSettings = {
+	QualityProfile.LOW: {
+		SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_DISABLED,
+		SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_DISABLED,
+		SettingName.BLOOM_ENABLED: false,
+		SettingName.MAX_FPS: MaxFPS.LOW,
+		SettingName.MESH_QUALITY: MeshQuality.LOW,
+		SettingName.RESOLUTION_SCALE: ResolutionScale.LOW,
+		SettingName.SHADER_QUALITY: ShaderQuality.LOW,
+		SettingName.TEXTURE_FILTERING: \
+		Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST,
+		SettingName.TICK_RATE: TickRate.LOW,
+	},
+	QualityProfile.MEDIUM: {
+		SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_4X,
+		SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_4X,
+		SettingName.BLOOM_ENABLED: true,
+		SettingName.MAX_FPS: MaxFPS.HIGH,
+		SettingName.MESH_QUALITY: MeshQuality.MEDIUM,
+		SettingName.RESOLUTION_SCALE: ResolutionScale.MEDIUM,
+		SettingName.SHADER_QUALITY: ShaderQuality.MEDIUM,
+		SettingName.TEXTURE_FILTERING: \
+		Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR,
+		SettingName.TICK_RATE: TickRate.MEDIUM,
+	},
+	QualityProfile.HIGH: {
+		SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_16X,
+		SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_8X,
+		SettingName.BLOOM_ENABLED: true,
+		SettingName.MAX_FPS: MaxFPS.HIGH,
+		SettingName.MESH_QUALITY: MeshQuality.HIGH,
+		SettingName.RESOLUTION_SCALE: ResolutionScale.HIGH,
+		SettingName.SHADER_QUALITY: ShaderQuality.HIGH,
+		SettingName.TEXTURE_FILTERING: \
+		Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS,
+		SettingName.TICK_RATE: TickRate.HIGH,
+	},
 }
 
 static var instance: UserSettings = UserSettings.new()
@@ -113,6 +157,15 @@ static func set_setting(setting_name: StringName, value: Variant) -> void:
 
 	_on_setting_changed(setting_name, value, old_value)
 	instance.setting_changed.emit(setting_name, value, old_value)
+
+
+static func apply_all() -> void:
+	apply_anisotropic_filtering_quality()
+	apply_anti_aliasing_quality()
+	apply_max_fps()
+	apply_resolution_scale()
+	apply_texture_filtering()
+	apply_tick_rate()
 
 
 static func apply_anisotropic_filtering_quality(value: Variant = null) -> void:
@@ -179,6 +232,25 @@ static func get_max_fps() -> int:
 	)
 
 
+static func get_quality_profile() -> Variant:
+	for quality_profile in QualityProfile.values():
+		var profile_settings = QualityProfileSettings[quality_profile]
+		var is_profile = true
+
+		for setting_name in profile_settings:
+			var profile_value = profile_settings[setting_name]
+			var stored_value = get_setting(setting_name, SettingDefaultValue[setting_name])
+
+			if stored_value != profile_value:
+				is_profile = false
+				break
+
+		if is_profile:
+			return quality_profile
+
+	return null
+
+
 static func get_resolution_scale() -> float:
 	return get_setting(
 		SettingName.RESOLUTION_SCALE,
@@ -210,6 +282,15 @@ static func set_anti_aliasing_quality(value: Viewport.MSAA) -> void:
 
 static func set_max_fps(value: int) -> void:
 	set_setting(SettingName.MAX_FPS, value)
+
+
+static func set_quality_profile(quality_profile: QualityProfile) -> void:
+	var profile_settings = QualityProfileSettings[quality_profile]
+
+	for setting_name in profile_settings:
+		var profile_value = profile_settings[setting_name]
+
+		set_setting(setting_name, profile_value)
 
 
 static func set_resolution_scale(value: float) -> void:
