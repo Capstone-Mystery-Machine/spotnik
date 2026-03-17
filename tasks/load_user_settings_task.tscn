@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://blns7punl1pgv"]
+
+[ext_resource type="Script" uid="uid://dgpot7o631yt1" path="res://tasks/load_user_settings_task.gd" id="1_mtgkw"]
+
+[node name="LoadUserSettingsTask" type="Node"]
+script = ExtResource("1_mtgkw")
