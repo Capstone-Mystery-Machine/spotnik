@@ -273,12 +273,12 @@ static func get_tick_rate() -> TickRate:
 	)
 
 
-static func load() -> void:
-	_settings.load(PATH_CONFIG_FILE)
+static func load() -> Error:
+	return _settings.load(PATH_CONFIG_FILE)
 
 
-static func save() -> void:
-	_settings.save(PATH_CONFIG_FILE)
+static func save() -> Error:
+	return _settings.save(PATH_CONFIG_FILE)
 
 
 static func set_anisotropic_filtering_quality(value: Viewport.AnisotropicFiltering) -> void:
