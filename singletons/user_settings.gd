@@ -160,7 +160,7 @@ static func set_setting(setting_name: Array[StringName], value: Variant) -> void
 	instance.setting_changed.emit(setting_name, value, old_value)
 
 
-static func apply_all() -> void:
+static func apply_global_settings() -> void:
 	apply_anisotropic_filtering_quality()
 	apply_anti_aliasing_quality()
 	apply_max_fps()

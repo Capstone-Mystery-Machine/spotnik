@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqep2ks1g2a1i"]
+
+[ext_resource type="Script" uid="uid://bgo3p5k0e3u6c" path="res://tasks/apply_global_user_settings_task.gd" id="1_try87"]
+
+[node name="ApplyGlobalUserSettingsTask" type="Node"]
+script = ExtResource("1_try87")
