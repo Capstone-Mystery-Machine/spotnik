@@ -60,17 +60,18 @@ enum TickRate {
 
 # gdlint-ignore-next-line constant-name
 const SettingDefaultValue = {
-	SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_16X,
+	SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_DISABLED,
 	SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_8X,
-	SettingName.BLOOM_ENABLED: true,
+	SettingName.BLOOM_ENABLED: false,
 	SettingName.MAX_FPS: MaxFPS.LOW,
-	SettingName.MESH_QUALITY: MeshQuality.HIGH,
+	SettingName.MESH_QUALITY: MeshQuality.LOW,
 	SettingName.GAMMA: 1.0,
-	SettingName.RESOLUTION_SCALE: ResolutionScale.HIGH,
-	SettingName.SHADER_QUALITY: ShaderQuality.HIGH,
+	SettingName.RESOLUTION_SCALE: ResolutionScale.LOW,
+	SettingName.SHADER_QUALITY: ShaderQuality.LOW,
 	SettingName.TEXTURE_FILTERING: \
-	Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS,
-	SettingName.TICK_RATE: TickRate.HIGH,
+	Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST,
+	SettingName.TICK_RATE: TickRate.LOW,
+}
 }
 
 static var instance: UserSettings = UserSettings.new()
