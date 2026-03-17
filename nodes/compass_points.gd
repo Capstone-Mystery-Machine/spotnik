@@ -15,9 +15,9 @@ func _ready() -> void:
 
 #not in use due to hardcoding being more reliable and accurate
 func load_gyro_data() -> Dictionary:
-	var basis1 = InputX.get_geocentric_basis()
-	var east = basis1.x
-	var south = basis1.z
+	var geocentric_basis = InputX.get_geocentric_basis()
+	var east = geocentric_basis.x
+	var south = geocentric_basis.z
 	var west = -east
 	var north = -south
 	var cardinals = { "East": east, "South": south, "West": west, "North": north }
