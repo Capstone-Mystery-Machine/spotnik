@@ -36,6 +36,7 @@ enum InputMode {
 	## [br]
 	## [b]Enablement Criterion:[/b] The end-user is using a desktop platform.
 	INPUT_MOUSE,
+
 	## Spotnik is configured to be in gyro input mode.
 	## [br]
 	## [br]
@@ -48,6 +49,7 @@ enum InputMode {
 	## [code]input_devices/sensors/enable_magnetometer[/code] project settings
 	## were enabled at export-time.
 	INPUT_GYRO,
+
 	## Spotnik is configured to be in touch input mode.
 	## [br]
 	## [br]
