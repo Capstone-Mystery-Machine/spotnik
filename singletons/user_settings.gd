@@ -262,46 +262,31 @@ static func apply_global_settings() -> void:
 
 
 static func apply_anisotropic_filtering_quality(value: Variant = null) -> void:
-	if value == null:
-		value = anisotropic_filtering_quality
-
-	(Engine.get_main_loop() as SceneTree).root.anisotropic_filtering_level = value
+	(Engine.get_main_loop() as SceneTree) \
+	.root.anisotropic_filtering_level = anisotropic_filtering_quality if value == null else value
 
 
 static func apply_anti_aliasing_quality(value: Variant = null) -> void:
-	if value == null:
-		value = anti_aliasing_quality
-
-	(Engine.get_main_loop() as SceneTree).root.msaa_3d = value
+	(Engine.get_main_loop() as SceneTree) \
+	.root.msaa_3d = anti_aliasing_quality if value == null else value
 
 
 static func apply_max_fps(value: Variant = null) -> void:
-	if value == null:
-		value = max_fps
-
-	Engine.max_fps = value
+	Engine.max_fps = max_fps if value == null else value
 
 
 static func apply_resolution_scale(value: Variant = null) -> void:
-	if value == null:
-		value = resolution_scale
-
-	(Engine.get_main_loop() as SceneTree).root.scaling_3d_scale = value
+	(Engine.get_main_loop() as SceneTree) \
+	.root.scaling_3d_scale = resolution_scale if value == null else value
 
 
 static func apply_texture_filtering(value: Variant = null) -> void:
-	if value == null:
-		value = texture_filtering
-
 	(Engine.get_main_loop() as SceneTree) \
-	.root.canvas_item_default_texture_filter = value
+	.root.canvas_item_default_texture_filter = texture_filtering if value == null else value
 
 
 static func apply_tick_rate(value: Variant = null) -> void:
-	if value == null:
-		value = tick_rate
-
-	Engine.physics_ticks_per_second = value
+	Engine.physics_ticks_per_second = tick_rate if value == null else value
 
 
 static func has_file() -> bool:
