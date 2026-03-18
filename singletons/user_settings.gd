@@ -129,6 +129,15 @@ static var anti_aliasing_quality: Viewport.MSAA:
 	set(value):
 		set_setting(SettingName.ANTI_ALIASING_QUALITY, value)
 
+static var bloom_enabled: bool:
+	get:
+		return get_setting(
+			SettingName.BLOOM_ENABLED,
+			SettingDefaultValue[SettingName.BLOOM_ENABLED],
+		)
+	set(value):
+		set_setting(SettingName.BLOOM_ENABLED, value)
+
 static var input_mode: InputX.InputMode:
 	get:
 		return get_setting(
