@@ -52,15 +52,32 @@ enum InputMode {
 
 ## Represents which member of [enum InputMode] was evaluated at boot-time as
 ## being enabled.
-static var input_mode: InputMode = _get_input_mode()
+static var platform_input_mode: InputMode = _get_platform_input_mode()
+
+## Represents which member of [enum InputMode] was selected by the end-user.
+## [br]
+## Returns [code]null[/code] if no configuration is available.
+static var preferred_input_mode: InputMode:
+	get:
+		return UserSettings.get_input_mode()
+
+## Represents which member of [enum InputMode] was selected by the end-user,
+## if available. If not, then the platform
+static var input_mode: InputMode:
+	get:
+		if preferred_input_mode != null:
+			return preferred_input_mode
+
+		return platform_input_mode
 
 
 ## Returns which member of [enum InputMode] is currently enabled. The default is
 ## [constant InputMode.INPUT_MOUSE].
-static func _get_input_mode() -> InputMode:
-	if _is_gyro_input_mode():
+static func _get_platform_input_mode() -> InputMode:
+	if _is_platform_gyro_input_mode():
 		return InputMode.INPUT_GYRO
-	if _is_touch_input_mode():
+
+	if _is_platform_touch_input_mode():
 		return InputMode.INPUT_TOUCH
 
 	return InputMode.INPUT_MOUSE
@@ -68,7 +85,7 @@ static func _get_input_mode() -> InputMode:
 
 ## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_GYRO]
 ## is currently valid.
-static func _is_gyro_input_mode() -> bool:
+static func _is_platform_gyro_input_mode() -> bool:
 	return (OS.has_feature("mobile")
 		and ProjectSettings.get_setting("input_devices/sensors/enable_gravity")
 		and ProjectSettings.get_setting("input_devices/sensors/enable_magnetometer") )
@@ -76,13 +93,13 @@ static func _is_gyro_input_mode() -> bool:
 
 ## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_MOUSE]
 ## is currently valid.
-static func _is_mouse_input_mode() -> bool:
+static func _is_platform_mouse_input_mode() -> bool:
 	return !OS.has_feature("mobile")
 
 
 ## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_TOUCH]
 ## is currently valid.
-static func _is_touch_input_mode() -> bool:
+static func _is_platform_touch_input_mode() -> bool:
 	return (OS.has_feature("mobile")
 		and (
 			!ProjectSettings.get_setting("input_devices/sensors/enable_gravity")

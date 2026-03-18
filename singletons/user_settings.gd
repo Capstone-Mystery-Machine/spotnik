@@ -39,6 +39,7 @@ const SettingName = {
 	ANISOTROPIC_FILTERING_QUALITY = ["rendering", "anisotropic_filtering_quality"],
 	ANTI_ALIASING_QUALITY = ["rendering", "anti_aliasing"],
 	BLOOM_ENABLED = ["rendering", "bloom_enabled"],
+	INPUT_MODE = ["input", "input_mode"],
 	MAX_FPS = ["rendering", "max_fps"],
 	MESH_QUALITY = ["rendering", "mesh_quality"],
 	GAMMA = ["rendering", "gamma"],
@@ -65,6 +66,7 @@ const SettingDefaultValue = {
 	SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_DISABLED,
 	SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_8X,
 	SettingName.BLOOM_ENABLED: false,
+	SettingName.INPUT_MODE: null,
 	SettingName.MAX_FPS: MaxFPS.LOW,
 	SettingName.MESH_QUALITY: MeshQuality.LOW,
 	SettingName.GAMMA: 1.0,
@@ -226,6 +228,13 @@ static func get_anti_aliasing_quality() -> Viewport.MSAA:
 	)
 
 
+static func get_input_mode() -> InputX.InputMode:
+	return get_setting(
+		SettingName.INPUT_MODE,
+		SettingDefaultValue[SettingName.INPUT_MODE],
+	)
+
+
 static func get_max_fps() -> int:
 	return get_setting(
 		SettingName.MAX_FPS,
@@ -291,6 +300,10 @@ static func set_anisotropic_filtering_quality(value: Viewport.AnisotropicFilteri
 
 static func set_anti_aliasing_quality(value: Viewport.MSAA) -> void:
 	set_setting(SettingName.ANTI_ALIASING_QUALITY, value)
+
+
+static func set_input_mode(value: InputX.InputMode) -> void:
+	set_setting(SettingName.INPUT_MODE, value)
 
 
 static func set_max_fps(value: int) -> void:
