@@ -1,19 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bm5pv02d7syn2"]
+[gd_scene load_steps=5 format=3 uid="uid://bm5pv02d7syn2"]
 
 [ext_resource type="PackedScene" uid="uid://b828rwhfwoini" path="res://nodes/task_manager.tscn" id="1_q28w8"]
 [ext_resource type="PackedScene" uid="uid://wlhvj7mlb8m7" path="res://tasks/permission_task.tscn" id="2_5utoa"]
-[ext_resource type="PackedScene" uid="uid://blns7punl1pgv" path="res://tasks/load_user_settings_task.tscn" id="2_x4i8r"]
 [ext_resource type="PackedScene" uid="uid://bkg2elg1a5g8u" path="res://tasks/transition_task.tscn" id="3_5utoa"]
-[ext_resource type="PackedScene" uid="uid://bqep2ks1g2a1i" path="res://tasks/apply_global_user_settings_task.tscn" id="3_dxrjn"]
 [ext_resource type="PackedScene" uid="uid://cwrjkfn4ixiel" path="res://tasks/geo_location_task.tscn" id="3_pr7r5"]
 
 [node name="BootstrapScene" type="Node2D"]
 
 [node name="TaskManager" parent="." instance=ExtResource("1_q28w8")]
-
-[node name="LoadUserSettingsTask" parent="TaskManager" instance=ExtResource("2_x4i8r")]
-
-[node name="ApplyGlobalUserSettingsTask" parent="TaskManager" instance=ExtResource("3_dxrjn")]
 
 [node name="PermissionTask" parent="TaskManager" instance=ExtResource("2_5utoa")]
 
