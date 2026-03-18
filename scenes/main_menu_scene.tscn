@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2l8pntu6erxw"]
+[gd_scene load_steps=3 format=3 uid="uid://b2l8pntu6erxw"]
 
 [ext_resource type="FontFile" uid="uid://dq143kx8xkyhv" path="res://textures/ComicNeue-Bold.ttf" id="1_xhf6x"]
+[ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="2_vfskp"]
 
 [node name="MainMenuScene" type="Node3D"]
 
@@ -62,3 +63,5 @@ theme_override_fonts/bold_font = ExtResource("1_xhf6x")
 bbcode_enabled = true
 text = "[font_size=40][center]Welcome to [font_size=42][b]Spotnik"
 fit_content = true
+
+[node name="GlobalShaders" parent="." instance=ExtResource("2_vfskp")]

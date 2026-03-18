@@ -1,16 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://vugrltu8ff0i"]
+[gd_scene load_steps=25 format=3 uid="uid://vugrltu8ff0i"]
 
 [ext_resource type="Script" uid="uid://dwe7gnr6j5yrh" path="res://nodes/skybox.gd" id="1_wkasw"]
 [ext_resource type="Shader" uid="uid://cr6fcjle7lg53" path="res://shaders/point_star.gdshader" id="2_wkasw"]
 [ext_resource type="Shader" uid="uid://b3485rvpg1yev" path="res://shaders/nebulae.gdshader" id="3_8u7e8"]
-
-[sub_resource type="Environment" id="Environment_tpkrh"]
-tonemap_mode = 3
-tonemap_exposure = 0.65
-glow_enabled = true
-glow_bloom = 0.2
-glow_hdr_threshold = 0.75
-glow_hdr_scale = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bbgff"]
 resource_local_to_scene = true
@@ -189,9 +181,6 @@ flip_faces = true
 
 [node name="Skybox" type="Node3D"]
 script = ExtResource("1_wkasw")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_tpkrh")
 
 [node name="VoidLayerMesh" type="MeshInstance3D" parent="."]
 cast_shadow = 0

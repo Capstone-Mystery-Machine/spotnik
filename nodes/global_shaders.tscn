@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwfrqls3etryg"]
+
+[ext_resource type="PackedScene" uid="uid://n707vs7mkqtm" path="res://shaders/gamma.tscn" id="1_kofep"]
+[ext_resource type="Shader" uid="uid://dp5eb0qx4asbr" path="res://shaders/gamma.gdshader" id="2_06u6c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1x5yx"]
+resource_local_to_scene = true
+shader = ExtResource("2_06u6c")
+shader_parameter/inverse_gamma = 1.0
+
+[node name="GlobalShaders" type="CanvasLayer"]
+
+[node name="GammaShader" parent="." instance=ExtResource("1_kofep")]
+material = SubResource("ShaderMaterial_1x5yx")
+offset_right = 0.0
+offset_bottom = 0.0

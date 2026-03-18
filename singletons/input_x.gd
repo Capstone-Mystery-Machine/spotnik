@@ -5,6 +5,8 @@ extends RefCounted
 ## The [b]InputX[/b] singleton handles the selection of which input mode Spotnik
 ## is currently running in.
 
+signal input_mode_changed(input_mode: InputMode)
+
 ## Represents the input modes that defines how the end-user interacts with
 ## Spotnik.
 ## [br]
@@ -15,6 +17,16 @@ extends RefCounted
 ## [br]
 ## • Has its own criteria for enablement.
 enum InputMode {
+	## Spotnik is configured with no input mode.
+	## [br]
+	## [br]
+	## [b]3D Environment Controls:[/b] None.
+	## [br]
+	## [b]UI Controls:[/b] None.
+	## [br]
+	## [b]Enablement Criterion:[/b] No user settings or platform configuration found.
+	INPUT_NONE,
+
 	## Spotnik is configured to be in mouse input mode.
 	## [br]
 	## [br]
@@ -24,6 +36,7 @@ enum InputMode {
 	## [br]
 	## [b]Enablement Criterion:[/b] The end-user is using a desktop platform.
 	INPUT_MOUSE,
+
 	## Spotnik is configured to be in gyro input mode.
 	## [br]
 	## [br]
@@ -36,6 +49,7 @@ enum InputMode {
 	## [code]input_devices/sensors/enable_magnetometer[/code] project settings
 	## were enabled at export-time.
 	INPUT_GYRO,
+
 	## Spotnik is configured to be in touch input mode.
 	## [br]
 	## [br]
@@ -50,17 +64,45 @@ enum InputMode {
 	INPUT_TOUCH,
 }
 
+## Represents the internally cached [InputX] singleton.
+static var _instance: InputX
+
+## Represents the [InputX] singleton.
+static var instance: InputX:
+	get:
+		if _instance == null:
+			_instance = InputX.new()
+
+		return _instance
+
 ## Represents which member of [enum InputMode] was evaluated at boot-time as
 ## being enabled.
-static var input_mode: InputMode = _get_input_mode()
+static var platform_input_mode: InputMode = _get_platform_input_mode()
+
+## Represents which member of [enum InputMode] was selected by the end-user.
+## [br]
+## Returns [code]null[/code] if no configuration is available.
+static var preferred_input_mode: InputMode:
+	get:
+		return UserSettings.input_mode
+
+## Represents which member of [enum InputMode] was selected by the end-user,
+## if available. If not, then the platform
+static var input_mode: InputMode:
+	get:
+		if preferred_input_mode != InputMode.INPUT_NONE:
+			return preferred_input_mode
+
+		return platform_input_mode
 
 
 ## Returns which member of [enum InputMode] is currently enabled. The default is
 ## [constant InputMode.INPUT_MOUSE].
-static func _get_input_mode() -> InputMode:
-	if _is_gyro_input_mode():
+static func _get_platform_input_mode() -> InputMode:
+	if _is_platform_gyro_input_mode():
 		return InputMode.INPUT_GYRO
-	if _is_touch_input_mode():
+
+	if _is_platform_touch_input_mode():
 		return InputMode.INPUT_TOUCH
 
 	return InputMode.INPUT_MOUSE
@@ -68,7 +110,7 @@ static func _get_input_mode() -> InputMode:
 
 ## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_GYRO]
 ## is currently valid.
-static func _is_gyro_input_mode() -> bool:
+static func _is_platform_gyro_input_mode() -> bool:
 	return (OS.has_feature("mobile")
 		and ProjectSettings.get_setting("input_devices/sensors/enable_gravity")
 		and ProjectSettings.get_setting("input_devices/sensors/enable_magnetometer") )
@@ -76,13 +118,13 @@ static func _is_gyro_input_mode() -> bool:
 
 ## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_MOUSE]
 ## is currently valid.
-static func _is_mouse_input_mode() -> bool:
+static func _is_platform_mouse_input_mode() -> bool:
 	return !OS.has_feature("mobile")
 
 
 ## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_TOUCH]
 ## is currently valid.
-static func _is_touch_input_mode() -> bool:
+static func _is_platform_touch_input_mode() -> bool:
 	return (OS.has_feature("mobile")
 		and (
 			!ProjectSettings.get_setting("input_devices/sensors/enable_gravity")
@@ -141,3 +183,18 @@ static func get_gravitational_down() -> Vector3:
 	var gravitational_force = Input.get_gravity()
 
 	return gravitational_force.normalized()
+
+
+func _on_user_setting_changed(
+		setting_name: Array,
+		new_value: InputMode,
+		_old_value: InputMode,
+) -> void:
+	if setting_name != UserSettings.SettingName.INPUT_MODE:
+		return
+
+	instance.input_mode_changed.emit(setting_name, new_value)
+
+
+func _init() -> void:
+	UserSettings.instance.setting_changed.connect(_on_user_setting_changed)
