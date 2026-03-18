@@ -1,4 +1,4 @@
-extends Node
+extends InputController
 ## Input controller that targets a [Node3D].
 ##
 ## The input controller modifies a target [Node3D]'s [member Node3D.transform]
@@ -36,12 +36,8 @@ extends Node
 
 ## Enables the input controller if [constant InputX.input_mode] is set to
 ## [constant InputX.InputMode.INPUT_GYRO].
-func _ready() -> void:
-	match InputX.input_mode:
-		InputX.InputMode.INPUT_GYRO:
-			process_mode = Node.PROCESS_MODE_INHERIT
-		_:
-			process_mode = Node.PROCESS_MODE_DISABLED
+func _is_enabled(input_mode: InputX.InputMode) -> bool:
+	return input_mode == InputX.InputMode.INPUT_GYRO
 
 
 ## Runs every engine tick reading the accelerometer and magnetometer sensor data

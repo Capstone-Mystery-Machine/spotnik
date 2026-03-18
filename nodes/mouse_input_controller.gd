@@ -53,12 +53,8 @@ var _pitch_min: float:
 
 ## Enables the input controller if [constant InputX.input_mode] is set to
 ## [constant InputX.InputMode.INPUT_MOUSE].
-func _ready() -> void:
-	match InputX.input_mode:
-		InputX.InputMode.INPUT_MOUSE:
-			process_mode = Node.PROCESS_MODE_INHERIT
-		_:
-			process_mode = Node.PROCESS_MODE_DISABLED
+func _is_enabled(input_mode: InputX.InputMode) -> bool:
+	return input_mode == InputX.InputMode.INPUT_MOUSE
 
 
 ## Handles unhandled mouse input by translating screen pixel movement deltas
