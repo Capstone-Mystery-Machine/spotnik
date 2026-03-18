@@ -138,6 +138,15 @@ static var input_mode: InputX.InputMode:
 	set(value):
 		set_setting(SettingName.INPUT_MODE, value)
 
+static var gamma: float:
+	get:
+		return get_setting(
+			SettingName.GAMMA,
+			SettingDefaultValue[SettingName.GAMMA],
+		)
+	set(value):
+		set_setting(SettingName.GAMMA, value)
+
 static var max_fps: int:
 	get:
 		return get_setting(
