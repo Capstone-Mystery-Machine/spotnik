@@ -65,6 +65,7 @@ enum QualityProfile {
 }
 
 ## Represents the mapping of [enum QualityProfile] to specific setting values.
+# gdlint-ignore-next-line constant-name
 const QualityProfileSettings = {
 	QualityProfile.LOW: {
 		SettingName.ANISOTROPIC_FILTERING_QUALITY: \
@@ -103,6 +104,7 @@ const QualityProfileSettings = {
 }
 
 ## Represents the default fallback values for each user setting.
+# gdlint-ignore-next-line variable-name
 static var SettingDefaultValue = {
 	SettingName.GAMMA: Gamma.DEFAULT,
 	SettingName.INPUT_MODE: InputX.InputMode.INPUT_NONE,
