@@ -5,6 +5,8 @@ extends RefCounted
 ## The [b]InputX[/b] singleton handles the selection of which input mode Spotnik
 ## is currently running in.
 
+signal input_mode_changed(input_mode: InputMode)
+
 ## Represents the input modes that defines how the end-user interacts with
 ## Spotnik.
 ## [br]
@@ -49,6 +51,9 @@ enum InputMode {
 	## were not enabled at export-time.
 	INPUT_TOUCH,
 }
+
+## Represents the [InputX] singleton.
+static var instance: InputX = InputX.new()
 
 ## Represents which member of [enum InputMode] was evaluated at boot-time as
 ## being enabled.
@@ -158,3 +163,18 @@ static func get_gravitational_down() -> Vector3:
 	var gravitational_force = Input.get_gravity()
 
 	return gravitational_force.normalized()
+
+
+func _on_user_setting_changed(
+		setting_name: Array,
+		new_value: Variant,
+		_old_value: Variant,
+) -> void:
+	if setting_name != UserSettings.SettingName.INPUT_MODE:
+		return
+
+	instance.input_mode_changed.emit(setting_name, new_value)
+
+
+func _init() -> void:
+	UserSettings.instance.setting_changed.connect(_on_user_setting_changed)
