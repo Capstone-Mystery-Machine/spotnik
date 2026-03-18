@@ -54,7 +54,7 @@ const SettingDefaultValue = {
 	SettingName.BLOOM_ENABLED: false,
 	SettingName.INPUT_MODE: null,
 	SettingName.MAX_FPS: MaxFPS.LOW,
-	SettingName.GAMMA: 1.0,
+	SettingName.GAMMA: Gamma.DEFAULT,
 	SettingName.RESOLUTION_SCALE: ResolutionScale.LOW,
 	SettingName.TEXTURE_FILTERING: \
 	Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST,
