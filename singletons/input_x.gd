@@ -52,8 +52,16 @@ enum InputMode {
 	INPUT_TOUCH,
 }
 
+## Represents the internally cached [InputX] singleton.
+static var _instance: InputX
+
 ## Represents the [InputX] singleton.
-static var instance: InputX = InputX.new()
+static var instance: InputX:
+	get:
+		if _instance == null:
+			_instance = InputX.new()
+
+		return _instance
 
 ## Represents which member of [enum InputMode] was evaluated at boot-time as
 ## being enabled.

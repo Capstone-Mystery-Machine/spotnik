@@ -27,8 +27,16 @@ const SENSOR_UPDATE_DISTANCE_INTERVAL: float = 2.0
 ## end-user to be queried again when via sensors.
 const SENSOR_UPDATE_DURATION_INTERVAL: float = 1000 * 3
 
+## Represents the internally cached [GeoLocation] singleton
+static var _instance: GeoLocation
+
 ## Represents the [GeoLocation] singleton.
-static var instance: GeoLocation = GeoLocation.new()
+static var instance: GeoLocation:
+	get:
+		if _instance == null:
+			_instance = GeoLocation.new()
+
+		return _instance
 
 ## Represents the runtime instance of the loaded geo-location provider.
 static var _provider_instance: Variant = null

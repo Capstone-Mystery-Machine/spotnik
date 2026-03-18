@@ -100,7 +100,14 @@ const QualityProfileSettings = {
 	},
 }
 
-static var instance: UserSettings = UserSettings.new()
+static var _instance: UserSettings
+
+static var instance: UserSettings:
+	get:
+		if _instance == null:
+			_instance = UserSettings.new()
+
+		return _instance
 
 static var _settings: ConfigFile = ConfigFile.new()
 
