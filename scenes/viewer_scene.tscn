@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5ou2u38e78kf"]
+[gd_scene load_steps=9 format=3 uid="uid://b5ou2u38e78kf"]
 
+[ext_resource type="PackedScene" uid="uid://c4d4b5ugrpijg" path="res://nodes/space_environment.tscn" id="1_b8h5p"]
 [ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://nodes/skybox.tscn" id="2_3kcgk"]
 [ext_resource type="Resource" uid="uid://bsv1omabacd4u" path="res://skyboxes/skybox_a.tres" id="3_y4cjq"]
 [ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://nodes/satel_info_ui.tscn" id="4_4xf28"]
@@ -9,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://nodes/landmark.tscn" id="7_ukp7y"]
 
 [node name="ViewerScene" type="Node3D"]
+
+[node name="SpaceEnvironment" parent="." instance=ExtResource("1_b8h5p")]
 
 [node name="Skybox" parent="." instance=ExtResource("2_3kcgk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043747425, 0, 3.0517578e-05)
