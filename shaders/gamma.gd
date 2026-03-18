@@ -12,7 +12,7 @@ func _update_gamma(value: float) -> void:
 		(material as ShaderMaterial).set_shader_parameter("inverse_gamma", inverse_gamma)
 
 
-func _on_setting_changed(
+func _on_user_setting_changed(
 		setting_name: Array,
 		new_value: float,
 		_old_value: float,
@@ -22,5 +22,5 @@ func _on_setting_changed(
 
 
 func _ready() -> void:
-	UserSettings.instance.setting_changed.connect(_on_setting_changed)
+	UserSettings.instance.setting_changed.connect(_on_user_setting_changed)
 	_update_gamma(UserSettings.gamma)
