@@ -14,8 +14,8 @@ func _update_gamma(value: float) -> void:
 
 func _on_setting_changed(
 		setting_name: Array,
-		new_value: Variant,
-		_old_value: Variant,
+		new_value: float,
+		_old_value: float,
 ) -> void:
 	if setting_name == UserSettings.SettingName.GAMMA:
 		_update_gamma(new_value)

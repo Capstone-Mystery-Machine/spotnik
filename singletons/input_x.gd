@@ -185,8 +185,8 @@ static func get_gravitational_down() -> Vector3:
 
 func _on_user_setting_changed(
 		setting_name: Array,
-		new_value: Variant,
-		_old_value: Variant,
+		new_value: InputMode,
+		_old_value: InputMode,
 ) -> void:
 	if setting_name != UserSettings.SettingName.INPUT_MODE:
 		return
