@@ -239,7 +239,7 @@ static func get_setting(setting_name: Array, default_value: Variant = null) -> V
 
 
 static func set_setting(setting_name: Array, value: Variant) -> void:
-	var old_value = get_setting(setting_name)
+	var old_value = get_setting(setting_name, SettingDefaultValue[setting_name])
 	_settings.set_value(setting_name[0], setting_name[1], value)
 
 	_on_setting_changed(setting_name, value, old_value)
