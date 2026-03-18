@@ -18,7 +18,7 @@ func _ready() -> void:
 	inner_radius_sq = inner_radius * inner_radius
 
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var center := global_position
 
 	for body in outer_bodies:
