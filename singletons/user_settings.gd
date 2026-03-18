@@ -1,5 +1,9 @@
 class_name UserSettings
 extends RefCounted
+## A singleton for handling Spotnik-specific user settings logic.
+##
+## The [b]UserSettings[/b] singleton manages the loading, saving, and runtime
+## application of end-user configuration preferences.
 
 signal setting_changed(
 		setting_name: Array,
@@ -7,8 +11,10 @@ signal setting_changed(
 		old_value: Variant,
 )
 
+## Represents the file path where the user settings configuration is saved on disk.
 const PATH_USER_SETTINGS_FILE: StringName = &"user://user_settings.ini"
 
+## Represents the minimum, maximum, and default bounds for the gamma setting.
 # gdlint-ignore-next-line constant-name
 const Gamma = {
 	DEFAULT = 1.0,
@@ -16,11 +22,13 @@ const Gamma = {
 	MAX = 1.5,
 }
 
+## Represents the available maximum frames-per-second limits.
 enum MaxFPS {
 	LOW = 30,
 	HIGH = 60,
 }
 
+## Represents the scale multipliers for the 3D resolution setting.
 # gdlint-ignore-next-line constant-name
 const ResolutionScale = {
 	LOW = 0.5,
@@ -28,6 +36,7 @@ const ResolutionScale = {
 	HIGH = 1.0,
 }
 
+## Represents the internal configuration keys for each user setting.
 # gdlint-ignore-next-line constant-name
 const SettingName = {
 	ANISOTROPIC_FILTERING_QUALITY = ["rendering", "anisotropic_filtering_quality"],
@@ -41,21 +50,25 @@ const SettingName = {
 	TICK_RATE = ["physics", "tick_rate"],
 }
 
+## Represents the available physics ticks-per-second rates.
 enum TickRate {
 	LOW = 15,
 	MEDIUM = 30,
 	HIGH = 60,
 }
 
+## Represents the available global quality presets.
 enum QualityProfile {
 	LOW,
 	MEDIUM,
 	HIGH,
 }
 
+## Represents the mapping of [enum QualityProfile] to specific setting values.
 const QualityProfileSettings = {
 	QualityProfile.LOW: {
-		SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_DISABLED,
+		SettingName.ANISOTROPIC_FILTERING_QUALITY: \
+		Viewport.AnisotropicFiltering.ANISOTROPY_DISABLED,
 		SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_DISABLED,
 		SettingName.BLOOM_ENABLED: false,
 		SettingName.MAX_FPS: MaxFPS.LOW,
@@ -65,7 +78,8 @@ const QualityProfileSettings = {
 		SettingName.TICK_RATE: TickRate.LOW,
 	},
 	QualityProfile.MEDIUM: {
-		SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_4X,
+		SettingName.ANISOTROPIC_FILTERING_QUALITY: \
+		Viewport.AnisotropicFiltering.ANISOTROPY_4X,
 		SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_4X,
 		SettingName.BLOOM_ENABLED: true,
 		SettingName.MAX_FPS: MaxFPS.HIGH,
@@ -75,17 +89,20 @@ const QualityProfileSettings = {
 		SettingName.TICK_RATE: TickRate.MEDIUM,
 	},
 	QualityProfile.HIGH: {
-		SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_16X,
+		SettingName.ANISOTROPIC_FILTERING_QUALITY: \
+		Viewport.AnisotropicFiltering.ANISOTROPY_16X,
 		SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_8X,
 		SettingName.BLOOM_ENABLED: true,
 		SettingName.MAX_FPS: MaxFPS.HIGH,
 		SettingName.RESOLUTION_SCALE: ResolutionScale.HIGH,
 		SettingName.TEXTURE_FILTERING: \
-		Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS,
+		Viewport.DefaultCanvasItemTextureFilter \
+		.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS,
 		SettingName.TICK_RATE: TickRate.HIGH,
 	},
 }
 
+## Represents the default fallback values for each user setting.
 static var SettingDefaultValue = {
 	SettingName.GAMMA: Gamma.DEFAULT,
 	SettingName.INPUT_MODE: InputX.InputMode.INPUT_NONE,
@@ -93,6 +110,7 @@ static var SettingDefaultValue = {
 
 static var _instance: UserSettings
 
+## Represents the [UserSettings] singleton.
 static var instance: UserSettings:
 	get:
 		if _instance == null:
@@ -102,6 +120,7 @@ static var instance: UserSettings:
 
 static var _settings: ConfigFile = ConfigFile.new()
 
+## Represents the currently configured anisotropic filtering quality.
 static var anisotropic_filtering_quality: Viewport.AnisotropicFiltering:
 	get:
 		return get_setting(
@@ -111,6 +130,7 @@ static var anisotropic_filtering_quality: Viewport.AnisotropicFiltering:
 	set(value):
 		set_setting(SettingName.ANISOTROPIC_FILTERING_QUALITY, value)
 
+## Represents the currently configured anti-aliasing quality.
 static var anti_aliasing_quality: Viewport.MSAA:
 	get:
 		return get_setting(
@@ -120,6 +140,7 @@ static var anti_aliasing_quality: Viewport.MSAA:
 	set(value):
 		set_setting(SettingName.ANTI_ALIASING_QUALITY, value)
 
+## Represents whether the bloom rendering effect is currently enabled.
 static var bloom_enabled: bool:
 	get:
 		return get_setting(
@@ -129,6 +150,7 @@ static var bloom_enabled: bool:
 	set(value):
 		set_setting(SettingName.BLOOM_ENABLED, value)
 
+## Represents the end-user's preferred [enum InputX.InputMode].
 static var input_mode: InputX.InputMode:
 	get:
 		return get_setting(
@@ -138,6 +160,7 @@ static var input_mode: InputX.InputMode:
 	set(value):
 		set_setting(SettingName.INPUT_MODE, value)
 
+## Represents the currently configured gamma brightness adjustment.
 static var gamma: float:
 	get:
 		return get_setting(
@@ -147,6 +170,7 @@ static var gamma: float:
 	set(value):
 		set_setting(SettingName.GAMMA, value)
 
+## Represents the currently configured maximum frames-per-second limit.
 static var max_fps: int:
 	get:
 		return get_setting(
@@ -156,6 +180,9 @@ static var max_fps: int:
 	set(value):
 		set_setting(SettingName.MAX_FPS, value)
 
+## Represents the currently active [enum QualityProfile].
+## [br]
+## Returns [code]null[/code] if the current settings do not match a specific profile.
 static var quality_profile: Variant:
 	get:
 		for search_quality_profile in QualityProfile.values():
@@ -182,6 +209,7 @@ static var quality_profile: Variant:
 
 			set_setting(setting_name, profile_value)
 
+## Represents the currently configured 3D resolution scale multiplier.
 static var resolution_scale: float:
 	get:
 		return get_setting(
@@ -191,6 +219,7 @@ static var resolution_scale: float:
 	set(value):
 		set_setting(SettingName.RESOLUTION_SCALE, value)
 
+## Represents the currently configured default 2D texture filtering method.
 static var texture_filtering: Viewport.DefaultCanvasItemTextureFilter:
 	get:
 		return get_setting(
@@ -201,6 +230,7 @@ static var texture_filtering: Viewport.DefaultCanvasItemTextureFilter:
 		set_setting(SettingName.TEXTURE_FILTERING, value)
 
 @warning_ignore("enum_variable_without_default")
+## Represents the currently configured physics ticks-per-second rate.
 static var tick_rate: TickRate:
 	get:
 		return get_setting(
@@ -231,6 +261,7 @@ static func _on_setting_changed(
 			apply_tick_rate(new_value)
 
 
+## Returns the stored value for a given setting, or the default value if it does not exist.
 static func get_setting(setting_name: Array, default_value: Variant = null) -> Variant:
 	if _settings.has_section_key(setting_name[0], setting_name[1]):
 		return _settings.get_value(setting_name[0], setting_name[1])
@@ -238,6 +269,8 @@ static func get_setting(setting_name: Array, default_value: Variant = null) -> V
 	return default_value
 
 
+## Sets a setting to a new value, saves it to the configuration file, and emits
+## [signal setting_changed].
 static func set_setting(setting_name: Array, value: Variant) -> void:
 	var old_value = get_setting(setting_name, SettingDefaultValue[setting_name])
 	_settings.set_value(setting_name[0], setting_name[1], value)
@@ -246,6 +279,7 @@ static func set_setting(setting_name: Array, value: Variant) -> void:
 	instance.setting_changed.emit(setting_name, value, old_value)
 
 
+## Applies all globally relevant engine-level user settings at once.
 static func apply_global_settings() -> void:
 	apply_anisotropic_filtering_quality()
 	apply_anti_aliasing_quality()
@@ -255,42 +289,51 @@ static func apply_global_settings() -> void:
 	apply_tick_rate()
 
 
+## Applies the given anisotropic filtering quality to the active [SceneTree].
 static func apply_anisotropic_filtering_quality(value: Variant = null) -> void:
 	(Engine.get_main_loop() as SceneTree) \
 	.root.anisotropic_filtering_level = anisotropic_filtering_quality if value == null else value
 
 
+## Applies the given anti-aliasing quality to the active [SceneTree].
 static func apply_anti_aliasing_quality(value: Variant = null) -> void:
 	(Engine.get_main_loop() as SceneTree) \
 	.root.msaa_3d = anti_aliasing_quality if value == null else value
 
 
+## Applies the given maximum frames-per-second limit to the engine.
 static func apply_max_fps(value: Variant = null) -> void:
 	Engine.max_fps = max_fps if value == null else value
 
 
+## Applies the given resolution scale multiplier to the active [SceneTree].
 static func apply_resolution_scale(value: Variant = null) -> void:
 	(Engine.get_main_loop() as SceneTree) \
 	.root.scaling_3d_scale = resolution_scale if value == null else value
 
 
+## Applies the given 2D texture filtering method to the active [SceneTree].
 static func apply_texture_filtering(value: Variant = null) -> void:
 	(Engine.get_main_loop() as SceneTree) \
 	.root.canvas_item_default_texture_filter = texture_filtering if value == null else value
 
 
+## Applies the given physics ticks-per-second rate to the engine.
 static func apply_tick_rate(value: Variant = null) -> void:
 	Engine.physics_ticks_per_second = tick_rate if value == null else value
 
 
+## Returns [code]true[/code] if the user settings file exists on disk.
 static func has_file() -> bool:
 	return FileAccess.file_exists(PATH_USER_SETTINGS_FILE)
 
 
+## Loads the user settings configuration from disk.
 static func load() -> Error:
 	return _settings.load(PATH_USER_SETTINGS_FILE)
 
 
+## Saves the user settings configuration to disk.
 static func save() -> Error:
 	return _settings.save(PATH_USER_SETTINGS_FILE)
 
