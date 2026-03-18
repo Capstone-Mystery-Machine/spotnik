@@ -47,20 +47,6 @@ enum TickRate {
 	HIGH = 60,
 }
 
-# gdlint-ignore-next-line constant-name
-const SettingDefaultValue = {
-	SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_DISABLED,
-	SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_8X,
-	SettingName.BLOOM_ENABLED: false,
-	SettingName.INPUT_MODE: InputX.InputMode.INPUT_NONE,
-	SettingName.MAX_FPS: MaxFPS.LOW,
-	SettingName.GAMMA: Gamma.DEFAULT,
-	SettingName.RESOLUTION_SCALE: ResolutionScale.LOW,
-	SettingName.TEXTURE_FILTERING: \
-	Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST,
-	SettingName.TICK_RATE: TickRate.LOW,
-}
-
 enum QualityProfile {
 	LOW,
 	MEDIUM,
@@ -99,6 +85,11 @@ const QualityProfileSettings = {
 		SettingName.TICK_RATE: TickRate.HIGH,
 	},
 }
+
+static var SettingDefaultValue = {
+	SettingName.GAMMA: Gamma.DEFAULT,
+	SettingName.INPUT_MODE: InputX.InputMode.INPUT_NONE,
+}.merged(QualityProfileSettings[QualityProfile.LOW])
 
 static var _instance: UserSettings
 
