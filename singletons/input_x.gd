@@ -64,7 +64,7 @@ static var platform_input_mode: InputMode = _get_platform_input_mode()
 ## Returns [code]null[/code] if no configuration is available.
 static var preferred_input_mode: InputMode:
 	get:
-		return UserSettings.get_input_mode()
+		return UserSettings.input_mode
 
 ## Represents which member of [enum InputMode] was selected by the end-user,
 ## if available. If not, then the platform

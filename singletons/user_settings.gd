@@ -126,6 +126,96 @@ static var instance: UserSettings = UserSettings.new()
 
 static var _settings: ConfigFile = ConfigFile.new()
 
+static var anisotropic_filtering_quality: Viewport.AnisotropicFiltering:
+	get:
+		return get_setting(
+			SettingName.ANISOTROPIC_FILTERING_QUALITY,
+			SettingDefaultValue[SettingName.ANISOTROPIC_FILTERING_QUALITY],
+		)
+	set(value):
+		set_setting(SettingName.ANISOTROPIC_FILTERING_QUALITY, value)
+
+static var anti_aliasing_quality: Viewport.MSAA:
+	get:
+		return get_setting(
+			SettingName.ANTI_ALIASING_QUALITY,
+			SettingDefaultValue[SettingName.ANTI_ALIASING_QUALITY],
+		)
+	set(value):
+		set_setting(SettingName.ANTI_ALIASING_QUALITY, value)
+
+static var input_mode: InputX.InputMode:
+	get:
+		return get_setting(
+			SettingName.INPUT_MODE,
+			SettingDefaultValue[SettingName.INPUT_MODE],
+		)
+	set(value):
+		set_setting(SettingName.INPUT_MODE, value)
+
+static var max_fps: int:
+	get:
+		return get_setting(
+			SettingName.MAX_FPS,
+			SettingDefaultValue[SettingName.MAX_FPS],
+		)
+	set(value):
+		set_setting(SettingName.MAX_FPS, value)
+
+static var quality_profile: Variant:
+	get:
+		for search_quality_profile in QualityProfile.values():
+			var profile_settings = QualityProfileSettings[search_quality_profile]
+			var is_profile = true
+
+			for setting_name in profile_settings:
+				var profile_value = profile_settings[setting_name]
+				var stored_value = get_setting(setting_name, SettingDefaultValue[setting_name])
+
+				if stored_value != profile_value:
+					is_profile = false
+					break
+
+			if is_profile:
+				return search_quality_profile
+
+		return null
+	set(value):
+		var profile_settings = QualityProfileSettings[value]
+
+		for setting_name in profile_settings:
+			var profile_value = profile_settings[setting_name]
+
+			set_setting(setting_name, profile_value)
+
+static var resolution_scale: float:
+	get:
+		return get_setting(
+			SettingName.RESOLUTION_SCALE,
+			SettingDefaultValue[SettingName.RESOLUTION_SCALE],
+		)
+	set(value):
+		set_setting(SettingName.RESOLUTION_SCALE, value)
+
+static var texture_filtering: Viewport.DefaultCanvasItemTextureFilter:
+	get:
+		return get_setting(
+			SettingName.TEXTURE_FILTERING,
+			SettingDefaultValue[SettingName.TEXTURE_FILTERING],
+		)
+	set(value):
+		set_setting(SettingName.TEXTURE_FILTERING, value)
+
+@warning_ignore("enum_variable_without_default")
+static var tick_rate: TickRate:
+	get:
+		return get_setting(
+			SettingName.TICK_RATE,
+			SettingDefaultValue[SettingName.TICK_RATE],
+		)
+	set(value):
+		set_setting(SettingName.TICK_RATE, value)
+
 
 static func _on_setting_changed(
 		setting_name: Array,
@@ -173,35 +263,35 @@ static func apply_global_settings() -> void:
 
 static func apply_anisotropic_filtering_quality(value: Variant = null) -> void:
 	if value == null:
-		value = get_anisotropic_filtering_quality()
+		value = anisotropic_filtering_quality
 
 	(Engine.get_main_loop() as SceneTree).root.anisotropic_filtering_level = value
 
 
 static func apply_anti_aliasing_quality(value: Variant = null) -> void:
 	if value == null:
-		value = get_anti_aliasing_quality()
+		value = anti_aliasing_quality
 
 	(Engine.get_main_loop() as SceneTree).root.msaa_3d = value
 
 
 static func apply_max_fps(value: Variant = null) -> void:
 	if value == null:
-		value = get_max_fps()
+		value = max_fps
 
 	Engine.max_fps = value
 
 
 static func apply_resolution_scale(value: Variant = null) -> void:
 	if value == null:
-		value = get_resolution_scale()
+		value = resolution_scale
 
 	(Engine.get_main_loop() as SceneTree).root.scaling_3d_scale = value
 
 
 static func apply_texture_filtering(value: Variant = null) -> void:
 	if value == null:
-		value = get_texture_filtering()
+		value = texture_filtering
 
 	(Engine.get_main_loop() as SceneTree) \
 	.root.canvas_item_default_texture_filter = value
@@ -209,77 +299,9 @@ static func apply_texture_filtering(value: Variant = null) -> void:
 
 static func apply_tick_rate(value: Variant = null) -> void:
 	if value == null:
-		value = get_tick_rate()
+		value = tick_rate
 
 	Engine.physics_ticks_per_second = value
-
-
-static func get_anisotropic_filtering_quality() -> Viewport.AnisotropicFiltering:
-	return get_setting(
-		SettingName.ANISOTROPIC_FILTERING_QUALITY,
-		SettingDefaultValue[SettingName.ANISOTROPIC_FILTERING_QUALITY],
-	)
-
-
-static func get_anti_aliasing_quality() -> Viewport.MSAA:
-	return get_setting(
-		SettingName.ANTI_ALIASING_QUALITY,
-		SettingDefaultValue[SettingName.ANTI_ALIASING_QUALITY],
-	)
-
-
-static func get_input_mode() -> InputX.InputMode:
-	return get_setting(
-		SettingName.INPUT_MODE,
-		SettingDefaultValue[SettingName.INPUT_MODE],
-	)
-
-
-static func get_max_fps() -> int:
-	return get_setting(
-		SettingName.MAX_FPS,
-		SettingDefaultValue[SettingName.MAX_FPS],
-	)
-
-
-static func get_quality_profile() -> Variant:
-	for quality_profile in QualityProfile.values():
-		var profile_settings = QualityProfileSettings[quality_profile]
-		var is_profile = true
-
-		for setting_name in profile_settings:
-			var profile_value = profile_settings[setting_name]
-			var stored_value = get_setting(setting_name, SettingDefaultValue[setting_name])
-
-			if stored_value != profile_value:
-				is_profile = false
-				break
-
-		if is_profile:
-			return quality_profile
-
-	return null
-
-
-static func get_resolution_scale() -> float:
-	return get_setting(
-		SettingName.RESOLUTION_SCALE,
-		SettingDefaultValue[SettingName.RESOLUTION_SCALE],
-	)
-
-
-static func get_texture_filtering() -> Viewport.DefaultCanvasItemTextureFilter:
-	return get_setting(
-		SettingName.TEXTURE_FILTERING,
-		SettingDefaultValue[SettingName.TEXTURE_FILTERING],
-	)
-
-
-static func get_tick_rate() -> TickRate:
-	return get_setting(
-		SettingName.TICK_RATE,
-		SettingDefaultValue[SettingName.TICK_RATE],
-	)
 
 
 static func has_file() -> bool:
@@ -292,42 +314,3 @@ static func load() -> Error:
 
 static func save() -> Error:
 	return _settings.save(PATH_USER_SETTINGS_FILE)
-
-
-static func set_anisotropic_filtering_quality(value: Viewport.AnisotropicFiltering) -> void:
-	set_setting(SettingName.ANISOTROPIC_FILTERING_QUALITY, value)
-
-
-static func set_anti_aliasing_quality(value: Viewport.MSAA) -> void:
-	set_setting(SettingName.ANTI_ALIASING_QUALITY, value)
-
-
-static func set_input_mode(value: InputX.InputMode) -> void:
-	set_setting(SettingName.INPUT_MODE, value)
-
-
-static func set_max_fps(value: int) -> void:
-	set_setting(SettingName.MAX_FPS, value)
-
-
-static func set_quality_profile(quality_profile: QualityProfile) -> void:
-	var profile_settings = QualityProfileSettings[quality_profile]
-
-	for setting_name in profile_settings:
-		var profile_value = profile_settings[setting_name]
-
-		set_setting(setting_name, profile_value)
-
-
-static func set_resolution_scale(value: float) -> void:
-	set_setting(SettingName.RESOLUTION_SCALE, value)
-
-
-static func set_texture_filtering(
-		value: Viewport.DefaultCanvasItemTextureFilter,
-) -> void:
-	set_setting(SettingName.TEXTURE_FILTERING, value)
-
-
-static func set_tick_rate(value: TickRate) -> void:
-	set_setting(SettingName.TICK_RATE, value)
