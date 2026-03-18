@@ -21,12 +21,6 @@ enum MaxFPS {
 	HIGH = 60,
 }
 
-enum MeshQuality {
-	LOW,
-	MEDIUM,
-	HIGH,
-}
-
 # gdlint-ignore-next-line constant-name
 const ResolutionScale = {
 	LOW = 0.5,
@@ -41,18 +35,10 @@ const SettingName = {
 	BLOOM_ENABLED = ["rendering", "bloom_enabled"],
 	INPUT_MODE = ["input", "input_mode"],
 	MAX_FPS = ["rendering", "max_fps"],
-	MESH_QUALITY = ["rendering", "mesh_quality"],
 	GAMMA = ["rendering", "gamma"],
 	RESOLUTION_SCALE = ["rendering", "resolution_scale"],
-	SHADER_QUALITY = ["rendering", "shader_quality"],
 	TEXTURE_FILTERING = ["rendering", "texture_filtering"],
 	TICK_RATE = ["physics", "tick_rate"],
-}
-
-enum ShaderQuality {
-	LOW,
-	MEDIUM,
-	HIGH,
 }
 
 enum TickRate {
@@ -68,10 +54,8 @@ const SettingDefaultValue = {
 	SettingName.BLOOM_ENABLED: false,
 	SettingName.INPUT_MODE: null,
 	SettingName.MAX_FPS: MaxFPS.LOW,
-	SettingName.MESH_QUALITY: MeshQuality.LOW,
 	SettingName.GAMMA: 1.0,
 	SettingName.RESOLUTION_SCALE: ResolutionScale.LOW,
-	SettingName.SHADER_QUALITY: ShaderQuality.LOW,
 	SettingName.TEXTURE_FILTERING: \
 	Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST,
 	SettingName.TICK_RATE: TickRate.LOW,
@@ -89,9 +73,7 @@ const QualityProfileSettings = {
 		SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_DISABLED,
 		SettingName.BLOOM_ENABLED: false,
 		SettingName.MAX_FPS: MaxFPS.LOW,
-		SettingName.MESH_QUALITY: MeshQuality.LOW,
 		SettingName.RESOLUTION_SCALE: ResolutionScale.LOW,
-		SettingName.SHADER_QUALITY: ShaderQuality.LOW,
 		SettingName.TEXTURE_FILTERING: \
 		Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST,
 		SettingName.TICK_RATE: TickRate.LOW,
@@ -101,9 +83,7 @@ const QualityProfileSettings = {
 		SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_4X,
 		SettingName.BLOOM_ENABLED: true,
 		SettingName.MAX_FPS: MaxFPS.HIGH,
-		SettingName.MESH_QUALITY: MeshQuality.MEDIUM,
 		SettingName.RESOLUTION_SCALE: ResolutionScale.MEDIUM,
-		SettingName.SHADER_QUALITY: ShaderQuality.MEDIUM,
 		SettingName.TEXTURE_FILTERING: \
 		Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR,
 		SettingName.TICK_RATE: TickRate.MEDIUM,
@@ -113,9 +93,7 @@ const QualityProfileSettings = {
 		SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_8X,
 		SettingName.BLOOM_ENABLED: true,
 		SettingName.MAX_FPS: MaxFPS.HIGH,
-		SettingName.MESH_QUALITY: MeshQuality.HIGH,
 		SettingName.RESOLUTION_SCALE: ResolutionScale.HIGH,
-		SettingName.SHADER_QUALITY: ShaderQuality.HIGH,
 		SettingName.TEXTURE_FILTERING: \
 		Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS,
 		SettingName.TICK_RATE: TickRate.HIGH,
