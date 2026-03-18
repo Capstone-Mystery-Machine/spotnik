@@ -17,6 +17,16 @@ signal input_mode_changed(input_mode: InputMode)
 ## [br]
 ## • Has its own criteria for enablement.
 enum InputMode {
+	## Spotnik is configured with no input mode.
+	## [br]
+	## [br]
+	## [b]3D Environment Controls:[/b] None.
+	## [br]
+	## [b]UI Controls:[/b] None.
+	## [br]
+	## [b]Enablement Criterion:[/b] No user settings or platform configuration found.
+	INPUT_NONE,
+
 	## Spotnik is configured to be in mouse input mode.
 	## [br]
 	## [br]
@@ -78,7 +88,7 @@ static var preferred_input_mode: InputMode:
 ## if available. If not, then the platform
 static var input_mode: InputMode:
 	get:
-		if preferred_input_mode != null:
+		if preferred_input_mode != InputMode.INPUT_NONE:
 			return preferred_input_mode
 
 		return platform_input_mode

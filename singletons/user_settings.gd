@@ -52,7 +52,7 @@ const SettingDefaultValue = {
 	SettingName.ANISOTROPIC_FILTERING_QUALITY: Viewport.AnisotropicFiltering.ANISOTROPY_DISABLED,
 	SettingName.ANTI_ALIASING_QUALITY: Viewport.MSAA.MSAA_8X,
 	SettingName.BLOOM_ENABLED: false,
-	SettingName.INPUT_MODE: null,
+	SettingName.INPUT_MODE: InputX.InputMode.INPUT_NONE,
 	SettingName.MAX_FPS: MaxFPS.LOW,
 	SettingName.GAMMA: Gamma.DEFAULT,
 	SettingName.RESOLUTION_SCALE: ResolutionScale.LOW,
