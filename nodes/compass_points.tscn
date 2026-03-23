@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://begceindp27u5"]
+[gd_scene load_steps=6 format=3 uid="uid://dgj4viflp1d4s"]
 
-[ext_resource type="Script" uid="uid://dnopwidcq275q" path="res://nodes/compass_points.gd" id="1_rbsmj"]
+[ext_resource type="Script" path="res://nodes/compass_points.gd" id="1_rbsmj"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_k7agn"]
 viewport_path = NodePath("SpriteNorth/SubViewport")

@@ -4,6 +4,7 @@ extends Node3D
 @onready var east_label_sprite = %SpriteEast
 @onready var south_label_sprite = %SpriteSouth
 @onready var west_label_sprite = %SpriteWest
+@export var spawn_dist = 20
 
 
 func _ready() -> void:
@@ -26,7 +27,6 @@ func load_gyro_data() -> Dictionary:
 
 func align_compass(gyro_data: Dictionary) -> void:
 	await get_tree().create_timer(1).timeout
-	var spawn_dist = 20
 	gyro_data["North"] = Vector3(gyro_data["North"].x * spawn_dist, gyro_data["North"].y, gyro_data["North"].z * spawn_dist)
 	gyro_data["East"] = Vector3(gyro_data["East"].x * spawn_dist, gyro_data["East"].y, gyro_data["East"].z * spawn_dist)
 	gyro_data["South"] = Vector3(gyro_data["South"].x * spawn_dist, gyro_data["South"].y, gyro_data["South"].z * spawn_dist)
