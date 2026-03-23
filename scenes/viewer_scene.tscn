@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5ou2u38e78kf"]
+[gd_scene load_steps=9 format=3 uid="uid://b5ou2u38e78kf"]
 
 [ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://nodes/skybox.tscn" id="2_3kcgk"]
 [ext_resource type="Resource" uid="uid://bsv1omabacd4u" path="res://skyboxes/skybox_a.tres" id="3_y4cjq"]
 [ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://nodes/satel_info_ui.tscn" id="4_4xf28"]
 [ext_resource type="PackedScene" uid="uid://ckh0mf4o2awhw" path="res://nodes/device.tscn" id="5_dlnh7"]
 [ext_resource type="PackedScene" uid="uid://b3c1tcyumuxs2" path="res://nodes/satellite_manager.tscn" id="6_dseag"]
+[ext_resource type="Texture2D" uid="uid://ble363kmpmfgv" path="res://textures/setting.png" id="7_icqbe"]
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://nodes/landmark.tscn" id="7_ukp7y"]
+[ext_resource type="Script" uid="uid://7rda5wx0abaw" path="res://nodes/texture_button.gd" id="8_b8h5p"]
 
 [node name="ViewerScene" type="Node3D"]
 
@@ -19,3 +21,28 @@ settings = ExtResource("3_y4cjq")
 
 [node name="SatelliteManager" parent="." instance=ExtResource("6_dseag")]
 landmark_scene = ExtResource("7_ukp7y")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -82.0
+offset_top = -82.0
+offset_right = 430.0
+offset_bottom = 430.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.15, 0.15)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ViewerSettingsButton" type="TextureButton" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_icqbe")
+script = ExtResource("8_b8h5p")
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/ViewerSettingsButton" to="CanvasLayer/VBoxContainer/ViewerSettingsButton" method="_on_pressed"]
