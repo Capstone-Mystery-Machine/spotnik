@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4d4b5ugrpijg"]
+
+[ext_resource type="Script" uid="uid://cxgoopo5gfd42" path="res://nodes/space_environment.gd" id="1_a6s0q"]
+
+[sub_resource type="Environment" id="Environment_tpkrh"]
+resource_local_to_scene = true
+tonemap_mode = 3
+tonemap_exposure = 0.65
+glow_bloom = 0.2
+glow_hdr_threshold = 0.75
+glow_hdr_scale = 1.0
+
+[node name="SpaceEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_tpkrh")
+script = ExtResource("1_a6s0q")

@@ -1,21 +1,33 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5ou2u38e78kf"]
+[gd_scene load_steps=10 format=3 uid="uid://b5ou2u38e78kf"]
 
+[ext_resource type="PackedScene" uid="uid://c4d4b5ugrpijg" path="res://nodes/space_environment.tscn" id="1_b8h5p"]
 [ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://nodes/skybox.tscn" id="2_3kcgk"]
 [ext_resource type="Resource" uid="uid://bsv1omabacd4u" path="res://skyboxes/skybox_a.tres" id="3_y4cjq"]
 [ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://nodes/satel_info_ui.tscn" id="4_4xf28"]
 [ext_resource type="PackedScene" uid="uid://ckh0mf4o2awhw" path="res://nodes/device.tscn" id="5_dlnh7"]
 [ext_resource type="PackedScene" uid="uid://b3c1tcyumuxs2" path="res://nodes/satellite_manager.tscn" id="6_dseag"]
 [ext_resource type="Texture2D" uid="uid://ble363kmpmfgv" path="res://textures/setting.png" id="7_icqbe"]
+[ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="7_icqbe"]
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://nodes/landmark.tscn" id="7_ukp7y"]
 [ext_resource type="Script" uid="uid://7rda5wx0abaw" path="res://nodes/texture_button.gd" id="8_b8h5p"]
 
+[sub_resource type="Environment" id="Environment_b8h5p"]
+resource_local_to_scene = true
+tonemap_mode = 3
+tonemap_exposure = 0.65
+glow_enabled = true
+glow_bloom = 0.2
+glow_hdr_threshold = 0.75
+glow_hdr_scale = 1.0
+
 [node name="ViewerScene" type="Node3D"]
+
+[node name="SpaceEnvironment" parent="." instance=ExtResource("1_b8h5p")]
+environment = SubResource("Environment_b8h5p")
 
 [node name="Skybox" parent="." instance=ExtResource("2_3kcgk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043747425, 0, 3.0517578e-05)
 settings = ExtResource("3_y4cjq")
-
-[node name="SatelInfoUI" parent="." instance=ExtResource("4_4xf28")]
 
 [node name="Device" parent="." instance=ExtResource("5_dlnh7")]
 
@@ -46,3 +58,46 @@ texture_normal = ExtResource("7_icqbe")
 script = ExtResource("8_b8h5p")
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ViewerSettingsButton" to="CanvasLayer/VBoxContainer/ViewerSettingsButton" method="_on_pressed"]
+[node name="GlobalShaders" parent="." instance=ExtResource("7_icqbe")]
+spawn_radius = 100.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="Line2D" parent="Control/CenterContainer"]
+points = PackedVector2Array(20, 10, 20, 20)
+width = 1.0
+
+[node name="Bottom" type="Line2D" parent="Control/CenterContainer"]
+points = PackedVector2Array(20, 20, 20, 30)
+width = 1.0
+
+[node name="Left" type="Line2D" parent="Control/CenterContainer"]
+points = PackedVector2Array(10, 20, 20, 20)
+width = 1.0
+
+[node name="Right" type="Line2D" parent="Control/CenterContainer"]
+points = PackedVector2Array(30, 20, 20, 20)
+width = 1.0
+
+[node name="SatelInfoUI" parent="." instance=ExtResource("4_4xf28")]

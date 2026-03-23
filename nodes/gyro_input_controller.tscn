@@ -2,6 +2,5 @@
 
 [ext_resource type="Script" uid="uid://2syosnsrxmfn" path="res://nodes/gyro_input_controller.gd" id="1_tp108"]
 
-[node name="GyroInputController" type="Node" node_paths=PackedStringArray("target_node_3d")]
+[node name="GyroInputController" type="Node"]
 script = ExtResource("1_tp108")
-target_node_3d = NodePath("")

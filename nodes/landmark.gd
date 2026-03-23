@@ -38,8 +38,11 @@ func setup(
 ## Represents the distance between the camera and where satellites spawn.
 @export var spawn_radius: float = 10.0
 
+@export var scale_speed: float = 8.0
+
 @onready var detector: Area3D = $CameraPointerDetector
 @onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
+@onready var mesh_node: Node3D = $Mesh
 
 var outer_radius: float
 var inner_radius: float
@@ -51,13 +54,17 @@ func _ready() -> void:
 	inner_radius = detector.inner_radius
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	var weight: float = min(scale_speed * delta, 1.0)
+
 	if pointer == null:
-		scale = scale.lerp(Vector3.ONE, spawn_radius * delta)
+		mesh_node.scale = mesh_node.scale.lerp(Vector3.ONE, weight)
 		return
 
-	var body = pointer
-	var distance = global_position.distance_to(body.global_position)
+	if outer_radius <= inner_radius:
+		return
+
+	var distance = global_position.distance_to(pointer.global_position)
 
 	var t = 1.0 - clamp(
 		(distance - inner_radius) / (outer_radius - inner_radius),
@@ -67,7 +74,7 @@ func _process(delta: float) -> void:
 
 	var target_scale = lerp(1.0, max_scale, t)
 
-	scale = scale.lerp(Vector3.ONE * target_scale, spawn_radius * delta)
+	mesh_node.scale = mesh_node.scale.lerp(Vector3.ONE * target_scale, weight)
 
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:

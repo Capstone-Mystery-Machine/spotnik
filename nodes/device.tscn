@@ -1,23 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckh0mf4o2awhw"]
 
+[ext_resource type="PackedScene" uid="uid://br2hxj6bxbpw5" path="res://nodes/camera_pointer.tscn" id="1_p6uye"]
 [ext_resource type="PackedScene" uid="uid://dhtfxjp6o16ba" path="res://nodes/gyro_input_controller.tscn" id="1_wo32e"]
 [ext_resource type="PackedScene" uid="uid://d2fpp8fhgw01q" path="res://nodes/mouse_input_controller.tscn" id="2_p6uye"]
 [ext_resource type="PackedScene" uid="uid://bchxn5jertoc2" path="res://nodes/touch_input_controller.tscn" id="3_k7gbv"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_qfi86"]
 
 [node name="Device" type="Node3D"]
 
 [node name="Camera" type="Camera3D" parent="."]
 fov = 74.41036
 
-[node name="CameraPointer" type="AnimatableBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
-sync_to_physics = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraPointer"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-shape = SubResource("BoxShape3D_qfi86")
+[node name="CameraPointer" parent="." instance=ExtResource("1_p6uye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -100)
 
 [node name="GyroInputController" parent="." node_paths=PackedStringArray("target_node_3d") instance=ExtResource("1_wo32e")]
 target_node_3d = NodePath("..")

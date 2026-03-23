@@ -49,12 +49,8 @@ var _pitch_min: float:
 
 ## Enables the input controller if [constant InputX.input_mode] is set to
 ## [constant InputX.InputMode.INPUT_TOUCH].
-func _ready() -> void:
-	match InputX.input_mode:
-		InputX.InputMode.INPUT_TOUCH:
-			process_mode = Node.PROCESS_MODE_INHERIT
-		_:
-			process_mode = Node.PROCESS_MODE_DISABLED
+func _is_enabled(input_mode: InputX.InputMode) -> bool:
+	return input_mode == InputX.InputMode.INPUT_TOUCH
 
 
 ## Handles unhandled screen dragging input by translating screen pixel movement
