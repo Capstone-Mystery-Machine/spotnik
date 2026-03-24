@@ -14,6 +14,19 @@ var launch_date: int
 var latitude: float
 var longitude: float
 
+@export var max_scale: float = 5.0
+@export var spawn_radius: float = 10.0
+@export var scale_speed: float = 8.0
+
+@onready var detector: Area3D = $CameraPointerDetector
+@onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
+@onready var mesh_node: Node3D = $Mesh
+@onready var screen_notifier: VisibleOnScreenNotifier3D = $VisibleOnScreenNotifier3D
+
+var outer_radius: float
+var inner_radius: float
+var pointer: CollisionObject3D
+
 
 func setup(
 		id_designator: String,
@@ -32,26 +45,23 @@ func setup(
 	latitude = lat
 	longitude = long
 
-## Represents the maximum scale size the satellite node will grow to.
-@export var max_scale: float = 5.0
-
-## Represents the distance between the camera and where satellites spawn.
-@export var spawn_radius: float = 10.0
-
-@export var scale_speed: float = 8.0
-
-@onready var detector: Area3D = $CameraPointerDetector
-@onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
-@onready var mesh_node: Node3D = $Mesh
-
-var outer_radius: float
-var inner_radius: float
-var pointer: CollisionObject3D
-
 
 func _ready() -> void:
 	outer_radius = outer_shape.shape.radius
 	inner_radius = detector.inner_radius
+
+	if not screen_notifier.screen_entered.is_connected(_on_visible_on_screen_notifier_3d_screen_entered):
+		screen_notifier.screen_entered.connect(_on_visible_on_screen_notifier_3d_screen_entered)
+
+	if not screen_notifier.screen_exited.is_connected(_on_visible_on_screen_notifier_3d_screen_exited):
+		screen_notifier.screen_exited.connect(_on_visible_on_screen_notifier_3d_screen_exited)
+
+	print(satellite_name, " notifier exists: ", screen_notifier != null)
+	print(satellite_name, " on screen at start: ", screen_notifier.is_on_screen())
+	print("entered connected: ", screen_notifier.screen_entered.is_connected(_on_visible_on_screen_notifier_3d_screen_entered))
+	print("exited connected: ", screen_notifier.screen_exited.is_connected(_on_visible_on_screen_notifier_3d_screen_exited))
+
+	_set_active(screen_notifier.is_on_screen())
 
 
 func _physics_process(delta: float) -> void:
@@ -73,8 +83,30 @@ func _physics_process(delta: float) -> void:
 	)
 
 	var target_scale = lerp(1.0, max_scale, t)
-
 	mesh_node.scale = mesh_node.scale.lerp(Vector3.ONE * target_scale, weight)
+
+
+func _set_active(active: bool) -> void:
+	set_physics_process(active)
+	detector.monitoring = active
+	detector.monitorable = active
+	mesh_node.visible = active
+
+	if not active:
+		pointer = null
+		mesh_node.scale = Vector3.ONE
+
+	print(satellite_name, " active: ", active)
+
+
+func _on_visible_on_screen_notifier_3d_screen_entered() -> void:
+	print(satellite_name, " entered screen")
+	_set_active(true)
+
+
+func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
+	print(satellite_name, " exited screen")
+	_set_active(false)
 
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:

@@ -21,9 +21,14 @@ inner_radius = 4.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CameraPointerDetector"]
 shape = SubResource("SphereShape3D_cn1jf")
 
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-10, -10, -10, 20, 20, 20)
+
 [connection signal="body_entered" from="CameraPointerDetector" to="CameraPointerDetector" method="_on_body_entered"]
 [connection signal="body_exited" from="CameraPointerDetector" to="CameraPointerDetector" method="_on_body_exited"]
 [connection signal="inner_entered" from="CameraPointerDetector" to="." method="_on_camera_pointer_detector_inner_entered"]
 [connection signal="inner_exited" from="CameraPointerDetector" to="." method="_on_camera_pointer_detector_inner_exited"]
 [connection signal="outer_entered" from="CameraPointerDetector" to="." method="_on_camera_pointer_detector_outer_entered"]
 [connection signal="outer_exited" from="CameraPointerDetector" to="." method="_on_camera_pointer_detector_outer_exited"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
