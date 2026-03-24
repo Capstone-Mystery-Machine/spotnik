@@ -43,6 +43,7 @@ func setup(
 @onready var detector: Area3D = $CameraPointerDetector
 @onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
 @onready var mesh_node: Node3D = $Mesh
+@onready var screen_notifier: VisibleOnScreenNotifier3D = $VisibleOnScreenNotifier3D
 
 var outer_radius: float
 var inner_radius: float
