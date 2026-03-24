@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://b5ou2u38e78kf"]
 
-[ext_resource type="PackedScene" uid="uid://c4d4b5ugrpijg" path="res://nodes/space_environment.tscn" id="1_b8h5p"]
+[ext_resource type="PackedScene" path="res://nodes/space_environment.tscn" id="1_b8h5p"]
 [ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://nodes/skybox.tscn" id="2_3kcgk"]
 [ext_resource type="Resource" uid="uid://bsv1omabacd4u" path="res://skyboxes/skybox_a.tres" id="3_y4cjq"]
 [ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://nodes/satel_info_ui.tscn" id="4_4xf28"]
 [ext_resource type="PackedScene" uid="uid://ckh0mf4o2awhw" path="res://nodes/device.tscn" id="5_dlnh7"]
 [ext_resource type="PackedScene" uid="uid://b3c1tcyumuxs2" path="res://nodes/satellite_manager.tscn" id="6_dseag"]
-[ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="7_icqbe"]
+[ext_resource type="Texture2D" uid="uid://ble363kmpmfgv" path="res://textures/setting.png" id="7_icqbe"]
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://nodes/landmark.tscn" id="7_ukp7y"]
 [ext_resource type="PackedScene" uid="uid://dt8sm83voe1x1" path="res://scenes/Crosshair.tscn" id="8_nb4os"]
 
@@ -39,3 +39,5 @@ spawn_radius = 100.0
 [node name="Crosshair" parent="." instance=ExtResource("8_nb4os")]
 
 [node name="SatelInfoUI" parent="." instance=ExtResource("4_4xf28")]
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/ViewerSettingsButton" to="CanvasLayer/VBoxContainer/ViewerSettingsButton" method="_on_pressed"]

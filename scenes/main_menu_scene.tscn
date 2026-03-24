@@ -1,9 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2l8pntu6erxw"]
 
+[ext_resource type="Script" uid="uid://wrnnwaqffaso" path="res://nodes/main_menu_scene.gd" id="1_vfskp"]
 [ext_resource type="FontFile" uid="uid://dq143kx8xkyhv" path="res://textures/ComicNeue-Bold.ttf" id="1_xhf6x"]
 [ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="2_vfskp"]
 
 [node name="MainMenuScene" type="Node3D"]
+script = ExtResource("1_vfskp")
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -34,13 +36,13 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="Node2D/CanvasLayer/VBoxContainer"]
+[node name="ViewSkyButton" type="Button" parent="Node2D/CanvasLayer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 30
 text = "View Sky"
 
-[node name="Button2" type="Button" parent="Node2D/CanvasLayer/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="Node2D/CanvasLayer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 30
@@ -64,4 +66,5 @@ bbcode_enabled = true
 text = "[font_size=40][center]Welcome to [font_size=42][b]Spotnik"
 fit_content = true
 
+[connection signal="pressed" from="Node2D/CanvasLayer/VBoxContainer/ViewSkyButton" to="." method="_on_view_sky_button_pressed"]
 [node name="GlobalShaders" parent="." instance=ExtResource("2_vfskp")]
