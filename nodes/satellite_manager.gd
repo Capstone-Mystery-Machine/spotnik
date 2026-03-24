@@ -2,7 +2,7 @@ extends Node3D
 
 @export var landmark_scene: PackedScene
 @export var json_url: String = "http://localhost:8080/data/satellites.json"
-@export var spawn_radius: float = 10
+@export var spawn_radius: float = 10.0
 
 var satellite_data: Array = []
 var landmarks: Array[Landmark] = []
@@ -20,16 +20,13 @@ func _process(_delta: float) -> void:
 	if multimesh == null:
 		return
 
-	for i in range(landmarks.size()):
-		var landmark = landmarks[i]
-		if landmark == null:
-			continue
-
-		var instance_transform := Transform3D(
-			Basis().scaled(landmark.mesh_node.scale),
-			landmark.position,
-		)
-		multimesh.set_instance_transform(i, instance_transform)
+	for i in landmarks.size():
+		var landmark := landmarks[i]
+		if landmark != null:
+			multimesh.set_instance_transform(
+				i,
+				Transform3D(Basis().scaled(landmark.mesh_node.scale), landmark.position),
+			)
 
 
 func _on_request_completed(
@@ -47,16 +44,14 @@ func spawn_all_landmarks() -> void:
 		return
 
 	landmarks.clear()
-
 	setup_multimesh()
 
-	for i in range(satellite_data.size()):
-		var landmark = spawn_landmark(satellite_data[i])
+	multimesh.instance_count = satellite_data.size()
+
+	for data in satellite_data:
+		var landmark := spawn_landmark(data)
 		if landmark != null:
 			landmarks.append(landmark)
-
-	if multimesh != null:
-		multimesh.instance_count = landmarks.size()
 
 
 func setup_multimesh() -> void:
@@ -64,38 +59,30 @@ func setup_multimesh() -> void:
 		multimesh_instance.queue_free()
 
 	multimesh_instance = MultiMeshInstance3D.new()
-	add_child(multimesh_instance)
-
 	multimesh = MultiMesh.new()
-	multimesh.transform_format = MultiMesh.TRANSFORM_3D
-	multimesh_instance.multimesh = multimesh
 
-	var box_mesh := BoxMesh.new()
-	multimesh.mesh = box_mesh
+	multimesh.transform_format = MultiMesh.TRANSFORM_3D
+	multimesh.mesh = BoxMesh.new()
+
+	multimesh_instance.multimesh = multimesh
+	add_child(multimesh_instance)
 
 
 func spawn_landmark(data: Dictionary) -> Landmark:
-	if landmark_scene == null:
-		return null
-
-	var landmark = landmark_scene.instantiate() as Landmark
+	var landmark := landmark_scene.instantiate() as Landmark
 	if landmark == null:
 		return null
 
 	add_child(landmark)
 
-	var latitude: float = data["latitude"]
-	var longitude: float = data["longitude"]
+	var lat_rad := deg_to_rad(data["latitude"])
+	var lon_rad := deg_to_rad(data["longitude"])
 
-	var lat_rad = deg_to_rad(latitude)
-	var lon_rad = deg_to_rad(longitude)
-
-	var x = spawn_radius * cos(lat_rad) * cos(lon_rad)
-	var y = spawn_radius * sin(lat_rad)
-	var z = spawn_radius * cos(lat_rad) * sin(lon_rad)
-
-	var sat_position = Vector3(x, y, z)
-	landmark.position = sat_position
+	landmark.position = Vector3(
+		spawn_radius * cos(lat_rad) * cos(lon_rad),
+		spawn_radius * sin(lat_rad),
+		spawn_radius * cos(lat_rad) * sin(lon_rad),
+	)
 
 	landmark.setup(
 		data["int_designator"],
@@ -106,8 +93,5 @@ func spawn_landmark(data: Dictionary) -> Landmark:
 		data["latitude"],
 		data["longitude"],
 	)
-
-	# Hide the landmark's own visual mesh, but keep the node/script/detector alive
-	landmark.mesh_node.visible = false
 
 	return landmark
