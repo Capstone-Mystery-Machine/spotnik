@@ -56,7 +56,6 @@ func _ready() -> void:
 
 	screen_notifier.screen_entered.connect(_on_screen_entered)
 	screen_notifier.screen_exited.connect(_on_screen_exited)
-
 	_set_active(screen_notifier.is_on_screen())
 
 
@@ -87,7 +86,6 @@ func _set_active(active: bool) -> void:
 	set_physics_process(active)
 	detector.monitoring = active
 	detector.monitorable = active
-	mesh_node.visible = active
 
 	if not active:
 		pointer = null
@@ -95,10 +93,12 @@ func _set_active(active: bool) -> void:
 
 
 func _on_screen_entered() -> void:
+	print(satellite_name, " >>> ENTERED SCREEN")
 	_set_active(true)
 
 
 func _on_screen_exited() -> void:
+	print(satellite_name, " >>> EXITED SCREEN")
 	_set_active(false)
 
 
