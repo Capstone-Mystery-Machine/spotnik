@@ -7,7 +7,8 @@ extends Node3D
 var satellite_data: Array = []
 var landmarks: Array[Landmark] = []
 
-var multimesh_instance: MultiMeshInstance3D
+@onready var multimesh_instance: MultiMeshInstance3D = $SatelliteMultiMesh
+
 var multimesh: MultiMesh
 
 
@@ -23,9 +24,10 @@ func _process(_delta: float) -> void:
 	for i in landmarks.size():
 		var landmark := landmarks[i]
 		if landmark != null:
+			var scale_vec: Vector3 = Vector3.ONE * landmark.visual_scale
 			multimesh.set_instance_transform(
 				i,
-				Transform3D(Basis().scaled(landmark.mesh_node.scale), landmark.position),
+				Transform3D(Basis().scaled(scale_vec), landmark.position),
 			)
 
 
@@ -55,17 +57,7 @@ func spawn_all_landmarks() -> void:
 
 
 func setup_multimesh() -> void:
-	if multimesh_instance != null:
-		multimesh_instance.queue_free()
-
-	multimesh_instance = MultiMeshInstance3D.new()
-	multimesh = MultiMesh.new()
-
-	multimesh.transform_format = MultiMesh.TRANSFORM_3D
-	multimesh.mesh = BoxMesh.new()
-
-	multimesh_instance.multimesh = multimesh
-	add_child(multimesh_instance)
+	multimesh = multimesh_instance.multimesh
 
 
 func spawn_landmark(data: Dictionary) -> Landmark:

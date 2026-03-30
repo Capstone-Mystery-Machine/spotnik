@@ -13,8 +13,6 @@ max_scale = 9.0
 spawn_radius = 100.0
 scale_speed = 10.0
 
-[node name="Mesh" type="CSGBox3D" parent="."]
-
 [node name="CameraPointerDetector" type="Area3D" parent="."]
 script = ExtResource("1_hek36")
 inner_radius = 4.0
