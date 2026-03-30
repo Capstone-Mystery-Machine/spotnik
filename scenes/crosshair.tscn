@@ -11,30 +11,34 @@ mouse_filter = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchors_preset = -1
+anchor_left = 0.44400004
+anchor_top = 0.47500002
+anchor_right = 0.55600005
+anchor_bottom = 0.52500004
+offset_left = 0.1599884
+offset_top = -3.0517578e-05
+offset_right = -0.16001892
+offset_bottom = -3.0517578e-05
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Top" type="Line2D" parent="CenterContainer"]
+[node name="Root" type="Control" parent="CenterContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Top" type="Line2D" parent="CenterContainer/Root"]
 points = PackedVector2Array(20, 10, 20, 20)
 width = 1.0
 
-[node name="Bottom" type="Line2D" parent="CenterContainer"]
+[node name="Bottom" type="Line2D" parent="CenterContainer/Root"]
 points = PackedVector2Array(20, 20, 20, 30)
 width = 1.0
 
-[node name="Left" type="Line2D" parent="CenterContainer"]
+[node name="Left" type="Line2D" parent="CenterContainer/Root"]
 points = PackedVector2Array(10, 20, 20, 20)
 width = 1.0
 
-[node name="Right" type="Line2D" parent="CenterContainer"]
+[node name="Right" type="Line2D" parent="CenterContainer/Root"]
 points = PackedVector2Array(30, 20, 20, 20)
 width = 1.0
