@@ -8,5 +8,6 @@ func _ready() -> void:
 	var shape: SphereShape3D = collision_shape.shape
 	var radius: float = shape.radius
 	var size: Vector3 = Vector3.ONE * radius
+
 	aabb.position = -size / 2.0
 	aabb.size = size

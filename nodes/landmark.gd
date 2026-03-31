@@ -6,13 +6,6 @@ signal inner_exited(body: CollisionObject3D)
 signal outer_entered(body: CollisionObject3D)
 signal outer_exited(body: CollisionObject3D)
 
-var international_designator: String
-var norad_catalog_id: String
-var satellite_name: String
-var country: String
-var launch_date: int
-var latitude: float
-var longitude: float
 ## Represents the maximum scale size the satellite node will grow to.
 @export var max_scale: float = 5.0
 ## Represents the distance between the camera and where satellites spawn.
@@ -20,9 +13,17 @@ var longitude: float
 ## Represents the speed at which the satellite meshes scale (stay between 5-12).
 @export var scale_speed: float = 8.0
 
+var international_designator: String
+var norad_catalog_id: String
+var satellite_name: String
+var country: String
+var launch_date: int
+var latitude: float
+var longitude: float
+
 @onready var detector: Area3D = $CameraPointerDetector
 @onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
-@onready var screen_notifier: VisibleOnScreenNotifier3D = $VisibleOnScreenNotifier3D
+@onready var screen_notifier: VisibleOnScreenNotifier3D = $SatelliteOnScreenDetect
 
 var outer_radius: float
 var inner_radius: float
@@ -90,12 +91,10 @@ func _set_active(active: bool) -> void:
 
 
 func _on_screen_entered() -> void:
-	print(satellite_name, " >>> ENTERED SCREEN")
 	_set_active(true)
 
 
 func _on_screen_exited() -> void:
-	print(satellite_name, " >>> EXITED SCREEN")
 	_set_active(false)
 
 
