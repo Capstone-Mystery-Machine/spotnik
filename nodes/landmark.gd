@@ -6,6 +6,13 @@ signal inner_exited(body: CollisionObject3D)
 signal outer_entered(body: CollisionObject3D)
 signal outer_exited(body: CollisionObject3D)
 
+## Represents the maximum scale size the satellite node will grow to.
+@export var max_scale: float = 5.0
+## Represents the distance between the camera and where satellites spawn.
+@export var spawn_radius: float = 10.0
+## Represents the speed at which the satellite meshes scale (stay between 5-12).
+@export var scale_speed: float = 8.0
+
 var international_designator: String
 var norad_catalog_id: String
 var satellite_name: String
@@ -13,6 +20,15 @@ var country: String
 var launch_date: int
 var latitude: float
 var longitude: float
+
+@onready var detector: Area3D = $CameraPointerDetector
+@onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
+@onready var screen_notifier: VisibleOnScreenNotifier3D = $SatelliteOnScreenDetect
+
+var outer_radius: float
+var inner_radius: float
+var pointer: CollisionObject3D
+var visual_scale: float = 1.0
 
 
 func setup(
@@ -32,33 +48,21 @@ func setup(
 	latitude = lat
 	longitude = long
 
-## Represents the maximum scale size the satellite node will grow to.
-@export var max_scale: float = 5.0
-
-## Represents the distance between the camera and where satellites spawn.
-@export var spawn_radius: float = 10.0
-
-@export var scale_speed: float = 8.0
-
-@onready var detector: Area3D = $CameraPointerDetector
-@onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
-@onready var mesh_node: Node3D = $Mesh
-
-var outer_radius: float
-var inner_radius: float
-var pointer: CollisionObject3D
-
 
 func _ready() -> void:
 	outer_radius = outer_shape.shape.radius
 	inner_radius = detector.inner_radius
+
+	screen_notifier.screen_entered.connect(_on_screen_entered)
+	screen_notifier.screen_exited.connect(_on_screen_exited)
+	_set_active(screen_notifier.is_on_screen())
 
 
 func _physics_process(delta: float) -> void:
 	var weight: float = min(scale_speed * delta, 1.0)
 
 	if pointer == null:
-		mesh_node.scale = mesh_node.scale.lerp(Vector3.ONE, weight)
+		visual_scale = lerp(visual_scale, 1.0, weight)
 		return
 
 	if outer_radius <= inner_radius:
@@ -73,8 +77,25 @@ func _physics_process(delta: float) -> void:
 	)
 
 	var target_scale = lerp(1.0, max_scale, t)
+	visual_scale = lerp(visual_scale, target_scale, weight)
 
-	mesh_node.scale = mesh_node.scale.lerp(Vector3.ONE * target_scale, weight)
+
+func _set_active(active: bool) -> void:
+	set_physics_process(active)
+	detector.monitoring = active
+	detector.monitorable = active
+
+	if not active:
+		pointer = null
+		visual_scale = 1.0
+
+
+func _on_screen_entered() -> void:
+	_set_active(true)
+
+
+func _on_screen_exited() -> void:
+	_set_active(false)
 
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
