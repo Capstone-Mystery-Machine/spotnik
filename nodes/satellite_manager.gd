@@ -1,7 +1,6 @@
 extends Node3D
 
 @export var landmark_scene: PackedScene
-@export var json_url: String = "http://localhost:8080/data/satellites.json"
 @export var spawn_radius: float = 10.0
 
 var satellite_data: Array = []
@@ -13,15 +12,20 @@ var multimesh: MultiMesh
 
 
 func _ready() -> void:
-	$HTTPRequest.request_completed.connect(_on_request_completed)
-	$HTTPRequest.request(json_url)
+	var source := DataSource.get_data_source("spotnik/data_source")
+
+	if source.begins_with("http://") or source.begins_with("https://"):
+		$HTTPRequest.request_completed.connect(_on_request_completed)
+		$HTTPRequest.request(source)
+	else:
+		load_local_data(source)
 
 
 func _process(_delta: float) -> void:
 	if multimesh == null:
 		return
 
-	for i in landmarks.size():
+	for i in range(landmarks.size()):
 		var landmark := landmarks[i]
 		if landmark != null:
 			var scale_vec: Vector3 = Vector3.ONE * landmark.visual_scale
@@ -31,13 +35,23 @@ func _process(_delta: float) -> void:
 			)
 
 
+func load_local_data(path: String) -> void:
+	var file := FileAccess.open(path, FileAccess.READ)
+	var parsed = JSON.parse_string(file.get_as_text())
+
+	satellite_data = parsed
+	spawn_all_landmarks()
+
+
 func _on_request_completed(
 		_result: int,
 		_code: int,
 		_headers: PackedStringArray,
 		body: PackedByteArray,
 ) -> void:
-	satellite_data = JSON.parse_string(body.get_string_from_utf8())
+	var parsed = JSON.parse_string(body.get_string_from_utf8())
+
+	satellite_data = parsed
 	spawn_all_landmarks()
 
 

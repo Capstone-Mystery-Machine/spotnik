@@ -51,3 +51,11 @@ textures/vram_compression/import_etc2_astc=true
 
 geo_location/provider_name.android=&"PraxisMapperGPSPlugin"
 geo_location/provider_name=&"ip-api.com"
+data_source={
+"debug_android": "res://data/satellites.json",
+"debug_ios": "res://data/satellites.json",
+"debug_linux": "http://localhost:8080/data/satellites.json",
+"debug_macos": "http://localhost:8080/data/satellites.json",
+"debug_windows": "http://localhost:8080/data/satellites.json",
+"default": "res://data/satellites.json"
+}
