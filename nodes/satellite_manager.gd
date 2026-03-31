@@ -12,11 +12,19 @@ var multimesh: MultiMesh
 
 
 func _ready() -> void:
-	var source := DataSource.get_data_source("spotnik/data_source")
+	var source: String = DataSource.get_data_source()
+
+	print("Resolved data source: ", source)
+
+	if source.is_empty():
+		push_error("No data source could be resolved.")
+		return
 
 	if source.begins_with("http://") or source.begins_with("https://"):
 		$HTTPRequest.request_completed.connect(_on_request_completed)
-		$HTTPRequest.request(source)
+		var err: Error = $HTTPRequest.request(source)
+		if err != OK:
+			push_error("Failed to start HTTP request: %s" % err)
 	else:
 		load_local_data(source)
 
@@ -36,8 +44,19 @@ func _process(_delta: float) -> void:
 
 
 func load_local_data(path: String) -> void:
+	if not FileAccess.file_exists(path):
+		push_error("Local data file does not exist: %s" % path)
+		return
+
 	var file := FileAccess.open(path, FileAccess.READ)
-	var parsed = JSON.parse_string(file.get_as_text())
+	if file == null:
+		push_error("Failed to open local data file: %s" % path)
+		return
+
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	if parsed == null:
+		push_error("Failed to parse local JSON from: %s" % path)
+		return
 
 	satellite_data = parsed
 	spawn_all_landmarks()
@@ -49,7 +68,14 @@ func _on_request_completed(
 		_headers: PackedStringArray,
 		body: PackedByteArray,
 ) -> void:
-	var parsed = JSON.parse_string(body.get_string_from_utf8())
+	if _code != 200:
+		push_error("HTTP request failed with response code: %s" % _code)
+		return
+
+	var parsed: Variant = JSON.parse_string(body.get_string_from_utf8())
+	if parsed == null:
+		push_error("Failed to parse HTTP JSON response.")
+		return
 
 	satellite_data = parsed
 	spawn_all_landmarks()
