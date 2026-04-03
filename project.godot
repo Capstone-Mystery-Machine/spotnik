@@ -26,7 +26,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg", "res://addons/PraxisMapperGPSPlugin/plugin.cfg")
+enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg", "res://addons/PraxisMapperGPSPlugin/plugin.cfg", "res://addons/gut/plugin.cfg")
 
 [input]
 
