@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d0rmdtxfjdfye"]
 
-[ext_resource type="FontFile" uid="uid://dq143kx8xkyhv" path="res://textures/ComicNeue-Bold.ttf" id="1_nvwgw"]
+[ext_resource type="FontFile" uid="uid://dq143kx8xkyhv" path="res://fonts/ComicNeue-Bold.ttf" id="1_nvwgw"]
 
 [node name="SettingsMenuScene" type="Node2D"]
 
