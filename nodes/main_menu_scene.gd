@@ -1,4 +1,11 @@
 extends Node3D
 
-func _on_view_sky_button_pressed() -> void:
+@onready var main_menu_screen: MainMenuScreen = %MainMenuScreen
+
+
+func _on_start_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/loading_scene.tscn")
+
+
+func _ready() -> void:
+	main_menu_screen.start_button_pressed.connect(_on_start_button_pressed)

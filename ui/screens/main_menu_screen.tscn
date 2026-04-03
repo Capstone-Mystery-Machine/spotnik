@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfii1quf8rc8h"]
+
+[ext_resource type="FontFile" uid="uid://b4ng6x3lnxpes" path="res://fonts/ComicNeue-Regular.ttf" id="1_0lykk"]
+[ext_resource type="Script" uid="uid://mv58olwiaoo4" path="res://ui/screens/main_menu_screen.gd" id="1_fjnu2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o8wkr"]
+font = ExtResource("1_0lykk")
+
+[node name="MainMenuScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fjnu2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spotnik"
+label_settings = SubResource("LabelSettings_o8wkr")
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AnimationControl" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "START"
