@@ -1,22 +1,14 @@
 class_name MainMenuScreen
 extends Control
 
-signal settings_button_pressed()
+@onready var scene_tree: SceneTree = get_tree()
 
-signal start_button_pressed()
-
-@onready var settings_button: Button = %SettingsButton
 @onready var start_button: Button = %StartButton
 
 
-func _on_settings_button_pressed():
-	settings_button_pressed.emit()
-
-
 func _on_start_button_pressed():
-	start_button_pressed.emit()
+	get_tree().change_scene_to_file("res://scenes/loading_scene.tscn")
 
 
 func _ready():
-	settings_button.pressed.connect(_on_settings_button_pressed)
 	start_button.pressed.connect(_on_start_button_pressed)
