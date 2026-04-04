@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfii1quf8rc8h"]
+[gd_scene load_steps=6 format=3 uid="uid://bfii1quf8rc8h"]
 
 [ext_resource type="FontFile" uid="uid://b4ng6x3lnxpes" path="res://fonts/ComicNeue-Regular.ttf" id="1_0lykk"]
 [ext_resource type="Script" uid="uid://mv58olwiaoo4" path="res://ui/screens/main_menu_screen.gd" id="1_fjnu2"]
+[ext_resource type="PackedScene" uid="uid://d1l6od1o532g5" path="res://ui/components/spacer.tscn" id="3_8ixqt"]
 [ext_resource type="Texture2D" uid="uid://bqrts3ahiaww1" path="res://textures/icon_gear_light.svg" id="3_gh0e1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o8wkr"]
@@ -33,16 +34,14 @@ text = "Spotnik"
 label_settings = SubResource("LabelSettings_o8wkr")
 horizontal_alignment = 1
 
-[node name="Spacer1" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Spacer1" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8ixqt")]
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="AnimationControl" type="Control" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Spacer2" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Spacer2" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8ixqt")]
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
