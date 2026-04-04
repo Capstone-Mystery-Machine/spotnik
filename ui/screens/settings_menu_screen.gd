@@ -32,6 +32,22 @@ func _toggle_control_style(input_mode: InputX.InputMode) -> void:
 			touch_button.button_pressed = true
 
 
+func _on_gamma_h_slider_drag_ended(value_changed: bool) -> void:
+	if value_changed:
+		UserSettings.save()
+
+
+func _on_gamma_h_slider_value_changed(value: float) -> void:
+	UserSettings.gamma = value
+
+
+func _on_quality_profile_button_pressed(
+		quality_profile: UserSettings.QualityProfile,
+) -> void:
+	UserSettings.quality_profile = quality_profile
+	UserSettings.save()
+
+
 func _on_setting_changed(
 		setting_name: Array,
 		new_value: Variant,
@@ -46,6 +62,13 @@ func _on_setting_changed(
 			_toggle_quality_profile(UserSettings.quality_profile)
 
 
+func _on_control_style_button_pressed(
+		input_mode: InputX.InputMode,
+) -> void:
+	UserSettings.input_mode = input_mode
+	UserSettings.save()
+
+
 func _ready() -> void:
 	_toggle_control_style(InputX.input_mode)
 	_toggle_quality_profile(UserSettings.quality_profile)
@@ -56,3 +79,26 @@ func _ready() -> void:
 	gamma_h_slider.value = UserSettings.gamma
 
 	UserSettings.instance.setting_changed.connect(_on_setting_changed)
+
+	low_quality_button.pressed.connect(
+		_on_quality_profile_button_pressed.bind(UserSettings.QualityProfile.LOW),
+	)
+
+	high_quality_button.pressed.connect(
+		_on_quality_profile_button_pressed.bind(UserSettings.QualityProfile.HIGH),
+	)
+
+	medium_quality_button.pressed.connect(
+		_on_quality_profile_button_pressed.bind(UserSettings.QualityProfile.MEDIUM),
+	)
+
+	gamma_h_slider.drag_ended.connect(_on_gamma_h_slider_drag_ended)
+	gamma_h_slider.value_changed.connect(_on_gamma_h_slider_value_changed)
+
+	motion_button.pressed.connect(
+		_on_control_style_button_pressed.bind(InputX.InputMode.INPUT_GYRO),
+	)
+
+	touch_button.pressed.connect(
+		_on_control_style_button_pressed.bind(InputX.InputMode.INPUT_TOUCH),
+	)
