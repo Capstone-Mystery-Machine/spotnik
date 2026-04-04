@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnws8jjky4q3c"]
+[gd_scene load_steps=4 format=3 uid="uid://dnws8jjky4q3c"]
 
 [ext_resource type="Script" uid="uid://blm8rqt6w3op1" path="res://ui/screens/settings_menu_screen.gd" id="1_jlc54"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_jlc54"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_nemlt"]
 
 [node name="SettingsMenuScreen" type="Control" groups=["SettingsMenuScreen"]]
 layout_mode = 3
@@ -11,8 +15,88 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jlc54")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Hello World!"
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="QualityVBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer"]
+layout_mode = 2
+text = "Quality"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer"]
+layout_mode = 2
+
+[node name="HighQualityButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_jlc54")
+text = "High"
+
+[node name="MediumQualityButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_jlc54")
+text = "Medium"
+
+[node name="LowQualityButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_jlc54")
+text = "Low"
+
+[node name="GammaVBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/MarginContainer/VBoxContainer/GammaVBoxContainer"]
+layout_mode = 2
+text = "Gamma"
+
+[node name="GammaHSlider" type="HSlider" parent="CenterContainer/MarginContainer/VBoxContainer/GammaVBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+step = 0.1
+
+[node name="ControlStyleVBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer"]
+layout_mode = 2
+text = "Control Style"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer"]
+layout_mode = 2
+
+[node name="TouchButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nemlt")
+text = "Touch"
+
+[node name="MotionButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nemlt")
+text = "Motion"
