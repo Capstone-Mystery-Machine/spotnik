@@ -1,13 +1,19 @@
 extends GutTest
 
+var _original_enable_gravity: bool
+var _original_enable_magnetometer: bool
 var _original_input_mode: InputX.InputMode
 
 
 func before_each() -> void:
+	_original_enable_gravity = ProjectSettings.get_setting("input_devices/sensors/enable_gravity")
+	_original_enable_magnetometer = ProjectSettings.get_setting("input_devices/sensors/enable_magnetometer")
 	_original_input_mode = UserSettings.input_mode
 
 
 func after_each() -> void:
+	ProjectSettings.set_setting("input_devices/sensors/enable_gravity", _original_enable_gravity)
+	ProjectSettings.set_setting("input_devices/sensors/enable_magnetometer", _original_enable_magnetometer)
 	UserSettings.input_mode = _original_input_mode
 
 
