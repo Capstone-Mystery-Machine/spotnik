@@ -10,7 +10,6 @@
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MainMenuScreen" parent="UICanvasLayer" instance=ExtResource("2_7hcs8")]
-unique_name_in_owner = true
 
 [node name="SettingsButtonScreen" parent="UICanvasLayer" instance=ExtResource("2_sb6w7")]
 
