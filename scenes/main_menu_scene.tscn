@@ -1,15 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2l8pntu6erxw"]
+[gd_scene load_steps=5 format=3 uid="uid://b2l8pntu6erxw"]
 
 [ext_resource type="Script" uid="uid://wrnnwaqffaso" path="res://nodes/main_menu_scene.gd" id="1_vfskp"]
 [ext_resource type="PackedScene" uid="uid://bfii1quf8rc8h" path="res://ui/screens/main_menu_screen.tscn" id="2_7hcs8"]
 [ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="2_vfskp"]
+[ext_resource type="PackedScene" uid="uid://dnws8jjky4q3c" path="res://ui/screens/settings_menu_screen.tscn" id="3_sb6w7"]
 
 [node name="MainMenuScene" type="Node3D"]
 script = ExtResource("1_vfskp")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UICanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="MainMenuScreen" parent="CanvasLayer" instance=ExtResource("2_7hcs8")]
+[node name="MainMenuScreen" parent="UICanvasLayer" instance=ExtResource("2_7hcs8")]
 unique_name_in_owner = true
+
+[node name="SettingsMenuScreen" parent="UICanvasLayer" instance=ExtResource("3_sb6w7")]
+visible = false
 
 [node name="GlobalShaders" parent="." instance=ExtResource("2_vfskp")]

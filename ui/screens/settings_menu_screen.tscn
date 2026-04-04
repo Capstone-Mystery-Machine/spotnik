@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnws8jjky4q3c"]
+
+[ext_resource type="Script" uid="uid://blm8rqt6w3op1" path="res://ui/screens/settings_menu_screen.gd" id="1_jlc54"]
+
+[node name="SettingsMenuScreen" type="Control" groups=["SettingsMenuScreen"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jlc54")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Hello World!"

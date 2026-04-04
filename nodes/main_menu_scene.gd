@@ -1,10 +1,10 @@
 extends Node3D
 
-@onready var main_menu_screen: MainMenuScreen = %MainMenuScreen
+@onready var _main_menu_screen: MainMenuScreen = %MainMenuScreen
 
 
 func _on_settings_button_pressed() -> void:
-	pass
+	SettingsMenu.open()
 
 
 func _on_start_button_pressed() -> void:
@@ -12,5 +12,5 @@ func _on_start_button_pressed() -> void:
 
 
 func _ready() -> void:
-	main_menu_screen.settings_button_pressed.connect(_on_settings_button_pressed)
-	main_menu_screen.start_button_pressed.connect(_on_start_button_pressed)
+	_main_menu_screen.settings_button_pressed.connect(_on_settings_button_pressed)
+	_main_menu_screen.start_button_pressed.connect(_on_start_button_pressed)
