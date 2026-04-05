@@ -25,27 +25,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap3VBoxContainer"
 
-[node name="QualityVBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer"]
+[node name="QualityVBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap7VBoxContainer"
 
-[node name="Label" type="Label" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/QualityVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Display6Label"
 text = "Quality"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/QualityVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap7HBoxContainer"
 
-[node name="HighQualityButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
+[node name="HighQualityButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -54,16 +54,17 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_jlc54")
 text = "High"
 
-[node name="MediumQualityButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
+[node name="MediumQualityButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"ToggleButton"
 toggle_mode = true
+button_pressed = true
 button_group = SubResource("ButtonGroup_jlc54")
 text = "Med"
 
-[node name="LowQualityButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
+[node name="LowQualityButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -72,34 +73,34 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_jlc54")
 text = "Low"
 
-[node name="GammaVBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer"]
+[node name="GammaVBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap7VBoxContainer"
 
-[node name="Label" type="Label" parent="CenterContainer/MarginContainer/VBoxContainer/GammaVBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GammaVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Display6Label"
 text = "Gamma"
 
-[node name="GammaHSlider" type="HSlider" parent="CenterContainer/MarginContainer/VBoxContainer/GammaVBoxContainer"]
+[node name="GammaHSlider" type="HSlider" parent="CenterContainer/PanelContainer/VBoxContainer/GammaVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 step = 0.1
 
-[node name="ControlStyleVBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer"]
+[node name="ControlStyleVBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap7VBoxContainer"
 
-[node name="Label" type="Label" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/ControlStyleVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Display6Label"
 text = "Control Style"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/ControlStyleVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap7HBoxContainer"
 
-[node name="TouchButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer"]
+[node name="TouchButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -109,7 +110,7 @@ button_group = SubResource("ButtonGroup_nemlt")
 text = "Touch"
 icon = ExtResource("2_ndk04")
 
-[node name="MotionButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer"]
+[node name="MotionButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
