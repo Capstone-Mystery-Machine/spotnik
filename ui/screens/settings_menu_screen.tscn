@@ -59,7 +59,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_group = SubResource("ButtonGroup_jlc54")
-text = "Medium"
+text = "Med"
 
 [node name="LowQualityButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
