@@ -61,7 +61,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"ToggleButton"
 toggle_mode = true
-button_pressed = true
 button_group = SubResource("ButtonGroup_jlc54")
 text = "Med"
 
