@@ -14,7 +14,7 @@ extends Control
 @onready var touch_button: Button = %TouchButton
 
 
-func _toggle_quality_profile(quality_profile: UserSettings.QualityProfile) -> void:
+func _toggle_quality_profile(quality_profile: Variant) -> void:
 	match quality_profile:
 		UserSettings.QualityProfile.HIGH:
 			high_quality_button.button_pressed = true
@@ -22,6 +22,10 @@ func _toggle_quality_profile(quality_profile: UserSettings.QualityProfile) -> vo
 			low_quality_button.button_pressed = true
 		UserSettings.QualityProfile.MEDIUM:
 			medium_quality_button.button_pressed = true
+		null:
+			high_quality_button.button_pressed = false
+			medium_quality_button.button_pressed = false
+			low_quality_button.button_pressed = false
 
 
 func _toggle_control_style(input_mode: InputX.InputMode) -> void:
