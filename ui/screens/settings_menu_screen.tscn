@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnws8jjky4q3c"]
+[gd_scene load_steps=6 format=3 uid="uid://dnws8jjky4q3c"]
 
 [ext_resource type="Script" uid="uid://blm8rqt6w3op1" path="res://ui/screens/settings_menu_screen.gd" id="1_jlc54"]
+[ext_resource type="Texture2D" uid="uid://c11qr8a0mpxm1" path="res://textures/illustration_touch_screen.svg" id="2_ndk04"]
+[ext_resource type="Texture2D" uid="uid://vgps1fkgspdy" path="res://textures/illustration_rotate_device.svg" id="3_nenfv"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_jlc54"]
 
@@ -92,6 +94,7 @@ size_flags_horizontal = 3
 toggle_mode = true
 button_group = SubResource("ButtonGroup_nemlt")
 text = "Touch"
+icon = ExtResource("2_ndk04")
 
 [node name="MotionButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -100,3 +103,4 @@ size_flags_horizontal = 3
 toggle_mode = true
 button_group = SubResource("ButtonGroup_nemlt")
 text = "Motion"
+icon = ExtResource("3_nenfv")
