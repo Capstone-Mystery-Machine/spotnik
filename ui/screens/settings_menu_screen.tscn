@@ -43,6 +43,7 @@ text = "Quality"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"Gap7HBoxContainer"
 
 [node name="HighQualityButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -93,6 +94,7 @@ text = "Control Style"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"Gap7HBoxContainer"
 
 [node name="TouchButton" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
