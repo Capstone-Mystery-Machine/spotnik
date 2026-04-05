@@ -1,2 +1,20 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://cbsr7x6lpgmx3"]
 
+[ext_resource type="FontFile" uid="uid://da4kyqyt8xjct" path="res://fonts/Michroma-Regular.ttf" id="1_euig4"]
+
+[resource]
+Display1Label/base_type = &"DisplayLabel"
+Display1Label/font_sizes/font_size = 56
+Display2Label/base_type = &"DisplayLabel"
+Display2Label/font_sizes/font_size = 40
+Display3Label/base_type = &"DisplayLabel"
+Display3Label/font_sizes/font_size = 32
+Display4Label/base_type = &"DisplayLabel"
+Display4Label/font_sizes/font_size = 24
+Display5Label/base_type = &"DisplayLabel"
+Display5Label/font_sizes/font_size = 20
+Display6Label/base_type = &"DisplayLabel"
+Display6Label/font_sizes/font_size = 16
+DisplayLabel/base_type = &"Label"
+DisplayLabel/constants/line_spacing = 1
+DisplayLabel/fonts/font = ExtResource("1_euig4")
