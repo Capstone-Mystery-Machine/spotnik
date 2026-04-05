@@ -1,8 +1,43 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cbsr7x6lpgmx3"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cbsr7x6lpgmx3"]
 
 [ext_resource type="FontFile" uid="uid://da4kyqyt8xjct" path="res://fonts/Michroma-Regular.ttf" id="1_euig4"]
+[ext_resource type="FontFile" uid="uid://dlemmkefa14s3" path="res://fonts/JetBrainsMono-Regular.ttf" id="1_pp6jp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pp6jp"]
+content_margin_left = 24.0
+content_margin_top = 20.0
+content_margin_right = 24.0
+content_margin_bottom = 20.0
+bg_color = Color(0.011764706, 0.019607844, 0.03137255, 0.050980393)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.011764706, 0.019607844, 0.03137255, 0.101960786)
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bd3e3"]
+bg_color = Color(0.44044712, 0.15170373, 0.50956357, 0.2)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.44044712, 0.15170373, 0.50956357, 0.5)
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [resource]
+BrandLabel/base_type = &"Label"
+Button/fonts/font = ExtResource("1_pp6jp")
+Button/styles/focus = null
+Button/styles/hover = null
 Display1Label/base_type = &"DisplayLabel"
 Display1Label/font_sizes/font_size = 56
 Display2Label/base_type = &"DisplayLabel"
@@ -54,3 +89,6 @@ Gap9HBoxContainer/base_type = &"HBoxContainer"
 Gap9HBoxContainer/constants/separation = 4
 Gap9VBoxContainer/base_type = &"VBoxContainer"
 Gap9VBoxContainer/constants/separation = 4
+ToggleButton/base_type = &"Button"
+ToggleButton/styles/normal = SubResource("StyleBoxFlat_pp6jp")
+ToggleButton/styles/pressed = SubResource("StyleBoxFlat_bd3e3")
