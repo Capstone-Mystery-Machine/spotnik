@@ -1,6 +1,8 @@
 class_name SettingsMenuScreen
 extends Control
 
+@onready var close_button: Button = %CloseButton
+
 @onready var gamma_h_slider: HSlider = %GammaHSlider
 
 @onready var high_quality_button: Button = %HighQualityButton
@@ -34,6 +36,10 @@ func _toggle_control_style(input_mode: InputX.InputMode) -> void:
 			motion_button.button_pressed = true
 		InputX.InputMode.INPUT_TOUCH:
 			touch_button.button_pressed = true
+
+
+func _on_close_button_pressed() -> void:
+	SettingsMenu.close()
 
 
 func _on_gamma_h_slider_drag_ended(value_changed: bool) -> void:
@@ -84,6 +90,7 @@ func _ready() -> void:
 
 	UserSettings.instance.setting_changed.connect(_on_setting_changed)
 
+	close_button.pressed.connect(_on_close_button_pressed)
 	low_quality_button.pressed.connect(
 		_on_quality_profile_button_pressed.bind(UserSettings.QualityProfile.LOW),
 	)
