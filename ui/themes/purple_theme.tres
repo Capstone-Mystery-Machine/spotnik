@@ -1,7 +1,11 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cbsr7x6lpgmx3"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cbsr7x6lpgmx3"]
 
 [ext_resource type="FontFile" uid="uid://da4kyqyt8xjct" path="res://fonts/Michroma-Regular.ttf" id="1_euig4"]
 [ext_resource type="FontFile" uid="uid://dlemmkefa14s3" path="res://fonts/JetBrainsMono-Regular.ttf" id="1_pp6jp"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_pp6jp"]
+color = Color(0.12941177, 0.15294118, 0.16078432, 0.2509804)
+thickness = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6abkt"]
 content_margin_left = 32.0
@@ -100,6 +104,12 @@ Gap9HBoxContainer/base_type = &"HBoxContainer"
 Gap9HBoxContainer/constants/separation = 4
 Gap9VBoxContainer/base_type = &"VBoxContainer"
 Gap9VBoxContainer/constants/separation = 4
+HSlider/icons/grabber_disabled = null
+HSlider/icons/grabber_highlight = null
+HSlider/icons/tick = null
+HSlider/styles/grabber_area = null
+HSlider/styles/grabber_area_highlight = null
+HSlider/styles/slider = SubResource("StyleBoxLine_pp6jp")
 ModalPanelContainer/base_type = &"PanelContainer"
 ModalPanelContainer/styles/panel = SubResource("StyleBoxFlat_6abkt")
 ToggleButton/base_type = &"Button"
