@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://dlemmkefa14s3" path="res://fonts/JetBrainsMono-Regular.ttf" id="1_pp6jp"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_pp6jp"]
-color = Color(0.12941177, 0.15294118, 0.16078432, 0.2509804)
+color = Color(0.12835406, 0.15170373, 0.16007765, 0.35000002)
 thickness = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6abkt"]
@@ -23,12 +23,12 @@ content_margin_left = 24.0
 content_margin_top = 20.0
 content_margin_right = 24.0
 content_margin_bottom = 20.0
-bg_color = Color(0.12835406, 0.15170373, 0.16007765, 0.25)
+bg_color = Color(0.12835406, 0.15170373, 0.16007765, 0.35000002)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.12835406, 0.15170373, 0.16007765, 0.75000006)
+border_color = Color(0.12835406, 0.15170373, 0.16007765, 0.85)
 border_blend = true
 corner_radius_top_left = 16
 corner_radius_top_right = 16
