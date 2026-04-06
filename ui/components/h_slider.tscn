@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://vcinqoonqvxp"]
+
+[node name="HSlider" type="HSlider"]
+offset_bottom = 20.0
+focus_mode = 0

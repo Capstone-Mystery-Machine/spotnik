@@ -1,12 +1,25 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cbsr7x6lpgmx3"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://cbsr7x6lpgmx3"]
 
 [ext_resource type="FontFile" uid="uid://da4kyqyt8xjct" path="res://fonts/Michroma-Regular.ttf" id="1_euig4"]
 [ext_resource type="FontFile" uid="uid://dlemmkefa14s3" path="res://fonts/JetBrainsMono-Regular.ttf" id="1_pp6jp"]
 [ext_resource type="Texture2D" uid="uid://ctqeyy26vwmar" path="res://textures/icon_grabber.tres" id="3_bd3e3"]
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_pp6jp"]
-color = Color(0.12835406, 0.15170373, 0.16007765, 0.35000002)
-thickness = 5
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akiii"]
+bg_color = Color(0.6784314, 0.23921569, 0.7882353, 0.5019608)
+border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
+corner_radius_top_left = 32
+corner_radius_bottom_left = 32
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wse72"]
+bg_color = Color(0.12835406, 0.15170373, 0.16007765, 0.75000006)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6abkt"]
 content_margin_left = 32.0
@@ -109,9 +122,9 @@ HSlider/icons/grabber = ExtResource("3_bd3e3")
 HSlider/icons/grabber_disabled = null
 HSlider/icons/grabber_highlight = ExtResource("3_bd3e3")
 HSlider/icons/tick = null
-HSlider/styles/grabber_area = null
-HSlider/styles/grabber_area_highlight = SubResource("StyleBoxLine_pp6jp")
-HSlider/styles/slider = SubResource("StyleBoxLine_pp6jp")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_akiii")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_akiii")
+HSlider/styles/slider = SubResource("StyleBoxFlat_wse72")
 ModalPanelContainer/base_type = &"PanelContainer"
 ModalPanelContainer/styles/panel = SubResource("StyleBoxFlat_6abkt")
 ToggleButton/base_type = &"Button"
