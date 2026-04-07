@@ -1,5 +1,5 @@
 class_name SettingsButtonScreen
-extends Control
+extends MarginContainer
 
 @onready var settings_button: Button = %SettingsButton
 
