@@ -129,6 +129,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 focus_mode = 0
+theme_type_variation = &"FABButton"
 icon = ExtResource("6_dxncw")
 
 [editable path="CenterContainer/PanelContainer"]
