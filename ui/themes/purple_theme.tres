@@ -139,4 +139,4 @@ VerticalButtonMarginContainer/constants/margin_left = 24
 VerticalButtonMarginContainer/constants/margin_right = 24
 VerticalButtonMarginContainer/constants/margin_top = 20
 VerticalButtonVBoxContainer/base_type = &"VBoxContainer"
-VerticalButtonVBoxContainer/constants/separation = 4
+VerticalButtonVBoxContainer/constants/separation = 16
