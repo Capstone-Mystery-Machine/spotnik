@@ -14,6 +14,5 @@
 [node name="SettingsButtonScreen" parent="UICanvasLayer" instance=ExtResource("2_sb6w7")]
 
 [node name="SettingsMenuScreen" parent="UICanvasLayer" instance=ExtResource("3_sb6w7")]
-visible = false
 
 [node name="GlobalShaders" parent="." instance=ExtResource("2_vfskp")]

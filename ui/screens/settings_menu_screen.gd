@@ -1,5 +1,5 @@
 class_name SettingsMenuScreen
-extends Control
+extends CenterContainer
 
 @onready var close_button: Button = %CloseButton
 
