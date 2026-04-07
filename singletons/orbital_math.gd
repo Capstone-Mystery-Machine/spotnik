@@ -33,8 +33,11 @@ static func elements_to_state_vectors(data: Dictionary) -> Dictionary:
 	}
 
 
-static func solve_kepler\
-(mean_anomaly: float, eccentricity: float, max_iterations: int = 10) -> float:
+static func solve_kepler(
+		mean_anomaly: float,
+		eccentricity: float,
+		max_iterations: int = 10,
+) -> float:
 	var BigE: float = mean_anomaly
 
 	for n in range(max_iterations):
