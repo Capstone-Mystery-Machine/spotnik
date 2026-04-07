@@ -38,14 +38,14 @@ static func solve_kepler(
 		eccentricity: float,
 		max_iterations: int = 10,
 ) -> float:
-	var BigE: float = mean_anomaly
+	var big_e: float = mean_anomaly
 
 	for n in range(max_iterations):
-		var f: float = BigE - eccentricity * sin(BigE) - mean_anomaly
-		var f_prime: float = 1.0 - eccentricity * cos(BigE)
-		BigE -= f / f_prime
+		var f: float = big_e - eccentricity * sin(big_e) - mean_anomaly
+		var f_prime: float = 1.0 - eccentricity * cos(big_e)
+		big_e -= f / f_prime
 
-	return BigE
+	return big_e
 
 
 static func make_orbit_basis(raan: float, inclination: float, arg_periapsis: float) -> Basis:
