@@ -39,8 +39,8 @@ func _ui_info_signal(landmark):
 	satellite_name.text = landmark.satellite_name
 	origin_country.text = landmark.country
 	launch_date.text = str(landmark.launch_date)
-	latitude.text = str(landmark.latitude)
-	longitude.text = str(landmark.longitude)
+	latitude.text = "N/A"
+	longitude.text = "N/A"
 	cartesian_x.text = "N/A"
 	cartesian_y.text = "N/A"
 	cartesian_z.text = "N/A"
