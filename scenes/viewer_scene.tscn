@@ -36,6 +36,6 @@ spawn_radius = 100.0
 
 [node name="Crosshair" parent="." instance=ExtResource("8_nb4os")]
 
-[node name="SatelInfoUI" parent="." instance=ExtResource("4_4xf28")]
+[node name="ViewerSettingsButton" parent="." instance=ExtResource("10_611gk")]
 
 [node name="GlobalShaders" parent="." instance=ExtResource("7_icqbe")]
