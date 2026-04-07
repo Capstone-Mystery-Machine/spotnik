@@ -1,15 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnws8jjky4q3c"]
+[gd_scene load_steps=12 format=3 uid="uid://dnws8jjky4q3c"]
 
 [ext_resource type="Script" uid="uid://blm8rqt6w3op1" path="res://ui/screens/settings_menu_screen.gd" id="1_jlc54"]
 [ext_resource type="PackedScene" uid="uid://bw7aob6pfnqcg" path="res://ui/components/toggle_button.tscn" id="2_2b28f"]
 [ext_resource type="Texture2D" uid="uid://c11qr8a0mpxm1" path="res://textures/illustration_touch_screen.svg" id="2_ndk04"]
 [ext_resource type="PackedScene" uid="uid://vcinqoonqvxp" path="res://ui/components/h_slider.tscn" id="2_nenfv"]
 [ext_resource type="Texture2D" uid="uid://vgps1fkgspdy" path="res://textures/illustration_rotate_device.svg" id="3_nenfv"]
+[ext_resource type="PackedScene" uid="uid://cujpy52e3bdr2" path="res://ui/components/vertical_button.tscn" id="4_flcee"]
 [ext_resource type="Texture2D" uid="uid://cejqq564pxow3" path="res://textures/icon_x_light.svg" id="6_dxncw"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_dxncw"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_flcee"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_nemlt"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_hrf6e"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ox7w8"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_yvodh"]
+resource_local_to_scene = false
 
 [node name="SettingsMenuScreen" type="Control" groups=["SettingsMenuScreen"]]
 layout_mode = 3
@@ -32,6 +38,14 @@ grow_vertical = 2
 layout_mode = 2
 theme_type_variation = &"ModalPanelContainer"
 
+[node name="CloseButton" type="Button" parent="CenterContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+icon = ExtResource("6_dxncw")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap3VBoxContainer"
@@ -53,21 +67,21 @@ theme_type_variation = &"Gap7HBoxContainer"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_dxncw")
+button_group = SubResource("ButtonGroup_flcee")
 text = "High"
 
 [node name="MediumQualityButton" parent="CenterContainer/PanelContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_dxncw")
+button_group = SubResource("ButtonGroup_hrf6e")
 text = "Med"
 
 [node name="LowQualityButton" parent="CenterContainer/PanelContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_dxncw")
+button_group = SubResource("ButtonGroup_ox7w8")
 text = "Low"
 
 [node name="GammaVBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
@@ -97,26 +111,22 @@ text = "Control Style"
 layout_mode = 2
 theme_type_variation = &"Gap7HBoxContainer"
 
-[node name="TouchButton" parent="CenterContainer/PanelContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
+[node name="TouchButton" parent="CenterContainer/PanelContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer" instance=ExtResource("4_flcee")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_nemlt")
-text = "Touch"
 icon = ExtResource("2_ndk04")
+text = "Touch"
+button_group = SubResource("ButtonGroup_yvodh")
+button_theme_type_variation = &"ToggleButton"
+toggle_mode = true
 
-[node name="MotionButton" parent="CenterContainer/PanelContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
+[node name="MotionButton" parent="CenterContainer/PanelContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer" instance=ExtResource("4_flcee")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_nemlt")
-text = "Motion"
 icon = ExtResource("3_nenfv")
-
-[node name="CloseButton" type="Button" parent="CenterContainer/PanelContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-focus_mode = 0
-icon = ExtResource("6_dxncw")
+text = "Motion"
+button_group = SubResource("ButtonGroup_yvodh")
+button_theme_type_variation = &"ToggleButton"
+toggle_mode = true

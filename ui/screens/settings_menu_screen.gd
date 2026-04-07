@@ -11,9 +11,9 @@ extends Control
 
 @onready var medium_quality_button: Button = %MediumQualityButton
 
-@onready var motion_button: Button = %MotionButton
+@onready var motion_button: VerticalButton = %MotionButton
 
-@onready var touch_button: Button = %TouchButton
+@onready var touch_button: VerticalButton = %TouchButton
 
 
 func _toggle_quality_profile(quality_profile: Variant) -> void:
