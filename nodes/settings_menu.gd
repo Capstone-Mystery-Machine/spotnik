@@ -30,7 +30,6 @@ func _settings_open() -> void:
 
 func _on_gamma_slider_drag_ended(_value_changed: bool) -> void:
 	UserSettings.gamma = gamma_slide.value
-	#UserSettings.save()
 
 
 func _on_quality_low_pressed() -> void:
