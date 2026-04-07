@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://6lt6opeulipk"]
+[gd_scene load_steps=3 format=3 uid="uid://e8j6ixxyvox1"]
 
-[ext_resource type="Script" path="res://nodes/viewer_settings_button.gd" id="1_0ajuq"]
+[ext_resource type="Script" uid="uid://cxrwyqeji4cfr" path="res://nodes/viewer_settings_button.gd" id="1_0ajuq"]
 [ext_resource type="Texture2D" uid="uid://ble363kmpmfgv" path="res://textures/setting.png" id="2_ievcd"]
 
 [node name="ViewerSettingsButton" type="Node2D"]

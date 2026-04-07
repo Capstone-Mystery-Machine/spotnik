@@ -1,24 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0rmdtxfjdfye"]
+[gd_scene load_steps=5 format=3 uid="uid://d0rmdtxfjdfye"]
 
+[ext_resource type="Script" uid="uid://hdwlxdbxs5u5" path="res://nodes/settings_menu.gd" id="1_ar4j1"]
 [ext_resource type="FontFile" uid="uid://dq143kx8xkyhv" path="res://textures/ComicNeue-Bold.ttf" id="1_nvwgw"]
+[ext_resource type="ButtonGroup" uid="uid://c8rqma7d8fvmv" path="res://textures/quality_button_group.tres" id="3_hrjr7"]
+[ext_resource type="ButtonGroup" uid="uid://bhily316shx4c" path="res://textures/input_button_group.tres" id="4_87u21"]
 
 [node name="SettingsMenuScene" type="Node2D"]
-visible = false
+script = ExtResource("1_ar4j1")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="SettingsCanvas" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="ColorRect" type="ColorRect" parent="SettingsCanvas"]
 offset_right = 3632.0
 offset_bottom = 3032.0
 color = Color(0, 0.14731666, 0.40466368, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="."]
+[node name="ColorRect2" type="ColorRect" parent="SettingsCanvas"]
 offset_right = 3644.0
 offset_bottom = 150.0
 color = Color(0, 0.05398819, 0.19401616, 1)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsCanvas"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -27,7 +30,7 @@ offset_right = 94.0
 offset_bottom = 150.0
 grow_horizontal = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SettingsCanvas/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -36,7 +39,7 @@ bbcode_enabled = true
 text = "[font_size=40][center]Settings"
 fit_content = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsCanvas"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -51,82 +54,108 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Graphics" type="Label" parent="CanvasLayer/VBoxContainer"]
+[node name="Graphics" type="Label" parent="SettingsCanvas/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 32
 text = "Graphics"
 
-[node name="GraphicsHBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="GraphicsHBoxContainer" type="HBoxContainer" parent="SettingsCanvas/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 
-[node name="GraphicsHigh" type="Button" parent="CanvasLayer/VBoxContainer/GraphicsHBoxContainer"]
+[node name="QualityLow" type="Button" parent="SettingsCanvas/VBoxContainer/GraphicsHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 22
+toggle_mode = true
+button_group = ExtResource("3_hrjr7")
+text = "Low"
+
+[node name="QualityMed" type="Button" parent="SettingsCanvas/VBoxContainer/GraphicsHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 22
+toggle_mode = true
+button_group = ExtResource("3_hrjr7")
+text = "Med"
+
+[node name="QualityHigh" type="Button" parent="SettingsCanvas/VBoxContainer/GraphicsHBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 22
+toggle_mode = true
+button_group = ExtResource("3_hrjr7")
 text = "High"
 
-[node name="GraphicsMed" type="Button" parent="CanvasLayer/VBoxContainer/GraphicsHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 22
-text = "Med"
-
-[node name="GraphicsLow" type="Button" parent="CanvasLayer/VBoxContainer/GraphicsHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 22
-text = "Low"
-
-[node name="Gamma" type="Label" parent="CanvasLayer/VBoxContainer"]
+[node name="Gamma" type="Label" parent="SettingsCanvas/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 32
 text = "Gamma"
 
-[node name="HSlider" type="HSlider" parent="CanvasLayer/VBoxContainer"]
+[node name="GammaSlider" type="HSlider" parent="SettingsCanvas/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
+min_value = 0.5
+max_value = 1.5
+step = 0.1
+value = 1.0
+tick_count = 11
+ticks_position = 3
 
-[node name="Input" type="Label" parent="CanvasLayer/VBoxContainer"]
+[node name="Input" type="Label" parent="SettingsCanvas/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 32
 text = "Input"
 
-[node name="InputHBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="InputHBoxContainer" type="HBoxContainer" parent="SettingsCanvas/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 
-[node name="InputTouch" type="Button" parent="CanvasLayer/VBoxContainer/InputHBoxContainer"]
+[node name="InputTouch" type="Button" parent="SettingsCanvas/VBoxContainer/InputHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 22
+toggle_mode = true
+button_group = ExtResource("4_87u21")
 text = "Touch/
 Drag"
 
-[node name="InputGyro" type="Button" parent="CanvasLayer/VBoxContainer/InputHBoxContainer"]
+[node name="InputGyro" type="Button" parent="SettingsCanvas/VBoxContainer/InputHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 22
+toggle_mode = true
+button_group = ExtResource("4_87u21")
 text = "Gyro-
 scopic"
 
-[node name="ReferenceRect" type="ReferenceRect" parent="CanvasLayer/VBoxContainer"]
+[node name="ReferenceRect" type="ReferenceRect" parent="SettingsCanvas/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 border_color = Color(1, 0, 0, 0)
 
-[node name="ReturnMain" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="Return" type="Button" parent="SettingsCanvas/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 26
-text = "Return to Main Menu"
+text = "Return"
+
+[connection signal="pressed" from="SettingsCanvas/VBoxContainer/GraphicsHBoxContainer/QualityLow" to="." method="_on_quality_low_pressed"]
+[connection signal="pressed" from="SettingsCanvas/VBoxContainer/GraphicsHBoxContainer/QualityMed" to="." method="_on_quality_med_pressed"]
+[connection signal="pressed" from="SettingsCanvas/VBoxContainer/GraphicsHBoxContainer/QualityHigh" to="." method="_on_quality_high_pressed"]
+[connection signal="drag_ended" from="SettingsCanvas/VBoxContainer/GammaSlider" to="." method="_on_gamma_slider_drag_ended"]
+[connection signal="pressed" from="SettingsCanvas/VBoxContainer/Return" to="." method="_on_return_pressed"]
