@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://cujpy52e3bdr2"]
+
+[ext_resource type="Script" uid="uid://dfnaok7rp27j1" path="res://ui/components/vertical_button.gd" id="1_lrjd3"]
+
+[node name="VerticalButton" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_lrjd3")
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"VerticalButtonMarginContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"VerticalButtonVBoxContainer"
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Button"
+horizontal_alignment = 1
