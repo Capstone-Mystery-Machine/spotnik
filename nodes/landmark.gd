@@ -23,9 +23,9 @@ var country: String
 var launch_date: String
 var epoch: String
 
+var acc: Vector3 = Vector3.ZERO
 var pos: Vector3 = Vector3.ZERO
 var vel: Vector3 = Vector3.ZERO
-var acc: Vector3 = Vector3.ZERO
 
 @onready var detector: Area3D = $CameraPointerDetector
 @onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D

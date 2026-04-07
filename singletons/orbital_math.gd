@@ -1,5 +1,4 @@
 class_name OrbitalMath
-extends RefCounted
 
 const EARTH_MU: float = 398600.4418
 
@@ -34,15 +33,16 @@ static func elements_to_state_vectors(data: Dictionary) -> Dictionary:
 	}
 
 
-static func solve_kepler(mean_anomaly: float, eccentricity: float, max_iterations: int = 10) -> float:
-	var E: float = mean_anomaly
+static func solve_kepler\
+(mean_anomaly: float, eccentricity: float, max_iterations: int = 10) -> float:
+	var BigE: float = mean_anomaly
 
-	for _n in range(max_iterations):
-		var f: float = E - eccentricity * sin(E) - mean_anomaly
-		var f_prime: float = 1.0 - eccentricity * cos(E)
-		E -= f / f_prime
+	for n in range(max_iterations):
+		var f: float = BigE - eccentricity * sin(BigE) - mean_anomaly
+		var f_prime: float = 1.0 - eccentricity * cos(BigE)
+		BigE -= f / f_prime
 
-	return E
+	return BigE
 
 
 static func make_orbit_basis(raan: float, inclination: float, arg_periapsis: float) -> Basis:
