@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="7_icqbe"]
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://nodes/landmark.tscn" id="7_ukp7y"]
 [ext_resource type="PackedScene" uid="uid://dt8sm83voe1x1" path="res://scenes/crosshair.tscn" id="8_nb4os"]
+[ext_resource type="PackedScene" uid="uid://e8j6ixxyvox1" path="res://nodes/viewer_settings_button.tscn" id="10_611gk"]
 [ext_resource type="PackedScene" uid="uid://d0rmdtxfjdfye" path="res://nodes/settings_menu_scene.tscn" id="11_r3g45"]
 
 [sub_resource type="Environment" id="Environment_b8h5p"]
