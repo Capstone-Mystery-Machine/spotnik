@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://da3h33l6csc42"]
+
+[node name="PanelContainer" type="PanelContainer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_type_variation = &"PanelContainerMarginContainer"
