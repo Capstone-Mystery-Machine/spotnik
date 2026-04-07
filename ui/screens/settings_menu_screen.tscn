@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnws8jjky4q3c"]
+[gd_scene load_steps=14 format=3 uid="uid://dnws8jjky4q3c"]
 
 [ext_resource type="Script" uid="uid://blm8rqt6w3op1" path="res://ui/screens/settings_menu_screen.gd" id="1_jlc54"]
 [ext_resource type="PackedScene" uid="uid://bw7aob6pfnqcg" path="res://ui/components/toggle_button.tscn" id="2_2b28f"]
@@ -8,12 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://vgps1fkgspdy" path="res://textures/illustration_rotate_device.svg" id="3_nenfv"]
 [ext_resource type="PackedScene" uid="uid://cujpy52e3bdr2" path="res://ui/components/vertical_button.tscn" id="4_flcee"]
 [ext_resource type="Texture2D" uid="uid://cejqq564pxow3" path="res://textures/icon_x_light.svg" id="6_dxncw"]
+[ext_resource type="PackedScene" uid="uid://4xw0y7o8nkrs" path="res://ui/components/fab_button.tscn" id="8_ox7w8"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_flcee"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_wfh2i"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_hrf6e"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_e16ey"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_ox7w8"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_aaoj2"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_yvodh"]
 resource_local_to_scene = false
@@ -59,21 +60,21 @@ theme_type_variation = &"Gap7HBoxContainer"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_flcee")
+button_group = SubResource("ButtonGroup_wfh2i")
 text = "High"
 
 [node name="MediumQualityButton" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_hrf6e")
+button_group = SubResource("ButtonGroup_e16ey")
 text = "Med"
 
 [node name="LowQualityButton" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_ox7w8")
+button_group = SubResource("ButtonGroup_aaoj2")
 text = "Low"
 
 [node name="GammaVBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
@@ -123,13 +124,10 @@ button_group = SubResource("ButtonGroup_yvodh")
 button_theme_type_variation = &"ToggleButton"
 toggle_mode = true
 
-[node name="CloseButton" type="Button" parent="CenterContainer/PanelContainer"]
+[node name="CloseButton" parent="CenterContainer/PanelContainer" instance=ExtResource("8_ox7w8")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 0
-focus_mode = 0
-theme_type_variation = &"FABButton"
 icon = ExtResource("6_dxncw")
 
 [editable path="CenterContainer/PanelContainer"]
