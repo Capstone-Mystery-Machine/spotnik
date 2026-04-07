@@ -37,14 +37,6 @@ grow_vertical = 2
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="CenterContainer/PanelContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-focus_mode = 0
-icon = ExtResource("6_dxncw")
-
 [node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2
 theme_type_variation = &"PanelContainerMarginContainer"
@@ -133,3 +125,11 @@ text = "Motion"
 button_group = SubResource("ButtonGroup_yvodh")
 button_theme_type_variation = &"ToggleButton"
 toggle_mode = true
+
+[node name="CloseButton" type="Button" parent="CenterContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+icon = ExtResource("6_dxncw")
