@@ -19,10 +19,16 @@
 [sub_resource type="ButtonGroup" id="ButtonGroup_yvodh"]
 resource_local_to_scene = false
 
-[node name="SettingsMenuScreen" type="CenterContainer" groups=["SettingsMenuScreen"]]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="SettingsMenuScreen" type="MarginContainer" groups=["SettingsMenuScreen"]]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -168.5
+offset_top = -247.0
+offset_right = 168.5
+offset_bottom = 247.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jlc54")
