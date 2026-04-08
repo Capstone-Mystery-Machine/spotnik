@@ -3,12 +3,26 @@
 [ext_resource type="Texture2D" uid="uid://o0qkk5knphxw" path="res://textures/panel_container_glow.tres" id="1_h4c0l"]
 [ext_resource type="PackedScene" uid="uid://c8p1gawvofge1" path="res://shaders/dual_border_travelers.tscn" id="2_f1y12"]
 [ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/panel_container_dual_border_traveler.tres" id="3_b6lku"]
-[ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/dual_border_travelers.gdshader" id="3_dn0q0"]
+
+[sub_resource type="Shader" id="Shader_f1y12"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform sampler2D traveler_cone_gradient : source_color;
+uniform float rotation : hint_range(0.0, 1.0);
+
+void fragment() {
+	float angle = atan(UV.y - 0.5, UV.x - 0.5);
+	float angle_normalized = fract((angle / PI) + (rotation * -1.0));
+	
+	COLOR = texture(traveler_cone_gradient, vec2(angle_normalized, 0.5));
+}"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1y12"]
 resource_local_to_scene = true
-shader = ExtResource("3_dn0q0")
+shader = SubResource("Shader_f1y12")
 shader_parameter/traveler_cone_gradient = ExtResource("3_b6lku")
+shader_parameter/rotation = 0.6019097089767456
 
 [node name="PanelContainer" type="PanelContainer"]
 clip_children = 2
@@ -22,12 +36,6 @@ traveler_ease = 3
 traveler_ease_intensity = 0.6
 traveler_transition = 7
 
-[node name="GlowTextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(0, 160)
-layout_mode = 2
-size_flags_vertical = 0
-texture = ExtResource("1_h4c0l")
-
 [node name="PanelContainerMarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_type_variation = &"PanelContainerMarginContainer"
@@ -35,6 +43,12 @@ theme_type_variation = &"PanelContainerMarginContainer"
 [node name="ContentPanelContainer" type="PanelContainer" parent="PanelContainerMarginContainer"]
 layout_mode = 2
 theme_type_variation = &"ContentPanelContainer"
+
+[node name="GlowTextureRect" type="TextureRect" parent="PanelContainerMarginContainer/ContentPanelContainer"]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("1_h4c0l")
 
 [node name="ContentPanelContainerMarginContainer" type="MarginContainer" parent="PanelContainerMarginContainer/ContentPanelContainer"]
 layout_mode = 2
