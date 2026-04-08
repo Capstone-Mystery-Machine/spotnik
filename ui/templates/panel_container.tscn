@@ -1,6 +1,15 @@
-[gd_scene format=3 uid="uid://da3h33l6csc42"]
+[gd_scene load_steps=2 format=3 uid="uid://da3h33l6csc42"]
+
+[ext_resource type="Texture2D" uid="uid://o0qkk5knphxw" path="res://textures/panel_container_glow.tres" id="1_h4c0l"]
 
 [node name="PanelContainer" type="PanelContainer"]
+clip_children = 2
+
+[node name="GlowTextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("1_h4c0l")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
