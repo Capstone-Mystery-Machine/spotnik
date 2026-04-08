@@ -15,7 +15,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1y12"]
 resource_local_to_scene = true
 shader = ExtResource("3_yvodh")
-shader_parameter/traveler_cone_gradient = ExtResource("4_wfh2i")
+shader_parameter/cone_gradient = ExtResource("4_wfh2i")
+shader_parameter/rotation = 0.0
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_wfh2i"]
 

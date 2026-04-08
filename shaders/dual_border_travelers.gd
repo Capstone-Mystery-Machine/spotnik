@@ -1,11 +1,6 @@
 @tool
 extends ColorRect
 
-@export var traveler_cone_gradient: GradientTexture2D:
-	set(value):
-		traveler_cone_gradient = value
-		_update_traveler_cone_gradient()
-
 var _shader_material: ShaderMaterial:
 	get():
 		return material as ShaderMaterial
@@ -19,17 +14,12 @@ var _rotation: float = 0.0:
 
 func _update_rotation() -> void:
 	if is_node_ready():
-		_shader_material.set_shader_parameter("rotation", _rotation)
-
-
-func _update_traveler_cone_gradient() -> void:
-	if is_node_ready() and traveler_cone_gradient:
-		_shader_material.set_shader_parameter(
-			"traveler_cone_gradient",
-			traveler_cone_gradient,
+		RenderingServer.material_set_param(
+			_shader_material.get_rid(),
+			"rotation",
+			_rotation,
 		)
 
 
 func _ready() -> void:
-	_update_traveler_cone_gradient()
 	_update_rotation()

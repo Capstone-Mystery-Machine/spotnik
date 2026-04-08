@@ -18,17 +18,17 @@ void fragment() {
 	COLOR = texture(traveler_cone_gradient, vec2(angle_normalized, 0.5));
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dn0q0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1y12"]
 resource_local_to_scene = true
 shader = SubResource("Shader_f1y12")
 shader_parameter/traveler_cone_gradient = ExtResource("3_b6lku")
-shader_parameter/rotation = 0.6019097089767456
+shader_parameter/rotation = 0.0
 
 [node name="PanelContainer" type="PanelContainer"]
 clip_children = 2
 
 [node name="DualBorderTravelersShader" parent="." instance=ExtResource("2_f1y12")]
-material = SubResource("ShaderMaterial_dn0q0")
+material = SubResource("ShaderMaterial_f1y12")
 layout_mode = 2
 
 [node name="PanelContainerMarginContainer" type="MarginContainer" parent="."]

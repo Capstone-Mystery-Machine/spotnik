@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dn8ovnk8ul6e3" path="res://nodes/tweener.tscn" id="3_smnxh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_smnxh"]
+resource_local_to_scene = true
 shader = ExtResource("1_yobmw")
-shader_parameter/traveler_cone_gradient = ExtResource("2_qbt7m")
+shader_parameter/cone_gradient = ExtResource("2_qbt7m")
+shader_parameter/rotation = 0.0
 
 [node name="DualBorderTravelersShader" type="ColorRect"]
 process_mode = 3
@@ -21,7 +23,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_yobmw")
-traveler_cone_gradient = ExtResource("2_qbt7m")
 
 [node name="Tweener" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("3_smnxh")]
 target_node = NodePath("..")
