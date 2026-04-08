@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://vgps1fkgspdy" path="res://textures/illustration_rotate_device.svg" id="3_nenfv"]
 [ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/dual_border_travelers.gdshader" id="3_yvodh"]
 [ext_resource type="PackedScene" uid="uid://cujpy52e3bdr2" path="res://ui/components/vertical_button.tscn" id="4_flcee"]
-[ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/panel_container_dual_border_traveler.tres" id="4_wfh2i"]
+[ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/dual_border_travelers_glow.tres" id="4_wfh2i"]
 [ext_resource type="Texture2D" uid="uid://cejqq564pxow3" path="res://textures/icon_x_light.svg" id="6_dxncw"]
 [ext_resource type="PackedScene" uid="uid://4xw0y7o8nkrs" path="res://ui/components/fab_button.tscn" id="8_ox7w8"]
 
