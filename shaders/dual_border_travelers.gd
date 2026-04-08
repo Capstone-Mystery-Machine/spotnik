@@ -22,12 +22,28 @@ func _update_rotation() -> void:
 
 
 func _update_corners() -> void:
-	if is_node_ready() and _shader_material:
-		RenderingServer.material_set_param(
-			_shader_material.get_rid(),
-			"corner_radius",
-			Vector4(32.0, 32.0, 32.0, 32.0),
-		)
+	if not is_node_ready() or not _shader_material:
+		return
+
+	var radii := Vector4.ZERO
+	var parent = get_parent()
+
+	if parent is Control and parent.has_theme_stylebox("panel"):
+		var stylebox = parent.get_theme_stylebox("panel")
+
+		if stylebox is StyleBoxFlat:
+			radii = Vector4(
+				stylebox.corner_radius_top_left,
+				stylebox.corner_radius_top_right,
+				stylebox.corner_radius_bottom_right,
+				stylebox.corner_radius_bottom_left,
+			)
+
+	RenderingServer.material_set_param(
+		_shader_material.get_rid(),
+		"corner_radius",
+		radii,
+	)
 
 
 func _update_size() -> void:
