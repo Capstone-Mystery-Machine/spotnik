@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfii1quf8rc8h"]
+[gd_scene load_steps=4 format=3 uid="uid://bfii1quf8rc8h"]
 
 [ext_resource type="Script" uid="uid://mv58olwiaoo4" path="res://ui/screens/main_menu_screen.gd" id="1_fjnu2"]
 [ext_resource type="PackedScene" uid="uid://d1l6od1o532g5" path="res://ui/components/spacer.tscn" id="3_8ixqt"]
+[ext_resource type="Texture2D" uid="uid://ca21ki0wb5mq4" path="res://textures/main_menu_background_gradient.tres" id="3_gh0e1"]
 
 [node name="MainMenuScreen" type="Control"]
 layout_mode = 3
@@ -22,6 +23,37 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.01, 0.02, 0.03, 1)
 
+[node name="GlowTextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -512.0
+offset_right = 512.0
+offset_bottom = 512.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_gh0e1")
+expand_mode = 5
+
+[node name="EarthAnimation" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -40,13 +72,7 @@ theme_type_variation = &"BrandLabel"
 text = "Spotnik"
 horizontal_alignment = 1
 
-[node name="Spacer1" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8ixqt")]
-layout_mode = 2
-
-[node name="AnimationControl" type="Control" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Spacer2" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8ixqt")]
+[node name="Spacer" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8ixqt")]
 layout_mode = 2
 
 [node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer"]
