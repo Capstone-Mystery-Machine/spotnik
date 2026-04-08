@@ -58,6 +58,10 @@ func _on_quality_profile_button_pressed(
 	UserSettings.save()
 
 
+func _on_input_mode_changed(input_mode: InputX.InputMode) -> void:
+	_toggle_control_style(input_mode)
+
+
 func _on_setting_changed(
 		setting_name: Array,
 		new_value: Variant,
@@ -88,6 +92,7 @@ func _ready() -> void:
 
 	gamma_h_slider.value = UserSettings.gamma
 
+	InputX.instance.input_mode_changed.connect(_on_input_mode_changed)
 	UserSettings.instance.setting_changed.connect(_on_setting_changed)
 
 	close_button.pressed.connect(_on_close_button_pressed)
