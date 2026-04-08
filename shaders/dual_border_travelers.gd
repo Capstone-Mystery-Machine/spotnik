@@ -13,6 +13,11 @@ extends ColorRect
 		traveler_ease = value
 		_animate_rotation()
 
+@export_range(-1.0, 1.0) var traveler_offset: float = 0.0:
+	set(value):
+		traveler_offset = value
+		_update_rotation()
+
 @export var traveler_transition: Tween.TransitionType = Tween.TRANS_SINE:
 	set(value):
 		traveler_transition = value
@@ -32,7 +37,10 @@ var _tween: Tween
 
 func _update_rotation() -> void:
 	if is_node_ready():
-		shader_material.set_shader_parameter("rotation", _rotation)
+		shader_material.set_shader_parameter(
+			"rotation",
+			_rotation + traveler_offset,
+		)
 
 
 func _update_traveler_cone_gradient() -> void:
