@@ -68,8 +68,6 @@ func _on_setting_changed(
 		_old_value: Variant,
 ) -> void:
 	match setting_name:
-		UserSettings.SettingName.INPUT_MODE:
-			pass
 		UserSettings.SettingName.GAMMA:
 			gamma_h_slider.value = new_value
 		_:
