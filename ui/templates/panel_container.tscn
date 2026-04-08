@@ -18,7 +18,7 @@ void fragment() {
 	COLOR = texture(traveler_cone_gradient, vec2(angle_normalized, 0.5));
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1y12"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dn0q0"]
 resource_local_to_scene = true
 shader = SubResource("Shader_f1y12")
 shader_parameter/traveler_cone_gradient = ExtResource("3_b6lku")
@@ -28,13 +28,8 @@ shader_parameter/rotation = 0.6019097089767456
 clip_children = 2
 
 [node name="DualBorderTravelersShader" parent="." instance=ExtResource("2_f1y12")]
-material = SubResource("ShaderMaterial_f1y12")
+material = SubResource("ShaderMaterial_dn0q0")
 layout_mode = 2
-traveler_cone_gradient = ExtResource("3_b6lku")
-traveler_duration = 4.0
-traveler_ease = 3
-traveler_ease_intensity = 0.6
-traveler_transition = 7
 
 [node name="PanelContainerMarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

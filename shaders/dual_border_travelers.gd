@@ -6,90 +6,30 @@ extends ColorRect
 		traveler_cone_gradient = value
 		_update_traveler_cone_gradient()
 
-@export var traveler_duration: float = 1.0
+var _shader_material: ShaderMaterial:
+	get():
+		return material as ShaderMaterial
 
-@export var traveler_ease: Tween.EaseType = Tween.EASE_IN_OUT:
-	set(value):
-		traveler_ease = value
-		_animate_rotation()
-
-@export_range(0.0, 1.0) var traveler_ease_intensity: float = 1.0:
-	set(value):
-		traveler_ease_intensity = value
-		_update_rotation()
-
-@export_range(-1.0, 1.0) var traveler_offset: float = 0.0:
-	set(value):
-		traveler_offset = value
-		_update_rotation()
-
-@export var traveler_transition: Tween.TransitionType = Tween.TRANS_SINE:
-	set(value):
-		traveler_transition = value
-		_animate_rotation()
-
+@warning_ignore("unused_private_class_variable")
 var _rotation: float = 0.0:
 	set(value):
 		_rotation = value
 		_update_rotation()
 
-var shader_material: ShaderMaterial:
-	get():
-		return material as ShaderMaterial
-
-var _tween: Tween
-
 
 func _update_rotation() -> void:
 	if is_node_ready():
-		var quadrant_time = _rotation * 2.0
-		var quadrant_fraction = fposmod(quadrant_time, 1.0)
-
-		var eased_quadrant_fraction = Tween.interpolate_value(
-			0.0,
-			1.0,
-			quadrant_fraction,
-			1.0,
-			traveler_transition,
-			traveler_ease,
-		)
-
-		var eased_total_progress \
-		= (floor(quadrant_time) + eased_quadrant_fraction) * 0.5
-
-		var final_weighted_rotation = lerp(
-			_rotation,
-			eased_total_progress,
-			traveler_ease_intensity,
-		)
-
-		shader_material.set_shader_parameter("rotation", final_weighted_rotation + traveler_offset)
+		_shader_material.set_shader_parameter("rotation", _rotation)
 
 
 func _update_traveler_cone_gradient() -> void:
 	if is_node_ready() and traveler_cone_gradient:
-		shader_material.set_shader_parameter(
+		_shader_material.set_shader_parameter(
 			"traveler_cone_gradient",
 			traveler_cone_gradient,
 		)
 
 
-func _animate_rotation() -> void:
-	if not is_node_ready():
-		return
-
-	if _tween:
-		_tween.kill()
-
-	_tween = create_tween()
-	_tween.set_loops()
-
-	_tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	_tween.tween_property(self, "_rotation", 1.0, traveler_duration).from(0.0)
-
-
 func _ready() -> void:
-	_update_rotation()
 	_update_traveler_cone_gradient()
-
-	_animate_rotation()
+	_update_rotation()
