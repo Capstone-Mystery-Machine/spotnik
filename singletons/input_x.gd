@@ -193,7 +193,7 @@ func _on_user_setting_changed(
 	if setting_name != UserSettings.SettingName.INPUT_MODE:
 		return
 
-	instance.input_mode_changed.emit(setting_name, new_value)
+	instance.input_mode_changed.emit(new_value)
 
 
 func _init() -> void:
