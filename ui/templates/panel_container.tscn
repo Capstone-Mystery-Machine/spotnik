@@ -1,9 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://da3h33l6csc42"]
+[gd_scene load_steps=5 format=3 uid="uid://da3h33l6csc42"]
 
 [ext_resource type="Texture2D" uid="uid://o0qkk5knphxw" path="res://textures/panel_container_glow.tres" id="1_h4c0l"]
+[ext_resource type="PackedScene" uid="uid://c8p1gawvofge1" path="res://shaders/dual_border_travelers.tscn" id="2_f1y12"]
+[ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/dual_border_travelers.gdshader" id="3_dn0q0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1y12"]
+resource_local_to_scene = true
+shader = ExtResource("3_dn0q0")
+shader_parameter/traveler_cone_sharpness = 20.0
+shader_parameter/traveler_color_left = Color(0.96857667, 0.94100165, 0.98803645, 0)
+shader_parameter/traveler_color_right = Color(0.93, 0.75, 0.98, 1)
+shader_parameter/traveler_speed = 1.0
 
 [node name="PanelContainer" type="PanelContainer"]
 clip_children = 2
+
+[node name="DualBorderTravelersShader" parent="." instance=ExtResource("2_f1y12")]
+material = SubResource("ShaderMaterial_f1y12")
+layout_mode = 2
+traveler_color_left = Color(0.96857667, 0.94100165, 0.98803645, 0)
+traveler_color_right = Color(0.93, 0.75, 0.98, 1)
 
 [node name="GlowTextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(0, 160)
@@ -11,6 +27,14 @@ layout_mode = 2
 size_flags_vertical = 0
 texture = ExtResource("1_h4c0l")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="PanelContainerMarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_type_variation = &"PanelContainerMarginContainer"
+
+[node name="ContentPanelContainer" type="PanelContainer" parent="PanelContainerMarginContainer"]
+layout_mode = 2
+theme_type_variation = &"ContentPanelContainer"
+
+[node name="ContentPanelContainerMarginContainer" type="MarginContainer" parent="PanelContainerMarginContainer/ContentPanelContainer"]
+layout_mode = 2
+theme_type_variation = &"ContentPanelContainerMarginContainer"

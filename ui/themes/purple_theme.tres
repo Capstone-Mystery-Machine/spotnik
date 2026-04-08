@@ -1,9 +1,16 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://cbsr7x6lpgmx3"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://cbsr7x6lpgmx3"]
 
 [ext_resource type="FontFile" uid="uid://b4ng6x3lnxpes" path="res://fonts/ComicNeue-Regular.ttf" id="1_6abkt"]
 [ext_resource type="FontFile" uid="uid://da4kyqyt8xjct" path="res://fonts/Michroma-Regular.ttf" id="1_euig4"]
 [ext_resource type="FontFile" uid="uid://dlemmkefa14s3" path="res://fonts/JetBrainsMono-Regular.ttf" id="1_pp6jp"]
 [ext_resource type="Texture2D" uid="uid://ctqeyy26vwmar" path="res://textures/icon_grabber.tres" id="3_bd3e3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbopw"]
+bg_color = Color(0.01, 0.02, 0.03, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bd3e3"]
 content_margin_left = 24.0
@@ -29,7 +36,7 @@ expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6abkt"]
-bg_color = Color(0.01, 0.02, 0.03, 1)
+bg_color = Color(0.05, 0.06, 0.07, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
@@ -97,6 +104,13 @@ BrandLabel/fonts/font = ExtResource("1_6abkt")
 Button/fonts/font = ExtResource("1_pp6jp")
 Button/styles/focus = null
 Button/styles/hover = null
+ContentPanelContainer/base_type = &"PanelContainer"
+ContentPanelContainer/styles/panel = SubResource("StyleBoxFlat_kbopw")
+ContentPanelContainerMarginContainer/base_type = &"MarginContainer"
+ContentPanelContainerMarginContainer/constants/margin_bottom = 48
+ContentPanelContainerMarginContainer/constants/margin_left = 32
+ContentPanelContainerMarginContainer/constants/margin_right = 32
+ContentPanelContainerMarginContainer/constants/margin_top = 48
 Display1Label/base_type = &"DisplayLabel"
 Display1Label/font_sizes/font_size = 56
 Display2Label/base_type = &"DisplayLabel"
@@ -261,10 +275,10 @@ HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_akiii")
 HSlider/styles/slider = SubResource("StyleBoxFlat_wse72")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_6abkt")
 PanelContainerMarginContainer/base_type = &"MarginContainer"
-PanelContainerMarginContainer/constants/margin_bottom = 48
-PanelContainerMarginContainer/constants/margin_left = 32
-PanelContainerMarginContainer/constants/margin_right = 32
-PanelContainerMarginContainer/constants/margin_top = 48
+PanelContainerMarginContainer/constants/margin_bottom = 2
+PanelContainerMarginContainer/constants/margin_left = 2
+PanelContainerMarginContainer/constants/margin_right = 2
+PanelContainerMarginContainer/constants/margin_top = 2
 ToggleButton/base_type = &"Button"
 ToggleButton/colors/font_color = Color(1, 1, 1, 1)
 ToggleButton/colors/font_hover_color = Color(1, 1, 1, 1)

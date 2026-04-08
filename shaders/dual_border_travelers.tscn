@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8p1gawvofge1"]
+
+[ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/dual_border_travelers.gdshader" id="1_yobmw"]
+[ext_resource type="Script" uid="uid://bw1eq513b4f3j" path="res://shaders/dual_border_travelers.gd" id="2_yobmw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smnxh"]
+resource_local_to_scene = true
+shader = ExtResource("1_yobmw")
+shader_parameter/traveler_color = Color(0, 0, 0, 1)
+shader_parameter/traveler_speed = 1.0
+
+[node name="DualBorderTravelersShader" type="ColorRect"]
+process_mode = 3
+material = SubResource("ShaderMaterial_smnxh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -360.0
+offset_bottom = -800.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_yobmw")
