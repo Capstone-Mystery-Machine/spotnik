@@ -9,7 +9,9 @@
 resource_local_to_scene = true
 shader = ExtResource("1_yobmw")
 shader_parameter/cone_gradient = ExtResource("2_qbt7m")
+shader_parameter/corner_radius = Vector4(0, 0, 0, 0)
 shader_parameter/rotation = 0.0
+shader_parameter/size = Vector2(0, 0)
 
 [node name="DualBorderTravelersShader" type="ColorRect"]
 process_mode = 3

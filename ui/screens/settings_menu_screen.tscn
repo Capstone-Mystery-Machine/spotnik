@@ -12,17 +12,19 @@
 [ext_resource type="Texture2D" uid="uid://cejqq564pxow3" path="res://textures/icon_x_light.svg" id="6_dxncw"]
 [ext_resource type="PackedScene" uid="uid://4xw0y7o8nkrs" path="res://ui/components/fab_button.tscn" id="8_ox7w8"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1y12"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wfh2i"]
 resource_local_to_scene = true
 shader = ExtResource("3_yvodh")
 shader_parameter/cone_gradient = ExtResource("4_wfh2i")
+shader_parameter/corner_radius = Vector4(0, 0, 0, 0)
 shader_parameter/rotation = 0.0
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_wfh2i"]
+shader_parameter/size = Vector2(0, 0)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_e16ey"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_aaoj2"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_l6kdf"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_yvodh"]
 resource_local_to_scene = false
@@ -45,7 +47,7 @@ script = ExtResource("1_jlc54")
 layout_mode = 2
 
 [node name="DualBorderTravelersShader" parent="PanelContainer" index="0"]
-material = SubResource("ShaderMaterial_f1y12")
+material = SubResource("ShaderMaterial_wfh2i")
 
 [node name="MarginContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer" index="0"]
 layout_mode = 2
@@ -68,21 +70,21 @@ theme_type_variation = &"Gap3HBoxContainer"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_wfh2i")
+button_group = SubResource("ButtonGroup_e16ey")
 text = "High"
 
 [node name="MediumQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_e16ey")
+button_group = SubResource("ButtonGroup_aaoj2")
 text = "Med"
 
 [node name="LowQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_aaoj2")
+button_group = SubResource("ButtonGroup_l6kdf")
 text = "Low"
 
 [node name="GammaVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer"]
