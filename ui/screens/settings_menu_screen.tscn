@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dnws8jjky4q3c"]
+[gd_scene load_steps=15 format=3 uid="uid://dnws8jjky4q3c"]
 
 [ext_resource type="Script" uid="uid://blm8rqt6w3op1" path="res://ui/screens/settings_menu_screen.gd" id="1_jlc54"]
 [ext_resource type="PackedScene" uid="uid://bw7aob6pfnqcg" path="res://ui/components/toggle_button.tscn" id="2_2b28f"]
@@ -20,11 +20,7 @@ shader_parameter/corner_radius = Vector4(0, 0, 0, 0)
 shader_parameter/rotation = 0.0
 shader_parameter/size = Vector2(0, 0)
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_e16ey"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_aaoj2"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_l6kdf"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_wfh2i"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_yvodh"]
 resource_local_to_scene = false
@@ -70,21 +66,21 @@ theme_type_variation = &"Gap3HBoxContainer"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_e16ey")
+button_group = SubResource("ButtonGroup_wfh2i")
 text = "High"
 
 [node name="MediumQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_aaoj2")
+button_group = SubResource("ButtonGroup_wfh2i")
 text = "Med"
 
 [node name="LowQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_l6kdf")
+button_group = SubResource("ButtonGroup_wfh2i")
 text = "Low"
 
 [node name="GammaVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer"]
