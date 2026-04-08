@@ -70,7 +70,13 @@ func _on_setting_changed(
 	match setting_name:
 		UserSettings.SettingName.GAMMA:
 			gamma_h_slider.value = new_value
-		_:
+		UserSettings.SettingName.ANISOTROPIC_FILTERING_QUALITY, \
+		UserSettings.SettingName.ANTI_ALIASING_QUALITY, \
+		UserSettings.SettingName.BLOOM_ENABLED, \
+		UserSettings.SettingName.MAX_FPS, \
+		UserSettings.SettingName.RESOLUTION_SCALE, \
+		UserSettings.SettingName.TEXTURE_FILTERING, \
+		UserSettings.SettingName.TICK_RATE:
 			_toggle_quality_profile(UserSettings.quality_profile)
 
 
