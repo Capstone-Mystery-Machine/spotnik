@@ -3,34 +3,53 @@
 [ext_resource type="Script" uid="uid://mv58olwiaoo4" path="res://ui/screens/main_menu_screen.gd" id="1_fjnu2"]
 [ext_resource type="PackedScene" uid="uid://d1l6od1o532g5" path="res://ui/components/spacer.tscn" id="3_8ixqt"]
 
-[node name="MainMenuScreen" type="MarginContainer"]
+[node name="MainMenuScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fjnu2")
+
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.01, 0.02, 0.03, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"Gap11MarginContainer"
-script = ExtResource("1_fjnu2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"BrandLabel"
 text = "Spotnik"
 horizontal_alignment = 1
 
-[node name="Spacer1" parent="VBoxContainer" instance=ExtResource("3_8ixqt")]
+[node name="Spacer1" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8ixqt")]
 layout_mode = 2
 
-[node name="AnimationControl" type="Control" parent="VBoxContainer"]
+[node name="AnimationControl" type="Control" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Spacer2" parent="VBoxContainer" instance=ExtResource("3_8ixqt")]
+[node name="Spacer2" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8ixqt")]
 layout_mode = 2
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4

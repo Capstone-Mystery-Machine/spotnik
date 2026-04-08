@@ -1,5 +1,5 @@
 class_name MainMenuScreen
-extends MarginContainer
+extends Control
 
 @onready var scene_tree: SceneTree = get_tree()
 
