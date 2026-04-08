@@ -1,5 +1,6 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://cbsr7x6lpgmx3"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://cbsr7x6lpgmx3"]
 
+[ext_resource type="FontFile" uid="uid://b4ng6x3lnxpes" path="res://fonts/ComicNeue-Regular.ttf" id="1_6abkt"]
 [ext_resource type="FontFile" uid="uid://da4kyqyt8xjct" path="res://fonts/Michroma-Regular.ttf" id="1_euig4"]
 [ext_resource type="FontFile" uid="uid://dlemmkefa14s3" path="res://fonts/JetBrainsMono-Regular.ttf" id="1_pp6jp"]
 [ext_resource type="Texture2D" uid="uid://ctqeyy26vwmar" path="res://textures/icon_grabber.tres" id="3_bd3e3"]
@@ -66,6 +67,8 @@ corner_radius_bottom_left = 16
 
 [resource]
 BrandLabel/base_type = &"Label"
+BrandLabel/font_sizes/font_size = 40
+BrandLabel/fonts/font = ExtResource("1_6abkt")
 Button/fonts/font = ExtResource("1_pp6jp")
 Button/styles/focus = null
 Button/styles/hover = null
