@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="2_vfskp"]
 [ext_resource type="PackedScene" uid="uid://dnws8jjky4q3c" path="res://ui/screens/settings_menu_screen.tscn" id="3_sb6w7"]
 
-[node name="MainMenuScene" type="Node3D"]
+[node name="MainMenuScene" type="Node"]
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 
