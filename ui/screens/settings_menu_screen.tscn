@@ -16,13 +16,13 @@
 resource_local_to_scene = true
 shader = ExtResource("3_yvodh")
 shader_parameter/traveler_cone_gradient = ExtResource("4_wfh2i")
-shader_parameter/traveler_speed = 0.25
+shader_parameter/rotation = 0.00010361424
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_wfh2i"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_e16ey"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_aaoj2"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_l6kdf"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_yvodh"]
 resource_local_to_scene = false
@@ -68,21 +68,21 @@ theme_type_variation = &"Gap3HBoxContainer"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_e16ey")
+button_group = SubResource("ButtonGroup_wfh2i")
 text = "High"
 
 [node name="MediumQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_aaoj2")
+button_group = SubResource("ButtonGroup_e16ey")
 text = "Med"
 
 [node name="LowQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_group = SubResource("ButtonGroup_l6kdf")
+button_group = SubResource("ButtonGroup_aaoj2")
 text = "Low"
 
 [node name="GammaVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer"]

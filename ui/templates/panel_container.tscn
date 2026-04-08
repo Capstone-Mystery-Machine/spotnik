@@ -9,7 +9,7 @@
 resource_local_to_scene = true
 shader = ExtResource("3_dn0q0")
 shader_parameter/traveler_cone_gradient = ExtResource("3_b6lku")
-shader_parameter/traveler_speed = 0.25
+shader_parameter/rotation = 0.0
 
 [node name="PanelContainer" type="PanelContainer"]
 clip_children = 2
@@ -18,7 +18,8 @@ clip_children = 2
 material = SubResource("ShaderMaterial_f1y12")
 layout_mode = 2
 traveler_cone_gradient = ExtResource("3_b6lku")
-traveler_speed = 0.25
+traveler_duration = 4.0
+traveler_ease = 3
 
 [node name="GlowTextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(0, 160)

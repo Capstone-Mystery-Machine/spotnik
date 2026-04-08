@@ -6,7 +6,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_smnxh"]
 resource_local_to_scene = true
 shader = ExtResource("1_yobmw")
-shader_parameter/traveler_speed = 0.0
+shader_parameter/rotation = 0.0
 
 [node name="DualBorderTravelersShader" type="ColorRect"]
 process_mode = 3
