@@ -25,7 +25,6 @@ height = 0.5
 
 [node name="WireframePlanet" type="Node3D"]
 script = ExtResource("1_syi4a")
-max_polar_angle_degrees = null
 
 [node name="TweenerX" parent="." instance=ExtResource("3_3rraj")]
 unique_name_in_owner = true
