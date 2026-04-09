@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/dual_border_travelers.gdshader" id="1_yobmw"]
 [ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/dual_border_travelers_glow.tres" id="2_qbt7m"]
 [ext_resource type="Script" uid="uid://bw1eq513b4f3j" path="res://shaders/dual_border_travelers.gd" id="2_yobmw"]
-[ext_resource type="PackedScene" uid="uid://dn8ovnk8ul6e3" path="res://nodes/tweener.tscn" id="3_smnxh"]
+[ext_resource type="PackedScene" uid="uid://dn8ovnk8ul6e3" path="res://nodes/tweener_x.tscn" id="3_smnxh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_smnxh"]
 resource_local_to_scene = true
@@ -26,7 +26,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_yobmw")
 
-[node name="Tweener" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("3_smnxh")]
+[node name="TweenerX" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("3_smnxh")]
 target_node = NodePath("..")
 target_property = "_rotation"
 duration = 4.0

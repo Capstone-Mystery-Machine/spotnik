@@ -1,4 +1,5 @@
 @tool
+class_name TweenerX
 extends Node
 
 signal progress_changed(progress: float)
