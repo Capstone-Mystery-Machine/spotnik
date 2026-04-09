@@ -2,7 +2,7 @@
 class_name TweenerX
 extends Node
 
-signal progress_changed(progress: float)
+signal progress_changed(new_progress: float, old_progress: float)
 
 @export var target_node: Node:
 	set(value):
@@ -46,9 +46,10 @@ signal progress_changed(progress: float)
 
 var progress: float = 0.0:
 	set(value):
+		var old_progress = progress
 		progress = value
 
-		progress_changed.emit(value)
+		progress_changed.emit(value, old_progress)
 		_apply_to_target()
 
 var _progress: float = 0.0:
