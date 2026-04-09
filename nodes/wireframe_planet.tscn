@@ -8,9 +8,9 @@
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_0gdgm")
-shader_parameter/grid_line_color = Color(0.75, 0.29, 0.86, 1)
+shader_parameter/grid_line_color = Color(0.35, 0.12, 0.41, 1)
 shader_parameter/grid_line_density = 24.0000010925
-shader_parameter/ping_glow_color = Color(0.85, 0.47, 0.95, 1)
+shader_parameter/ping_glow_color = Color(0.68, 0.24, 0.79, 1)
 shader_parameter/ping_max_radius = 0.250000011875
 shader_parameter/ping_width = 0.025000001187500002
 shader_parameter/planet_color = Color(0, 0, 0, 1)
