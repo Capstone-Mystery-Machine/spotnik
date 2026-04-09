@@ -31,6 +31,7 @@ max_polar_angle_degrees = null
 unique_name_in_owner = true
 duration = 5.0
 ease_type = 1
+repeat_delay = 5.0
 transition_type = 7
 
 [node name="PlanetMeshInstance3D" type="MeshInstance3D" parent="."]
