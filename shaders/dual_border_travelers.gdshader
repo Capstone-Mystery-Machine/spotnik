@@ -12,7 +12,7 @@ void fragment() {
 	float gradient_x = fract((angle / PI) - rotation);
 	vec4 sampled_color = texture(cone_gradient, vec2(gradient_x, 0.5));
 
-	vec2 quadrant_mask = step(0.0, uv); 
+	vec2 quadrant_mask = step(0.0, uv);
 	float active_radius = mix(
 		mix(corner_radius.x, corner_radius.y, quadrant_mask.x),
 		mix(corner_radius.w, corner_radius.z, quadrant_mask.x),
