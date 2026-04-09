@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_add, depth_draw_never, cull_back, unshaded;
+render_mode blend_mix, depth_draw_always, cull_back, unshaded;
 
 uniform vec3 grid_line_color : source_color;
 uniform float grid_line_density : hint_range(1.0, 100.0);
