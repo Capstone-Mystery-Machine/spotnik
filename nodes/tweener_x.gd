@@ -16,7 +16,7 @@ signal progress_changed(new_progress: float, old_progress: float)
 
 @export var duration: float = 1.0:
 	set(value):
-		duration = value
+		duration = max(0.001, value)
 		_animate()
 
 @export var ease_type: Tween.EaseType = Tween.EASE_IN_OUT:
@@ -33,6 +33,16 @@ signal progress_changed(new_progress: float, old_progress: float)
 	set(value):
 		offset = value
 		_update_blended_progress()
+
+@export var start_delay: float = 0.0:
+	set(value):
+		start_delay = max(0.0, value)
+		_animate()
+
+@export var repeat_delay: float = 0.0:
+	set(value):
+		repeat_delay = max(0.0, value)
+		_animate()
 
 @export_range(1, 12, 1) var steps: int = 1:
 	set(value):
@@ -93,11 +103,26 @@ func _animate() -> void:
 	if _tween:
 		_tween.kill()
 
+	if start_delay > 0.0:
+		_tween = create_tween()
+		_tween.tween_interval(start_delay)
+		_tween.tween_callback(_start_loop)
+	else:
+		_start_loop()
+
+
+func _start_loop() -> void:
+	if _tween:
+		_tween.kill()
+
 	_tween = create_tween()
 	_tween.set_loops()
 	_tween.set_trans(Tween.TRANS_LINEAR)
 
 	_tween.tween_property(self, "_progress", 1.0, duration).from(0.0)
+
+	if repeat_delay > 0.0:
+		_tween.tween_interval(repeat_delay)
 
 
 func _ready() -> void:
