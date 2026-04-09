@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://ll8i3un6nuyx"]
+
+[ext_resource type="Script" uid="uid://c68pghla0up3u" path="res://nodes/wireframe_planet.gd" id="1_syi4a"]
+[ext_resource type="Shader" uid="uid://0kqwhaoevlnq" path="res://shaders/wireframe_planet.gdshader" id="2_0gdgm"]
+[ext_resource type="PackedScene" uid="uid://dn8ovnk8ul6e3" path="res://nodes/tweener_x.tscn" id="3_3rraj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cc3kh"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_0gdgm")
+shader_parameter/grid_line_color = Color(0.75, 0.29, 0.86, 1)
+shader_parameter/grid_line_density = 24.0000010925
+shader_parameter/ping_glow_color = Color(0.85, 0.47, 0.95, 1)
+shader_parameter/ping_max_radius = 0.250000011875
+shader_parameter/ping_width = 0.025000001187500002
+shader_parameter/planet_color = Color(0, 0, 0, 1)
+shader_parameter/intersection_blend = 0.750000035625
+shader_parameter/ping_data = Vector4(0, 0, 0, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_6754x"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_cc3kh")
+radius = 0.25
+height = 0.5
+
+[node name="WireframePlanet" type="Node3D"]
+script = ExtResource("1_syi4a")
+max_polar_angle_degrees = null
+
+[node name="TweenerX" parent="." instance=ExtResource("3_3rraj")]
+unique_name_in_owner = true
+duration = 5.0
+ease_type = 1
+transition_type = 7
+
+[node name="PlanetMeshInstance3D" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("SphereMesh_6754x")
