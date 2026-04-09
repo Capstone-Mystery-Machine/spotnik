@@ -45,7 +45,7 @@ func _calculate_camera_facing_local_point(current_camera: Camera3D) -> Vector4:
 	)
 
 	var world_direction = current_camera.global_transform.basis * point_on_sphere
-	var local_ping_epicenter = global_transform.basis.inverse() * world_direction
+	var local_ping_epicenter = planet_mesh.global_transform.basis.inverse() * world_direction
 
 	return Vector4(
 		local_ping_epicenter.x,
