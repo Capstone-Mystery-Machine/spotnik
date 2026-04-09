@@ -40,7 +40,7 @@ height = 0.01
 
 [node name="OrbitalCPUParticles3D" type="CPUParticles3D" parent="."]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.003, 0, 0)
-amount = 300
+amount = 500
 lifetime = 3.0
 mesh = SubResource("QuadMesh_xcrb7")
 particle_flag_align_y = true
