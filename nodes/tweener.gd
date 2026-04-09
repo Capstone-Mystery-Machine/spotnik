@@ -1,15 +1,17 @@
 @tool
 extends Node
 
+signal progress_changed(progress: float)
+
 @export var target_node: Node:
 	set(value):
 		target_node = value
-		_update_target()
+		_update_blended_progress()
 
 @export var target_property: String = "":
 	set(value):
 		target_property = value
-		_update_target()
+		_update_blended_progress()
 
 @export var duration: float = 1.0:
 	set(value):
@@ -24,37 +26,48 @@ extends Node
 @export_range(0.0, 1.0) var intensity: float = 1.0:
 	set(value):
 		intensity = value
-		_update_target()
+		_update_blended_progress()
 
 @export_range(-1.0, 1.0) var offset: float = 0.0:
 	set(value):
 		offset = value
-		_update_target()
+		_update_blended_progress()
 
 @export_range(1, 12, 1) var steps: int = 1:
 	set(value):
 		steps = max(1, value)
-		_update_target()
+		_update_blended_progress()
 
-@export var transition_type: Tween.TransitionType = Tween.TRANS_SINE:
+@export var transition_type: Tween.TransitionType = Tween.TRANS_LINEAR:
 	set(value):
 		transition_type = value
 		_animate()
 
+var progress: float = 0.0:
+	set(value):
+		progress = value
+
+		progress_changed.emit(value)
+		_apply_to_target()
+
 var _progress: float = 0.0:
 	set(value):
 		_progress = value
-		_update_target()
+		_update_blended_progress()
 
 var _tween: Tween
 
 
-func _update_target() -> void:
-	if not is_node_ready() or not target_node or target_property.is_empty():
+func _apply_to_target() -> void:
+	if target_node and not target_property.is_empty():
+		target_node.set_indexed(target_property, progress)
+
+
+func _update_blended_progress() -> void:
+	if not is_node_ready():
 		return
 
 	var steps_float = float(steps)
-
 	var step_time = _progress * steps_float
 	var step_fraction = fposmod(step_time, 1.0)
 
@@ -67,16 +80,8 @@ func _update_target() -> void:
 		ease_type,
 	)
 
-	var eased_total_progress \
-	= (floor(step_time) + eased_step_fraction) / steps_float
-
-	var final_weighted_value = lerp(
-		_progress,
-		eased_total_progress,
-		intensity,
-	)
-
-	target_node.set_indexed(target_property, final_weighted_value + offset)
+	var eased_total_progress = (floor(step_time) + eased_step_fraction) / steps_float
+	progress = lerp(_progress, eased_total_progress, intensity) + offset
 
 
 func _animate() -> void:
@@ -88,11 +93,11 @@ func _animate() -> void:
 
 	_tween = create_tween()
 	_tween.set_loops()
+	_tween.set_trans(Tween.TRANS_LINEAR)
 
-	_tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
 	_tween.tween_property(self, "_progress", 1.0, duration).from(0.0)
 
 
 func _ready() -> void:
-	_update_target()
+	_update_blended_progress()
 	_animate()
