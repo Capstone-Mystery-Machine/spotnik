@@ -12,7 +12,7 @@ shader_parameter/grid_line_color = Color(0.35, 0.12, 0.41, 1)
 shader_parameter/grid_line_density = 24.0000010925
 shader_parameter/ping_glow_color = Color(0.68, 0.24, 0.79, 1)
 shader_parameter/ping_max_radius = 0.250000011875
-shader_parameter/ping_width = 0.025000001187500002
+shader_parameter/ping_width = 0.0250000011875
 shader_parameter/planet_color = Color(0, 0, 0, 1)
 shader_parameter/intersection_blend = 0.750000035625
 shader_parameter/ping_data = Vector4(0, 0, 0, 0)
@@ -26,13 +26,22 @@ height = 0.5
 [node name="WireframePlanet" type="Node3D"]
 script = ExtResource("1_syi4a")
 
-[node name="TweenerX" parent="." instance=ExtResource("3_3rraj")]
+[node name="PingTweenerX" parent="." instance=ExtResource("3_3rraj")]
 unique_name_in_owner = true
 duration = 5.0
 ease_type = 1
 repeat_delay = 5.0
 transition_type = 7
 
+[node name="RotationTweenerX" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("3_3rraj")]
+target_node = NodePath("../PlanetMeshInstance3D")
+target_property = "rotation_degrees:y"
+from_value = 0.0
+to_value = 360.0
+duration = 120.0
+intensity = 0.0
+
 [node name="PlanetMeshInstance3D" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
+transform = Transform3D(-0.9365971, 0, 0.35040817, 0, 1, 0, -0.35040817, 0, -0.9365971, 0, 0, 0)
 mesh = SubResource("SphereMesh_6754x")

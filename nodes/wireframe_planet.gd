@@ -5,7 +5,7 @@ extends Node3D
 
 @onready var planet_mesh: MeshInstance3D = %PlanetMeshInstance3D
 
-@onready var tweener_x: TweenerX = %TweenerX
+@onready var ping_tweener_x: TweenerX = %PingTweenerX
 
 var _active_ping: Vector4 = Vector4.ZERO
 
@@ -62,6 +62,6 @@ func _refresh_ping_position() -> void:
 
 
 func _ready() -> void:
-	tweener_x.progress_changed.connect(_on_tweener_progress_changed)
+	ping_tweener_x.progress_changed.connect(_on_tweener_progress_changed)
 
 	_refresh_ping_position()
