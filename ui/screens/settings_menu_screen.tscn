@@ -31,21 +31,21 @@ shader_parameter/size = Vector2(0, 0)
 resource_local_to_scene = false
 
 [node name="SettingsMenuScreen" type="MarginContainer" groups=["SettingsMenuScreen"]]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -168.5
-offset_top = -247.0
-offset_right = 168.5
-offset_bottom = 247.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jlc54")
 
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0, 0, 0, 0.85)
+
 [node name="PanelContainer" parent="." instance=ExtResource("2_hrf6e")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="DualBorderTravelersShader" parent="PanelContainer" index="0"]
 material = SubResource("ShaderMaterial_wfh2i")
