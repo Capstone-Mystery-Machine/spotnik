@@ -16,6 +16,7 @@
 resource_local_to_scene = true
 shader = ExtResource("3_yvodh")
 shader_parameter/cone_gradient = ExtResource("4_wfh2i")
+shader_parameter/cone_count = 2.0
 shader_parameter/corner_radius = Vector4(0, 0, 0, 0)
 shader_parameter/rotation = 0.0
 shader_parameter/size = Vector2(0, 0)

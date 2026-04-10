@@ -1,6 +1,7 @@
 shader_type canvas_item;
 
 uniform sampler2D cone_gradient : source_color;
+uniform float cone_count;
 uniform vec4 corner_radius;
 uniform float rotation : hint_range(0.0, 1.0);
 uniform vec2 size;
@@ -9,10 +10,12 @@ void fragment() {
 	vec2 uv = UV - 0.5;
 
 	float angle = atan(uv.y, uv.x);
-	float gradient_x = fract((angle / PI) - rotation);
+	float normalized_angle = (angle + PI) / (PI * 2.0);
+	float gradient_x = fract((normalized_angle - rotation) * cone_count);
+	
 	vec4 sampled_color = texture(cone_gradient, vec2(gradient_x, 0.5));
-
 	vec2 quadrant_mask = step(0.0, uv);
+
 	float active_radius = mix(
 		mix(corner_radius.x, corner_radius.y, quadrant_mask.x),
 		mix(corner_radius.w, corner_radius.z, quadrant_mask.x),

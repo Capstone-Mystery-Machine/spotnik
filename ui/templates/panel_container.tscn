@@ -1,11 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://da3h33l6csc42"]
+[gd_scene load_steps=6 format=3 uid="uid://da3h33l6csc42"]
 
 [ext_resource type="Texture2D" uid="uid://o0qkk5knphxw" path="res://textures/panel_container_glow.tres" id="1_h4c0l"]
+[ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/dual_border_travelers.gdshader" id="2_dn0q0"]
 [ext_resource type="PackedScene" uid="uid://c8p1gawvofge1" path="res://shaders/dual_border_travelers.tscn" id="2_f1y12"]
+[ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/dual_border_travelers_glow.tres" id="3_b6lku"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1wxsd"]
+resource_local_to_scene = true
+shader = ExtResource("2_dn0q0")
+shader_parameter/cone_gradient = ExtResource("3_b6lku")
+shader_parameter/cone_count = 2.0
+shader_parameter/corner_radius = Vector4(0, 0, 0, 0)
+shader_parameter/rotation = 0.0
+shader_parameter/size = Vector2(0, 0)
 
 [node name="PanelContainer" type="PanelContainer"]
 
 [node name="DualBorderTravelersShader" parent="." instance=ExtResource("2_f1y12")]
+material = SubResource("ShaderMaterial_1wxsd")
 layout_mode = 2
 
 [node name="PanelContainerMarginContainer" type="MarginContainer" parent="."]
