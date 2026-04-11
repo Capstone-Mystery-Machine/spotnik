@@ -4,6 +4,10 @@ extends Node
 
 signal progress_changed(new_progress: float, old_progress: float)
 
+signal progress_repeated()
+
+signal progress_started()
+
 @export var target_node: Node:
 	set(value):
 		target_node = value
@@ -72,12 +76,23 @@ var progress: float = 0.0:
 		progress_changed.emit(value, old_progress)
 		_apply_to_target()
 
+var _is_first_run: bool = true
+
 var _progress: float = 0.0:
 	set(value):
 		_progress = value
 		_update_blended_progress()
 
 var _tween: Tween
+
+
+func on_tween_callback() -> void:
+	if _is_first_run:
+		progress_started.emit()
+		_is_first_run = false
+
+	else:
+		progress_repeated.emit()
 
 
 func _animate() -> void:
@@ -87,10 +102,15 @@ func _animate() -> void:
 	if _tween:
 		_tween.kill()
 
+	_is_first_run = true
+
 	if start_delay > 0.0:
 		_tween = create_tween()
+
 		_tween.tween_interval(start_delay)
+
 		_tween.tween_callback(_start_loop)
+
 	else:
 		_start_loop()
 
@@ -111,9 +131,11 @@ func _start_loop() -> void:
 		_tween.kill()
 
 	_tween = create_tween()
+
 	_tween.set_loops()
 	_tween.set_trans(Tween.TRANS_LINEAR)
 
+	_tween.tween_callback(on_tween_callback)
 	_tween.tween_property(self, "_progress", 1.0, duration).from(0.0)
 
 	if repeat_delay > 0.0:
