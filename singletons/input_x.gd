@@ -135,9 +135,16 @@ static func _is_platform_touch_input_mode() -> bool:
 ## Returns a normalized [Vector3] pointing to Earth's cardinal East.
 static func get_cardinal_east(gravitational_up: Vector3) -> Vector3:
 	var magnetic_field = Input.get_magnetometer()
-	var magnetic_north = magnetic_field.normalized()
 
-	return magnetic_north.cross(gravitational_up).normalized()
+	if magnetic_field.is_zero_approx():
+		return Vector3.RIGHT
+
+	var magnetic_north = magnetic_field.normalized()
+	var cardinal_east = magnetic_north.cross(gravitational_up)
+	if cardinal_east.is_zero_approx():
+		return Vector3.RIGHT
+
+	return cardinal_east.normalized()
 
 
 ## Returns a normalized [Vector3] pointing to Earth's cardinal North.
@@ -181,6 +188,9 @@ static func get_geocentric_transform() -> Transform3D:
 ## Returns a normalized [Vector3] pointing in the direction of Earth's gravity.
 static func get_gravitational_down() -> Vector3:
 	var gravitational_force = Input.get_gravity()
+
+	if gravitational_force.is_zero_approx():
+		return Vector3.DOWN
 
 	return gravitational_force.normalized()
 
