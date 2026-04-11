@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c11qr8a0mpxm1" path="res://textures/illustration_touch_screen.svg" id="2_ndk04"]
 [ext_resource type="PackedScene" uid="uid://vcinqoonqvxp" path="res://ui/components/h_slider.tscn" id="2_nenfv"]
 [ext_resource type="Texture2D" uid="uid://vgps1fkgspdy" path="res://textures/illustration_rotate_device.svg" id="3_nenfv"]
-[ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/dual_border_travelers.gdshader" id="3_yvodh"]
+[ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/border_travelers.gdshader" id="3_yvodh"]
 [ext_resource type="PackedScene" uid="uid://cujpy52e3bdr2" path="res://ui/components/vertical_button.tscn" id="4_flcee"]
 [ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/dual_border_travelers_glow.tres" id="4_wfh2i"]
 [ext_resource type="Texture2D" uid="uid://cejqq564pxow3" path="res://textures/icon_x_light.svg" id="6_dxncw"]
