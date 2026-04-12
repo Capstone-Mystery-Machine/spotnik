@@ -35,7 +35,6 @@ SettingsMenuScreen="The global [code]SettingMenuScreen[/code] instance is found 
 [gui]
 
 theme/custom="uid://cbsr7x6lpgmx3"
-theme/custom_font="uid://dlemmkefa14s3"
 
 [input]
 

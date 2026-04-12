@@ -299,6 +299,7 @@ HSlider/styles/grabber_area = SubResource("StyleBoxFlat_akiii")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_akiii")
 HSlider/styles/slider = SubResource("StyleBoxFlat_wse72")
 Label/colors/font_color = Color(0.9699511, 0.940048, 0.98982096, 0.95000005)
+Label/fonts/font = ExtResource("1_pp6jp")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_6abkt")
 PanelContainerMarginContainer/base_type = &"MarginContainer"
 PanelContainerMarginContainer/constants/margin_bottom = 2
