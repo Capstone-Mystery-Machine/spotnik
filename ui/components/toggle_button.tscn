@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bw7aob6pfnqcg"]
+
+[node name="ToggleButton" type="Button"]
+offset_right = 48.0
+offset_bottom = 40.0
+focus_mode = 0
+theme_type_variation = &"ToggleButton"
+toggle_mode = true

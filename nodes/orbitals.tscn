@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://bm577d17hsnxp"]
+
+[ext_resource type="PackedScene" uid="uid://dn8ovnk8ul6e3" path="res://nodes/tweener_x.tscn" id="1_4nyck"]
+[ext_resource type="Script" uid="uid://d4b3n2bv7kdsg" path="res://nodes/orbitals.gd" id="1_45rlk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xcrb7"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_4nyck"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xcrb7")
+size = Vector2(0.002, 0.002)
+
+[sub_resource type="Curve" id="Curve_45rlk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_7cnb5"]
+resource_local_to_scene = true
+colors = PackedColorArray(0.68, 0.24, 0.79, 1, 0.8001019, 0.36074692, 0.90982777, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cn52i"]
+resource_local_to_scene = true
+depth_draw_mode = 1
+shading_mode = 0
+specular_mode = 2
+disable_ambient_light = true
+albedo_color = Color(0.97, 0.94, 0.99, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1mlbl"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_cn52i")
+radius = 0.005
+height = 0.01
+
+[node name="Orbitals" type="Node3D"]
+script = ExtResource("1_45rlk")
+
+[node name="TweenerX" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("1_4nyck")]
+unique_name_in_owner = true
+target_node = NodePath("../OrbitalTilt/OrbitalPivot")
+target_property = "rotation_degrees:y"
+from_value = 0.0
+to_value = 360.0
+duration = 6.0
+ease_type = 3
+intensity = 0.75
+repeat_delay = 2.5
+start_delay = 2.5
+transition_type = 7
+
+[node name="OrbitalTilt" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="OrbitalPivot" type="Node3D" parent="OrbitalTilt"]
+
+[node name="Orbital" type="Node3D" parent="OrbitalTilt/OrbitalPivot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+
+[node name="OrbitalCPUParticles3D2" type="CPUParticles3D" parent="OrbitalTilt/OrbitalPivot/Orbital"]
+amount = 500
+lifetime = 3.0
+mesh = SubResource("QuadMesh_4nyck")
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+spread = 0.0
+flatness = 1.0
+gravity = Vector3(0, 0, 0)
+scale_amount_curve = SubResource("Curve_45rlk")
+color_ramp = SubResource("Gradient_7cnb5")
+
+[node name="OrbitalMeshInstace3D" type="MeshInstance3D" parent="OrbitalTilt/OrbitalPivot/Orbital"]
+mesh = SubResource("SphereMesh_1mlbl")
+skeleton = NodePath("")

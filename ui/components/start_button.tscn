@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b1tou357tywg6"]
+
+[node name="StartButton" type="Button"]
+offset_right = 156.0
+offset_bottom = 59.0
+size_flags_horizontal = 4
+focus_mode = 0
+theme_type_variation = &"StartButton"
+text = "START"
