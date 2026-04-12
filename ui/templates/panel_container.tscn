@@ -34,6 +34,7 @@ custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
 size_flags_vertical = 0
 texture = ExtResource("1_h4c0l")
+expand_mode = 3
 
 [node name="ContentPanelContainerMarginContainer" type="MarginContainer" parent="PanelContainerMarginContainer/ContentPanelContainer"]
 layout_mode = 2
