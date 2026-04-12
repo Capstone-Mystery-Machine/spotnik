@@ -5,6 +5,13 @@ extends Node
 ## The input controller modifies a target [Node3D]'s orientation or positioning
 ## in response to some end-user input.
 
+@export_group("Targeting")
+
+## Represents which [Node3D] that the input controller is going to modify in
+## reaction to input performed by the end-user.
+@export var target_node: Node3D = null
+
+
 ## Returns if the [InputController] is currently enabled or not.
 func _is_enabled(_input_mode: InputX.InputMode) -> bool:
 	push_error("bad dispatch to 'InputController._is_enabled' (not implemented)")

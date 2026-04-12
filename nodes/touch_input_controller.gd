@@ -1,14 +1,8 @@
-extends Node
+extends InputController
 ## Input controller that targets a [Node3D].
 ##
 ## The input controller modifies a target [Node3D]'s [member Node3D.rotation]
 ## in response to the end-user tapping-and-dragging on the 3D viewport.
-
-@export_group("Targeting")
-
-## Represents which [Node3D] that the input controller is going to modify in
-## reaction to input performed by the end-user.
-@export var target_node_3d: Node3D = null
 
 @export_group("Control Settings")
 
@@ -63,12 +57,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			event.screen_relative.x * sensitivity_yaw,
 		)
 
-		target_node_3d.rotation.x = clamp(
-			target_node_3d.rotation.x - rotation_delta.x,
+		target_node.rotation.x = clamp(
+			target_node.rotation.x - rotation_delta.x,
 			_pitch_min,
 			_pitch_max,
 		)
 
-		target_node_3d.rotation.y -= rotation_delta.y
+		target_node.rotation.y -= rotation_delta.y
 
 		get_viewport().set_input_as_handled()
