@@ -13,7 +13,7 @@ enum OrbitalQuad {
 	QUAD_THREE,
 }
 
-const quad_selection: Array[OrbitalQuad] = [
+const QUAD_SELECTION: Array[OrbitalQuad] = [
 	OrbitalQuad.HORIZON,
 	OrbitalQuad.QUAD_TWO,
 	OrbitalQuad.QUAD_THREE,
@@ -35,7 +35,7 @@ func on_progress_repeated() -> void:
 			orbital_tilt.rotation_degrees.z = randf_range(-60, -15)
 
 	if _quad_selection.is_empty():
-		_quad_selection = quad_selection.duplicate()
+		_quad_selection = QUAD_SELECTION.duplicate()
 
 
 func get_target_node() -> Node3D:
