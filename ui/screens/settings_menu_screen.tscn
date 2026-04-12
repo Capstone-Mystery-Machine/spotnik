@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cejqq564pxow3" path="res://textures/icon_x_light.svg" id="6_dxncw"]
 [ext_resource type="PackedScene" uid="uid://4xw0y7o8nkrs" path="res://ui/components/fab_button.tscn" id="8_ox7w8"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wfh2i"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1wxsd"]
 resource_local_to_scene = true
 shader = ExtResource("3_yvodh")
 shader_parameter/cone_gradient = ExtResource("4_wfh2i")
@@ -47,8 +47,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="DualBorderTravelersShader" parent="PanelContainer" index="0"]
-material = SubResource("ShaderMaterial_wfh2i")
+[node name="BorderTravelersShader" parent="PanelContainer" index="0"]
+material = SubResource("ShaderMaterial_1wxsd")
 
 [node name="MarginContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer" index="0"]
 layout_mode = 2
