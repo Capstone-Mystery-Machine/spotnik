@@ -5,12 +5,6 @@ extends InputController
 ## in response to an end-user's rotation of their device as input. This is done
 ## by pulling the sensor data from the device's accelerometer and magnetometer.
 
-@export_group("Targeting")
-
-## Represents which [Node3D] that the input controller is going to modify in
-## reaction to input performed by the end-user.
-@export var target_node_3d: Node3D = null
-
 @export_group("Control Settings")
 
 ## Represents any sensor readings that are [b]below[/b] this value to be treated
@@ -68,7 +62,7 @@ func _is_enabled(input_mode: InputX.InputMode) -> bool:
 ##       applied [Basis] is interpolated along the arc of rotation and thus
 ##       moves at a constant speed. That is, the rotation remains orthonormal.
 func _process(delta: float) -> void:
-	var current_basis = target_node_3d.transform.basis
+	var current_basis = target_node.transform.basis
 	var target_basis = InputX.get_geocentric_basis()
 
 	var alignment = current_basis.z.dot(target_basis.z)
@@ -84,7 +78,7 @@ func _process(delta: float) -> void:
 
 	dynamic_smoothing = clamp(dynamic_smoothing, smoothing_min, smoothing_max)
 
-	target_node_3d.transform.basis = current_basis.slerp(
+	target_node.transform.basis = current_basis.slerp(
 		target_basis,
 		dynamic_smoothing * delta,
 	)

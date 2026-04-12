@@ -13,11 +13,11 @@ fov = 74.41036
 [node name="CameraPointer" parent="." instance=ExtResource("1_p6uye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -100)
 
-[node name="GyroInputController" parent="." node_paths=PackedStringArray("target_node_3d") instance=ExtResource("1_wo32e")]
-target_node_3d = NodePath("..")
+[node name="GyroInputController" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("1_wo32e")]
+target_node = NodePath("..")
 
-[node name="MouseInputController" parent="." node_paths=PackedStringArray("target_node_3d") instance=ExtResource("2_p6uye")]
-target_node_3d = NodePath("..")
+[node name="MouseInputController" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("2_p6uye")]
+target_node = NodePath("..")
 
-[node name="TouchInputController" parent="." node_paths=PackedStringArray("target_node_3d") instance=ExtResource("3_k7gbv")]
-target_node_3d = NodePath("..")
+[node name="TouchInputController" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("3_k7gbv")]
+target_node = NodePath("..")
