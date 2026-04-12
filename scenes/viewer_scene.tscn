@@ -48,3 +48,7 @@ spawn_radius = 100.0
 visible = false
 
 [node name="GlobalShaders" parent="." instance=ExtResource("7_icqbe")]
+
+[node name="ViewerSettingsButton" parent="." instance=ExtResource("10_611gk")]
+
+[node name="SettingsMenuScene" parent="." instance=ExtResource("11_r3g45")]

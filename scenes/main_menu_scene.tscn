@@ -17,3 +17,6 @@
 visible = false
 
 [node name="GlobalShaders" parent="." instance=ExtResource("2_vfskp")]
+
+[connection signal="pressed" from="Node2D/CanvasLayer/VBoxContainer/ViewSkyButton" to="." method="_on_view_sky_button_pressed"]
+[connection signal="pressed" from="Node2D/CanvasLayer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
