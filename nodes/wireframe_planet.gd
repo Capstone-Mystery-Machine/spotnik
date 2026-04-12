@@ -26,8 +26,8 @@ func _process(_delta: float) -> void:
 
 		if tracked_node:
 			var local_position \
-					= planet_mesh.global_transform.affine_inverse() \
-							* tracked_node.global_position
+			= planet_mesh.global_transform.affine_inverse() \
+			* tracked_node.global_position
 
 			surface_direction = local_position.normalized()
 
