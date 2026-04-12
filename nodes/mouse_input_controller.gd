@@ -1,4 +1,4 @@
-extends Node
+extends InputController
 ## Input controller that targets a [Node3D].
 ##
 ## The input controller modifies a target [Node3D]'s [member Node3D.rotation]
