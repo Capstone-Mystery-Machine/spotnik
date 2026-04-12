@@ -16,7 +16,7 @@ shader_parameter/size = Vector2(0, 0)
 
 [node name="PanelContainer" type="PanelContainer"]
 
-[node name="DualBorderTravelersShader" parent="." instance=ExtResource("2_f1y12")]
+[node name="BorderTravelersShader" parent="." instance=ExtResource("2_f1y12")]
 material = SubResource("ShaderMaterial_1wxsd")
 layout_mode = 2
 

@@ -14,7 +14,7 @@ shader_parameter/corner_radius = Vector4(0, 0, 0, 0)
 shader_parameter/rotation = 0.0
 shader_parameter/size = Vector2(0, 0)
 
-[node name="DualBorderTravelersShader" type="ColorRect"]
+[node name="BorderTravelersShader" type="ColorRect"]
 process_mode = 3
 material = SubResource("ShaderMaterial_smnxh")
 anchors_preset = 15
