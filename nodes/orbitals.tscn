@@ -62,6 +62,7 @@ unique_name_in_owner = true
 [node name="OrbitalPivot" type="Node3D" parent="OrbitalTilt"]
 
 [node name="Orbital" type="Node3D" parent="OrbitalTilt/OrbitalPivot"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
 
 [node name="OrbitalCPUParticles3D2" type="CPUParticles3D" parent="OrbitalTilt/OrbitalPivot/Orbital"]

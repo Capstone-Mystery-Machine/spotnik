@@ -7,7 +7,8 @@
 
 [node name="Orbitals" parent="." instance=ExtResource("2_cc3kh")]
 
-[node name="WireframePlanet" parent="." instance=ExtResource("2_cn52i")]
+[node name="WireframePlanet" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("2_cn52i")]
+target_node = NodePath("../Orbitals")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)

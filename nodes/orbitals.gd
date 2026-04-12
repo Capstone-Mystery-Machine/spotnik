@@ -1,6 +1,8 @@
 @tool
 extends Node3D
 
+@onready var orbital: Node3D = %Orbital
+
 @onready var orbital_tilt: Node3D = %OrbitalTilt
 
 @onready var tweener_x: TweenerX = %TweenerX
@@ -34,6 +36,13 @@ func on_progress_repeated() -> void:
 
 	if _quad_selection.is_empty():
 		_quad_selection = quad_selection.duplicate()
+
+
+func get_target_node() -> Node3D:
+	if is_node_ready() and orbital:
+		return orbital
+
+	return null
 
 
 func _ready() -> void:
