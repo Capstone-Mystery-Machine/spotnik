@@ -22,13 +22,13 @@ extends InputController
 ## end-user's vertical touch movements. That is, the lower the value, the more
 ## physical dragging movement needed to modify the target [Node3D]'s
 ## [member Node3D.rotation].
-@export var sensitivity_pitch: float = 0.0025
+@export_range(0.001, 0.005, 0.00001) var sensitivity_pitch: float = 0.0025
 
 ## Represents the sensitivity value that is [b]multiplied against[/b] the
 ## end-user's horizontal touch movements. That is, the lower the value, the more
 ## physical dragging movement needed to modify the target [Node3D]'s
 ## [member Node3D.rotation].
-@export var sensitivity_yaw: float = 0.0025
+@export_range(0.001, 0.005, 0.0001) var sensitivity_yaw: float = 0.005
 
 ## Represents the max pitch inspector values converted from degrees into radians.
 var _pitch_max: float:

@@ -31,7 +31,7 @@ Spotnik allows end-users to point their mobile devices up at the sky to view sat
   - `fonts/JetBrainsMono-ThinItalic.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
   - `fonts/Michroma-Regular.ttf` — https://fonts.google.com/specimen/Michroma
 - Icons
-  - `textures/icon_gear_light.svg` — https://phosphoricons.com
+  - `textures/icon_gear_fill.svg` — https://phosphoricons.com
   - `textures/icon_x_light.svg` — https://phosphoricons.com
 - Illustrations
   - `textures/illustration_rotate_device.svg` — https://thenounproject.com/icon/rotate-your-smartphone-1817993 _(CC BY 3.0, Berkah Icon)_
