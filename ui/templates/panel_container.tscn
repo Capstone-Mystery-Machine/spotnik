@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://o0qkk5knphxw" path="res://textures/panel_container_glow.tres" id="1_h4c0l"]
 [ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/border_travelers.gdshader" id="2_dn0q0"]
 [ext_resource type="PackedScene" uid="uid://c8p1gawvofge1" path="res://shaders/border_travelers.tscn" id="2_f1y12"]
-[ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/dual_border_travelers_glow.tres" id="3_b6lku"]
+[ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/border_travelers_glow.tres" id="3_b6lku"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1wxsd"]
 resource_local_to_scene = true

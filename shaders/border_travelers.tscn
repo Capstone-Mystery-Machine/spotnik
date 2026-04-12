@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c8p1gawvofge1"]
 
 [ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/border_travelers.gdshader" id="1_yobmw"]
-[ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/dual_border_travelers_glow.tres" id="2_qbt7m"]
+[ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/border_travelers_glow.tres" id="2_qbt7m"]
 [ext_resource type="Script" uid="uid://bw1eq513b4f3j" path="res://shaders/border_travelers.gd" id="2_yobmw"]
 [ext_resource type="PackedScene" uid="uid://dn8ovnk8ul6e3" path="res://nodes/tweener_x.tscn" id="3_smnxh"]
 
