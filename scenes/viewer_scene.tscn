@@ -30,6 +30,8 @@ environment = SubResource("Environment_b8h5p")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043747425, 0, 3.0517578e-05)
 settings = ExtResource("3_y4cjq")
 
+[node name="satel_info_ui" parent="." instance=ExtResource("4_4xf28")]
+
 [node name="Device" parent="." instance=ExtResource("5_dlnh7")]
 
 [node name="SatelliteManager" parent="." instance=ExtResource("6_dseag")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=0 format=3 uid="uid://dt8sm83voe1x1"]
+[gd_scene format=3 uid="uid://dt8sm83voe1x1"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -7,7 +7,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

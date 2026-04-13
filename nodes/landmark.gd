@@ -8,18 +8,24 @@ signal outer_exited(body: CollisionObject3D)
 
 ## Represents the maximum scale size the satellite node will grow to.
 @export var max_scale: float = 5.0
-## Represents the distance between the camera and where satellites spawn.
-@export var spawn_radius: float = 10.0
 ## Represents the speed at which the satellite meshes scale (stay between 5-12).
 @export var scale_speed: float = 8.0
+## Represents the speed of the simulation (x1 being real speed)
+@export var simulation_speed: float = 60.0
+## Represents the distance between the camera and where satellites spawn.
+@export var spawn_radius: float = 100.0
 
+var earth_mu: float = 398600.4418
 var international_designator: String
 var norad_catalog_id: String
 var satellite_name: String
 var country: String
-var launch_date: int
-var latitude: float
-var longitude: float
+var launch_date: String
+var epoch: String
+
+var acc: Vector3 = Vector3.ZERO
+var pos: Vector3 = Vector3.ZERO
+var vel: Vector3 = Vector3.ZERO
 
 @onready var detector: Area3D = $CameraPointerDetector
 @onready var outer_shape: CollisionShape3D = $CameraPointerDetector/CollisionShape3D
@@ -31,22 +37,24 @@ var pointer: CollisionObject3D
 var visual_scale: float = 1.0
 
 
-func setup(
-		id_designator: String,
-		norad_id: String,
-		sat_name: String,
-		country_name: String,
-		launch: int,
-		lat: float,
-		long: float,
-) -> void:
-	international_designator = id_designator
-	norad_catalog_id = norad_id
-	satellite_name = sat_name
-	country = country_name
-	launch_date = launch
-	latitude = lat
-	longitude = long
+func setup_from_orbital_data(data: Dictionary) -> void:
+	international_designator = str(data.get("OBJECT_ID", ""))
+	norad_catalog_id = str(data.get("NORAD_CAT_ID", ""))
+	satellite_name = str(data.get("OBJECT_NAME", ""))
+	country = str(data.get("COUNTRY_CODE", ""))
+	launch_date = str(data.get("LAUNCH_DATE", ""))
+	epoch = str(data.get("EPOCH", ""))
+
+	var state := OrbitalMath.elements_to_state_vectors(data)
+
+	pos = state["position"]
+	vel = state["velocity"]
+	acc = compute_gravity()
+
+	if pos.length_squared() > 0.0:
+		position = pos.normalized() * spawn_radius
+	else:
+		position = Vector3.ZERO
 
 
 func _ready() -> void:
@@ -59,6 +67,23 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	update_orbit_motion(delta)
+	update_visual_scale(delta)
+
+
+func update_orbit_motion(delta: float) -> void:
+	var dt: float = delta * simulation_speed
+
+	vel += acc * (dt * 0.5)
+	pos += vel * dt
+	acc = compute_gravity()
+	vel += acc * (dt * 0.5)
+
+	if pos.length_squared() > 0.0:
+		position = pos.normalized() * spawn_radius
+
+
+func update_visual_scale(delta: float) -> void:
 	var weight: float = min(scale_speed * delta, 1.0)
 
 	if pointer == null:
@@ -68,16 +93,25 @@ func _physics_process(delta: float) -> void:
 	if outer_radius <= inner_radius:
 		return
 
-	var distance = global_position.distance_to(pointer.global_position)
+	var distance: float = global_position.distance_to(pointer.global_position)
 
-	var t = 1.0 - clamp(
+	var t: float = 1.0 - clamp(
 		(distance - inner_radius) / (outer_radius - inner_radius),
 		0.0,
 		1.0,
 	)
 
-	var target_scale = lerp(1.0, max_scale, t)
+	var target_scale: float = lerp(1.0, max_scale, t)
 	visual_scale = lerp(visual_scale, target_scale, weight)
+
+
+func compute_gravity() -> Vector3:
+	var r: float = pos.length()
+
+	if r <= 0.000001:
+		return Vector3.ZERO
+
+	return (-earth_mu / pow(r, 3)) * pos
 
 
 func _set_active(active: bool) -> void:
@@ -113,5 +147,6 @@ func _on_camera_pointer_detector_outer_entered(body: CollisionObject3D) -> void:
 
 
 func _on_camera_pointer_detector_outer_exited(body: CollisionObject3D) -> void:
-	pointer = null
+	if pointer == body:
+		pointer = null
 	emit_signal("outer_exited", body)
