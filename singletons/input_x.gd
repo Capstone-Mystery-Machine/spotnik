@@ -74,13 +74,13 @@ enum InputMode {
 ## • [b]Y:[/b] Readings inclusively above this value are treated as deliberate
 ##   movement by the end-user.
 const ERROR_THRESHOLDS: Vector2 = Vector2(
-	deg_to_rad(2.0),
+	deg_to_rad(1.5),
 	deg_to_rad(10.0),
 )
 
 ## Represents the target smoothing speeds applied to the camera, where [code]x[/code]
 ## is the minimum speed and [code]y[/code] is the maximum speed.
-const SMOOTHING_LIMITS: Vector2 = Vector2(0.5, 25.0)
+const SMOOTHING_LIMITS: Vector2 = Vector2(0.5, 18.0)
 
 ## Represents the internally cached [InputX] singleton.
 static var _instance: InputX
