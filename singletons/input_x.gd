@@ -37,7 +37,7 @@ enum InputMode {
 	## [b]Enablement Criterion:[/b] The end-user is using a desktop platform.
 	INPUT_MOUSE,
 
-	## Spotnik is configured to be in gyro input mode.
+	## Spotnik is configured to be in motion input mode.
 	## [br]
 	## [br]
 	## [b]3D Environment Controls:[/b] Finger point, tap, and drag.
@@ -48,7 +48,7 @@ enum InputMode {
 	## while both [code]input_devices/sensors/enable_gravity[/code] and
 	## [code]input_devices/sensors/enable_magnetometer[/code] project settings
 	## were enabled at export-time.
-	INPUT_GYRO,
+	INPUT_MOTION,
 
 	## Spotnik is configured to be in touch input mode.
 	## [br]
@@ -99,8 +99,8 @@ static var input_mode: InputMode:
 ## Returns which member of [enum InputMode] is currently enabled. The default is
 ## [constant InputMode.INPUT_MOUSE].
 static func _get_platform_input_mode() -> InputMode:
-	if _is_platform_gyro_input_mode():
-		return InputMode.INPUT_GYRO
+	if _is_platform_motion_input_mode():
+		return InputMode.INPUT_MOTION
 
 	if _is_platform_touch_input_mode():
 		return InputMode.INPUT_TOUCH
@@ -108,9 +108,9 @@ static func _get_platform_input_mode() -> InputMode:
 	return InputMode.INPUT_MOUSE
 
 
-## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_GYRO]
+## Returns [code]true[/code] the enablement criteria for [constant InputMode.INPUT_MOTION]
 ## is currently valid.
-static func _is_platform_gyro_input_mode() -> bool:
+static func _is_platform_motion_input_mode() -> bool:
 	return (OS.has_feature("mobile")
 		and ProjectSettings.get_setting("input_devices/sensors/enable_gravity")
 		and ProjectSettings.get_setting("input_devices/sensors/enable_magnetometer") )

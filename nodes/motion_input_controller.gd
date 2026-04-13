@@ -29,9 +29,9 @@ extends InputController
 
 
 ## Enables the input controller if [constant InputX.input_mode] is set to
-## [constant InputX.InputMode.INPUT_GYRO].
+## [constant InputX.InputMode.INPUT_MOTION].
 func _is_enabled(input_mode: InputX.InputMode) -> bool:
-	return input_mode == InputX.InputMode.INPUT_GYRO
+	return input_mode == InputX.InputMode.INPUT_MOTION
 
 
 ## Runs every engine tick reading the accelerometer and magnetometer sensor data

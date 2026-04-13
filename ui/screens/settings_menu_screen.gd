@@ -32,7 +32,7 @@ func _toggle_quality_profile(quality_profile: Variant) -> void:
 
 func _toggle_control_style(input_mode: InputX.InputMode) -> void:
 	match input_mode:
-		InputX.InputMode.INPUT_GYRO:
+		InputX.InputMode.INPUT_MOTION:
 			motion_button.button_pressed = true
 		InputX.InputMode.INPUT_TOUCH:
 			touch_button.button_pressed = true
@@ -116,7 +116,7 @@ func _ready() -> void:
 	gamma_h_slider.value_changed.connect(_on_gamma_h_slider_value_changed)
 
 	motion_button.pressed.connect(
-		_on_control_style_button_pressed.bind(InputX.InputMode.INPUT_GYRO),
+		_on_control_style_button_pressed.bind(InputX.InputMode.INPUT_MOTION),
 	)
 
 	touch_button.pressed.connect(
