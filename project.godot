@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 window/size/viewport_width=360
 window/size/viewport_height=800
 window/subwindows/embed_subwindows=false
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
 
@@ -55,3 +55,4 @@ data_source/url/windows/debug="http://localhost:8080/data/satellites.json"
 data_source/url/macos/debug="http://localhost:8080/data/satellites.json"
 data_source/url/linux/debug="http://localhost:8080/data/satellites.json"
 geo_location/provider_name/android=&"PraxisMapperGPSPlugin"
+geo_location/provider_name.android=&"PraxisMapperGPSPlugin"
