@@ -64,14 +64,6 @@ enum InputMode {
 	INPUT_TOUCH,
 }
 
-## Represents the minimum angular change (in degrees) required across both
-## hardware sensors before the smoothing algorithm is allowed to process
-## movement.
-## [br]
-## This acts as a spherical deadzone that swallows the raw electrical noise
-## floor of the sensors, to help prevent micro-jitters when the device is held still.
-const DEADZONE_THRESHOLD: float = deg_to_rad(0.5)
-
 ## Represents the error thresholds (in degrees) used to classify sensor movement,
 ## where [code]x[/code] is the jitter threshold and [code]y[/code] is the movement
 ## threshold.
@@ -231,13 +223,11 @@ func _process(delta: float) -> void:
 		_filtered_magnetic_direction = magnetic_direction
 
 	var magnetic_angle = _filtered_magnetic_direction.angle_to(magnetic_direction)
-	var gravity_angle = _filtered_gravitational_direction.angle_to(gravitational_direction)
+	var gravitational_angle = _filtered_gravitational_direction.angle_to(gravitational_direction)
 
-	if magnetic_angle < DEADZONE_THRESHOLD and gravity_angle < DEADZONE_THRESHOLD:
-		return
-
+	var max_angle = max(magnetic_angle, gravitational_angle)
 	var weight = clamp(
-		(magnetic_angle - ERROR_THRESHOLDS.x) / (ERROR_THRESHOLDS.y - ERROR_THRESHOLDS.x),
+		(max_angle - ERROR_THRESHOLDS.x) / (ERROR_THRESHOLDS.y - ERROR_THRESHOLDS.x),
 		0.0,
 		1.0,
 	)
