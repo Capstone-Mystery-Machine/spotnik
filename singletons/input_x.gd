@@ -64,6 +64,21 @@ enum InputMode {
 	INPUT_TOUCH,
 }
 
+## Represents the error thresholds (in degrees) used to classify sensor movement,
+## where [code]x[/code] is the jitter threshold and [code]y[/code] is the movement
+## threshold.
+## [br]
+## • [b]X:[/b] Readings inclusively below this value are treated as unintentional
+##   noise and smoothed heavily.
+## [br]
+## • [b]Y:[/b] Readings inclusively above this value are treated as deliberate
+##   movement by the end-user.
+const ERROR_THRESHOLDS: Vector2 = Vector2(2.0, 10.0)
+
+## Represents the target smoothing speeds applied to the camera, where [code]x[/code]
+## is the minimum speed and [code]y[/code] is the maximum speed.
+const SMOOTHING_LIMITS: Vector2 = Vector2(0.5, 25.0)
+
 ## Represents the internally cached [InputX] singleton.
 static var _instance: InputX
 
@@ -72,7 +87,6 @@ static var instance: InputX:
 	get:
 		if _instance == null:
 			_instance = InputX.new()
-
 		return _instance
 
 ## Represents which member of [enum InputMode] was evaluated at boot-time as
@@ -92,8 +106,41 @@ static var input_mode: InputMode:
 	get:
 		if preferred_input_mode != InputMode.INPUT_NONE:
 			return preferred_input_mode
-
 		return platform_input_mode
+
+## Represents the internally cached and smoothed directional vector for Earth's
+## gravity.
+var _filtered_gravitational_direction: Vector3 = Vector3.ZERO
+
+## Represents the internally cached and smoothed directional vector for Earth's
+## magnetic field.
+var _filtered_magnetic_direction: Vector3 = Vector3.ZERO
+
+
+## Returns the raw gravitational force from the device's sensor.
+## [br]
+## A failsafe is applied to return a default downward vector if the sensor
+## reading is entirely zero.
+static func _get_gravitational_force() -> Vector3:
+	var gravitational_force = Input.get_gravity()
+
+	if gravitational_force.length_squared() < 0.01:
+		return Vector3(0.0, -9.8, 0.0)
+
+	return gravitational_force
+
+
+## Returns the raw magnetic field from the device's sensor.
+## [br]
+## A failsafe is applied to return a default forward vector if the sensor
+## reading is entirely zero.
+static func _get_magnetic_field() -> Vector3:
+	var magnetic_field = Input.get_magnetometer()
+
+	if magnetic_field.length_squared() < 0.01:
+		return Vector3(0.0, 0.0, -1.0)
+
+	return magnetic_field
 
 
 ## Returns which member of [enum InputMode] is currently enabled. The default is
@@ -132,95 +179,72 @@ static func _is_platform_touch_input_mode() -> bool:
 	)
 
 
-## Returns a normalized [Vector3] pointing to Earth's cardinal East.
-static func get_cardinal_east(gravitational_up: Vector3) -> Vector3:
-	var magnetic_field = Input.get_magnetometer()
-	var magnetic_north = magnetic_field.normalized()
+## Returns a [Basis] aligned with Earth's coordinate system. Optionally accepts
+## custom directional vectors to build the [Basis] from.
+static func get_geocentric_basis(
+		gravitational_direction: Vector3 = _get_gravitational_force().normalized(),
+		magnetic_direction: Vector3 = _get_magnetic_field().normalized(),
+) -> Basis:
+	var gravitational_up = -gravitational_direction
+	var magnetic_north = magnetic_direction
 
-	return magnetic_north.cross(gravitational_up).normalized()
+	var cardinal_east = magnetic_north.cross(gravitational_up)
 
+	if cardinal_east.length_squared() < 0.001:
+		cardinal_east = Vector3.RIGHT
 
-## Returns a normalized [Vector3] pointing to Earth's cardinal North.
-static func get_cardinal_north(cardinal_east: Vector3, gravitational_up: Vector3) -> Vector3:
-	return gravitational_up.cross(cardinal_east).normalized()
+	cardinal_east = cardinal_east.normalized()
 
-
-## Returns a [Basis] aligned with Earth's coordinate system.
-static func get_geocentric_basis() -> Basis:
-	var gravitational_down = get_gravitational_down()
-	var gravitational_up = -gravitational_down
-
-	var cardinal_east = get_cardinal_east(gravitational_up)
-	var cardinal_north = get_cardinal_north(cardinal_east, gravitational_up)
+	var cardinal_north = gravitational_up.cross(cardinal_east).normalized()
 	var cardinal_south = -cardinal_north
 
-	return Basis(cardinal_east, gravitational_up, cardinal_south).inverse()
+	return Basis(cardinal_east, gravitational_up, cardinal_south).transposed()
 
 
-## Returns a new [Basis] that smoothly interpolates from the [param current_basis]
-## towards an Earth-aligned geocentric [Basis].
-## [br]
-## [param error_thresholds] expects X to be the jitter threshold and Y to be the
-## movement threshold.
-## [param smoothing_limits] expects X to be the min smoothing and Y to be the max
-## smoothing.
-static func get_geocentric_basis_smoothed(
-		current_basis: Basis,
-		delta: float,
-		error_thresholds: Vector2 = Vector2(0.0, 0.0),
-		smoothing_limits: Vector2 = Vector2(1.0, 1.0),
-) -> Basis:
-	var target_basis = get_geocentric_basis()
-
-	var alignment = current_basis.z.dot(target_basis.z)
-	var error = abs(1.0 - alignment)
-
-	var dynamic_smoothing = remap(
-		error,
-		error_thresholds.x, # jitter
-		error_thresholds.y, # movement
-		smoothing_limits.x, # min
-		smoothing_limits.y, # max
-	)
-
-	dynamic_smoothing = clamp(
-		dynamic_smoothing,
-		smoothing_limits.x,
-		smoothing_limits.y,
-	)
-
-	return current_basis.slerp(
-		target_basis,
-		dynamic_smoothing * delta,
+## Returns a [Basis] aligned with Earth's coordinate system using the internally
+## smoothed sensor data.
+func get_geocentric_basis_smoothed() -> Basis:
+	return InputX.get_geocentric_basis(
+		_filtered_gravitational_direction,
+		_filtered_magnetic_direction,
 	)
 
 
-## Returns an Euler angles [Vector3] aligned with Earth's coordinate system.
-static func get_geocentric_euler() -> Vector3:
-	var geocentric_basis = get_geocentric_basis()
+## Polls and smooths input sensor data every engine tick.
+func _process(delta: float) -> void:
+	var gravitational_direction = _get_gravitational_force().normalized()
+	var magnetic_direction = _get_magnetic_field().normalized()
 
-	return geocentric_basis.get_euler()
+	if _filtered_gravitational_direction == Vector3.ZERO:
+		_filtered_gravitational_direction = gravitational_direction
+		_filtered_magnetic_direction = magnetic_direction
 
+	var magnetic_angle = _filtered_magnetic_direction.angle_to(magnetic_direction)
 
-## Returns a [Quaternion] aligned with Earth's coordinate system.
-static func get_geocentric_quaternion() -> Quaternion:
-	var geocentric_basis = get_geocentric_basis()
+	var weight = clamp(
+		(magnetic_angle - deg_to_rad(ERROR_THRESHOLDS.x)) \
+				/ (deg_to_rad(ERROR_THRESHOLDS.y) - deg_to_rad(ERROR_THRESHOLDS.x)),
+		0.0,
+		1.0,
+	)
 
-	return geocentric_basis.get_rotation_quaternion()
+	var dynamic_speed = lerp(
+		SMOOTHING_LIMITS.x,
+		SMOOTHING_LIMITS.y,
+		smoothstep(0.0, 1.0, weight),
+	)
 
+	var frame_independent_weight = 1.0 - exp(-dynamic_speed * delta)
 
-## Returns a [Transform3D] aligned with Earth's coordinate system.
-static func get_geocentric_transform() -> Transform3D:
-	var geocentric_basis = get_geocentric_basis()
+	_filtered_gravitational_direction = _filtered_gravitational_direction.slerp(
+		gravitational_direction,
+		frame_independent_weight,
+	).normalized()
 
-	return Transform3D(geocentric_basis, Vector3.ZERO)
-
-
-## Returns a normalized [Vector3] pointing in the direction of Earth's gravity.
-static func get_gravitational_down() -> Vector3:
-	var gravitational_force = Input.get_gravity()
-
-	return gravitational_force.normalized()
+	_filtered_magnetic_direction = _filtered_magnetic_direction.slerp(
+		magnetic_direction,
+		frame_independent_weight,
+	).normalized()
 
 
 func _on_user_setting_changed(
@@ -236,3 +260,9 @@ func _on_user_setting_changed(
 
 func _init() -> void:
 	UserSettings.instance.setting_changed.connect(_on_user_setting_changed)
+
+	var scene_tree = (Engine.get_main_loop() as SceneTree)
+	scene_tree.process_frame.connect(
+		func():
+			_process(scene_tree.root.get_process_delta_time())
+	)
