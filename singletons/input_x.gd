@@ -157,6 +157,44 @@ static func get_geocentric_basis() -> Basis:
 	return Basis(cardinal_east, gravitational_up, cardinal_south).inverse()
 
 
+## Returns a new [Basis] that smoothly interpolates from the [param current_basis]
+## towards an Earth-aligned geocentric [Basis].
+## [br]
+## [param error_thresholds] expects X to be the jitter threshold and Y to be the
+## movement threshold.
+## [param smoothing_limits] expects X to be the min smoothing and Y to be the max
+## smoothing.
+static func get_geocentric_basis_smoothed(
+		current_basis: Basis,
+		delta: float,
+		error_thresholds: Vector2 = Vector2(0.0, 0.0),
+		smoothing_limits: Vector2 = Vector2(1.0, 1.0),
+) -> Basis:
+	var target_basis = get_geocentric_basis()
+
+	var alignment = current_basis.z.dot(target_basis.z)
+	var error = abs(1.0 - alignment)
+
+	var dynamic_smoothing = remap(
+		error,
+		error_thresholds.x, # jitter
+		error_thresholds.y, # movement
+		smoothing_limits.x, # min
+		smoothing_limits.y, # max
+	)
+
+	dynamic_smoothing = clamp(
+		dynamic_smoothing,
+		smoothing_limits.x,
+		smoothing_limits.y,
+	)
+
+	return current_basis.slerp(
+		target_basis,
+		dynamic_smoothing * delta,
+	)
+
+
 ## Returns an Euler angles [Vector3] aligned with Earth's coordinate system.
 static func get_geocentric_euler() -> Vector3:
 	var geocentric_basis = get_geocentric_basis()

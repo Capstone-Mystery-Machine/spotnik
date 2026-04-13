@@ -17,15 +17,17 @@ extends InputController
 ## catch up to the end-user's movement as quickly as possible.
 @export_range(0.0, 1.0, 0.0001) var movement_threshold: float = 0.01
 
-## Represents the target smoothing speed used when the sensor readings are
-## [b]inclusively below[/b] the [member jitter_threshold] value. That is, the
-## lower the value, the higher the drag there is on camera movement.
-@export var smoothing_min: float = 1.0
-
-## Represents the target smoothing speed used when the sensor readings are
-## [b]inclusively above[/b] the [member movement_threshold] value. That is, the
-## higher the value, the higher the camera's movement responsiveness is.
-@export var smoothing_max: float = 15.0
+## Represents the target smoothing speeds applied to the camera, where [code]x[/code]
+## is the minimum speed and [code]y[/code] is the maximum speed.
+## [br]
+## • [b]X:[/b] Used when sensor readings are [b]inclusively below[/b] the
+##   [member jitter_threshold]. The lower the value, the higher the drag there
+##   is on camera movement.
+## [br]
+## • [b]Y:[/b] Used when sensor readings are [b]inclusively above[/b] the
+##   [member movement_threshold]. The higher the value, the higher the camera's
+##   movement responsiveness is.
+@export var smoothing_limits: Vector2 = Vector2(1.0, 15.0)
 
 
 ## Enables the input controller if [constant InputX.input_mode] is set to
@@ -62,23 +64,9 @@ func _is_enabled(input_mode: InputX.InputMode) -> bool:
 ##       applied [Basis] is interpolated along the arc of rotation and thus
 ##       moves at a constant speed. That is, the rotation remains orthonormal.
 func _process(delta: float) -> void:
-	var current_basis = target_node.transform.basis
-	var target_basis = InputX.get_geocentric_basis()
-
-	var alignment = current_basis.z.dot(target_basis.z)
-	var error = abs(1.0 - alignment)
-
-	var dynamic_smoothing = remap(
-		error,
-		jitter_threshold,
-		movement_threshold,
-		smoothing_min,
-		smoothing_max,
-	)
-
-	dynamic_smoothing = clamp(dynamic_smoothing, smoothing_min, smoothing_max)
-
-	target_node.transform.basis = current_basis.slerp(
-		target_basis,
-		dynamic_smoothing * delta,
+	target_node.transform.basis = InputX.get_geocentric_basis_smoothed(
+		target_node.transform.basis,
+		delta,
+		Vector2(jitter_threshold, movement_threshold),
+		smoothing_limits,
 	)
