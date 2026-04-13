@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://da3h33l6csc42"]
+
+[ext_resource type="Texture2D" uid="uid://o0qkk5knphxw" path="res://textures/panel_container_glow.tres" id="1_h4c0l"]
+[ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/border_travelers.gdshader" id="2_dn0q0"]
+[ext_resource type="PackedScene" uid="uid://c8p1gawvofge1" path="res://shaders/border_travelers.tscn" id="2_f1y12"]
+[ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/border_travelers_glow.tres" id="3_b6lku"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1wxsd"]
+resource_local_to_scene = true
+shader = ExtResource("2_dn0q0")
+shader_parameter/cone_gradient = ExtResource("3_b6lku")
+shader_parameter/cone_count = 2.0
+shader_parameter/corner_radius = Vector4(0, 0, 0, 0)
+shader_parameter/rotation = 0.0
+shader_parameter/size = Vector2(0, 0)
+
+[node name="PanelContainer" type="PanelContainer"]
+
+[node name="BorderTravelersShader" parent="." instance=ExtResource("2_f1y12")]
+material = SubResource("ShaderMaterial_1wxsd")
+layout_mode = 2
+
+[node name="PanelContainerMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_type_variation = &"PanelContainerMarginContainer"
+
+[node name="ContentPanelContainer" type="PanelContainer" parent="PanelContainerMarginContainer"]
+clip_children = 2
+layout_mode = 2
+theme_type_variation = &"ContentPanelContainer"
+
+[node name="GlowTextureRect" type="TextureRect" parent="PanelContainerMarginContainer/ContentPanelContainer"]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("1_h4c0l")
+expand_mode = 3
+
+[node name="ContentPanelContainerMarginContainer" type="MarginContainer" parent="PanelContainerMarginContainer/ContentPanelContainer"]
+layout_mode = 2
+theme_type_variation = &"ContentPanelContainerMarginContainer"

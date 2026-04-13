@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://4xw0y7o8nkrs"]
+
+[node name="FABButton" type="Button"]
+offset_right = 48.0
+offset_bottom = 48.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme_type_variation = &"FABButton"

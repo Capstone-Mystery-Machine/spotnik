@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="7_icqbe"]
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://nodes/landmark.tscn" id="7_ukp7y"]
 [ext_resource type="PackedScene" uid="uid://dt8sm83voe1x1" path="res://scenes/crosshair.tscn" id="8_nb4os"]
-[ext_resource type="PackedScene" uid="uid://e8j6ixxyvox1" path="res://nodes/viewer_settings_button.tscn" id="10_611gk"]
-[ext_resource type="PackedScene" uid="uid://d0rmdtxfjdfye" path="res://nodes/settings_menu_scene.tscn" id="11_r3g45"]
+[ext_resource type="PackedScene" uid="uid://c88ioodo02w2y" path="res://ui/screens/settings_button_screen.tscn" id="9_r3g45"]
+[ext_resource type="PackedScene" uid="uid://dnws8jjky4q3c" path="res://ui/screens/settings_menu_screen.tscn" id="10_nfutw"]
 
 [sub_resource type="Environment" id="Environment_b8h5p"]
 resource_local_to_scene = true
@@ -40,8 +40,13 @@ spawn_radius = 100.0
 
 [node name="Crosshair" parent="." instance=ExtResource("8_nb4os")]
 
-[node name="ViewerSettingsButton" parent="." instance=ExtResource("10_611gk")]
+[node name="SatelInfoUI" parent="." instance=ExtResource("4_4xf28")]
 
-[node name="SettingsMenuScene" parent="." instance=ExtResource("11_r3g45")]
+[node name="UICanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="GlobalShaders" parent="." instance=ExtResource("7_icqbe")]
+[node name="SettingsButtonScreen" parent="UICanvasLayer" instance=ExtResource("9_r3g45")]
+
+[node name="SettingsMenuScreen" parent="UICanvasLayer" instance=ExtResource("10_nfutw")]
+visible = false
+
+[node name="GlobalShaders" parent="." instance=ExtResource("7_icqbe")]\

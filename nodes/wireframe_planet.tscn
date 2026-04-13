@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://ll8i3un6nuyx"]
+
+[ext_resource type="Script" uid="uid://c68pghla0up3u" path="res://nodes/wireframe_planet.gd" id="1_syi4a"]
+[ext_resource type="Shader" uid="uid://0kqwhaoevlnq" path="res://shaders/wireframe_planet.gdshader" id="2_0gdgm"]
+[ext_resource type="PackedScene" uid="uid://dn8ovnk8ul6e3" path="res://nodes/tweener_x.tscn" id="3_3rraj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cc3kh"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_0gdgm")
+shader_parameter/planet_color = Color(0.01, 0.02, 0.03, 1)
+shader_parameter/grid_color = Color(0.34901962, 0.12156863, 0.4117647, 1)
+shader_parameter/intersection_color_blend = 0.850000040375
+shader_parameter/glow_color = Color(0.8, 0.36, 0.91, 1)
+shader_parameter/grid_density = 32.0000014725
+shader_parameter/intersection_cross_length = 0.12500000523898
+shader_parameter/intersection_cross_thickness = 0.010000000475
+shader_parameter/comet_radius = 0.250000011875
+shader_parameter/comet_length = 20.0
+shader_parameter/comet_pinch = 3.0000001425
+shader_parameter/glow_falloff = 4.00000018674012
+shader_parameter/surface_direction = Vector3(0, 0, 0)
+shader_parameter/surface_velocity = Vector3(0, 0, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_6754x"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_cc3kh")
+radius = 0.25
+height = 0.5
+
+[node name="WireframePlanet" type="Node3D"]
+script = ExtResource("1_syi4a")
+
+[node name="RotationTweenerX" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("3_3rraj")]
+target_node = NodePath("../PlanetTilt/PlanetMeshInstance3D")
+target_property = "rotation_degrees:y"
+from_value = 0.0
+to_value = 360.0
+duration = 120.0
+intensity = 0.0
+
+[node name="PlanetTilt" type="Node3D" parent="."]
+transform = Transform3D(0.90630776, -0.42261827, 0, 0.42261827, 0.90630776, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="PlanetMeshInstance3D" type="MeshInstance3D" parent="PlanetTilt"]
+unique_name_in_owner = true
+mesh = SubResource("SphereMesh_6754x")
+skeleton = NodePath("../..")

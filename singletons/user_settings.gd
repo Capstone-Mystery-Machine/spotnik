@@ -340,25 +340,25 @@ static func save() -> Error:
 	return _settings.save(PATH_USER_SETTINGS_FILE)
 
 
-func _init() -> void:
+static func _static_init() -> void:
 	print(
-		"'UserSettings._init': trying to load user settings on disk",
+		"'UserSettings._static_init': trying to load user settings on disk",
 	)
 
 	if UserSettings.has_file():
 		print(
-			"'UserSettings._init': user settings found on disk, loading",
+			"'UserSettings._static_init': user settings found on disk, loading",
 		)
 
 		UserSettings.load()
 
 	else:
 		print(
-			"'UserSettings._init': user settings not found on disk, skipping",
+			"'UserSettings._static_init': user settings not found on disk, skipping",
 		)
 
 	print(
-		"'UserSettings._init': applying global engine-level user settings",
+		"'UserSettings._static_init': applying global engine-level user settings",
 	)
 
 	UserSettings.apply_global_settings()
