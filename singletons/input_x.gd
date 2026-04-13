@@ -81,7 +81,10 @@ const DEADZONE_THRESHOLD: float = deg_to_rad(0.5)
 ## [br]
 ## • [b]Y:[/b] Readings inclusively above this value are treated as deliberate
 ##   movement by the end-user.
-const ERROR_THRESHOLDS: Vector2 = Vector2(2.0, 10.0)
+const ERROR_THRESHOLDS: Vector2 = Vector2(
+	deg_to_rad(2.0),
+	deg_to_rad(10.0),
+)
 
 ## Represents the target smoothing speeds applied to the camera, where [code]x[/code]
 ## is the minimum speed and [code]y[/code] is the maximum speed.
@@ -234,8 +237,7 @@ func _process(delta: float) -> void:
 		return
 
 	var weight = clamp(
-		(magnetic_angle - deg_to_rad(ERROR_THRESHOLDS.x)) \
-				/ (deg_to_rad(ERROR_THRESHOLDS.y) - deg_to_rad(ERROR_THRESHOLDS.x)),
+		(magnetic_angle - ERROR_THRESHOLDS.x) / (ERROR_THRESHOLDS.y - ERROR_THRESHOLDS.x),
 		0.0,
 		1.0,
 	)
