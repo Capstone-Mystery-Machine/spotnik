@@ -17,9 +17,9 @@ func _ready():
 	info_ui.visible = false
 	SignalBus.instance.ui_info.connect(_ui_info_signal)
 
-	#node_area.mouse_entered.connect(_mouse_entered_area)
-	#node_area.mouse_exited.connect(_mouse_exited_area)
-	#node_area.input_event.connect(_mouse_input_event)
+	node_area.mouse_entered.connect(_mouse_entered_area)
+	node_area.mouse_exited.connect(_mouse_exited_area)
+	node_area.input_event.connect(_mouse_input_event)
 
 
 func _ui_info_signal(landmark):
@@ -32,16 +32,10 @@ func _ui_info_signal(landmark):
 	launch_date.text = str(landmark.launch_date)
 	latitude.text = str(landmark.latitude)
 	longitude.text = str(landmark.longitude)
-	cartesian_x.text = "N/A"
-	cartesian_y.text = "N/A"
-	cartesian_z.text = "N/A"
 
 
 func _on_close_button_pressed() -> void:
 	info_ui.visible = false
-
-#func _on_landmark_ui_open() -> void:
-#	info_ui.visible = true
 
 # Used for checking if the mouse is inside the Area3D.
 var is_mouse_inside = false
