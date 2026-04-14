@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8p1gawvofge1"]
+
+[ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/border_travelers.gdshader" id="1_yobmw"]
+[ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/border_travelers_glow.tres" id="2_qbt7m"]
+[ext_resource type="Script" uid="uid://bw1eq513b4f3j" path="res://shaders/border_travelers.gd" id="2_yobmw"]
+[ext_resource type="PackedScene" uid="uid://dn8ovnk8ul6e3" path="res://nodes/tweener_x.tscn" id="3_smnxh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smnxh"]
+resource_local_to_scene = true
+shader = ExtResource("1_yobmw")
+shader_parameter/cone_gradient = ExtResource("2_qbt7m")
+shader_parameter/cone_count = 2.0
+shader_parameter/corner_radius = Vector4(0, 0, 0, 0)
+shader_parameter/rotation = 0.0
+shader_parameter/size = Vector2(0, 0)
+
+[node name="BorderTravelersShader" type="ColorRect"]
+process_mode = 3
+material = SubResource("ShaderMaterial_smnxh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -360.0
+offset_bottom = -800.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_yobmw")
+
+[node name="TweenerX" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("3_smnxh")]
+target_node = NodePath("..")
+target_property = "_rotation"
+duration = 8.0
+ease_type = 3
+intensity = 0.6
+offset = 0.25
+steps = 4
+transition_type = 7

@@ -1,14 +1,8 @@
-extends Node
+extends InputController
 ## Input controller that targets a [Node3D].
 ##
 ## The input controller modifies a target [Node3D]'s [member Node3D.rotation]
 ## in response to the end-user tapping-and-dragging on the 3D viewport.
-
-@export_group("Targeting")
-
-## Represents which [Node3D] that the input controller is going to modify in
-## reaction to input performed by the end-user.
-@export var target_node_3d: Node3D = null
 
 @export_group("Control Settings")
 
@@ -28,13 +22,13 @@ extends Node
 ## end-user's vertical touch movements. That is, the lower the value, the more
 ## physical dragging movement needed to modify the target [Node3D]'s
 ## [member Node3D.rotation].
-@export var sensitivity_pitch: float = 0.0025
+@export_range(0.001, 0.005, 0.00001) var sensitivity_pitch: float = 0.0025
 
 ## Represents the sensitivity value that is [b]multiplied against[/b] the
 ## end-user's horizontal touch movements. That is, the lower the value, the more
 ## physical dragging movement needed to modify the target [Node3D]'s
 ## [member Node3D.rotation].
-@export var sensitivity_yaw: float = 0.0025
+@export_range(0.001, 0.005, 0.0001) var sensitivity_yaw: float = 0.005
 
 ## Represents the max pitch inspector values converted from degrees into radians.
 var _pitch_max: float:
@@ -63,12 +57,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			event.screen_relative.x * sensitivity_yaw,
 		)
 
-		target_node_3d.rotation.x = clamp(
-			target_node_3d.rotation.x - rotation_delta.x,
+		target_node.rotation.x = clamp(
+			target_node.rotation.x - rotation_delta.x,
 			_pitch_min,
 			_pitch_max,
 		)
 
-		target_node_3d.rotation.y -= rotation_delta.y
+		target_node.rotation.y -= rotation_delta.y
 
 		get_viewport().set_input_as_handled()
