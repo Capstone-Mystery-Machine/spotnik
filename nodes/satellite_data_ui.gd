@@ -1,3 +1,4 @@
+class_name SatelUI
 extends Node3D
 
 @onready var info_ui = %Info_UI
@@ -6,34 +7,34 @@ extends Node3D
 @onready var satellite_name = %Name2
 @onready var origin_country = %Origin_Country2
 @onready var launch_date = %Launch_Date2
-@onready var latitude = %Latitude2
-@onready var longitude = %Longitude2
-@onready var cartesian_x = %Cartesian_x2
-@onready var cartesian_y = %Cartesian_y2
-@onready var cartesian_z = %Close_Button
+
+# var to determine dist of UI in proportion to satel dist
+@onready var info_ui_dist = 0.005
 
 
 func _ready():
 	info_ui.visible = false
-	SignalBus.instance.ui_info.connect(_ui_info_signal)
 
+	#for interaction with 2d object in 3d environment
 	node_area.mouse_entered.connect(_mouse_entered_area)
 	node_area.mouse_exited.connect(_mouse_exited_area)
 	node_area.input_event.connect(_mouse_input_event)
 
 
-func _ui_info_signal(landmark):
-	info_ui.visible = true
-
+func setup_satel_ui(landmark: Landmark) -> void:
 	international_designator.text = landmark.international_designator
 	norad_catalog_identifier.text = landmark.norad_catalog_id
 	satellite_name.text = landmark.satellite_name
 	origin_country.text = landmark.country
-	launch_date.text = str(landmark.launch_date)
-	latitude.text = str(landmark.latitude)
-	longitude.text = str(landmark.longitude)
+	launch_date.text = landmark.launch_date
+
+	#set spawn position
+	var pos = landmark.position * info_ui_dist
+	info_ui.position = pos
+	info_ui.visible = true
 
 
+#handle interaction with 2d ui in 3d space
 func _on_close_button_pressed() -> void:
 	info_ui.visible = false
 
