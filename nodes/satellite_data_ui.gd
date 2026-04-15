@@ -9,7 +9,7 @@ extends Node3D
 @onready var launch_date = %Launch_Date2
 
 # var to determine dist of UI in proportion to satel dist
-@onready var info_ui_dist = 0.005
+@onready var info_ui_dist = 0.025
 
 
 func _ready():
@@ -29,15 +29,14 @@ func setup_satel_ui(landmark: Landmark) -> void:
 	launch_date.text = landmark.launch_date
 
 	#set spawn position
-	var pos = landmark.position * info_ui_dist
-	info_ui.position = pos
+	info_ui.position = landmark.position * info_ui_dist
 	info_ui.visible = true
 
 
-#handle interaction with 2d ui in 3d space
 func _on_close_button_pressed() -> void:
 	info_ui.visible = false
 
+#handle interaction with 2d ui in 3d space
 # Used for checking if the mouse is inside the Area3D.
 var is_mouse_inside = false
 # The last processed input touch/mouse event. To calculate relative movement.

@@ -25,7 +25,6 @@ unique_name_in_owner = true
 
 [node name="Quad" type="MeshInstance3D" parent="Info_UI"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0075955987, 0.04424241, -2.0972338)
 mesh = SubResource("QuadMesh_f532a")
 skeleton = NodePath("../..")
 
