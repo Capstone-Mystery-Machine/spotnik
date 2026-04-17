@@ -61,14 +61,21 @@ func _process(_delta: float) -> void:
 		if not landmark.visible:
 			multimesh.set_instance_transform(
 				i,
-				Transform3D(Basis(), Vector3(0.0, -1000000.0, 0.0)),
+				Transform3D(
+					Basis().scaled(Vector3.ZERO),
+					landmark.position,
+				),
 			)
 			continue
 
 		var scale_vec: Vector3 = Vector3.ONE * landmark.visual_scale
+
 		multimesh.set_instance_transform(
 			i,
-			Transform3D(Basis().scaled(scale_vec), landmark.position),
+			Transform3D(
+				Basis().scaled(scale_vec),
+				landmark.position,
+			),
 		)
 
 
@@ -83,10 +90,13 @@ func update_landmark_visual(landmark: Landmark) -> void:
 	var sky_dir := ecef_to_local_sky_dir(los, observer_lat_deg, observer_lon_deg)
 
 	if sky_dir.length_squared() <= 0.0:
-		landmark.set_visual_hidden()
+		landmark.set_hidden_state()
 		return
 
 	landmark.set_visual_direction(sky_dir, spawn_radius)
+	landmark.visible = true
+
+	landmark.set_interaction_enabled(landmark.is_on_screen)
 
 
 func geodetic_to_ecef(lat_deg: float, lon_deg: float, alt_km: float) -> Vector3:
