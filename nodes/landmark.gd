@@ -5,15 +5,12 @@ signal inner_entered(body: CollisionObject3D)
 signal inner_exited(body: CollisionObject3D)
 signal outer_entered(body: CollisionObject3D)
 signal outer_exited(body: CollisionObject3D)
-
 ## Represents the maximum scale size the satellite node will grow to.
 @export var max_scale: float = 5.0
 ## Represents the speed at which the satellite meshes scale (stay between 5-12).
 @export var scale_speed: float = 8.0
-## Represents the speed of the simulation (x1 being real speed)
+## Represents the speed of the simulation (x1 being real time).
 @export var simulation_speed: float = 60.0
-## Represents the distance between the camera and where satellites spawn.
-@export var spawn_radius: float = 100.0
 
 var earth_mu: float = 398600.4418
 var international_designator: String
@@ -51,19 +48,16 @@ func setup_from_orbital_data(data: Dictionary) -> void:
 	vel = state["velocity"]
 	acc = compute_gravity()
 
-	if pos.length_squared() > 0.0:
-		position = pos.normalized() * spawn_radius
-	else:
-		position = Vector3.ZERO
+	position = Vector3(0.0, -1000000.0, 0.0)
 
 
 func _ready() -> void:
 	outer_radius = outer_shape.shape.radius
 	inner_radius = detector.inner_radius
 
-	screen_notifier.screen_entered.connect(_on_screen_entered)
-	screen_notifier.screen_exited.connect(_on_screen_exited)
-	_set_active(screen_notifier.is_on_screen())
+	detector.monitoring = false
+	detector.monitorable = false
+	set_physics_process(true)
 
 
 func _physics_process(delta: float) -> void:
@@ -79,8 +73,32 @@ func update_orbit_motion(delta: float) -> void:
 	acc = compute_gravity()
 	vel += acc * (dt * 0.5)
 
-	if pos.length_squared() > 0.0:
-		position = pos.normalized() * spawn_radius
+
+func set_visual_direction(dir: Vector3, radius: float) -> void:
+	if dir.length_squared() <= 0.0:
+		set_visual_hidden()
+		return
+
+	visible = true
+	position = dir.normalized() * radius
+	set_interaction_enabled(true)
+
+
+func set_visual_hidden() -> void:
+	visible = false
+	position = Vector3(0.0, -1000000.0, 0.0)
+	set_interaction_enabled(false)
+	pointer = null
+	visual_scale = 1.0
+
+
+func set_interaction_enabled(active: bool) -> void:
+	detector.monitoring = active
+	detector.monitorable = active
+
+	if not active:
+		pointer = null
+		visual_scale = 1.0
 
 
 func update_visual_scale(delta: float) -> void:
@@ -112,24 +130,6 @@ func compute_gravity() -> Vector3:
 		return Vector3.ZERO
 
 	return (-earth_mu / pow(r, 3)) * pos
-
-
-func _set_active(active: bool) -> void:
-	set_physics_process(active)
-	detector.monitoring = active
-	detector.monitorable = active
-
-	if not active:
-		pointer = null
-		visual_scale = 1.0
-
-
-func _on_screen_entered() -> void:
-	_set_active(true)
-
-
-func _on_screen_exited() -> void:
-	_set_active(false)
 
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:

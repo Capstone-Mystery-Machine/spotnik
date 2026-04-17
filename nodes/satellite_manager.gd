@@ -1,7 +1,11 @@
 extends Node3D
 
 @export var landmark_scene: PackedScene
-@export var spawn_radius: float = 10.0
+@export var spawn_radius: float = 100.0
+
+@export var observer_lat_deg: float = 40.7934
+@export var observer_lon_deg: float = -77.8600
+@export var observer_alt_km: float = 0.0
 
 var satellite_data: Array = []
 var landmarks: Array[Landmark] = []
@@ -12,6 +16,15 @@ var multimesh: MultiMesh
 
 
 func _ready() -> void:
+	setup_multimesh()
+
+	if GeoLocation.location_data != null:
+		observer_lat_deg = GeoLocation.location_data.latitude
+		observer_lon_deg = GeoLocation.location_data.longitude
+
+	GeoLocation.instance.location_changed.connect(_on_location_changed)
+	GeoLocation.init_provider()
+
 	var source: String = DataSource.get_data_source()
 
 	print("Resolved data source: ", source)
@@ -29,18 +42,95 @@ func _ready() -> void:
 		load_local_data(source)
 
 
+func _on_location_changed(location_data: LocationData) -> void:
+	observer_lat_deg = location_data.latitude
+	observer_lon_deg = location_data.longitude
+
+
 func _process(_delta: float) -> void:
 	if multimesh == null:
 		return
 
 	for i in range(landmarks.size()):
 		var landmark := landmarks[i]
-		if landmark != null:
-			var scale_vec: Vector3 = Vector3.ONE * landmark.visual_scale
+		if landmark == null:
+			continue
+
+		update_landmark_visual(landmark)
+
+		if not landmark.visible:
 			multimesh.set_instance_transform(
 				i,
-				Transform3D(Basis().scaled(scale_vec), landmark.position),
+				Transform3D(Basis(), Vector3(0.0, -1000000.0, 0.0)),
 			)
+			continue
+
+		var scale_vec: Vector3 = Vector3.ONE * landmark.visual_scale
+		multimesh.set_instance_transform(
+			i,
+			Transform3D(Basis().scaled(scale_vec), landmark.position),
+		)
+
+
+func update_landmark_visual(landmark: Landmark) -> void:
+	var observer_pos := geodetic_to_ecef(
+		observer_lat_deg,
+		observer_lon_deg,
+		observer_alt_km,
+	)
+
+	var los := landmark.pos - observer_pos
+	var sky_dir := ecef_to_local_sky_dir(los, observer_lat_deg, observer_lon_deg)
+
+	if sky_dir.length_squared() <= 0.0:
+		landmark.set_visual_hidden()
+		return
+
+	landmark.set_visual_direction(sky_dir, spawn_radius)
+
+
+func geodetic_to_ecef(lat_deg: float, lon_deg: float, alt_km: float) -> Vector3:
+	var lat := deg_to_rad(lat_deg)
+	var lon := deg_to_rad(lon_deg)
+	var r := 6371.0 + alt_km
+
+	return Vector3(
+		r * cos(lat) * cos(lon),
+		r * sin(lat),
+		r * cos(lat) * sin(lon),
+	)
+
+
+func ecef_to_local_sky_dir(los: Vector3, lat_deg: float, lon_deg: float) -> Vector3:
+	if los.length_squared() <= 0.0:
+		return Vector3.ZERO
+
+	var lat := deg_to_rad(lat_deg)
+	var lon := deg_to_rad(lon_deg)
+	var dir := los.normalized()
+
+	var up := Vector3(
+		cos(lat) * cos(lon),
+		sin(lat),
+		cos(lat) * sin(lon),
+	).normalized()
+
+	var east := Vector3(
+		-sin(lon),
+		0.0,
+		cos(lon),
+	).normalized()
+
+	var north := up.cross(east).normalized()
+
+	var e := dir.dot(east)
+	var n := dir.dot(north)
+	var u := dir.dot(up)
+
+	if u <= 0.0:
+		return Vector3.ZERO
+
+	return Vector3(e, u, -n).normalized()
 
 
 func load_local_data(path: String) -> void:
@@ -86,8 +176,6 @@ func spawn_all_landmarks() -> void:
 		return
 
 	landmarks.clear()
-	setup_multimesh()
-
 	multimesh.instance_count = satellite_data.size()
 
 	for data in satellite_data:
@@ -107,5 +195,6 @@ func spawn_landmark(data: Dictionary) -> Landmark:
 
 	add_child(landmark)
 	landmark.setup_from_orbital_data(data)
+	update_landmark_visual(landmark)
 
 	return landmark
