@@ -54,7 +54,7 @@ func transition_to(
 
 	if not target_scene:
 		push_error(
-			"bad argument #0 to 'RootScene.transition_to (scene '%s' was not a `PackedScene`)"
+			"bad argument #0 to 'RootScene.transition_to' (scene '%s' was not a 'PackedScene')"
 			% scene_path,
 		)
 
