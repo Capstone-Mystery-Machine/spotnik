@@ -84,7 +84,7 @@ func _mouse_input_event(
 	var quad_mesh_size = node_quad.mesh.size
 
 	# Event position in Area3D in world coordinate space.
-	var event_pos3D = event_position
+	var event_pos_3d = event_position
 
 	# Current time in seconds since engine start.
 	var now: float = Time.get_ticks_msec() / 1000.0
@@ -92,7 +92,7 @@ func _mouse_input_event(
 	# Convert position to a coordinate space relative to the Area3D node.
 	# NOTE: affine_inverse accounts for the Area3D node's scale, rotation, and
 	# position in the scene!
-	event_pos3D = node_quad.global_transform.affine_inverse() * event_pos3D
+	event_pos_3d = node_quad.global_transform.affine_inverse() * event_pos_3d
 
 	# TODO: Adapt to bilboard mode or avoid completely.
 
@@ -100,7 +100,7 @@ func _mouse_input_event(
 
 	if is_mouse_inside:
 		# Convert the relative event position from 3D to 2D.
-		event_pos_2d = Vector2(event_pos3D.x, -event_pos3D.y)
+		event_pos_2d = Vector2(event_pos_3d.x, -event_pos_3d.y)
 
 		# Right now the event position's range is the following:
 		# (-quad_size/2) -> (quad_size/2)
