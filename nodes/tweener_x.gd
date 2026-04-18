@@ -53,6 +53,11 @@ signal progress_started()
 		repeat_delay = max(0.0, value)
 		_animate()
 
+@export var reverse: bool = false:
+	set(value):
+		reverse = value
+		_animate()
+
 @export var start_delay: float = 0.0:
 	set(value):
 		start_delay = max(0.0, value)
@@ -131,15 +136,26 @@ func _start_loop() -> void:
 		_tween.kill()
 
 	_tween = create_tween()
-
-	_tween.set_loops()
 	_tween.set_trans(Tween.TRANS_LINEAR)
 
 	_tween.tween_callback(on_tween_callback)
-	_tween.tween_property(self, "_progress", 1.0, duration).from(0.0)
+
+	var end_progress = 0.0 if reverse else 1.0
+
+	var remaining_distance = abs(end_progress - _progress)
+	var current_duration = duration * remaining_distance
+
+	_tween.tween_property(self, "_progress", end_progress, current_duration)
 
 	if repeat_delay > 0.0:
 		_tween.tween_interval(repeat_delay)
+
+	_tween.tween_callback(_loop_restart)
+
+
+func _loop_restart() -> void:
+	_progress = 1.0 if reverse else 0.0
+	_start_loop()
 
 
 func _update_blended_progress() -> void:
