@@ -6,6 +6,7 @@ enum TransitionType {
 }
 
 @onready var content_container: Node = %ContentContainer
+@onready var settings_ui_layer: SettingsUILayer = %SettingsUILayer
 @onready var task_manager: TaskManager = %TaskManager
 
 static var instance: RootScene:
@@ -20,6 +21,8 @@ func transition_to(
 		transition_type: TransitionType = TransitionType.DEFAULT,
 		tasks: Array[TaskNode] = [],
 ) -> void:
+	settings_ui_layer.visible = false
+
 	for task in tasks:
 		task_manager.add_child(task)
 
@@ -34,6 +37,8 @@ func transition_to(
 		content_container.add_child(target_scene.instantiate())
 
 	print("animate out")
+
+	settings_ui_layer.visible = true
 
 
 func _ready() -> void:

@@ -15,5 +15,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="SettingsUILayer" parent="." instance=ExtResource("6_72xyp")]
+unique_name_in_owner = true
+visible = false
 
 [node name="GlobalShadersLayer" parent="." instance=ExtResource("6_o1iog")]
