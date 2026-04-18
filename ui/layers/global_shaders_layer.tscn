@@ -8,7 +8,7 @@ resource_local_to_scene = true
 shader = ExtResource("2_06u6c")
 shader_parameter/inverse_gamma = 1.0
 
-[node name="GlobalShaders" type="CanvasLayer"]
+[node name="GlobalShadersLayer" type="CanvasLayer"]
 
 [node name="GammaShader" parent="." instance=ExtResource("1_kofep")]
 material = SubResource("ShaderMaterial_1x5yx")
