@@ -12,7 +12,7 @@ func _on_start_button_pressed():
 	]
 
 	RootScene.instance.transition_to(
-		preload("res://scenes/viewer_scene.tscn"),
+		"res://scenes/viewer_scene.tscn",
 		RootScene.TransitionType.DEFAULT,
 		loading_tasks,
 	)

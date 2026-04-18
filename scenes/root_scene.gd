@@ -17,11 +17,13 @@ static var instance: RootScene:
 
 
 func transition_to(
-		target_scene: PackedScene,
+		scene_path: String,
 		transition_type: TransitionType = TransitionType.DEFAULT,
 		tasks: Array[TaskNode] = [],
 ) -> void:
 	settings_ui_layer.visible = false
+
+	ResourceLoader.load_threaded_request(scene_path)
 
 	for task in tasks:
 		task_manager.add_child(task)
@@ -33,8 +35,32 @@ func transition_to(
 	for child in content_container.get_children():
 		child.queue_free()
 
-	if target_scene:
-		content_container.add_child(target_scene.instantiate())
+	var status = ResourceLoader.load_threaded_get_status(scene_path)
+
+	while status == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		await get_tree().process_frame
+
+		status = ResourceLoader.load_threaded_get_status(scene_path)
+
+	if status != ResourceLoader.THREAD_LOAD_LOADED:
+		push_error(
+			"bad argument #0 to 'RootScene.transition_to' (scene '%s' failed to load )"
+			% scene_path,
+		)
+
+		return
+
+	var target_scene = ResourceLoader.load_threaded_get(scene_path) as PackedScene
+
+	if not target_scene:
+		push_error(
+			"bad argument #0 to 'RootScene.transition_to (scene '%s' was not a `PackedScene`)"
+			% scene_path,
+		)
+
+		return
+
+	content_container.add_child(target_scene.instantiate())
 
 	print("animate out")
 
@@ -48,7 +74,7 @@ func _ready() -> void:
 	]
 
 	transition_to(
-		preload("res://scenes/main_menu_scene.tscn"),
+		"res://scenes/main_menu_scene.tscn",
 		TransitionType.DEFAULT,
 		bootstrap_tasks,
 	)
