@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://gu6wn8n4v18e"]
+[gd_scene load_steps=6 format=3 uid="uid://gu6wn8n4v18e"]
 
 [ext_resource type="Script" uid="uid://d5rume22w0eg" path="res://scenes/root_scene.gd" id="1_imdew"]
 [ext_resource type="PackedScene" uid="uid://b828rwhfwoini" path="res://tasks/task_manager.tscn" id="2_o1iog"]
 [ext_resource type="PackedScene" uid="uid://dhpun5wx5mkyl" path="res://ui/layers/loading_ui_layer.tscn" id="3_imdew"]
-[ext_resource type="PackedScene" uid="uid://cuvcpkn7o7gfq" path="res://ui/layers/background_ui_layer.tscn" id="3_o1iog"]
 [ext_resource type="PackedScene" uid="uid://4b0hcqnvybuo" path="res://ui/layers/settings_ui_layer.tscn" id="6_72xyp"]
 [ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://ui/layers/global_shaders_layer.tscn" id="6_o1iog"]
 
@@ -12,9 +11,6 @@ script = ExtResource("1_imdew")
 
 [node name="TaskManager" parent="." instance=ExtResource("2_o1iog")]
 unique_name_in_owner = true
-
-[node name="BackgroundUILayer" parent="." instance=ExtResource("3_o1iog")]
-layer = -1
 
 [node name="LoadingUILayer" parent="." instance=ExtResource("3_imdew")]
 layer = -1
