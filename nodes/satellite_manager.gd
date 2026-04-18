@@ -106,24 +106,6 @@ func spawn_landmark(data: Dictionary) -> Landmark:
 		return null
 
 	add_child(landmark)
-
-	var lat_rad := deg_to_rad(data["latitude"])
-	var lon_rad := deg_to_rad(data["longitude"])
-
-	landmark.position = Vector3(
-		spawn_radius * cos(lat_rad) * cos(lon_rad),
-		spawn_radius * sin(lat_rad),
-		spawn_radius * cos(lat_rad) * sin(lon_rad),
-	)
-
-	landmark.setup(
-		data["int_designator"],
-		data["norad_id"],
-		data["name"],
-		data["country"],
-		data["launch"],
-		data["latitude"],
-		data["longitude"],
-	)
+	landmark.setup_from_orbital_data(data)
 
 	return landmark

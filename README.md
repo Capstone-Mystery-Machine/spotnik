@@ -2,11 +2,42 @@
 
 > A Mobile Application to Locate Orbital Satellites
 
-> **Not the project you were looking for?** The backend for Spotnik is called _Fetchka_ and has [its own repository](https://github.com/Capstone-Mystery-Machine/fetchka). 
+> **Not the project you were looking for?** The backend for Spotnik is called _Fetchka_ and has [its own repository](https://github.com/Capstone-Mystery-Machine/fetchka).
 
 ## Overview
 
 Spotnik allows end-users to point their mobile devices up at the sky to view satellites in orbit around them.
+
+## Assets Used
+
+- Fonts
+  - `fonts/ComicNeue-Bold.ttf` — https://fonts.google.com/specimen/Comic+Neue
+  - `fonts/ComicNeue-Regular.ttf` — https://fonts.google.com/specimen/Comic+Neue
+  - `fonts/JetBrainsMono-Bold.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-BoldItalic.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-ExtraBold.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-ExtraBoldItalic.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-ExtraLight.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-ExtraLightItalic.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-Italic.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-Light.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-LightItalic.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-Medium.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-MediumItalic.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-Regular.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-SemiBold.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-SemiBoldItalic.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-Thin.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/JetBrainsMono-ThinItalic.ttf` — https://fonts.google.com/specimen/JetBrains+Mono
+  - `fonts/Michroma-Regular.ttf` — https://fonts.google.com/specimen/Michroma
+- Icons
+  - `textures/icon_gear_fill.svg` — https://phosphoricons.com
+  - `textures/icon_x_light.svg` — https://phosphoricons.com
+- Illustrations
+  - `textures/illustration_rotate_device.svg` — https://thenounproject.com/icon/rotate-your-smartphone-1817993 _(CC BY 3.0, Berkah Icon)_
+  - `textures/illustration_touch_screen.svg` — https://thenounproject.com/icon/touch-screen-1817999 _(CC BY 3.0, Berkah Icon)_
+- Textures
+  - `textures/skybox_nebulae_a.png` — https://tools.wwwtyro.net/space-3d/index.html
 
 ## Supported Platforms
 

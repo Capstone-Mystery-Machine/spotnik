@@ -1,0 +1,144 @@
+[gd_scene load_steps=17 format=3 uid="uid://dnws8jjky4q3c"]
+
+[ext_resource type="Script" uid="uid://blm8rqt6w3op1" path="res://ui/screens/settings_menu_screen.gd" id="1_jlc54"]
+[ext_resource type="PackedScene" uid="uid://bw7aob6pfnqcg" path="res://ui/components/toggle_button.tscn" id="2_2b28f"]
+[ext_resource type="PackedScene" uid="uid://da3h33l6csc42" path="res://ui/templates/panel_container.tscn" id="2_hrf6e"]
+[ext_resource type="Texture2D" uid="uid://c11qr8a0mpxm1" path="res://textures/illustration_touch_screen.svg" id="2_ndk04"]
+[ext_resource type="PackedScene" uid="uid://vcinqoonqvxp" path="res://ui/components/h_slider.tscn" id="2_nenfv"]
+[ext_resource type="Texture2D" uid="uid://vgps1fkgspdy" path="res://textures/illustration_rotate_device.svg" id="3_nenfv"]
+[ext_resource type="Shader" uid="uid://dkm68kaca1c3e" path="res://shaders/border_travelers.gdshader" id="3_yvodh"]
+[ext_resource type="PackedScene" uid="uid://cujpy52e3bdr2" path="res://ui/components/vertical_button.tscn" id="4_flcee"]
+[ext_resource type="Texture2D" uid="uid://vq6gj6rawdi" path="res://textures/border_travelers_glow.tres" id="4_wfh2i"]
+[ext_resource type="Texture2D" uid="uid://cejqq564pxow3" path="res://textures/icon_x_light.svg" id="6_dxncw"]
+[ext_resource type="PackedScene" uid="uid://4xw0y7o8nkrs" path="res://ui/components/fab_button.tscn" id="8_ox7w8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1wxsd"]
+resource_local_to_scene = true
+shader = ExtResource("3_yvodh")
+shader_parameter/cone_gradient = ExtResource("4_wfh2i")
+shader_parameter/cone_count = 2.0
+shader_parameter/corner_radius = Vector4(0, 0, 0, 0)
+shader_parameter/rotation = 0.0
+shader_parameter/size = Vector2(0, 0)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_wfh2i"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_e16ey"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_aaoj2"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_yvodh"]
+resource_local_to_scene = false
+
+[node name="SettingsMenuScreen" type="MarginContainer" groups=["SettingsMenuScreen"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jlc54")
+
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0, 0, 0, 0.85)
+
+[node name="PanelContainer" parent="." instance=ExtResource("2_hrf6e")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BorderTravelersShader" parent="PanelContainer" index="0"]
+material = SubResource("ShaderMaterial_1wxsd")
+
+[node name="MarginContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer" index="0"]
+layout_mode = 2
+theme_type_variation = &"Gap7VBoxContainer"
+
+[node name="QualityVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"Gap3VBoxContainer"
+
+[node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"Display6Label"
+text = "Quality"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"Gap3HBoxContainer"
+
+[node name="HighQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+button_group = SubResource("ButtonGroup_wfh2i")
+text = "High"
+
+[node name="MediumQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+button_group = SubResource("ButtonGroup_e16ey")
+text = "Med"
+
+[node name="LowQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+button_group = SubResource("ButtonGroup_aaoj2")
+text = "Low"
+
+[node name="GammaVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"Gap3VBoxContainer"
+
+[node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/GammaVBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"Display6Label"
+text = "Gamma"
+
+[node name="GammaHSlider" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/GammaVBoxContainer" instance=ExtResource("2_nenfv")]
+unique_name_in_owner = true
+layout_mode = 2
+step = 0.1
+
+[node name="ControlStyleVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"Gap3VBoxContainer"
+
+[node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/ControlStyleVBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"Display6Label"
+text = "Control Style"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/ControlStyleVBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"Gap3HBoxContainer"
+
+[node name="TouchButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/ControlStyleVBoxContainer/HBoxContainer" instance=ExtResource("4_flcee")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("2_ndk04")
+text = "Touch"
+button_group = SubResource("ButtonGroup_yvodh")
+button_theme_type_variation = &"ToggleButton"
+toggle_mode = true
+
+[node name="MotionButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/ControlStyleVBoxContainer/HBoxContainer" instance=ExtResource("4_flcee")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("3_nenfv")
+text = "Motion"
+button_group = SubResource("ButtonGroup_yvodh")
+button_theme_type_variation = &"ToggleButton"
+toggle_mode = true
+
+[node name="CloseButton" parent="PanelContainer" instance=ExtResource("8_ox7w8")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+icon = ExtResource("6_dxncw")
+
+[editable path="PanelContainer"]
