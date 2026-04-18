@@ -10,6 +10,7 @@
 script = ExtResource("1_imdew")
 
 [node name="TaskManager" parent="." instance=ExtResource("2_o1iog")]
+unique_name_in_owner = true
 
 [node name="PermissionTask" parent="TaskManager" instance=ExtResource("3_72xyp")]
 

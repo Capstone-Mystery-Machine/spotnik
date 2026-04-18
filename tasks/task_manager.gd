@@ -1,3 +1,4 @@
+class_name TaskManager
 extends Node
 
 func run_all_tasks() -> void:
