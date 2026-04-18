@@ -19,7 +19,7 @@ layer = -1
 [node name="LoadingUILayer" parent="." instance=ExtResource("3_imdew")]
 layer = -1
 
-[node name="ContentContainer" type="Node" parent="."]
+[node name="ContentLayer" type="Node" parent="."]
 unique_name_in_owner = true
 
 [node name="SettingsUILayer" parent="." instance=ExtResource("6_72xyp")]

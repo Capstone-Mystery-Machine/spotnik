@@ -5,7 +5,7 @@ enum TransitionType {
 	DEFAULT,
 }
 
-@onready var content_container: Node = %ContentContainer
+@onready var content_layer: Node = %ContentLayer
 @onready var settings_ui_layer: SettingsUILayer = %SettingsUILayer
 @onready var task_manager: TaskManager = %TaskManager
 
@@ -32,7 +32,7 @@ func transition_to(
 
 	await task_manager.run_all_tasks()
 
-	for child in content_container.get_children():
+	for child in content_layer.get_children():
 		child.queue_free()
 
 	var status = ResourceLoader.load_threaded_get_status(scene_path)
@@ -60,7 +60,7 @@ func transition_to(
 
 		return
 
-	content_container.add_child(target_scene.instantiate())
+	content_layer.add_child(target_scene.instantiate())
 
 	print("animate out")
 
