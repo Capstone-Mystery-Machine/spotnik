@@ -50,6 +50,20 @@ signal progress_started()
 		offset = value
 		_update_blended_progress()
 
+@export var paused: bool = false:
+	set(value):
+		if paused == value:
+			return
+
+		paused = value
+		if _tween:
+			if paused:
+				_tween.pause()
+				progress_ended.emit()
+			else:
+				_tween.play()
+				progress_started.emit()
+
 @export var repeat_count: int = -1:
 	set(value):
 		repeat_count = value
@@ -125,6 +139,9 @@ func _animate() -> void:
 
 		_tween.tween_callback(_start_loop)
 
+		if paused:
+			_tween.pause()
+
 	else:
 		_start_loop()
 
@@ -160,6 +177,9 @@ func _start_loop() -> void:
 		_tween.tween_interval(repeat_delay)
 
 	_tween.tween_callback(_loop_restart)
+
+	if paused:
+		_tween.pause()
 
 
 func _loop_restart() -> void:
