@@ -4,7 +4,7 @@ extends Node
 
 signal progress_changed(new_progress: float, old_progress: float)
 
-signal progress_repeated()
+signal progress_repeated(current_repeats: int)
 
 signal progress_started()
 
@@ -104,7 +104,7 @@ func on_tween_callback() -> void:
 		_is_first_run = false
 
 	else:
-		progress_repeated.emit()
+		progress_repeated.emit(_current_repeats)
 
 
 func _animate() -> void:
