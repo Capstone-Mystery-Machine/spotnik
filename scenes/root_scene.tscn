@@ -22,6 +22,7 @@ unique_name_in_owner = true
 target_scene_path = "uid://b2l8pntu6erxw"
 
 [node name="ContentContainer" type="Node" parent="."]
+unique_name_in_owner = true
 
 [node name="SettingsUILayer" parent="." instance=ExtResource("6_72xyp")]
 
