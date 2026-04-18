@@ -1,16 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2l8pntu6erxw"]
+[gd_scene load_steps=2 format=3 uid="uid://b2l8pntu6erxw"]
 
 [ext_resource type="PackedScene" uid="uid://bfii1quf8rc8h" path="res://ui/screens/main_menu_screen.tscn" id="2_7hcs8"]
-[ext_resource type="PackedScene" uid="uid://c88ioodo02w2y" path="res://ui/screens/settings_button_screen.tscn" id="2_sb6w7"]
-[ext_resource type="PackedScene" uid="uid://dnws8jjky4q3c" path="res://ui/screens/settings_menu_screen.tscn" id="3_sb6w7"]
 
-[node name="MainMenuScene" type="Node"]
+[node name="MainMenuScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="UICanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="MainMenuScreen" parent="UICanvasLayer" instance=ExtResource("2_7hcs8")]
-
-[node name="SettingsButtonScreen" parent="UICanvasLayer" instance=ExtResource("2_sb6w7")]
-
-[node name="SettingsMenuScreen" parent="UICanvasLayer" instance=ExtResource("3_sb6w7")]
-visible = false
+[node name="MainMenuScreen" parent="." instance=ExtResource("2_7hcs8")]
+layout_mode = 1
