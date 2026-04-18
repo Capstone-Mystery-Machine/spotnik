@@ -37,7 +37,7 @@ func transition_to(
 
 
 func _ready() -> void:
-	var bootstrap_tasks = [
+	var bootstrap_tasks: Array[TaskNode] = [
 		PermissionTask.new(),
 		GeoLocationTask.new(),
 	]
