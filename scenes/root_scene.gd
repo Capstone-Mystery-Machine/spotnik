@@ -7,10 +7,11 @@ enum TransitionType {
 	FROM_MAIN_MENU,
 }
 
-@onready var content_layer: Node = %ContentLayer
-@onready var loading_tweener: TweenerX = %LoadingTweener
+@onready var alpha_tweener: TweenerX = %AlphaTweener
+@onready var content_layer: ContentLayer = %ContentLayer
 @onready var loading_ui_layer: LoadingUILayer = %LoadingUILayer
 @onready var task_manager: TaskManager = %TaskManager
+@onready var transition_tweener: TweenerX = %TransitionTweener
 
 static var instance: RootScene:
 	get:
@@ -18,9 +19,22 @@ static var instance: RootScene:
 
 		return scene_tree.current_scene
 
+var _alpha_progress: float = 1.0
+
 var _transition_progress: float = 1.0
 
 var _transition_type: TransitionType = TransitionType.DEFAULT
+
+var alpha_progress: float:
+	get:
+		return _alpha_progress
+	set(value):
+		_alpha_progress = value
+
+		if not is_node_ready():
+			return
+
+		content_layer.transition_progress = value
 
 var transition_progress: float:
 	get:
@@ -28,8 +42,10 @@ var transition_progress: float:
 	set(value):
 		_transition_progress = value
 
-		if is_node_ready() and loading_ui_layer:
-			loading_ui_layer.transition_progress = value
+		if not is_node_ready():
+			return
+
+		loading_ui_layer.transition_progress = value
 
 
 func transition_from_main_menu(scene_path: String) -> void:
@@ -67,11 +83,16 @@ func _play_transition_in(transition_type: TransitionType) -> void:
 		_:
 			loading_ui_layer.transition_type = TransitionType.DEFAULT
 
-	loading_tweener.from_value = transition_progress
-	loading_tweener.to_value = 1.0
+	alpha_tweener.from_value = alpha_progress
+	alpha_tweener.to_value = 1.0
 
-	loading_tweener.play()
-	await loading_tweener.progress_ended
+	transition_tweener.from_value = transition_progress
+	transition_tweener.to_value = 1.0
+
+	alpha_tweener.play()
+	transition_tweener.play()
+
+	await transition_tweener.progress_ended
 
 
 func _play_transition_out() -> void:
@@ -81,11 +102,16 @@ func _play_transition_out() -> void:
 		_:
 			loading_ui_layer.transition_type = TransitionType.DEFAULT
 
-	loading_tweener.from_value = transition_progress
-	loading_tweener.to_value = 0.0
+	alpha_tweener.from_value = alpha_progress
+	alpha_tweener.to_value = 0.0
 
-	loading_tweener.play()
-	await loading_tweener.progress_ended
+	transition_tweener.from_value = transition_progress
+	transition_tweener.to_value = 0.0
+
+	alpha_tweener.play()
+	transition_tweener.play()
+
+	await transition_tweener.progress_ended
 
 
 func _transition_to(
