@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bm5pv02d7syn2"]
 
-[ext_resource type="PackedScene" uid="uid://b828rwhfwoini" path="res://nodes/task_manager.tscn" id="1_q28w8"]
+[ext_resource type="PackedScene" uid="uid://b828rwhfwoini" path="res://tasks/task_manager.tscn" id="1_q28w8"]
 [ext_resource type="PackedScene" uid="uid://wlhvj7mlb8m7" path="res://tasks/permission_task.tscn" id="2_5utoa"]
 [ext_resource type="PackedScene" uid="uid://bkg2elg1a5g8u" path="res://tasks/transition_task.tscn" id="3_5utoa"]
 [ext_resource type="PackedScene" uid="uid://cwrjkfn4ixiel" path="res://tasks/geo_location_task.tscn" id="3_pr7r5"]
