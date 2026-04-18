@@ -9,10 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="7_icqbe"]
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://nodes/landmark.tscn" id="7_ukp7y"]
 [ext_resource type="PackedScene" uid="uid://dt8sm83voe1x1" path="res://scenes/crosshair.tscn" id="8_nb4os"]
-[ext_resource type="PackedScene" uid="uid://e6e3m5vnt77j" path="res://nodes/manager_satel_info_ui.tscn" id="8_oe1pm"]
-[ext_resource type="Script" uid="uid://eha1ypn8ngo3" path="res://nodes/manager_satel_info_ui.gd" id="9_4nnsy"]
+[ext_resource type="PackedScene" path="res://nodes/manager_satel_info_ui.tscn" id="8_oe1pm"]
 [ext_resource type="PackedScene" uid="uid://c88ioodo02w2y" path="res://ui/screens/settings_button_screen.tscn" id="9_r3g45"]
 [ext_resource type="PackedScene" uid="uid://dnws8jjky4q3c" path="res://ui/screens/settings_menu_screen.tscn" id="10_nfutw"]
+[ext_resource type="PackedScene" path="res://nodes/compass.tscn" id="13_oe1pm"]
 
 [sub_resource type="Environment" id="Environment_b8h5p"]
 resource_local_to_scene = true
@@ -28,10 +28,6 @@ glow_hdr_scale = 1.0
 [node name="SpaceEnvironment" parent="." instance=ExtResource("1_b8h5p")]
 environment = SubResource("Environment_b8h5p")
 
-[node name="Skybox" parent="." instance=ExtResource("2_3kcgk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043747425, 0, 3.0517578e-05)
-settings = ExtResource("3_y4cjq")
-
 [node name="satel_info_ui" parent="." instance=ExtResource("4_4xf28")]
 
 [node name="Device" parent="." instance=ExtResource("5_dlnh7")]
@@ -40,12 +36,19 @@ settings = ExtResource("3_y4cjq")
 landmark_scene = ExtResource("7_ukp7y")
 spawn_radius = 100.0
 
-[node name="ManagerSatelInfoUi" parent="." instance=ExtResource("8_oe1pm")]
-script = ExtResource("9_4nnsy")
-
 [node name="Crosshair" parent="." instance=ExtResource("8_nb4os")]
 
 [node name="SatelInfoUI" parent="." instance=ExtResource("4_4xf28")]
+
+[node name="Alignment" type="Node3D" parent="."]
+
+[node name="Skybox" parent="Alignment" instance=ExtResource("2_3kcgk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043747425, 0, 3.0517578e-05)
+settings = ExtResource("3_y4cjq")
+
+[node name="ManagerSatelInfoUi" parent="Alignment" instance=ExtResource("8_oe1pm")]
+
+[node name="Compass" parent="Alignment" instance=ExtResource("13_oe1pm")]
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 
