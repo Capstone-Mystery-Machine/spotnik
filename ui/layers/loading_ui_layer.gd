@@ -3,7 +3,7 @@ extends CanvasLayer
 
 @export var fov_base: float = 100.0
 
-@export var fov_bounce: float = 90.0
+@export var fov_bounce: float = 120.0
 
 @export var glow_base_scale: float = 0.5
 
@@ -45,7 +45,7 @@ func _update_visuals() -> void:
 			var inverted_progress = 1.0 - transition_progress
 
 			var bounce_progress = sin(transition_progress * PI)
-			var delayed_glow_progress = clamp((inverted_progress - 0.5) * 2.0, 0.0, 1.0)
+			var delayed_glow_progress = clamp((inverted_progress - 0.65) * 2.0, 0.0, 1.0)
 
 			var current_fov = lerp(fov_base, fov_bounce, bounce_progress)
 			var current_scale = lerp(
