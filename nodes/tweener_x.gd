@@ -162,6 +162,21 @@ func _apply_to_target() -> void:
 		target_node.set_indexed(target_property, interpolated_value)
 
 
+func _restart_loop() -> void:
+	if repeat_count != -1 and _current_repeats >= repeat_count:
+		progress_ended.emit()
+		return
+
+	_current_repeats += 1
+
+	if once:
+		progress_ended.emit()
+		return
+
+	_progress = 1.0 if reverse else 0.0
+	_start_loop()
+
+
 func _start_loop() -> void:
 	if _tween:
 		_tween.kill()
@@ -181,24 +196,10 @@ func _start_loop() -> void:
 	if repeat_delay > 0.0:
 		_tween.tween_interval(repeat_delay)
 
-	_tween.tween_callback(_loop_restart)
+	_tween.tween_callback(_restart_loop)
 
 	if paused:
 		_tween.pause()
-
-
-func _loop_restart() -> void:
-	if repeat_count != -1 and _current_repeats >= repeat_count:
-		progress_ended.emit()
-		return
-
-	_current_repeats += 1
-	_progress = 1.0 if reverse else 0.0
-
-	if once:
-		paused = true
-
-	_start_loop()
 
 
 func _update_blended_progress() -> void:
@@ -220,6 +221,18 @@ func _update_blended_progress() -> void:
 
 	var eased_total_progress = (floor(step_time) + eased_step_fraction) / steps_float
 	progress = lerp(_progress, eased_total_progress, intensity) + offset
+
+
+func play() -> void:
+	reset()
+
+	paused = false
+	_animate()
+
+
+func reset() -> void:
+	_progress = 1.0 if reverse else 0.0
+	_current_repeats = 0
 
 
 func _ready() -> void:
