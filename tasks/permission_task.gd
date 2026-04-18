@@ -1,3 +1,4 @@
+class_name PermissionTask
 extends TaskNode
 ## Requests the permissions required by the app's export target when the task
 ## is requested to run.
@@ -27,7 +28,7 @@ func _dialog_permission_declined(permission: String) -> void:
 	DisplayServer.dialog_show(
 		"Permission Not Granted",
 		"Spotnik was not granted a required permission: '" \
-		+ permission + "'. The app will exit now.",
+				+ permission + "'. The app will exit now.",
 		PackedStringArray(["OK"]),
 		func(_button_index: int):
 			print(
@@ -43,7 +44,7 @@ func _on_all_permissions_resolved() -> void:
 	var granted := OS.get_granted_permissions()
 
 	var has_location_permission = PermissionName.ANDROID_COARSE_LOCATION in granted \
-	or PermissionName.ANDROID_FINE_LOCATION in granted
+			or PermissionName.ANDROID_FINE_LOCATION in granted
 
 	if not has_location_permission:
 		_dialog_permission_declined("location")

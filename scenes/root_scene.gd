@@ -34,3 +34,16 @@ func transition_to(
 		content_container.add_child(target_scene.instantiate())
 
 	print("animate out")
+
+
+func _ready() -> void:
+	var bootstrap_tasks = [
+		PermissionTask.new(),
+		GeoLocationTask.new(),
+	]
+
+	transition_to(
+		preload("res://scenes/main_menu_scene.tscn"),
+		TransitionType.DEFAULT,
+		bootstrap_tasks,
+	)
