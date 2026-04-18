@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bfii1quf8rc8h" path="res://ui/screens/main_menu_screen.tscn" id="2_7hcs8"]
 [ext_resource type="PackedScene" uid="uid://c88ioodo02w2y" path="res://ui/screens/settings_button_screen.tscn" id="2_sb6w7"]
-[ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="2_vfskp"]
+[ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://shaders/global_shaders.tscn" id="2_vfskp"]
 [ext_resource type="PackedScene" uid="uid://dnws8jjky4q3c" path="res://ui/screens/settings_menu_screen.tscn" id="3_sb6w7"]
 
 [node name="MainMenuScene" type="Node"]
