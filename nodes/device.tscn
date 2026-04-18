@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://br2hxj6bxbpw5" path="res://nodes/camera_pointer.tscn" id="1_p6uye"]
 [ext_resource type="PackedScene" uid="uid://d2fpp8fhgw01q" path="res://nodes/mouse_input_controller.tscn" id="2_p6uye"]
 [ext_resource type="PackedScene" uid="uid://bchxn5jertoc2" path="res://nodes/touch_input_controller.tscn" id="3_k7gbv"]
-[ext_resource type="PackedScene" path="res://nodes/motion_input_controller.tscn" id="4_p6uye"]
+[ext_resource type="PackedScene" uid="uid://bdg16xqt5ebxy" path="res://nodes/motion_input_controller.tscn" id="4_p6uye"]
 
 [node name="Device" type="Node3D"]
 
@@ -19,4 +19,5 @@ target_node = NodePath("..")
 [node name="TouchInputController" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("3_k7gbv")]
 target_node = NodePath("..")
 
-[node name="MotionInputController" parent="." instance=ExtResource("4_p6uye")]
+[node name="MotionInputController" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("4_p6uye")]
+target_node = NodePath("..")

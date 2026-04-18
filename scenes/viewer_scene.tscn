@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" path="res://nodes/manager_satel_info_ui.tscn" id="8_oe1pm"]
 [ext_resource type="PackedScene" uid="uid://c88ioodo02w2y" path="res://ui/screens/settings_button_screen.tscn" id="9_r3g45"]
 [ext_resource type="PackedScene" uid="uid://dnws8jjky4q3c" path="res://ui/screens/settings_menu_screen.tscn" id="10_nfutw"]
-[ext_resource type="PackedScene" path="res://nodes/compass.tscn" id="13_oe1pm"]
+[ext_resource type="PackedScene" uid="uid://db8xwv4lh4ckq" path="res://nodes/compass.tscn" id="13_oe1pm"]
 
 [sub_resource type="Environment" id="Environment_b8h5p"]
 resource_local_to_scene = true

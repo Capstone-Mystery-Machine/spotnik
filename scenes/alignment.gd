@@ -1,17 +1,17 @@
 class_name Alignment
 extends Node3D
 
-@export var north_vector = Vector3(0, 0, 0)
-@export var east_vector = Vector3(0, 0, 0)
-@export var south_vector = Vector3(0, 0, 0)
-@export var west_vector = Vector3(0, 0, 0)
+static func get_cardinal_directions() -> Dictionary:
+	var geocentric_basis = InputX.instance.get_geocentric_basis_smoothed()
+	var west_vector = Vector3(geocentric_basis.x.x, geocentric_basis.y.x, geocentric_basis.z.x)
+	var north_vector = Vector3(geocentric_basis.x.z, geocentric_basis.y.z, geocentric_basis.z.z)
+	var east_vector = -west_vector
+	var south_vector = -north_vector
 
-
-func get_cardinal_directions() -> void:
-	#use if not aligning correctly due to wait
-	#await get_tree().create_timer(0.1).timeout
-	var geocentric_basis = InputX.get_geocentric_basis()
-	east_vector = geocentric_basis.x
-	south_vector = geocentric_basis.z
-	west_vector = -east_vector
-	north_vector = -south_vector
+	var cardinal_dict = {
+		"North": north_vector,
+		"East": east_vector,
+		"South": south_vector,
+		"West": west_vector,
+	}
+	return cardinal_dict
