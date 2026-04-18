@@ -4,6 +4,8 @@ extends Node
 
 signal progress_changed(new_progress: float, old_progress: float)
 
+signal progress_ended()
+
 signal progress_repeated(current_repeats: int)
 
 signal progress_started()
@@ -162,6 +164,7 @@ func _start_loop() -> void:
 
 func _loop_restart() -> void:
 	if repeat_count != -1 and _current_repeats >= repeat_count:
+		progress_ended.emit()
 		return
 
 	_current_repeats += 1
