@@ -21,6 +21,8 @@ static var instance: RootScene:
 
 var _alpha_progress: float = 1.0
 
+var _is_initial_boot: bool = true
+
 var _transition_progress: float = 1.0
 
 var _transition_type: TransitionType = TransitionType.DEFAULT
@@ -124,7 +126,15 @@ func _transition_to(
 	for task in tasks:
 		task_manager.add_child(task)
 
-	await _play_transition_in(transition_type)
+	if _is_initial_boot:
+		_is_initial_boot = false
+
+		_transition_type = transition_type
+		loading_ui_layer.transition_type = transition_type
+
+	else:
+		await _play_transition_in(transition_type)
+
 	await task_manager.run_all_tasks()
 
 	for child in content_layer.get_children():
@@ -156,11 +166,13 @@ func _transition_to(
 		return
 
 	content_layer.add_child(target_scene.instantiate())
-
 	await _play_transition_out()
 
 
 func _ready() -> void:
+	alpha_progress = 1.0
+	transition_progress = 1.0
+
 	var bootstrap_tasks: Array[TaskNode] = [
 		PermissionTask.new(),
 		GeoLocationTask.new(),
