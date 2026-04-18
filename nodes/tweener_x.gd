@@ -48,6 +48,11 @@ signal progress_started()
 		offset = value
 		_update_blended_progress()
 
+@export var repeat_count: int = -1:
+	set(value):
+		repeat_count = value
+		_animate()
+
 @export var repeat_delay: float = 0.0:
 	set(value):
 		repeat_delay = max(0.0, value)
@@ -82,6 +87,8 @@ var progress: float = 0.0:
 		_apply_to_target()
 
 var _is_first_run: bool = true
+
+var _current_repeats: int = 0
 
 var _progress: float = 0.0:
 	set(value):
@@ -154,6 +161,10 @@ func _start_loop() -> void:
 
 
 func _loop_restart() -> void:
+	if repeat_count != -1 and _current_repeats >= repeat_count:
+		return
+
+	_current_repeats += 1
 	_progress = 1.0 if reverse else 0.0
 	_start_loop()
 
