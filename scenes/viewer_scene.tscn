@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b5ou2u38e78kf"]
+[gd_scene load_steps=13 format=3 uid="uid://b5ou2u38e78kf"]
 
 [ext_resource type="PackedScene" uid="uid://c4d4b5ugrpijg" path="res://nodes/space_environment.tscn" id="1_b8h5p"]
 [ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://nodes/skybox.tscn" id="2_3kcgk"]
@@ -6,11 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://nodes/satel_info_ui.tscn" id="4_4xf28"]
 [ext_resource type="PackedScene" uid="uid://ckh0mf4o2awhw" path="res://nodes/device.tscn" id="5_dlnh7"]
 [ext_resource type="PackedScene" uid="uid://b3c1tcyumuxs2" path="res://nodes/satellite_manager.tscn" id="6_dseag"]
-[ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://shaders/global_shaders.tscn" id="7_icqbe"]
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://nodes/landmark.tscn" id="7_ukp7y"]
 [ext_resource type="PackedScene" uid="uid://dt8sm83voe1x1" path="res://scenes/crosshair.tscn" id="8_nb4os"]
-[ext_resource type="PackedScene" uid="uid://e6e3m5vnt77j" path="res://nodes/manager_satel_info_ui.tscn" id="8_oe1pm"]
-[ext_resource type="Script" path="res://nodes/manager_satel_info_ui.gd" id="9_4nnsy"]
+[ext_resource type="PackedScene" path="res://nodes/manager_satel_info_ui.tscn" id="8_oe1pm"]
 [ext_resource type="PackedScene" uid="uid://c88ioodo02w2y" path="res://ui/screens/settings_button_screen.tscn" id="9_r3g45"]
 [ext_resource type="PackedScene" uid="uid://dnws8jjky4q3c" path="res://ui/screens/settings_menu_screen.tscn" id="10_nfutw"]
 
@@ -41,7 +39,6 @@ landmark_scene = ExtResource("7_ukp7y")
 spawn_radius = 100.0
 
 [node name="ManagerSatelInfoUi" parent="." instance=ExtResource("8_oe1pm")]
-script = ExtResource("9_4nnsy")
 
 [node name="Crosshair" parent="." instance=ExtResource("8_nb4os")]
 
@@ -53,5 +50,3 @@ script = ExtResource("9_4nnsy")
 
 [node name="SettingsMenuScreen" parent="UICanvasLayer" instance=ExtResource("10_nfutw")]
 visible = false
-
-[node name="GlobalShaders" parent="." instance=ExtResource("7_icqbe")]
