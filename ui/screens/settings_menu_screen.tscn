@@ -30,7 +30,7 @@ shader_parameter/size = Vector2(0, 0)
 [sub_resource type="ButtonGroup" id="ButtonGroup_yvodh"]
 resource_local_to_scene = false
 
-[node name="SettingsMenuScreen" type="MarginContainer" groups=["SettingsMenuScreen"]]
+[node name="SettingsMenuScreen" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

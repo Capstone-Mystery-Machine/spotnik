@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://4b0hcqnvybuo"]
+[gd_scene load_steps=4 format=3 uid="uid://4b0hcqnvybuo"]
 
 [ext_resource type="PackedScene" uid="uid://c88ioodo02w2y" path="res://ui/screens/settings_button_screen.tscn" id="1_dxujp"]
+[ext_resource type="Script" uid="uid://qpgqyg5xsam2" path="res://ui/layers/settings_ui_layer.gd" id="1_ppmav"]
 [ext_resource type="PackedScene" uid="uid://dnws8jjky4q3c" path="res://ui/screens/settings_menu_screen.tscn" id="2_ppmav"]
 
 [node name="SettingsUILayer" type="CanvasLayer"]
+script = ExtResource("1_ppmav")
 
 [node name="SettingsButtonScreen" parent="." instance=ExtResource("1_dxujp")]
+unique_name_in_owner = true
 
 [node name="SettingsMenuScreen" parent="." instance=ExtResource("2_ppmav")]
+unique_name_in_owner = true
 visible = false

@@ -28,10 +28,6 @@ window/handheld/orientation=1
 
 enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg", "res://addons/PraxisMapperGPSPlugin/plugin.cfg")
 
-[global_group]
-
-SettingsMenuScreen="The global [code]SettingMenuScreen[/code] instance is found here."
-
 [gui]
 
 theme/custom="uid://cbsr7x6lpgmx3"
