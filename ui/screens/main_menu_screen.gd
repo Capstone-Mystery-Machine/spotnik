@@ -7,14 +7,8 @@ extends Control
 
 
 func _on_start_button_pressed():
-	var loading_tasks: Array[TaskNode] = [
-		GeoLocationTask.new(),
-	]
-
-	RootScene.instance.transition_to(
+	RootScene.instance.transition_from_main_menu(
 		"res://scenes/viewer_scene.tscn",
-		RootScene.TransitionType.DEFAULT,
-		loading_tasks,
 	)
 
 

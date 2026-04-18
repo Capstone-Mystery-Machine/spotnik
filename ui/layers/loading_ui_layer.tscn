@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhpun5wx5mkyl"]
+[gd_scene load_steps=4 format=3 uid="uid://dhpun5wx5mkyl"]
 
+[ext_resource type="Script" uid="uid://csniafxt3h6jg" path="res://ui/layers/loading_ui_layer.gd" id="1_h7b7l"]
 [ext_resource type="Texture2D" uid="uid://ca21ki0wb5mq4" path="res://textures/main_menu_screen_glow.tres" id="1_iic5x"]
 [ext_resource type="PackedScene" uid="uid://bs62jpjicbayw" path="res://scenes/planet_animation_scene.tscn" id="2_h7b7l"]
 
 [node name="LoadingUILayer" type="CanvasLayer"]
+script = ExtResource("1_h7b7l")
 
 [node name="BackgroundColorRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,6 +18,7 @@ mouse_filter = 2
 color = Color(0.01, 0.02, 0.03, 1)
 
 [node name="GlowTextureRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -56,3 +60,4 @@ size = Vector2i(450, 450)
 render_target_update_mode = 4
 
 [node name="PlanetAnimationScene" parent="PlanetAnimation/SubViewport" instance=ExtResource("2_h7b7l")]
+unique_name_in_owner = true

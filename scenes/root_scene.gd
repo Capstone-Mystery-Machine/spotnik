@@ -3,9 +3,13 @@ extends Node
 
 enum TransitionType {
 	DEFAULT,
+	TO_MAIN_MENU,
+	FROM_MAIN_MENU,
 }
 
 @onready var content_layer: Node = %ContentLayer
+@onready var loading_tweener: TweenerX = %LoadingTweener
+@onready var loading_ui_layer: LoadingUILayer = %LoadingUILayer
 @onready var task_manager: TaskManager = %TaskManager
 
 static var instance: RootScene:
@@ -14,8 +18,77 @@ static var instance: RootScene:
 
 		return scene_tree.current_scene
 
+var _transition_progress: float = 1.0
 
-func transition_to(
+var _transition_type: TransitionType = TransitionType.DEFAULT
+
+var transition_progress: float:
+	get:
+		return _transition_progress
+	set(value):
+		_transition_progress = value
+
+		if is_node_ready() and loading_ui_layer:
+			loading_ui_layer.transition_progress = value
+
+
+func transition_from_main_menu(scene_path: String) -> void:
+	var transition_tasks: Array[TaskNode] = [
+		GeoLocationTask.new(),
+	]
+
+	await _transition_to(
+		scene_path,
+		TransitionType.FROM_MAIN_MENU,
+		transition_tasks,
+	)
+
+
+func transition_to_main_menu() -> void:
+	await _transition_to(
+		"res://scenes/main_menu_scene.tscn",
+		TransitionType.TO_MAIN_MENU,
+	)
+
+
+func transition_to_scene(scene_path: String) -> void:
+	await _transition_to(
+		scene_path,
+		TransitionType.DEFAULT,
+	)
+
+
+func _play_transition_in(transition_type: TransitionType) -> void:
+	_transition_type = transition_type
+
+	match transition_type:
+		TransitionType.FROM_MAIN_MENU:
+			loading_ui_layer.transition_type = transition_type
+		_:
+			loading_ui_layer.transition_type = TransitionType.DEFAULT
+
+	loading_tweener.from_value = transition_progress
+	loading_tweener.to_value = 1.0
+
+	loading_tweener.play()
+	await loading_tweener.progress_ended
+
+
+func _play_transition_out() -> void:
+	match _transition_type:
+		TransitionType.TO_MAIN_MENU:
+			loading_ui_layer.transition_type = _transition_type
+		_:
+			loading_ui_layer.transition_type = TransitionType.DEFAULT
+
+	loading_tweener.from_value = transition_progress
+	loading_tweener.to_value = 0.0
+
+	loading_tweener.play()
+	await loading_tweener.progress_ended
+
+
+func _transition_to(
 		scene_path: String,
 		transition_type: TransitionType = TransitionType.DEFAULT,
 		tasks: Array[TaskNode] = [],
@@ -25,8 +98,7 @@ func transition_to(
 	for task in tasks:
 		task_manager.add_child(task)
 
-	print("animate in")
-
+	await _play_transition_in(transition_type)
 	await task_manager.run_all_tasks()
 
 	for child in content_layer.get_children():
@@ -59,7 +131,7 @@ func transition_to(
 
 	content_layer.add_child(target_scene.instantiate())
 
-	print("animate out")
+	await _play_transition_out()
 
 
 func _ready() -> void:
@@ -68,8 +140,8 @@ func _ready() -> void:
 		GeoLocationTask.new(),
 	]
 
-	transition_to(
+	_transition_to(
 		"res://scenes/main_menu_scene.tscn",
-		TransitionType.DEFAULT,
+		TransitionType.TO_MAIN_MENU,
 		bootstrap_tasks,
 	)

@@ -1,12 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://gu6wn8n4v18e"]
+[gd_scene load_steps=6 format=3 uid="uid://gu6wn8n4v18e"]
 
 [ext_resource type="Script" uid="uid://d5rume22w0eg" path="res://scenes/root_scene.gd" id="1_imdew"]
+[ext_resource type="Script" uid="uid://dpldsj2ae0fb5" path="res://nodes/tweener_x.gd" id="2_imdew"]
 [ext_resource type="PackedScene" uid="uid://b828rwhfwoini" path="res://tasks/task_manager.tscn" id="2_o1iog"]
 [ext_resource type="PackedScene" uid="uid://dhpun5wx5mkyl" path="res://ui/layers/loading_ui_layer.tscn" id="3_imdew"]
 [ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://ui/layers/global_shaders_layer.tscn" id="6_o1iog"]
 
 [node name="RootScene" type="Node"]
 script = ExtResource("1_imdew")
+
+[node name="LoadingTweener" type="Node" parent="." node_paths=PackedStringArray("target_node")]
+unique_name_in_owner = true
+script = ExtResource("2_imdew")
+target_node = NodePath("..")
+target_property = "transition_progress"
+duration = 2.0
+once = true
+paused = true
+metadata/_custom_type_script = "uid://dpldsj2ae0fb5"
 
 [node name="TaskManager" parent="." instance=ExtResource("2_o1iog")]
 unique_name_in_owner = true
@@ -15,6 +26,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="LoadingUILayer" parent="." instance=ExtResource("3_imdew")]
+unique_name_in_owner = true
 
 [node name="GlobalShadersLayer" parent="." instance=ExtResource("6_o1iog")]
 layer = 3
