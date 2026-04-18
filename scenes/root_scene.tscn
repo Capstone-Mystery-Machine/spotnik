@@ -18,3 +18,5 @@ unique_name_in_owner = true
 
 [node name="TransitionTask" parent="TaskManager" instance=ExtResource("5_epl2j")]
 target_scene_path = "uid://b2l8pntu6erxw"
+
+[node name="ContentContainer" type="Node" parent="."]
