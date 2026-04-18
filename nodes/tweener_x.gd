@@ -4,7 +4,9 @@ extends Node
 
 signal progress_changed(new_progress: float, old_progress: float)
 
-signal progress_repeated()
+signal progress_ended()
+
+signal progress_repeated(current_repeats: int)
 
 signal progress_started()
 
@@ -48,9 +50,33 @@ signal progress_started()
 		offset = value
 		_update_blended_progress()
 
+@export var paused: bool = false:
+	set(value):
+		if paused == value:
+			return
+
+		paused = value
+		if _tween:
+			if paused:
+				_tween.pause()
+				progress_ended.emit()
+			else:
+				_tween.play()
+				progress_started.emit()
+
+@export var repeat_count: int = -1:
+	set(value):
+		repeat_count = value
+		_animate()
+
 @export var repeat_delay: float = 0.0:
 	set(value):
 		repeat_delay = max(0.0, value)
+		_animate()
+
+@export var reverse: bool = false:
+	set(value):
+		reverse = value
 		_animate()
 
 @export var start_delay: float = 0.0:
@@ -78,6 +104,8 @@ var progress: float = 0.0:
 
 var _is_first_run: bool = true
 
+var _current_repeats: int = 0
+
 var _progress: float = 0.0:
 	set(value):
 		_progress = value
@@ -92,7 +120,7 @@ func on_tween_callback() -> void:
 		_is_first_run = false
 
 	else:
-		progress_repeated.emit()
+		progress_repeated.emit(_current_repeats)
 
 
 func _animate() -> void:
@@ -110,6 +138,9 @@ func _animate() -> void:
 		_tween.tween_interval(start_delay)
 
 		_tween.tween_callback(_start_loop)
+
+		if paused:
+			_tween.pause()
 
 	else:
 		_start_loop()
@@ -131,15 +162,34 @@ func _start_loop() -> void:
 		_tween.kill()
 
 	_tween = create_tween()
-
-	_tween.set_loops()
 	_tween.set_trans(Tween.TRANS_LINEAR)
 
 	_tween.tween_callback(on_tween_callback)
-	_tween.tween_property(self, "_progress", 1.0, duration).from(0.0)
+
+	var end_progress = 0.0 if reverse else 1.0
+
+	var remaining_distance = abs(end_progress - _progress)
+	var current_duration = duration * remaining_distance
+
+	_tween.tween_property(self, "_progress", end_progress, current_duration)
 
 	if repeat_delay > 0.0:
 		_tween.tween_interval(repeat_delay)
+
+	_tween.tween_callback(_loop_restart)
+
+	if paused:
+		_tween.pause()
+
+
+func _loop_restart() -> void:
+	if repeat_count != -1 and _current_repeats >= repeat_count:
+		progress_ended.emit()
+		return
+
+	_current_repeats += 1
+	_progress = 1.0 if reverse else 0.0
+	_start_loop()
 
 
 func _update_blended_progress() -> void:
