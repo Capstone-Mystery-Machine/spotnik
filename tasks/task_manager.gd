@@ -17,6 +17,7 @@ func run_all_tasks() -> void:
 		@warning_ignore("redundant_await")
 		# gdlint-ignore-next-line private-access
 		await task_node._task()
+		task_node.queue_free()
 
 		print("'TaskManager.run_all_tasks': task '%s' ran successfully" % task_node.name)
 
