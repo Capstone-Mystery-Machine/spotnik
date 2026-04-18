@@ -45,6 +45,11 @@ signal progress_started()
 		intensity = value
 		_update_blended_progress()
 
+@export var once: bool = false:
+	set(value):
+		once = value
+		_animate()
+
 @export_range(-1.0, 1.0) var offset: float = 0.0:
 	set(value):
 		offset = value
@@ -189,6 +194,10 @@ func _loop_restart() -> void:
 
 	_current_repeats += 1
 	_progress = 1.0 if reverse else 0.0
+
+	if once:
+		paused = true
+
 	_start_loop()
 
 
