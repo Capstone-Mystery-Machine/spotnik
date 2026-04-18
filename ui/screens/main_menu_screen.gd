@@ -7,7 +7,15 @@ extends Control
 
 
 func _on_start_button_pressed():
-	get_tree().change_scene_to_file("res://scenes/loading_scene.tscn")
+	var loading_tasks: Array[TaskNode] = [
+		GeoLocationTask.new(),
+	]
+
+	RootScene.instance.transition_to(
+		preload("res://scenes/viewer_scene.tscn"),
+		RootScene.TransitionType.DEFAULT,
+		loading_tasks,
+	)
 
 
 func _ready():
