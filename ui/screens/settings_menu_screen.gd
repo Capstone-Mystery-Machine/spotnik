@@ -39,7 +39,7 @@ func _toggle_control_style(input_mode: InputX.InputMode) -> void:
 
 
 func _on_close_button_pressed() -> void:
-	SettingsMenu.close()
+	visible = false
 
 
 func _on_gamma_h_slider_drag_ended(value_changed: bool) -> void:

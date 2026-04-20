@@ -1,3 +1,4 @@
+class_name PermissionTask
 extends TaskNode
 ## Requests the permissions required by the app's export target when the task
 ## is requested to run.

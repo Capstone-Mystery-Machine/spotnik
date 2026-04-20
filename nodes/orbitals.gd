@@ -25,7 +25,7 @@ var _quad_selection: Array[OrbitalQuad] = [
 ]
 
 
-func on_progress_repeated() -> void:
+func on_progress_repeated(_current_repeats: int) -> void:
 	match _quad_selection.pop_front():
 		OrbitalQuad.HORIZON:
 			orbital_tilt.rotation_degrees.z = 0

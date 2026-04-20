@@ -7,7 +7,9 @@ extends Control
 
 
 func _on_start_button_pressed():
-	get_tree().change_scene_to_file("res://scenes/loading_scene.tscn")
+	RootScene.instance.transition_from_main_menu(
+		"res://scenes/viewer_scene.tscn",
+	)
 
 
 func _ready():
