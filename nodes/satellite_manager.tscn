@@ -1,10 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://b3c1tcyumuxs2"]
 
 [ext_resource type="Script" uid="uid://ilbo4uhipx65" path="res://nodes/satellite_manager.gd" id="1_ithk4"]
-[ext_resource type="Texture2D" uid="uid://bfdfep0dool0" path="res://data/Satellite/Palette.png" id="2_agldu"]
-[ext_resource type="ArrayMesh" uid="uid://bdhttr132i1d4" path="res://data/Satellite/Satellite.obj" id="3_laapb"]
+[ext_resource type="Texture2D" uid="uid://d0ly3gpb65ajo" path="res://data/Satellite/Palette.png" id="2_agldu"]
+[ext_resource type="ArrayMesh" uid="uid://nmeplecf0tch" path="res://data/Satellite/Satellite.obj" id="3_laapb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xmcrx"]
+shading_mode = 0
 albedo_texture = ExtResource("2_agldu")
 
 [sub_resource type="MultiMesh" id="MultiMesh_w6yky"]
