@@ -1,3 +1,4 @@
+class_name GeoLocationTask
 extends TaskNode
 ## Initializes the Geo-Location provider and awaits the first location update.
 

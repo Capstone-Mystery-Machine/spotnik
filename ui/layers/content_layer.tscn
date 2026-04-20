@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b12gl7ngdlmhd"]
+
+[ext_resource type="Script" uid="uid://dx3xq6upqly35" path="res://ui/layers/content_layer.gd" id="1_vv4kq"]
+
+[node name="ContentLayer" type="Node"]
+script = ExtResource("1_vv4kq")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=0 format=3 uid="uid://dt8sm83voe1x1"]
+[gd_scene format=3 uid="uid://dt8sm83voe1x1"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -26,6 +26,7 @@ grow_vertical = 2
 [node name="Root" type="Control" parent="CenterContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+mouse_filter = 1
 
 [node name="Top" type="Line2D" parent="CenterContainer/Root"]
 points = PackedVector2Array(20, 10, 20, 20)

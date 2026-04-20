@@ -1,19 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2l8pntu6erxw"]
+[gd_scene load_steps=4 format=3 uid="uid://b2l8pntu6erxw"]
 
+[ext_resource type="Script" uid="uid://bwvx7qynbu4o4" path="res://scenes/main_menu_scene.gd" id="1_7hcs8"]
 [ext_resource type="PackedScene" uid="uid://bfii1quf8rc8h" path="res://ui/screens/main_menu_screen.tscn" id="2_7hcs8"]
-[ext_resource type="PackedScene" uid="uid://c88ioodo02w2y" path="res://ui/screens/settings_button_screen.tscn" id="2_sb6w7"]
-[ext_resource type="PackedScene" uid="uid://dwfrqls3etryg" path="res://nodes/global_shaders.tscn" id="2_vfskp"]
-[ext_resource type="PackedScene" uid="uid://dnws8jjky4q3c" path="res://ui/screens/settings_menu_screen.tscn" id="3_sb6w7"]
+[ext_resource type="PackedScene" uid="uid://4b0hcqnvybuo" path="res://ui/layers/settings_ui_layer.tscn" id="2_vfskp"]
 
-[node name="MainMenuScene" type="Node"]
+[node name="MainMenuScene" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_7hcs8")
 
-[node name="UICanvasLayer" type="CanvasLayer" parent="."]
+[node name="MainMenuScreen" parent="." instance=ExtResource("2_7hcs8")]
 
-[node name="MainMenuScreen" parent="UICanvasLayer" instance=ExtResource("2_7hcs8")]
-
-[node name="SettingsButtonScreen" parent="UICanvasLayer" instance=ExtResource("2_sb6w7")]
-
-[node name="SettingsMenuScreen" parent="UICanvasLayer" instance=ExtResource("3_sb6w7")]
-visible = false
-
-[node name="GlobalShaders" parent="." instance=ExtResource("2_vfskp")]
+[node name="SettingsUILayer" parent="." instance=ExtResource("2_vfskp")]
+layer = 2
