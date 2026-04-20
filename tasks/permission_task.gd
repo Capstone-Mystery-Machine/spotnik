@@ -44,7 +44,7 @@ func _on_all_permissions_resolved() -> void:
 	var granted := OS.get_granted_permissions()
 
 	var has_location_permission = PermissionName.ANDROID_COARSE_LOCATION in granted \
-			or PermissionName.ANDROID_FINE_LOCATION in granted
+	or PermissionName.ANDROID_FINE_LOCATION in granted
 
 	if not has_location_permission:
 		_dialog_permission_declined("location")
