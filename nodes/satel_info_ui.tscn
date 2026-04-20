@@ -7,6 +7,7 @@ viewport_path = NodePath("Info_UI/Info_Viewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5bq4b"]
 resource_local_to_scene = true
+shading_mode = 0
 albedo_texture = SubResource("ViewportTexture_qfy7x")
 billboard_mode = 1
 
