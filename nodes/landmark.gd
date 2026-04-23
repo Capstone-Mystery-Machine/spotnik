@@ -68,7 +68,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	update_orbit_motion(delta)
-	update_visual_scale(delta)
+
+	if detector.monitoring:
+		update_visual_scale(delta)
+	else:
+		visual_scale = lerp(visual_scale, 1.0, min(scale_speed * delta, 1.0))
 
 
 func update_orbit_motion(delta: float) -> void:
@@ -115,13 +119,11 @@ func compute_gravity() -> Vector3:
 
 
 func _set_active(active: bool) -> void:
-	set_physics_process(active)
 	detector.monitoring = active
 	detector.monitorable = active
 
 	if not active:
 		pointer = null
-		visual_scale = 1.0
 
 
 func _on_screen_entered() -> void:
