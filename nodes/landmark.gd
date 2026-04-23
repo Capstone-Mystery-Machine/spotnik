@@ -134,7 +134,7 @@ func _on_screen_exited() -> void:
 
 func _on_camera_pointer_detector_inner_entered(body: CollisionObject3D) -> void:
 	emit_signal("inner_entered", body)
-	SignalBus.instance.ui_info.emit(self)
+	SignalBus.instance.ui_enter.emit(self)
 
 
 func _on_camera_pointer_detector_inner_exited(body: CollisionObject3D) -> void:
@@ -150,3 +150,4 @@ func _on_camera_pointer_detector_outer_exited(body: CollisionObject3D) -> void:
 	if pointer == body:
 		pointer = null
 	emit_signal("outer_exited", body)
+	SignalBus.instance.ui_exit.emit()

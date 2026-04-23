@@ -3,15 +3,26 @@ extends Node
 #@export var info_ui_scene: PackedScene
 @onready var info_ui_scene = preload("res://nodes/satel_info_ui.tscn")
 
+var _satel_info_box: SatelUI = null
+
 
 func _ready():
-	SignalBus.instance.ui_info.connect(_ui_info_signal)
+	SignalBus.instance.ui_enter.connect(_ui_enter_signal)
+	SignalBus.instance.ui_exit.connect(_ui_exit_signal)
 
 
-func _ui_info_signal(landmark: Landmark) -> SatelUI:
-	var satel_info_box := info_ui_scene.instantiate() as SatelUI
+func _ui_enter_signal(landmark: Landmark) -> void:
+	if _satel_info_box != null:
+		_satel_info_box.queue_free()
+		_satel_info_box = null
 
-	add_child(satel_info_box)
-	satel_info_box.setup_satel_ui(landmark)
+	_satel_info_box = info_ui_scene.instantiate() as SatelUI
 
-	return satel_info_box
+	add_child(_satel_info_box)
+	_satel_info_box.setup_satel_ui(landmark)
+
+
+func _ui_exit_signal() -> void:
+	if _satel_info_box != null:
+		_satel_info_box.queue_free()
+		_satel_info_box = null
