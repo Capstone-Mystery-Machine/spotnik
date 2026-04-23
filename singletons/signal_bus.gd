@@ -1,8 +1,9 @@
 class_name SignalBus
 extends RefCounted
 
-signal ui_info(landmark: Landmark)
-signal settings_open()
+signal ui_enter(landmark: Landmark)
+
+signal ui_exit()
 
 static var _instance: SignalBus
 
