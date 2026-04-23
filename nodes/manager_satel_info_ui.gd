@@ -5,6 +5,7 @@ extends Node
 
 var _satel_info_box: SatelUI = null
 
+
 func _ready():
 	SignalBus.instance.ui_enter.connect(_ui_enter_signal)
 	SignalBus.instance.ui_exit.connect(_ui_exit_signal)
