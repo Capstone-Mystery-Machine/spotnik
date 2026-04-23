@@ -11,7 +11,7 @@ signal outer_exited(body: CollisionObject3D)
 ## Represents the speed at which the satellite meshes scale (stay between 5-12).
 @export var scale_speed: float = 8.0
 ## Represents the speed of the simulation (x1 being real speed)
-@export var simulation_speed: float = 60.0
+@export var simulation_speed: float = 2.0
 ## Represents the distance between the camera and where satellites spawn.
 @export var spawn_radius: float = 100.0
 

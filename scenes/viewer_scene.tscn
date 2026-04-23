@@ -37,7 +37,6 @@ settings = ExtResource("3_y4cjq")
 
 [node name="SatelliteManager" parent="." instance=ExtResource("6_dseag")]
 landmark_scene = ExtResource("7_ukp7y")
-spawn_radius = 100.0
 
 [node name="ManagerSatelInfoUi" parent="." instance=ExtResource("8_oe1pm")]
 
