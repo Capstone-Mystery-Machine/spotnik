@@ -63,16 +63,17 @@ func _ready() -> void:
 
 	screen_notifier.screen_entered.connect(_on_screen_entered)
 	screen_notifier.screen_exited.connect(_on_screen_exited)
+
 	_set_active(screen_notifier.is_on_screen())
 
 
 func _physics_process(delta: float) -> void:
 	update_orbit_motion(delta)
 
-	if detector.monitoring:
-		update_visual_scale(delta)
-	else:
+	if outer_shape.disabled:
 		visual_scale = lerp(visual_scale, 1.0, min(scale_speed * delta, 1.0))
+	else:
+		update_visual_scale(delta)
 
 
 func update_orbit_motion(delta: float) -> void:
@@ -119,8 +120,7 @@ func compute_gravity() -> Vector3:
 
 
 func _set_active(active: bool) -> void:
-	detector.monitoring = active
-	detector.monitorable = active
+	outer_shape.set_deferred("disabled", not active)
 
 	if not active:
 		pointer = null
