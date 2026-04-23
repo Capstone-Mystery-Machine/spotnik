@@ -1,7 +1,8 @@
 class_name SatelUI
 extends Node3D
 
-@onready var satellite_details_screen: SatelliteDetailsScreen = %SatelliteDetailsScreen
+@onready var satellite_details_screen: SatelliteDetailsScreen \
+= %SatelliteDetailsScreen
 
 var content_alpha: float = 1.0:
 	set(value):
