@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://eha1ypn8ngo3" path="res://nodes/manager_satel_info_ui.gd" id="1_ewj0v"]
 
-[node name="ManagerSatelInfoUi" type="Node3D"]
+[node name="ManagerSatelInfoUI" type="Node3D"]
 script = ExtResource("1_ewj0v")
