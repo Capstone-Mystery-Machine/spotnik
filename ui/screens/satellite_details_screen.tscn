@@ -42,6 +42,7 @@ text = "International Designator"
 [node name="InternationalDesignatorLabel" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/InternationalDesignatorVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"Label7"
 text = "N/A"
 
 [node name="NoradCatalogIdentifierVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer"]
@@ -56,6 +57,7 @@ text = "Norad Catalog ID"
 [node name="NoradCatalogIdentifierLabel" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/NoradCatalogIdentifierVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"Label7"
 text = "N/A"
 
 [node name="SatelliteNameVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer"]
@@ -70,6 +72,7 @@ text = "Satellite Name"
 [node name="SatelliteNameLabel" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/SatelliteNameVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"Label7"
 text = "N/A"
 
 [node name="OriginCountryVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer"]
@@ -84,6 +87,7 @@ text = "Origin Country"
 [node name="OriginCountryLabel" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/OriginCountryVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"Label7"
 text = "N/A"
 
 [node name="LaunchDateVBoxContainer2" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer"]
@@ -98,6 +102,7 @@ text = "Launch Date"
 [node name="LaunchDateLabel" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/LaunchDateVBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"Label7"
 text = "N/A"
 
 [editable path="PanelContainer"]
