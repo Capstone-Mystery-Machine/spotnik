@@ -1,7 +1,6 @@
 extends Node3D
 
 @onready var crosshair: Control = $Crosshair
-@onready var satel_info_ui: SatelUI = $SatelInfoUI
 @onready var settings_ui_layer: SettingsUILayer = $SettingsUILayer
 
 var content_alpha: float = 1.0:
@@ -12,5 +11,4 @@ var content_alpha: float = 1.0:
 			return
 
 		crosshair.modulate.a = value
-		satel_info_ui.content_alpha = value
 		settings_ui_layer.content_alpha = value
