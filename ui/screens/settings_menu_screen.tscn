@@ -50,72 +50,72 @@ size_flags_vertical = 4
 [node name="BorderTravelersShader" parent="PanelContainer" index="0"]
 material = SubResource("ShaderMaterial_1wxsd")
 
-[node name="MarginContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer" index="0"]
 layout_mode = 2
 theme_type_variation = &"Gap7VBoxContainer"
 
-[node name="QualityVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer"]
+[node name="QualityVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap3VBoxContainer"
 
-[node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/QualityVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Display6Label"
 text = "Quality"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/QualityVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap3HBoxContainer"
 
-[node name="HighQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
+[node name="HighQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 button_group = SubResource("ButtonGroup_wfh2i")
 text = "High"
 
-[node name="MediumQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
+[node name="MediumQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 button_group = SubResource("ButtonGroup_e16ey")
 text = "Med"
 
-[node name="LowQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
+[node name="LowQualityButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/QualityVBoxContainer/HBoxContainer" instance=ExtResource("2_2b28f")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 button_group = SubResource("ButtonGroup_aaoj2")
 text = "Low"
 
-[node name="GammaVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer"]
+[node name="GammaVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap3VBoxContainer"
 
-[node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/GammaVBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/GammaVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Display6Label"
 text = "Gamma"
 
-[node name="GammaHSlider" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/GammaVBoxContainer" instance=ExtResource("2_nenfv")]
+[node name="GammaHSlider" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/GammaVBoxContainer" instance=ExtResource("2_nenfv")]
 unique_name_in_owner = true
 layout_mode = 2
 step = 0.1
 
-[node name="ControlStyleVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer"]
+[node name="ControlStyleVBoxContainer" type="VBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap3VBoxContainer"
 
-[node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/ControlStyleVBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/ControlStyleVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Display6Label"
 text = "Control Style"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/ControlStyleVBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/ControlStyleVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"Gap3HBoxContainer"
 
-[node name="TouchButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/ControlStyleVBoxContainer/HBoxContainer" instance=ExtResource("4_flcee")]
+[node name="TouchButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer" instance=ExtResource("4_flcee")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -125,7 +125,7 @@ button_group = SubResource("ButtonGroup_yvodh")
 button_theme_type_variation = &"ToggleButton"
 toggle_mode = true
 
-[node name="MotionButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/MarginContainer/ControlStyleVBoxContainer/HBoxContainer" instance=ExtResource("4_flcee")]
+[node name="MotionButton" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/ControlStyleVBoxContainer/HBoxContainer" instance=ExtResource("4_flcee")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
