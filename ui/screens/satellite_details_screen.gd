@@ -2,10 +2,10 @@ class_name SatelliteDetailsScreen
 extends MarginContainer
 
 @onready var international_designator_label = %InternationalDesignatorLabel
+@onready var launch_date_label = %LaunchDateLabel
 @onready var norad_catalog_identifier_label = %NoradCatalogIdentifierLabel
-@onready var satellite_name_label = %SatelliteNameLabel
 @onready var origin_country_label = %OriginCountryLabel
-@onready var launch_date = %Launch_Date2
+@onready var satellite_name_label = %SatelliteNameLabel
 
 
 func update_satellite_details(landmark: Landmark) -> void:
@@ -13,4 +13,5 @@ func update_satellite_details(landmark: Landmark) -> void:
 	norad_catalog_identifier_label.text = landmark.norad_catalog_id
 	satellite_name_label.text = landmark.satellite_name
 	origin_country_label.text = landmark.country
-	launch_date.text = landmark.launch_date
+	launch_date_label.text = landmark.launch_date
+
