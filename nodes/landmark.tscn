@@ -9,7 +9,7 @@ radius = 12.0
 
 [node name="Landmark" type="Node3D"]
 script = ExtResource("1_7q80c")
-simulation_speed = 30.0
+simulation_speed = 5.0
 
 [node name="CameraPointerDetector" type="Area3D" parent="."]
 script = ExtResource("1_hek36")
