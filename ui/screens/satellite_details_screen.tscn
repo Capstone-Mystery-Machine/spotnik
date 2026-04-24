@@ -36,7 +36,7 @@ theme_type_variation = &"Gap1VBoxContainer"
 
 [node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/InternationalDesignatorVBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"Display6Label"
+theme_type_variation = &"Display7Label"
 text = "International Designator"
 
 [node name="InternationalDesignatorLabel" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/InternationalDesignatorVBoxContainer"]
@@ -50,7 +50,7 @@ theme_type_variation = &"Gap1VBoxContainer"
 
 [node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/NoradCatalogIdentifierVBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"Display6Label"
+theme_type_variation = &"Display7Label"
 text = "Norad Catalog ID"
 
 [node name="NoradCatalogIdentifierLabel" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/NoradCatalogIdentifierVBoxContainer"]
@@ -64,7 +64,7 @@ theme_type_variation = &"Gap1VBoxContainer"
 
 [node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/SatelliteNameVBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"Display6Label"
+theme_type_variation = &"Display7Label"
 text = "Satellite Name"
 
 [node name="SatelliteNameLabel" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/SatelliteNameVBoxContainer"]
@@ -78,7 +78,7 @@ theme_type_variation = &"Gap1VBoxContainer"
 
 [node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/OriginCountryVBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"Display6Label"
+theme_type_variation = &"Display7Label"
 text = "Origin Country"
 
 [node name="OriginCountryLabel" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/OriginCountryVBoxContainer"]
@@ -92,7 +92,7 @@ theme_type_variation = &"Gap1VBoxContainer"
 
 [node name="Label" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/LaunchDateVBoxContainer2"]
 layout_mode = 2
-theme_type_variation = &"Display6Label"
+theme_type_variation = &"Display7Label"
 text = "Launch Date"
 
 [node name="LaunchDateLabel" type="Label" parent="PanelContainer/PanelContainerMarginContainer/ContentPanelContainer/ContentPanelContainerMarginContainer/VBoxContainer/LaunchDateVBoxContainer2"]
