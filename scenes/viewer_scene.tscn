@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://b5ou2u38e78kf"]
+[gd_scene load_steps=12 format=3 uid="uid://b5ou2u38e78kf"]
 
 [ext_resource type="PackedScene" uid="uid://c4d4b5ugrpijg" path="res://nodes/space_environment.tscn" id="1_b8h5p"]
 [ext_resource type="Script" uid="uid://b233kjh6fmpko" path="res://scenes/viewer_scene.gd" id="1_r3g45"]
 [ext_resource type="PackedScene" uid="uid://vugrltu8ff0i" path="res://nodes/skybox.tscn" id="2_3kcgk"]
 [ext_resource type="Resource" uid="uid://bsv1omabacd4u" path="res://skyboxes/skybox_a.tres" id="3_y4cjq"]
-[ext_resource type="PackedScene" uid="uid://b4guvadeiue3o" path="res://nodes/satel_info_ui.tscn" id="4_4xf28"]
 [ext_resource type="PackedScene" uid="uid://ckh0mf4o2awhw" path="res://nodes/device.tscn" id="5_dlnh7"]
 [ext_resource type="PackedScene" uid="uid://b3c1tcyumuxs2" path="res://nodes/satellite_manager.tscn" id="6_dseag"]
 [ext_resource type="PackedScene" uid="uid://df1r2r56qsixo" path="res://nodes/landmark.tscn" id="7_ukp7y"]
@@ -30,8 +29,6 @@ environment = SubResource("Environment_b8h5p")
 [node name="Skybox" parent="." instance=ExtResource("2_3kcgk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043747425, 0, 3.0517578e-05)
 settings = ExtResource("3_y4cjq")
-
-[node name="SatelInfoUI" parent="." instance=ExtResource("4_4xf28")]
 
 [node name="Device" parent="." instance=ExtResource("5_dlnh7")]
 
