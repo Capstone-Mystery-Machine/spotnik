@@ -1,12 +1,56 @@
-# Spotnik
-
-> A Mobile Application to Locate Orbital Satellites
+![spotnik banner](./.assets/spotnik-banner.png)
 
 > **Not the project you were looking for?** The backend for Spotnik is called _Fetchka_ and has [its own repository](https://github.com/Capstone-Mystery-Machine/fetchka).
+
+## WINNING PROJECT OF PENN STATE HARRISBURG'S 2026 CAPSTONE DESIGN CONFERENCE!
+
+![capstone-2026-win](./.assets/project-win.webp)
+
+> https://www.psu.edu/news/harrisburg/story/harrisburg-students-awarded-2026-capstone-projects
 
 ## Overview
 
 Spotnik allows end-users to point their mobile devices up at the sky to view satellites in orbit around them.
+
+## Demonstrations
+
+### Main Menu
+
+https://github.com/user-attachments/assets/3267a362-cb3f-41a8-b372-051a63767c3f
+
+> Scene Transition Chain of: Boot -> Main Menu Scene -> Viewer Scene
+
+https://github.com/user-attachments/assets/d15aa002-e337-4d73-992a-18e907dc7e49
+
+> Main Menu Planetoid Animation
+
+### Viewer Scene
+
+https://github.com/user-attachments/assets/3100e42a-9364-4f43-a6db-6ca98b571ed7
+
+> Skybox Simulation
+
+https://github.com/user-attachments/assets/c6df3be8-046d-4c5b-93e5-13bfdd897a51
+
+> Satellite Simulation and Details
+
+https://github.com/user-attachments/assets/8ff328f7-ef84-452c-a69d-0275db3c055b
+
+> User Configurations Options via Options Menu
+
+### User Input
+
+https://github.com/user-attachments/assets/714fab70-e8fd-4cd2-9045-74281cbb9e4b
+
+> Desktop Click'n'Drag Pan
+
+https://github.com/user-attachments/assets/c3159b0c-e159-4823-9eff-51ebadd45d54
+
+> Mobile Tap'n'Drag Pan
+
+https://github.com/user-attachments/assets/b2ea9fbf-7309-4fd9-9ce0-55bd120efe96
+
+> Mobile Motion Control Pan
 
 ## Assets Used
 
